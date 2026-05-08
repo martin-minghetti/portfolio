@@ -4,7 +4,7 @@ export const en: Dictionary = {
   meta: {
     title: "Martin Minghetti — Senior Fullstack & AI Engineer",
     description:
-      "Senior fullstack engineer building production AI systems and commercial web apps. 7.5 years at AirLST GmbH (Munich). Now independent — 14 open-source projects and 4 commercial demos live. Available for contract AI engineering and fullstack work.",
+      "Senior AI engineer and fullstack developer. 7.5 years at AirLST GmbH (Munich). 14 open-source projects, 4 commercial demos live. Available for full-time roles and contract work — May 2026.",
   },
   nav: {
     contact: "Contact",
@@ -14,7 +14,7 @@ export const en: Dictionary = {
   hero: {
     h1Line1: "8 years shipping production software.",
     h1Line2: "6 months building AI systems solo.",
-    h1Line3: "I do both well. Pick the one that fits.",
+    h1Line3: "Two tracks below. Same engineer.",
     trackA: {
       label: "WEBSITES & FULLSTACK",
       tagline:
@@ -24,16 +24,16 @@ export const en: Dictionary = {
     trackB: {
       label: "AI ENGINEERING",
       tagline:
-        "Multi-agent systems in production. Direct SDK, no LangChain. BYOK. Costs transparent.",
+        "Multi-agent systems in production. Direct SDK, transparent costs, demos you can run.",
       cta: "Book a 30min intro",
     },
-    scrollHint: "Scroll for proof",
+    scrollHint: "Scroll for the receipts",
   },
   whoIAm: {
     lead: "A short version of how I got here.",
     timeline: [
       { year: "2018", label: "Joined AirLST GmbH (Munich, remote)" },
-      { year: "2024", label: "AI tools daily" },
+      { year: "2024", label: "AI tools as daily infra" },
       { year: "2025", label: "Independent" },
       { year: "2026", label: "14 OSS projects · 4 demos live" },
     ],
@@ -53,7 +53,7 @@ export const en: Dictionary = {
     pitch: [
       "Mercado Pago integration done right.",
       "Fast. Tested. Tracked time.",
-      "No agency-uruguaya-2019 vibes.",
+      "Not template-shop output.",
     ],
     cta: "Hablemos por WhatsApp",
     ctaSub: "Want one of these for your business? Quote in 24h, no commitment.",
@@ -64,12 +64,12 @@ export const en: Dictionary = {
       "For founders, CTOs, and recruiters hiring builders, not researchers.",
     pitch: [
       "Multi-agent systems in production.",
-      "Direct SDK over frameworks. BYOK by default.",
-      "Costs transparent. Tests included.",
+      "Direct SDK over frameworks.",
+      "Transparent costs. Tests included.",
     ],
     cta: "Book a 30min intro",
     ctaSub:
-      "Hiring senior AI engineering capacity? Contract work, FT roles, or technical scoping calls.",
+      "Hiring a senior AI engineer? Contract, full-time, or a technical scoping call.",
   },
   cardLabels: {
     live: "LIVE",
@@ -90,7 +90,7 @@ export const en: Dictionary = {
   howIThink: {
     sectionHeader: "HOW I THINK",
     sectionLead:
-      "Four things I do differently from the average AI portfolio in 2026.",
+      "Four things I do differently from the average AI portfolio.",
     items: [
       {
         index: "01",
@@ -99,8 +99,8 @@ export const en: Dictionary = {
       },
       {
         index: "02",
-        heading: "BYOK by default.",
-        body: "Your API keys, your infrastructure. No hosted inference, no usage limits I don't control, no vendor lock-in.",
+        heading: "Demos you can actually click.",
+        body: "Every commercial demo runs in simulated mode by default — complete a checkout, generate a brief, trigger a webhook. No clone, no API key. AI demos accept your key when you want the real model.",
       },
       {
         index: "03",
@@ -157,7 +157,7 @@ export const en: Dictionary = {
     sectionHeader: "ABOUT",
     paragraphs: [
       "I started at AirLST GmbH in Munich in 2018 as a Frontend Developer, building event pages and microsites for brands like Mercedes Benz, Amazon, Netflix, Disney, and Zalando. Over 7.5 years I shipped 1000+ custom pages on a Vue/Nuxt platform that served 30K+ events and 20M+ participants. I learned what shipping at scale actually costs, and what it doesn't.",
-      "By 2024 I was using AI dev tools (Claude Code, Codex) as daily infrastructure — not experiments. In November 2025 I left AirLST to go independent. In the six months since, I've shipped 14 open-source projects and 4 live commercial demos, all with public BUILD_LOG.md tracking honest wall-clock time. I ship multi-agent AI systems for production, and fullstack web apps for businesses that need them done right.",
+      "By 2024 I was using AI dev tools (Claude Code, Codex) as daily infrastructure — not experiments. In November 2025 I left AirLST to go independent. In the six months since, I've shipped 14 open-source projects and 4 live commercial demos, all with public BUILD_LOG.md tracking honest wall-clock time. I ship multi-agent AI systems for production, and fullstack web apps that ship and stay shipped.",
       "I'm based in Bariloche, Argentine Patagonia. EU citizen (Iceland) — no sponsorship needed for European roles. 100% remote since 2018, overlapping US business hours (GMT-3). Available for contract AI engineering, full-time roles, and select fullstack project work.",
     ],
     facts: [

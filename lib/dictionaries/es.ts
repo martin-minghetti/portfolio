@@ -4,7 +4,7 @@ export const es: Dictionary = {
   meta: {
     title: "Martín Minghetti — Senior Fullstack & AI Engineer",
     description:
-      "Senior fullstack engineer construyendo sistemas de IA en producción y aplicaciones web comerciales. 7.5 años en AirLST GmbH (Munich). Independiente desde nov 2025 — 14 proyectos open-source y 4 demos comerciales live. Disponible para contract de AI engineering y proyectos fullstack.",
+      "AI engineer senior y desarrollador fullstack. 7.5 años en AirLST GmbH (Munich). 14 proyectos open-source, 4 demos comerciales live. Disponible para roles full-time y contract work — mayo 2026.",
   },
   nav: {
     contact: "Contacto",
@@ -14,7 +14,7 @@ export const es: Dictionary = {
   hero: {
     h1Line1: "8 años shipping software en producción.",
     h1Line2: "6 meses construyendo sistemas de IA solo.",
-    h1Line3: "Hago las dos cosas bien. Elegí la que te sirve.",
+    h1Line3: "Dos tracks abajo. Mismo ingeniero.",
     trackA: {
       label: "SITIOS WEB & FULLSTACK",
       tagline:
@@ -24,10 +24,10 @@ export const es: Dictionary = {
     trackB: {
       label: "AI ENGINEERING",
       tagline:
-        "Sistemas multi-agente en producción. Direct SDK, sin LangChain. BYOK. Costos transparentes.",
+        "Sistemas multi-agente en producción. Direct SDK, costos transparentes, demos que podés correr.",
       cta: "Reservá 30 minutos",
     },
-    scrollHint: "Bajá para la prueba",
+    scrollHint: "Bajá para ver el trabajo",
   },
   whoIAm: {
     lead: "Versión corta de cómo llegué hasta acá.",
@@ -65,12 +65,12 @@ export const es: Dictionary = {
       "Para founders, CTOs y recruiters que contratan builders, no investigadores.",
     pitch: [
       "Sistemas multi-agente en producción.",
-      "Direct SDK por sobre frameworks. BYOK por default.",
+      "Direct SDK por sobre frameworks.",
       "Costos transparentes. Tests incluidos.",
     ],
     cta: "Reservá 30 minutos",
     ctaSub:
-      "¿Estás contratando capacidad senior de AI engineering? Contract work, roles full-time, o calls de scoping técnico.",
+      "¿Buscás un AI engineer senior? Contract, full-time, o una call técnica de scoping.",
   },
   cardLabels: {
     live: "LIVE",
@@ -91,7 +91,7 @@ export const es: Dictionary = {
   howIThink: {
     sectionHeader: "CÓMO PIENSO",
     sectionLead:
-      "Cuatro cosas que hago distinto al portfolio de IA promedio en 2026.",
+      "Cuatro cosas que hago distinto al portfolio de IA promedio.",
     items: [
       {
         index: "01",
@@ -100,8 +100,8 @@ export const es: Dictionary = {
       },
       {
         index: "02",
-        heading: "BYOK por default.",
-        body: "Tus API keys, tu infra. Sin inferencia hosted, sin límites de uso que no controlás, sin vendor lock-in.",
+        heading: "Demos que podés clickear de verdad.",
+        body: "Cada demo comercial corre en modo simulado por default — completás un checkout, generás un brief, disparás un webhook. Sin clonar, sin API key. Las demos AI aceptan tu key cuando querés el modelo real.",
       },
       {
         index: "03",
@@ -158,7 +158,7 @@ export const es: Dictionary = {
     sectionHeader: "SOBRE MÍ",
     paragraphs: [
       "Empecé en AirLST GmbH en Munich en 2018 como Frontend Developer, construyendo páginas de eventos y micrositios para marcas como Mercedes Benz, Amazon, Netflix, Disney, y Zalando. Durante 7.5 años entregué 1000+ páginas custom sobre una plataforma Vue/Nuxt que sirvió 30K+ eventos y 20M+ participantes. Aprendí cuánto cuesta realmente shippear a escala, y cuánto no.",
-      "Para 2024 ya usaba herramientas de AI dev (Claude Code, Codex) como infraestructura diaria — no como experimento. En noviembre 2025 dejé AirLST para irme independiente. En los seis meses desde, shippé 14 proyectos open-source y 4 demos comerciales live, todos con BUILD_LOG.md público que trackea tiempo wall-clock honesto. Construyo sistemas multi-agente de IA para producción, y aplicaciones web fullstack para negocios que las necesitan bien hechas.",
+      "Para 2024 ya usaba herramientas de AI dev (Claude Code, Codex) como infraestructura diaria — no como experimento. En noviembre 2025 dejé AirLST para irme independiente. En los seis meses desde, shippé 14 proyectos open-source y 4 demos comerciales live, todos con BUILD_LOG.md público que trackea tiempo wall-clock honesto. Construyo sistemas multi-agente de IA para producción, y aplicaciones web fullstack para negocios que las necesitan en producción, no en staging eterno.",
       "Vivo en Bariloche, Patagonia argentina. Ciudadano EU (Islandia) — sin necesidad de sponsorship para roles europeos. 100% remoto desde 2018, con overlap de horario de oficina US (GMT-3). Disponible para contract de AI engineering, roles full-time, y proyectos puntuales de fullstack.",
     ],
     facts: [
