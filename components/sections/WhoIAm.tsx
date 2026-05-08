@@ -16,8 +16,24 @@ export default function WhoIAm({ dict }: Props) {
           {dict.whoIAm.lead}
         </p>
 
-        <div className="mt-[var(--spacing-12)] overflow-x-auto">
-          <div className="grid min-w-[600px] grid-cols-[repeat(4,1fr)] gap-[var(--spacing-2)]">
+        <div className="mt-[var(--spacing-12)]">
+          <ol className="flex flex-col gap-[var(--spacing-6)] md:hidden">
+            {dict.whoIAm.timeline.map((entry) => (
+              <li
+                key={entry.year}
+                className="border-l-2 border-[var(--color-accent)] pl-[var(--spacing-4)]"
+              >
+                <span className="block text-[var(--color-accent)] font-bold tracking-[var(--tracking-wider)]">
+                  {entry.year}
+                </span>
+                <p className="mt-[var(--spacing-2)] text-[var(--text-sm)] leading-[var(--leading-relaxed)] text-[var(--color-fg-muted)]">
+                  {entry.label}
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="hidden md:grid md:grid-cols-[repeat(4,1fr)] md:gap-[var(--spacing-2)]">
             {dict.whoIAm.timeline.map((entry, i) => (
               <div
                 key={entry.year}
