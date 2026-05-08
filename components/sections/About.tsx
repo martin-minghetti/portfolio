@@ -17,13 +17,13 @@ export default function About({ dict }: Props) {
 
         <div className="mt-[var(--spacing-12)] grid gap-[var(--spacing-12)] lg:grid-cols-[280px_1fr]">
           <figure className="space-y-[var(--spacing-3)]">
-            <div className="relative aspect-square w-full max-w-[280px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg)]">
+            <div className="relative aspect-square w-full max-w-[280px] overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]">
               <Image
-                src="/portrait.jpg"
+                src="/martin-portrait.jpg"
                 alt="Martin Minghetti — black and white portrait"
                 fill
                 sizes="(min-width: 1024px) 280px, 80vw"
-                className="object-cover"
+                className="object-cover grayscale"
               />
             </div>
           </figure>

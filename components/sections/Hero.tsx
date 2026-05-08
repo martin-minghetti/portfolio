@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Dictionary } from "@/lib/dictionaries";
 
@@ -14,38 +13,18 @@ export default function Hero({ dict }: Props) {
   return (
     <section className="mx-auto max-w-[var(--container-wide)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-32)]">
       <div className="space-y-[var(--spacing-12)]">
-        <div className="grid items-center gap-[var(--spacing-8)] md:grid-cols-[minmax(0,1fr)_auto]">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeOutExpo }}
-            className="order-2 text-[clamp(2.25rem,5.5vw,4rem)] font-bold leading-[var(--leading-tight)] tracking-[var(--tracking-tighter)] md:order-1"
-          >
-            <span className="block">{dict.hero.h1Line1}</span>
-            <span className="block">{dict.hero.h1Line2}</span>
-            <span className="block text-[var(--color-fg-muted)]">
-              {dict.hero.h1Line3}
-            </span>
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.05 }}
-            className="order-1 mx-auto md:order-2 md:mx-0"
-          >
-            <div className="relative aspect-square w-36 overflow-hidden rounded-full border border-[var(--color-border)] sm:w-44 md:w-56 lg:w-64">
-              <Image
-                src="/martin-portrait.jpg"
-                alt="Martin Minghetti"
-                fill
-                priority
-                sizes="(max-width: 768px) 144px, 256px"
-                className="object-cover grayscale"
-              />
-            </div>
-          </motion.div>
-        </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: easeOutExpo }}
+          className="text-[clamp(2.25rem,5.5vw,4rem)] font-bold leading-[var(--leading-tight)] tracking-[var(--tracking-tighter)]"
+        >
+          <span className="block">{dict.hero.h1Line1}</span>
+          <span className="block">{dict.hero.h1Line2}</span>
+          <span className="block text-[var(--color-fg-muted)]">
+            {dict.hero.h1Line3}
+          </span>
+        </motion.h1>
 
         <div className="grid gap-[var(--spacing-6)] md:grid-cols-2">
           <motion.article
