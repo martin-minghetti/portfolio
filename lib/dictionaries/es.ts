@@ -14,7 +14,7 @@ export const es: Dictionary = {
   hero: {
     h1Line1: "8 años shipping software en producción.",
     h1Line2: "6 meses construyendo sistemas de IA solo.",
-    h1Line3: "Dos tracks abajo. Mismo ingeniero.",
+    h1Line3: "Dos tracks abajo. Misma persona.",
     trackA: {
       label: "SITIOS WEB & FULLSTACK",
       tagline:
