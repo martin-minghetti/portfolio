@@ -13,15 +13,15 @@ export default async function LiveBuildLog({ locale }: Props) {
       ? {
           header: "ÚLTIMOS BUILDS",
           live: "live · github API",
-          lead: "Se actualiza en cada deploy. Últimos 7 commits a través de mis repos públicos.",
-          cols: { ts: "TIMESTAMP", repo: "REPO", event: "EVENTO", branch: "BRANCH", count: "+/-" },
+          lead: "Repos públicos ordenados por último push. Se actualiza cada 24h.",
+          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", lang: "LANG" },
           seeAll: "Ver todo en GitHub",
         }
       : {
           header: "RECENT BUILDS",
           live: "live · github API",
-          lead: "Updated on every deploy. Last 7 commits across my public repos.",
-          cols: { ts: "TIMESTAMP", repo: "REPO", event: "EVENT", branch: "BRANCH", count: "+/-" },
+          lead: "Public repos sorted by last push. Updates every 24h.",
+          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", lang: "LANG" },
           seeAll: "See all on GitHub",
         };
 
@@ -46,24 +46,59 @@ export default async function LiveBuildLog({ locale }: Props) {
           </p>
         </header>
 
-        <div className="mt-[var(--spacing-12)] overflow-x-auto border border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
-          <table className="w-full min-w-[640px] text-left text-[var(--text-xs)]">
+        {/* Mobile: stacked cards */}
+        <ul className="mt-[var(--spacing-12)] space-y-[var(--spacing-3)] md:hidden">
+          {rows.map((row) => (
+            <li key={row.repo}>
+              <a
+                href={row.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-4)] transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-accent)]"
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <span
+                    className="text-[var(--text-sm)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)]"
+                  >
+                    {row.repo}
+                  </span>
+                  <span
+                    style={{ color: "#7CFF50" }}
+                    className="shrink-0 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)]"
+                  >
+                    {row.timestamp}
+                  </span>
+                </div>
+                <p className="mt-1 text-[var(--text-xs)] text-[var(--color-fg-muted)]">
+                  {row.description}
+                </p>
+                <p className="mt-2 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
+                  {row.branch} · {row.language}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Desktop: table */}
+        <div className="mt-[var(--spacing-12)] hidden border border-[var(--color-border)] bg-[var(--color-bg-elevated)] md:block">
+          <table className="w-full text-left text-[var(--text-xs)]">
             <thead>
               <tr className="border-b border-[var(--color-border)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.ts}</th>
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.repo}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.event}</th>
+                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">DESCRIPTION</th>
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.branch}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal text-right">{labels.cols.count}</th>
+                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal text-right">{labels.cols.lang}</th>
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, i) => (
+              {rows.map((row) => (
                 <tr
-                  key={`${row.repo}-${i}`}
+                  key={row.repo}
                   className="border-b border-[var(--color-border)]/60 transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-bg-overlay)]"
                 >
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)]">
+                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)]" style={{ color: "#7CFF50" }}>
                     {row.timestamp}
                   </td>
                   <td className="px-[var(--spacing-4)] py-[var(--spacing-3)]">
@@ -71,19 +106,19 @@ export default async function LiveBuildLog({ locale }: Props) {
                       href={row.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="text-[var(--color-fg)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-accent)]"
+                      className="font-bold text-[var(--color-fg)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-accent)]"
                     >
                       {row.repo}
                     </a>
                   </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)]">
-                    {row.event}
+                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)] truncate max-w-[300px]">
+                    {row.description}
                   </td>
                   <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)]">
                     {row.branch}
                   </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-right text-[var(--color-accent)]">
-                    {row.commitCount > 0 ? `+${row.commitCount}` : "—"}
+                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-right text-[var(--color-fg-muted)]">
+                    {row.language}
                   </td>
                 </tr>
               ))}
