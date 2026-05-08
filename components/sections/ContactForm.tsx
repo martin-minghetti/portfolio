@@ -4,7 +4,8 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { submitContact, type ContactState } from "@/lib/contact";
+import { submitContact } from "@/lib/contact";
+import type { ContactState } from "@/lib/contact-schema";
 import type { Locale } from "@/lib/i18n";
 
 const initial: ContactState = { status: "idle" };
