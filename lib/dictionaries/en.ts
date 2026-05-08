@@ -19,7 +19,7 @@ export const en: Dictionary = {
       label: "WEBSITES & FULLSTACK",
       tagline:
         "Full-stack delivery for businesses. Mercado Pago integration, tested, time-tracked, no surprises.",
-      cta: "Hablemos por WhatsApp",
+      cta: "Message on WhatsApp",
     },
     trackB: {
       label: "AI ENGINEERING",
@@ -55,7 +55,7 @@ export const en: Dictionary = {
       "Fast. Tested. Tracked time.",
       "Not template-shop output.",
     ],
-    cta: "Hablemos por WhatsApp",
+    cta: "Message on WhatsApp",
     ctaSub: "Want one of these for your business? Quote in 24h, no commitment.",
   },
   trackB: {
@@ -75,7 +75,7 @@ export const en: Dictionary = {
     live: "LIVE",
     demo: "DEMO",
     npm: "NPM",
-    seeLive: "See live",
+    seeLive: "See demo",
     github: "GitHub",
     buildLog: "Build log",
     builtIn: "Built in",

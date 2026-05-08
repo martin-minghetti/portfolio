@@ -24,7 +24,7 @@ export default function StickyContactCta({ locale, dict }: Props) {
   return (
     <Link
       href={`/${locale}/contact`}
-      className={`border border-[var(--color-fg)] px-3 py-1.5 uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] ${
+      className={`hidden md:inline-block border border-[var(--color-fg)] px-3 py-1.5 uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] ${
         visible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >

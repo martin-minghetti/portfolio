@@ -20,14 +20,14 @@ export default function Header({ locale, dict }: Props) {
           MARTIN MINGHETTI<span className="text-[var(--color-accent)]">_</span>
         </Link>
 
-        <nav className="flex items-center gap-6 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-muted)]">
+        <nav className="flex items-center gap-3 sm:gap-5 md:gap-6 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-muted)]">
           <Link
             href={`/${otherLocale}`}
             className="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
             aria-label={`Switch to ${otherLocale.toUpperCase()}`}
           >
             <span className="text-[var(--color-fg)]">{locale.toUpperCase()}</span>
-            <span className="mx-2 text-[var(--color-fg-subtle)]">·</span>
+            <span className="mx-1 sm:mx-2 text-[var(--color-fg-subtle)]">·</span>
             <span>{dict.nav.langSwitch}</span>
           </Link>
           <a

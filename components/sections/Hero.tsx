@@ -43,7 +43,7 @@ export default function Hero({ dict }: Props) {
               href="https://wa.me/5492241622290"
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-[var(--spacing-8)] inline-block border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
+              className="mt-[var(--spacing-8)] block w-full text-center sm:inline-block sm:w-auto border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] whitespace-nowrap"
             >
               [ {dict.hero.trackA.cta} → ]
             </a>
@@ -65,7 +65,7 @@ export default function Hero({ dict }: Props) {
               href="https://cal.com/martin-minghetti"
               target="_blank"
               rel="noreferrer noopener"
-              className="mt-[var(--spacing-8)] inline-block border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
+              className="mt-[var(--spacing-8)] block w-full text-center sm:inline-block sm:w-auto border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] whitespace-nowrap"
             >
               [ {dict.hero.trackB.cta} → ]
             </a>

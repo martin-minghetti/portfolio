@@ -76,7 +76,7 @@ export const es: Dictionary = {
     live: "LIVE",
     demo: "DEMO",
     npm: "NPM",
-    seeLive: "Ver live",
+    seeLive: "Ver demo",
     github: "GitHub",
     buildLog: "Build log",
     builtIn: "Built en",

@@ -56,14 +56,14 @@ export default function ProjectCard({ project, locale, labels }: Props) {
         ) : null}
       </dl>
 
-      <footer className="mt-auto flex flex-wrap gap-x-4 gap-y-2 pt-[var(--spacing-6)] text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)]">
+      <footer className="mt-auto flex flex-col gap-2 pt-[var(--spacing-6)] text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
         {project.liveUrl ? (
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer noopener"
-            style={{ color: "#7CFF50" }}
-            className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+            style={{ backgroundColor: "#7CFF50", color: "#0A0A0A" }}
+            className="block w-full text-center sm:inline-block sm:w-auto px-3 py-1.5 font-bold whitespace-nowrap transition-opacity duration-[var(--duration-fast)] hover:opacity-80"
           >
             [ {labels.seeLive} → ]
           </a>
@@ -73,7 +73,7 @@ export default function ProjectCard({ project, locale, labels }: Props) {
           target="_blank"
           rel="noreferrer noopener"
           style={{ color: "#7CFF50" }}
-          className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+          className="block w-full text-center sm:inline-block sm:w-auto whitespace-nowrap transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
         >
           [ {labels.github} → ]
         </a>
@@ -83,7 +83,7 @@ export default function ProjectCard({ project, locale, labels }: Props) {
             target="_blank"
             rel="noreferrer noopener"
             style={{ color: "#7CFF50" }}
-            className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+            className="block w-full text-center sm:inline-block sm:w-auto whitespace-nowrap transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
           >
             [ {labels.buildLog} → ]
           </a>
