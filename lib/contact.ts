@@ -77,7 +77,7 @@ export async function submitContact(
     ].join("\n");
 
     await resend.emails.send({
-      from: "Portfolio <portfolio@martin-minghetti.dev>",
+      from: "Portfolio <onboarding@resend.dev>",
       to: ["martin.minghetti@gmail.com"],
       replyTo: data.email,
       subject,
