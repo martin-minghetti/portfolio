@@ -94,7 +94,7 @@ function TrackBlock({ data }: { data: TrackBlockData }) {
         href={data.ctaHref}
         target="_blank"
         rel="noreferrer noopener"
-        className="mt-[var(--spacing-6)] inline-block border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
+        className="mt-[var(--spacing-6)] inline-block border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)]"
       >
         [ {data.cta} → ]
       </a>

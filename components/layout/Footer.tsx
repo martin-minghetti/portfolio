@@ -27,12 +27,12 @@ export default function Footer({ dict }: Props) {
           <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] text-[var(--text-xs)]">
             {columnWork.heading}
           </h3>
-          <ul className="space-y-2 text-[var(--text-sm)] text-[var(--color-fg-muted)]">
+          <ul className="space-y-2 text-[var(--text-sm)]">
             {columnWork.links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
+                  className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
                 >
                   {link.label}
                 </Link>
@@ -45,14 +45,14 @@ export default function Footer({ dict }: Props) {
           <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] text-[var(--text-xs)]">
             {columnReach.heading}
           </h3>
-          <ul className="space-y-2 text-[var(--text-sm)] text-[var(--color-fg-muted)]">
+          <ul className="space-y-2 text-[var(--text-sm)]">
             {columnReach.links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer noopener" : undefined}
-                  className="transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
+                  className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
                 >
                   {link.label}
                 </a>
@@ -69,7 +69,7 @@ export default function Footer({ dict }: Props) {
             href="https://github.com/martin-minghetti/portfolio"
             target="_blank"
             rel="noreferrer noopener"
-            className="uppercase tracking-[var(--tracking-wider)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg-muted)]"
+            className="text-[var(--color-accent)] uppercase tracking-[var(--tracking-wider)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
           >
             [ {sourceLink} → ]
           </a>

@@ -250,7 +250,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       <button
         type="submit"
         disabled={pending}
-        className="border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] disabled:opacity-60"
+        className="border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] disabled:opacity-60"
       >
         [ {pending ? labels.submitting : labels.submit} → ]
       </button>

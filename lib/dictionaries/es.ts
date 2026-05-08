@@ -12,19 +12,19 @@ export const es: Dictionary = {
     langSwitch: "EN",
   },
   hero: {
-    h1Line1: "8 años shipping software en producción.",
-    h1Line2: "6 meses construyendo sistemas de IA solo.",
-    h1Line3: "Dos tracks abajo. Misma persona.",
+    h1Line1: "Construyo sitios web que funcionan.",
+    h1Line2: "Y sistemas con IA que ahorran horas.",
+    h1Line3: "Mismo desarrollador, dos pistas.",
     trackA: {
       label: "SITIOS WEB & FULLSTACK",
       tagline:
-        "Sitios full-stack para negocios. Integración con Mercado Pago, con tests, tiempo trackeado, sin sorpresas.",
+        "Sitios para negocios y founders. Diseño, código y pagos integrados. Tiempo trackeado, sin sorpresas.",
       cta: "Hablemos por WhatsApp",
     },
     trackB: {
-      label: "AI ENGINEERING",
+      label: "SISTEMAS CON IA",
       tagline:
-        "Sistemas multi-agente en producción. Direct SDK, costos transparentes, demos que podés correr.",
+        "Automatizo tareas que te comen tiempo: leer mails, generar reportes, atender consultas. Demos que podés probar.",
       cta: "Reservá 30 minutos",
     },
     scrollHint: "Bajá para ver el trabajo",

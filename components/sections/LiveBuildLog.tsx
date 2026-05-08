@@ -14,14 +14,14 @@ export default async function LiveBuildLog({ locale }: Props) {
           header: "ÚLTIMOS BUILDS",
           live: "live · github API",
           lead: "Repos públicos ordenados por último push. Se actualiza cada 24h.",
-          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", lang: "LANG" },
+          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", diff: "±" },
           seeAll: "Ver todo en GitHub",
         }
       : {
           header: "RECENT BUILDS",
           live: "live · github API",
           lead: "Public repos sorted by last push. Updates every 24h.",
-          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", lang: "LANG" },
+          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", diff: "±" },
           seeAll: "See all on GitHub",
         };
 
@@ -73,7 +73,15 @@ export default async function LiveBuildLog({ locale }: Props) {
                   {row.description}
                 </p>
                 <p className="mt-2 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
-                  {row.branch} · {row.language}
+                  {row.branch}
+                  {row.additions > 0 || row.deletions > 0 ? (
+                    <>
+                      {" · "}
+                      <span style={{ color: "#7CFF50" }}>+{row.additions}</span>
+                      {" "}
+                      <span style={{ color: "#FF6B47" }}>-{row.deletions}</span>
+                    </>
+                  ) : null}
                 </p>
               </a>
             </li>
@@ -89,7 +97,7 @@ export default async function LiveBuildLog({ locale }: Props) {
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.repo}</th>
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">DESCRIPTION</th>
                 <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.branch}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal text-right">{labels.cols.lang}</th>
+                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal text-right">{labels.cols.diff}</th>
               </tr>
             </thead>
             <tbody>
@@ -106,7 +114,7 @@ export default async function LiveBuildLog({ locale }: Props) {
                       href={row.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="font-bold text-[var(--color-fg)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-accent)]"
+                      className="font-bold text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
                     >
                       {row.repo}
                     </a>
@@ -117,8 +125,16 @@ export default async function LiveBuildLog({ locale }: Props) {
                   <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)]">
                     {row.branch}
                   </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-right text-[var(--color-fg-muted)]">
-                    {row.language}
+                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-right whitespace-nowrap">
+                    {row.additions > 0 || row.deletions > 0 ? (
+                      <>
+                        <span style={{ color: "#7CFF50" }}>+{row.additions}</span>
+                        {" "}
+                        <span style={{ color: "#FF6B47" }}>-{row.deletions}</span>
+                      </>
+                    ) : (
+                      <span className="text-[var(--color-fg-subtle)]">—</span>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -131,7 +147,7 @@ export default async function LiveBuildLog({ locale }: Props) {
             href="https://github.com/martin-minghetti"
             target="_blank"
             rel="noreferrer noopener"
-            className="text-[var(--color-fg-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
+            className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
           >
             [ {labels.seeAll} → ]
           </a>

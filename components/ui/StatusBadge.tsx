@@ -8,27 +8,7 @@ type Props = {
 const baseClass =
   "inline-block whitespace-nowrap border px-3 py-1 text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)]";
 
-export default function StatusBadge({ status, label }: Props) {
-  if (status === "live") {
-    return (
-      <span
-        className={baseClass}
-        style={{ borderColor: "#7CFF50", color: "#7CFF50" }}
-      >
-        [ {label} ]
-      </span>
-    );
-  }
-  if (status === "npm") {
-    return (
-      <span
-        className={baseClass}
-        style={{ borderColor: "#7CFF50", color: "#7CFF50" }}
-      >
-        [ {label} ]
-      </span>
-    );
-  }
+export default function StatusBadge({ status: _status, label }: Props) {
   return (
     <span
       className={baseClass}

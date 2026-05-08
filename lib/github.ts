@@ -12,6 +12,10 @@ type GitHubRepo = {
   html_url: string;
 };
 
+type GitHubCommit = {
+  stats?: { additions: number; deletions: number; total: number };
+};
+
 export type CommitRow = {
   timestamp: string;
   repo: string;
@@ -19,6 +23,8 @@ export type CommitRow = {
   description: string;
   language: string;
   url: string;
+  additions: number;
+  deletions: number;
 };
 
 const USERNAME = "martin-minghetti";
@@ -31,6 +37,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "This site",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/portfolio",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-07",
@@ -39,6 +47,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "AI early warning system",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/modelsentry",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-07",
@@ -47,6 +57,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "Travel agency Bariloche",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/sur41",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-06",
@@ -55,6 +67,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "E-commerce demo",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/bosque",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-06",
@@ -63,6 +77,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "Membership platform",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/cohere",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-05",
@@ -71,6 +87,8 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "Booking demo",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/norhaven-lodge",
+    additions: 0,
+    deletions: 0,
   },
   {
     timestamp: "2026-05-03",
@@ -79,8 +97,33 @@ const FALLBACK_ROWS: CommitRow[] = [
     description: "Skill distillation CLI",
     language: "TypeScript",
     url: "https://github.com/martin-minghetti/skillcam",
+    additions: 0,
+    deletions: 0,
   },
 ];
+
+async function fetchLastCommitStats(
+  repo: string,
+  branch: string,
+): Promise<{ additions: number; deletions: number }> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${USERNAME}/${repo}/commits/${branch}`,
+      {
+        headers: { Accept: "application/vnd.github+json" },
+        next: { revalidate: 60 * 60 * 24 },
+      },
+    );
+    if (!response.ok) return { additions: 0, deletions: 0 };
+    const data = (await response.json()) as GitHubCommit;
+    return {
+      additions: data.stats?.additions ?? 0,
+      deletions: data.stats?.deletions ?? 0,
+    };
+  } catch {
+    return { additions: 0, deletions: 0 };
+  }
+}
 
 export async function getRecentCommits(): Promise<CommitRow[]> {
   try {
@@ -95,17 +138,25 @@ export async function getRecentCommits(): Promise<CommitRow[]> {
     if (!response.ok) return FALLBACK_ROWS;
     const repos = (await response.json()) as GitHubRepo[];
 
-    const rows: CommitRow[] = repos
+    const filtered = repos
       .filter((repo) => !repo.fork && !repo.archived && !repo.private)
-      .slice(0, 7)
-      .map((repo) => ({
-        timestamp: repo.pushed_at.slice(0, 10),
-        repo: repo.name,
-        branch: repo.default_branch,
-        description: (repo.description ?? "—").split(".")[0].slice(0, 60),
-        language: repo.language ?? "—",
-        url: repo.html_url,
-      }));
+      .slice(0, 7);
+
+    const rows: CommitRow[] = await Promise.all(
+      filtered.map(async (repo) => {
+        const stats = await fetchLastCommitStats(repo.name, repo.default_branch);
+        return {
+          timestamp: repo.pushed_at.slice(0, 10),
+          repo: repo.name,
+          branch: repo.default_branch,
+          description: (repo.description ?? "—").split(".")[0].slice(0, 60),
+          language: repo.language ?? "—",
+          url: repo.html_url,
+          additions: stats.additions,
+          deletions: stats.deletions,
+        };
+      }),
+    );
 
     return rows.length > 0 ? rows : FALLBACK_ROWS;
   } catch {

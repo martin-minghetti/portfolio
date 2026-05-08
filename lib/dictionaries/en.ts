@@ -12,19 +12,19 @@ export const en: Dictionary = {
     langSwitch: "ES",
   },
   hero: {
-    h1Line1: "8 years shipping production software.",
-    h1Line2: "6 months building AI systems solo.",
-    h1Line3: "Two tracks below. Same engineer.",
+    h1Line1: "I build websites that work.",
+    h1Line2: "And AI systems that save hours.",
+    h1Line3: "One engineer, two tracks.",
     trackA: {
       label: "WEBSITES & FULLSTACK",
       tagline:
-        "Full-stack delivery for businesses. Mercado Pago integration, tested, time-tracked, no surprises.",
+        "Sites for businesses and founders. Design, code, and payments wired up. Time-tracked, no surprises.",
       cta: "Message on WhatsApp",
     },
     trackB: {
-      label: "AI ENGINEERING",
+      label: "AI SYSTEMS",
       tagline:
-        "Multi-agent systems in production. Direct SDK, transparent costs, demos you can run.",
+        "I automate the tasks that eat your day: reading inboxes, generating reports, handling questions. Demos you can run.",
       cta: "Book a 30min intro",
     },
     scrollHint: "Scroll for the receipts",
