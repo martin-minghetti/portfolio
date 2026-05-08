@@ -1,14 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { submitContact } from "@/lib/contact";
-import type { ContactState } from "@/lib/contact-schema";
 import type { Locale } from "@/lib/i18n";
-
-const initial: ContactState = { status: "idle" };
 
 type Labels = {
   name: string;
@@ -19,6 +13,7 @@ type Labels = {
   messagePlaceholder: string;
   submit: string;
   submitting: string;
+  errorGeneric: string;
 };
 
 const labelsByLocale: Record<Locale, Labels> = {
@@ -32,6 +27,7 @@ const labelsByLocale: Record<Locale, Labels> = {
       "Briefly: what it does, current stage, what you need help with",
     submit: "SEND MESSAGE",
     submitting: "SENDING…",
+    errorGeneric: "Could not send message. Try WhatsApp or Cal.com in the meantime.",
   },
   es: {
     name: "NOMBRE",
@@ -43,37 +39,57 @@ const labelsByLocale: Record<Locale, Labels> = {
       "En corto: qué hace, en qué etapa está, y en qué necesitás ayuda",
     submit: "ENVIAR MENSAJE",
     submitting: "ENVIANDO…",
+    errorGeneric: "No pude enviar el mensaje. Probá WhatsApp o Cal.com mientras tanto.",
   },
 };
 
-function SubmitButton({ locale }: { locale: Locale }) {
-  const { pending } = useFormStatus();
-  const labels = labelsByLocale[locale];
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] disabled:opacity-60"
-    >
-      [ {pending ? labels.submitting : labels.submit} → ]
-    </button>
-  );
-}
-
 export default function ContactForm({ locale }: { locale: Locale }) {
-  const [state, formAction] = useActionState(submitContact, initial);
-  const router = useRouter();
   const labels = labelsByLocale[locale];
+  const router = useRouter();
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (state.status === "success") {
-      router.push(`/${locale}/contact/sent`);
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setPending(true);
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      company: String(formData.get("company") ?? ""),
+      message: String(formData.get("message") ?? ""),
+      source: String(formData.get("source") ?? ""),
+      website: String(formData.get("website") ?? ""),
+      locale,
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await response.json().catch(() => null)) as
+        | { status: "success" }
+        | { status: "error"; message?: string }
+        | null;
+
+      if (response.ok && data?.status === "success") {
+        router.push(`/${locale}/contact/sent`);
+        return;
+      }
+      setError(data && "message" in data && data.message ? data.message : labels.errorGeneric);
+    } catch {
+      setError(labels.errorGeneric);
+    } finally {
+      setPending(false);
     }
-  }, [state, router, locale]);
+  }
 
   return (
-    <form action={formAction} className="space-y-[var(--spacing-6)]">
-      <input type="hidden" name="locale" value={locale} />
+    <form onSubmit={onSubmit} className="space-y-[var(--spacing-6)]">
       <div aria-hidden className="hidden">
         <label>
           Website
@@ -106,16 +122,22 @@ export default function ContactForm({ locale }: { locale: Locale }) {
 
       <Field label={labels.source} name="source" type="text" />
 
-      {state.status === "error" ? (
+      {error ? (
         <p
           role="alert"
           className="border border-[var(--color-danger)] bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--text-sm)] text-[var(--color-danger)]"
         >
-          {state.message}
+          {error}
         </p>
       ) : null}
 
-      <SubmitButton locale={locale} />
+      <button
+        type="submit"
+        disabled={pending}
+        className="border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)] disabled:opacity-60"
+      >
+        [ {pending ? labels.submitting : labels.submit} → ]
+      </button>
     </form>
   );
 }
