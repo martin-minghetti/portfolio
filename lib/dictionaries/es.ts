@@ -29,6 +29,150 @@ export const es: Dictionary = {
     },
     scrollHint: "Bajá para la prueba",
   },
+  whoIAm: {
+    lead: "Versión corta de cómo llegué hasta acá.",
+    timeline: [
+      { year: "2018", label: "Empecé en AirLST (Munich, remoto)" },
+      { year: "2024", label: "AI tools como infra diaria" },
+      { year: "2025", label: "Independiente" },
+      { year: "2026", label: "14 proyectos OSS · 4 demos live" },
+    ],
+    stats: [
+      "7.5 años",
+      "1000+ páginas entregadas",
+      "30K eventos",
+      "20M participantes",
+      "14 proyectos OSS",
+      "4 demos comerciales",
+    ],
+  },
+  trackA: {
+    sectionHeader: "TRACK A · SITIOS WEB & FULLSTACK",
+    sectionLead:
+      "Para negocios, founders y agencias que necesitan un sitio que funcione.",
+    pitch: [
+      "Integración con Mercado Pago hecha bien.",
+      "Rápido. Con tests. Tiempo trackeado.",
+      "Sin onda agencia uruguaya 2019.",
+    ],
+    cta: "Hablemos por WhatsApp",
+    ctaSub:
+      "¿Querés uno de estos para tu negocio? Presupuesto en 24h, sin compromiso.",
+  },
+  trackB: {
+    sectionHeader: "TRACK B · AI ENGINEERING",
+    sectionLead:
+      "Para founders, CTOs y recruiters que contratan builders, no investigadores.",
+    pitch: [
+      "Sistemas multi-agente en producción.",
+      "Direct SDK por sobre frameworks. BYOK por default.",
+      "Costos transparentes. Tests incluidos.",
+    ],
+    cta: "Reservá 30 minutos",
+    ctaSub:
+      "¿Estás contratando capacidad senior de AI engineering? Contract work, roles full-time, o calls de scoping técnico.",
+  },
+  cardLabels: {
+    live: "LIVE",
+    demo: "DEMO",
+    npm: "NPM",
+    seeLive: "Ver live",
+    github: "GitHub",
+    buildLog: "Build log",
+    builtIn: "Built en",
+  },
+  airlst: {
+    sectionHeader: "TRABAJÉ PARA",
+    disclaimer:
+      "Como Frontend Developer en AirLST GmbH (event management SaaS, Munich) — Jun 2018 → Nov 2025.",
+    metrics:
+      "1000+ páginas de eventos y micrositios entregados. Plataforma sirviendo 30K+ eventos y 20M+ participantes.",
+  },
+  howIThink: {
+    sectionHeader: "CÓMO PIENSO",
+    sectionLead:
+      "Cuatro cosas que hago distinto al portfolio de IA promedio en 2026.",
+    items: [
+      {
+        index: "01",
+        heading: "Direct SDK por sobre frameworks.",
+        body: "Sin LangChain, sin CrewAI. Cada call de agente es explícita, debuggable, y barata de correr.",
+      },
+      {
+        index: "02",
+        heading: "BYOK por default.",
+        body: "Tus API keys, tu infra. Sin inferencia hosted, sin límites de uso que no controlás, sin vendor lock-in.",
+      },
+      {
+        index: "03",
+        heading: "Builds con tiempo trackeado.",
+        body: "BUILD_LOG.md público en cada repo. Tiempo wall-clock honesto, T-0 inmutable. Sin la ficción marketing de 'hecho en 2 horas'.",
+      },
+      {
+        index: "04",
+        heading: "Tests + security audits, incluso en demos.",
+        body: "Vitest + Playwright + HMAC + rate limit + CSP + HSTS. Incluso en builds que costaron $0.60 en créditos de Replicate.",
+      },
+    ],
+  },
+  stack: {
+    sectionHeader: "STACK",
+    sectionLead: "A qué herramientas voy, por categoría.",
+    rows: [
+      { label: "LANGUAGES", values: "TypeScript · Python · SQL" },
+      {
+        label: "FRAMEWORKS",
+        values: "Next.js 16 · FastAPI · Vue 3 / Nuxt 3 · React",
+      },
+      {
+        label: "AI",
+        values:
+          "Anthropic Claude (direct SDK) · Vercel AI SDK · Gemini API · Replicate (FLUX 1.1 Pro)",
+      },
+      {
+        label: "DATA",
+        values:
+          "PostgreSQL · Supabase · Neon · Drizzle · SQLite · Redis · pgvector",
+      },
+      { label: "VALIDATION", values: "Zod" },
+      {
+        label: "PAYMENTS",
+        values:
+          "Mercado Pago Checkout Pro · MP Subscriptions (preapproval) · HMAC webhooks · Stripe",
+      },
+      {
+        label: "INFRA",
+        values: "Vercel · Railway · GitHub Actions / Pages · Docker · Cloudflare",
+      },
+      { label: "TESTING", values: "Vitest · Playwright · Pytest" },
+      { label: "EMAIL", values: "Resend · react-email" },
+      { label: "SCRAPING", values: "Playwright · BeautifulSoup · cheerio" },
+      {
+        label: "INTEGRATIONS",
+        values:
+          "WhatsApp Business API · Google Calendar · Slack · Discord · Linear · Notion · Apollo · Tavily · Octokit",
+      },
+    ],
+  },
+  about: {
+    sectionHeader: "SOBRE MÍ",
+    paragraphs: [
+      "Empecé en AirLST GmbH en Munich en 2018 como Frontend Developer, construyendo páginas de eventos y micrositios para marcas como Mercedes Benz, Amazon, Netflix, Disney, y Zalando. Durante 7.5 años entregué 1000+ páginas custom sobre una plataforma Vue/Nuxt que sirvió 30K+ eventos y 20M+ participantes. Aprendí cuánto cuesta realmente shippear a escala, y cuánto no.",
+      "Para 2024 ya usaba herramientas de AI dev (Claude Code, Codex) como infraestructura diaria — no como experimento. En noviembre 2025 dejé AirLST para irme independiente. En los seis meses desde, shippé 14 proyectos open-source y 4 demos comerciales live, todos con BUILD_LOG.md público que trackea tiempo wall-clock honesto. Construyo sistemas multi-agente de IA para producción, y aplicaciones web fullstack para negocios que las necesitan bien hechas.",
+      "Vivo en Bariloche, Patagonia argentina. Ciudadano EU (Islandia) — sin necesidad de sponsorship para roles europeos. 100% remoto desde 2018, con overlap de horario de oficina US (GMT-3). Disponible para contract de AI engineering, roles full-time, y proyectos puntuales de fullstack.",
+    ],
+    facts: [
+      { label: "UBICACIÓN", value: "Bariloche, Argentina" },
+      { label: "HUSO HORARIO", value: "GMT-3 (overlap con horario US)" },
+      { label: "CIUDADANÍA", value: "EU (Islandia) — sin sponsorship para Europa" },
+      {
+        label: "IDIOMAS",
+        value:
+          "Español (nativo) · Inglés (full professional) · Islandés (básico) · Alemán (básico)",
+      },
+      { label: "REMOTO DESDE", value: "2018" },
+    ],
+  },
   footer: {
     columnAbout: {
       heading: "MARTÍN MINGHETTI",
@@ -42,7 +186,7 @@ export const es: Dictionary = {
       links: [
         { label: "Track A — Sitios web", href: "/es#track-a" },
         { label: "Track B — AI Engineering", href: "/es#track-b" },
-        { label: "Proyectos", href: "/es#projects" },
+        { label: "Proyectos", href: "/es#track-a" },
         { label: "Build log", href: "/es#build-log" },
       ],
     },

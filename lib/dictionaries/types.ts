@@ -3,6 +3,17 @@ export type FooterLink = {
   href: string;
 };
 
+export type SectionHeader = {
+  title: string;
+  lead?: string;
+};
+
+export type Manifesto = {
+  index: string;
+  heading: string;
+  body: string;
+};
+
 export type Dictionary = {
   meta: {
     title: string;
@@ -28,6 +39,57 @@ export type Dictionary = {
       cta: string;
     };
     scrollHint: string;
+  };
+  whoIAm: {
+    lead: string;
+    timeline: {
+      year: string;
+      label: string;
+    }[];
+    stats: string[];
+  };
+  trackA: {
+    sectionHeader: string;
+    sectionLead: string;
+    pitch: string[];
+    cta: string;
+    ctaSub: string;
+  };
+  trackB: {
+    sectionHeader: string;
+    sectionLead: string;
+    pitch: string[];
+    cta: string;
+    ctaSub: string;
+  };
+  cardLabels: {
+    live: string;
+    demo: string;
+    npm: string;
+    seeLive: string;
+    github: string;
+    buildLog: string;
+    builtIn: string;
+  };
+  airlst: {
+    sectionHeader: string;
+    disclaimer: string;
+    metrics: string;
+  };
+  howIThink: {
+    sectionHeader: string;
+    sectionLead: string;
+    items: Manifesto[];
+  };
+  stack: {
+    sectionHeader: string;
+    sectionLead: string;
+    rows: { label: string; values: string }[];
+  };
+  about: {
+    sectionHeader: string;
+    paragraphs: string[];
+    facts: { label: string; value: string }[];
   };
   footer: {
     columnAbout: {
