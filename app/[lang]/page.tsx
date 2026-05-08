@@ -8,6 +8,7 @@ import AirLST from "@/components/sections/AirLST";
 import HowIThink from "@/components/sections/HowIThink";
 import Stack from "@/components/sections/Stack";
 import About from "@/components/sections/About";
+import LiveBuildLog from "@/components/sections/LiveBuildLog";
 
 export default async function HomePage({
   params,
@@ -27,6 +28,7 @@ export default async function HomePage({
       <TrackSection track="b" dict={dict} locale={locale} />
       <AirLST dict={dict} />
       <HowIThink dict={dict} />
+      <LiveBuildLog locale={locale} />
       <About dict={dict} />
       <Stack dict={dict} />
     </>

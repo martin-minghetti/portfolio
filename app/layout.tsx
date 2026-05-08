@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import LenisProvider from "@/components/layout/LenisProvider";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: "Martin Minghetti — Senior Fullstack & AI Engineer",
   description:
     "Senior fullstack engineer building production AI systems and commercial web apps. 7.5 years at AirLST GmbH (Munich). Now independent — 14 open-source projects and 4 commercial demos live. Available for contract AI engineering and fullstack work.",
-  metadataBase: new URL("https://portfolio-martin-minghetti.vercel.app"),
+  metadataBase: new URL("https://martin-minghetti.vercel.app"),
   openGraph: {
     title: "Martin Minghetti — Senior Fullstack & AI Engineer",
     description:
@@ -33,7 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={jetbrainsMono.variable}>
-      <body>{children}</body>
+      <body>
+        <LenisProvider>{children}</LenisProvider>
+      </body>
     </html>
   );
 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
@@ -16,11 +17,14 @@ export default function About({ dict }: Props) {
 
         <div className="mt-[var(--spacing-12)] grid gap-[var(--spacing-12)] lg:grid-cols-[280px_1fr]">
           <figure className="space-y-[var(--spacing-3)]">
-            <div className="aspect-square w-full max-w-[280px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg)]">
-              {/* Placeholder until profile-cv.jpg is copied to /public in next session */}
-              <div className="flex h-full w-full items-center justify-center text-[var(--text-xs)] uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
-                [ portrait ]
-              </div>
+            <div className="relative aspect-square w-full max-w-[280px] overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg)]">
+              <Image
+                src="/portrait.jpg"
+                alt="Martin Minghetti — black and white portrait"
+                fill
+                sizes="(min-width: 1024px) 280px, 80vw"
+                className="object-cover"
+              />
             </div>
           </figure>
 
