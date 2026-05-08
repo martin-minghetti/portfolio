@@ -46,14 +46,28 @@ export async function POST(request: Request) {
       data.message,
     ].join("\n");
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: ["martin.minghetti@gmail.com"],
       replyTo: data.email,
       subject,
       text,
     });
-    return NextResponse.json({ status: "success" });
+    if (result.error) {
+      console.error("[contact] Resend rejected:", JSON.stringify(result.error));
+      return NextResponse.json(
+        {
+          status: "error",
+          message:
+            data.locale === "es"
+              ? `Resend rechazó: ${result.error.message ?? "error desconocido"}`
+              : `Resend rejected: ${result.error.message ?? "unknown error"}`,
+        },
+        { status: 502 },
+      );
+    }
+    console.log("[contact] Resend sent:", result.data?.id);
+    return NextResponse.json({ status: "success", id: result.data?.id });
   } catch (error) {
     console.error("[contact] Resend send failed:", error);
     return NextResponse.json(
