@@ -1,6 +1,7 @@
 import type { Locale } from "../i18n";
-import { en, type Dictionary } from "./en";
+import { en } from "./en";
 import { es } from "./es";
+import type { Dictionary } from "./types";
 
 const dictionaries: Record<Locale, Dictionary> = { en, es };
 

@@ -1,4 +1,4 @@
-import type { Dictionary } from "./en";
+import type { Dictionary } from "./types";
 
 export const es: Dictionary = {
   meta: {

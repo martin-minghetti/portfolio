@@ -1,4 +1,6 @@
-export const en = {
+import type { Dictionary } from "./types";
+
+export const en: Dictionary = {
   meta: {
     title: "Martin Minghetti — Senior Fullstack & AI Engineer",
     description:
@@ -57,6 +59,4 @@ export const en = {
     legal: "© 2026 Martin Minghetti · Built with Next 16, Tailwind v4",
     sourceLink: "View source on GitHub",
   },
-} as const;
-
-export type Dictionary = typeof en;
+};
