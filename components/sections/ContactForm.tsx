@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
+import CTAButton from "@/components/ui/CTAButton";
 
 type FieldName = "name" | "email" | "message";
 
@@ -205,7 +206,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       <div className="space-y-[var(--spacing-2)]">
         <label
           htmlFor="message"
-          className="block text-[var(--text-xs)] uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
+          className="block text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
         >
           {labels.message} <span className="text-[var(--color-accent)]">*</span>
         </label>
@@ -219,7 +220,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
           aria-describedby={fieldErrors.message ? "message-error" : undefined}
           onBlur={handleBlur}
           onChange={handleChange}
-          className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--text-sm)] text-[var(--color-fg)] placeholder-[var(--color-fg-subtle)] focus:outline-none focus:ring-2 ${
+          className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-fg)] placeholder-[var(--color-fg-subtle)] focus:outline-none focus:ring-2 ${
             fieldErrors.message
               ? "border-[var(--color-danger)] focus:border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30"
               : "border-[var(--color-border)] focus:border-[var(--color-accent)] focus:ring-[var(--color-accent-glow)]"
@@ -229,7 +230,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
           <p
             id="message-error"
             role="alert"
-            className="text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
+            className="text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
           >
             {fieldErrors.message}
           </p>
@@ -241,19 +242,15 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       {serverError ? (
         <p
           role="alert"
-          className="border border-[var(--color-danger)] bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--text-sm)] text-[var(--color-danger)]"
+          className="border border-[var(--color-danger)] bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-danger)]"
         >
           {serverError}
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] disabled:opacity-60"
-      >
-        [ {pending ? labels.submitting : labels.submit} → ]
-      </button>
+      <CTAButton type="submit" disabled={pending}>
+        {pending ? labels.submitting : labels.submit}
+      </CTAButton>
     </form>
   );
 }
@@ -280,7 +277,7 @@ function Field({
     <div className="space-y-[var(--spacing-2)]">
       <label
         htmlFor={name}
-        className="block text-[var(--text-xs)] uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
+        className="block text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
       >
         {label}{" "}
         {required ? <span className="text-[var(--color-accent)]">*</span> : null}
@@ -294,7 +291,7 @@ function Field({
         aria-describedby={error ? errorId : undefined}
         onBlur={onBlur}
         onChange={onChange}
-        className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--text-sm)] text-[var(--color-fg)] focus:outline-none focus:ring-2 ${
+        className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-fg)] focus:outline-none focus:ring-2 ${
           error
             ? "border-[var(--color-danger)] focus:border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30"
             : "border-[var(--color-border)] focus:border-[var(--color-accent)] focus:ring-[var(--color-accent-glow)]"
@@ -304,7 +301,7 @@ function Field({
         <p
           id={errorId}
           role="alert"
-          className="text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
+          className="text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
         >
           {error}
         </p>

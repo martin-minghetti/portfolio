@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import type { Locale } from "@/lib/i18n";
 import ContactForm from "@/components/sections/ContactForm";
+import CTAButton from "@/components/ui/CTAButton";
 
 type TrackBlockData = {
   heading: string;
@@ -53,10 +54,10 @@ export default function ContactPageView({
       className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]"
     >
       <motion.header variants={item} className="space-y-[var(--spacing-4)]">
-        <h1 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
+        <h1 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
           {labels.sectionHeader}
         </h1>
-        <p className="text-[var(--text-2xl)] leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
+        <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
           {labels.lead}
         </p>
       </motion.header>
@@ -84,21 +85,18 @@ export default function ContactPageView({
 function TrackBlock({ data }: { data: TrackBlockData }) {
   return (
     <article className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]">
-      <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
+      <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
         {data.heading}
       </h2>
-      <p className="mt-[var(--spacing-4)] text-[var(--text-base)] leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
+      <p className="mt-[var(--spacing-4)] text-base leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
         {data.tagline}
       </p>
-      <a
-        href={data.ctaHref}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="mt-[var(--spacing-6)] inline-block border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)]"
-      >
-        [ {data.cta} → ]
-      </a>
-      <p className="mt-[var(--spacing-4)] text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
+      <div className="mt-[var(--spacing-6)]">
+        <CTAButton href={data.ctaHref} external>
+          {data.cta}
+        </CTAButton>
+      </div>
+      <p className="mt-[var(--spacing-4)] text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
         {data.orForm}
       </p>
     </article>

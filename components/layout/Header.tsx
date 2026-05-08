@@ -15,12 +15,12 @@ export default function Header({ locale, dict }: Props) {
       <div className="mx-auto flex max-w-[var(--container-wide)] items-center justify-between px-[clamp(16px,4vw,32px)] py-4">
         <Link
           href={`/${locale}`}
-          className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-sm)]"
+          className="font-bold uppercase tracking-[var(--tracking-widest)] text-sm"
         >
           MARTIN MINGHETTI<span className="caret text-[var(--color-accent)]">_</span>
         </Link>
 
-        <nav className="flex items-center gap-3 sm:gap-5 md:gap-6 text-[var(--text-xs)] uppercase tracking-[var(--tracking-wider)]">
+        <nav className="flex items-center gap-3 sm:gap-5 md:gap-6 text-xs uppercase tracking-[var(--tracking-wider)]">
           <Link
             href={`/${otherLocale}`}
             className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"

@@ -45,19 +45,19 @@ export default async function ContactSentPage({
 
   return (
     <div className="mx-auto max-w-[var(--container-narrow)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-32)]">
-      <h1 className="text-[var(--text-3xl)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
+      <h1 className="text-3xl font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
         {copy.h1}
       </h1>
-      <p className="mt-[var(--spacing-6)] text-[var(--text-lg)] leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
+      <p className="mt-[var(--spacing-6)] text-lg leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
         {copy.body}
       </p>
 
       <hr className="my-[var(--spacing-12)] border-[var(--color-border)]" />
 
-      <p className="text-[var(--text-xs)] uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
+      <p className="text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
         {copy.waitTitle}
       </p>
-      <ul className="mt-[var(--spacing-4)] space-y-[var(--spacing-2)] text-[var(--text-sm)]">
+      <ul className="mt-[var(--spacing-4)] space-y-[var(--spacing-2)] text-sm">
         {copy.waitItems.map((item) => (
           <li key={item.label} className="flex gap-2">
             <span className="text-[var(--color-accent)]">→</span>
@@ -77,7 +77,7 @@ export default async function ContactSentPage({
 
       <Link
         href={`/${locale}`}
-        className="mt-[var(--spacing-12)] inline-block border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
+        className="mt-[var(--spacing-12)] inline-block border-2 border-[var(--color-fg)] px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-xs text-[var(--color-fg)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
       >
         [ ← {copy.back} ]
       </Link>

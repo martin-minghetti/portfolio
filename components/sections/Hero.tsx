@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Dictionary } from "@/lib/dictionaries";
+import CTAButton from "@/components/ui/CTAButton";
 
 type Props = {
   dict: Dictionary;
@@ -33,20 +34,21 @@ export default function Hero({ dict }: Props) {
             transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.1 }}
             className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]"
           >
-            <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
+            <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
               {dict.hero.trackA.label}
             </h2>
-            <p className="mt-[var(--spacing-4)] text-[var(--text-lg)] leading-[var(--leading-relaxed)]">
+            <p className="mt-[var(--spacing-4)] text-lg leading-[var(--leading-relaxed)]">
               {dict.hero.trackA.tagline}
             </p>
-            <a
-              href="https://wa.me/5492241622290"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="mt-[var(--spacing-8)] block w-full text-center sm:inline-block sm:w-auto border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] whitespace-nowrap"
-            >
-              [ {dict.hero.trackA.cta} → ]
-            </a>
+            <div className="mt-[var(--spacing-8)]">
+              <CTAButton
+                href="https://wa.me/5492241622290"
+                external
+                className="w-full sm:w-auto"
+              >
+                {dict.hero.trackA.cta}
+              </CTAButton>
+            </div>
           </motion.article>
 
           <motion.article
@@ -55,20 +57,21 @@ export default function Hero({ dict }: Props) {
             transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.3 }}
             className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]"
           >
-            <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
+            <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
               {dict.hero.trackB.label}
             </h2>
-            <p className="mt-[var(--spacing-4)] text-[var(--text-lg)] leading-[var(--leading-relaxed)]">
+            <p className="mt-[var(--spacing-4)] text-lg leading-[var(--leading-relaxed)]">
               {dict.hero.trackB.tagline}
             </p>
-            <a
-              href="https://cal.com/martin-minghetti"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="mt-[var(--spacing-8)] block w-full text-center sm:inline-block sm:w-auto border-2 border-[var(--color-accent)] bg-transparent px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] whitespace-nowrap"
-            >
-              [ {dict.hero.trackB.cta} → ]
-            </a>
+            <div className="mt-[var(--spacing-8)]">
+              <CTAButton
+                href="https://cal.com/martin-minghetti"
+                external
+                className="w-full sm:w-auto"
+              >
+                {dict.hero.trackB.cta}
+              </CTAButton>
+            </div>
           </motion.article>
         </div>
 
@@ -76,7 +79,7 @@ export default function Hero({ dict }: Props) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.6 }}
-          className="text-center text-[var(--text-xs)] uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]"
+          className="text-center text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]"
         >
           {dict.hero.scrollHint} <span className="caret">↓</span>
         </motion.p>

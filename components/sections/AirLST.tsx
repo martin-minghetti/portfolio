@@ -10,7 +10,7 @@ export default function AirLST({ dict }: Props) {
   return (
     <section className="border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
       <div className="mx-auto max-w-[var(--container-wide)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-20)]">
-        <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
+        <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
           {dict.airlst.sectionHeader}
         </h2>
       </div>
@@ -20,7 +20,7 @@ export default function AirLST({ dict }: Props) {
           {items.map((client, i) => (
             <span
               key={`${client}-${i}`}
-              className="shrink-0 px-[var(--spacing-8)] text-[var(--text-2xl)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)]"
+              className="shrink-0 px-[var(--spacing-8)] text-2xl font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)]"
             >
               {client}
               <span className="ml-[var(--spacing-8)] text-[var(--color-fg-subtle)]">
@@ -39,7 +39,7 @@ export default function AirLST({ dict }: Props) {
         />
       </div>
 
-      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-12)] space-y-2 text-[var(--text-sm)] leading-[var(--leading-relaxed)]">
+      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-12)] space-y-2 text-sm leading-[var(--leading-relaxed)]">
         <p className="text-[var(--color-fg)]">
           {dict.airlst.disclaimer.split(" — ")[0]}
           <span className="text-[var(--color-accent)]">

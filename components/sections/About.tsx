@@ -10,7 +10,7 @@ export default function About({ dict }: Props) {
     <section className="border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
       <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
         <header className="space-y-[var(--spacing-4)]">
-          <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
+          <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
             {dict.about.sectionHeader}
           </h2>
         </header>
@@ -23,12 +23,12 @@ export default function About({ dict }: Props) {
                 alt="Martin Minghetti — black and white portrait"
                 fill
                 sizes="(min-width: 1024px) 280px, 80vw"
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </div>
           </figure>
 
-          <div className="space-y-[var(--spacing-6)] text-[var(--text-base)] leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
+          <div className="space-y-[var(--spacing-6)] text-base leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
             {dict.about.paragraphs.map((p, i) => (
               <p key={i} className={i > 0 ? "text-[var(--color-fg-muted)]" : ""}>
                 {p}
@@ -43,10 +43,10 @@ export default function About({ dict }: Props) {
               key={fact.label}
               className="grid grid-cols-1 gap-[var(--spacing-2)] py-[var(--spacing-3)] md:grid-cols-[200px_1fr] md:gap-[var(--spacing-6)]"
             >
-              <dt className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
+              <dt className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
                 {fact.label}
               </dt>
-              <dd className="text-[var(--text-sm)] text-[var(--color-fg)]">
+              <dd className="text-sm text-[var(--color-fg)]">
                 {fact.value}
               </dd>
             </div>

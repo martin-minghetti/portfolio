@@ -27,13 +27,13 @@ export default function TrackSection({ track, dict, locale }: Props) {
     >
       <div className="mx-auto max-w-[var(--container-wide)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
         <header className="space-y-[var(--spacing-4)]">
-          <h2 className="text-[var(--text-xs)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
+          <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
             {data.sectionHeader}
           </h2>
-          <p className="text-[var(--text-2xl)] leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
+          <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
             {data.sectionLead}
           </p>
-          <ul className="space-y-1 pt-[var(--spacing-4)] text-[var(--text-base)] text-[var(--color-fg-muted)]">
+          <ul className="space-y-1 pt-[var(--spacing-4)] text-base text-[var(--color-fg-muted)]">
             {data.pitch.map((line, i) => (
               <li key={i} className="flex gap-2">
                 <span className="text-[var(--color-accent)]">→</span>
@@ -55,7 +55,7 @@ export default function TrackSection({ track, dict, locale }: Props) {
         </div>
 
         <footer className="mt-[var(--spacing-12)] flex flex-col items-start gap-[var(--spacing-4)] border-t border-[var(--color-border)] pt-[var(--spacing-8)] md:flex-row md:items-center md:justify-between">
-          <p className="text-[var(--text-sm)] text-[var(--color-fg-muted)] max-w-md">
+          <p className="text-sm text-[var(--color-fg-muted)] max-w-md">
             {data.ctaSub}
           </p>
           <CTAButton href={ctaHref} external>

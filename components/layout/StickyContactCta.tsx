@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
+import CTAButton from "@/components/ui/CTAButton";
 
 type Props = {
   locale: Locale;
@@ -22,13 +22,12 @@ export default function StickyContactCta({ locale, dict }: Props) {
   }, []);
 
   return (
-    <Link
-      href={`/${locale}/contact`}
-      className={`hidden md:inline-block border border-[var(--color-accent)] bg-transparent px-3 py-1.5 font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] ${
+    <div
+      className={`hidden md:inline-block transition-opacity duration-300 ease-out ${
         visible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      {dict.nav.contact} →
-    </Link>
+      <CTAButton href={`/${locale}/contact`}>{dict.nav.contact}</CTAButton>
+    </div>
   );
 }

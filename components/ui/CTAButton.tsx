@@ -2,44 +2,89 @@ import Link from "next/link";
 
 type Variant = "primary" | "secondary";
 
-type Props = {
-  href: string;
-  variant?: Variant;
-  external?: boolean;
+type CommonProps = {
   children: React.ReactNode;
+  className?: string;
+  variant?: Variant;
 };
 
-export default function CTAButton({
-  href,
-  variant = "primary",
-  external,
-  children,
-}: Props) {
-  const baseClasses =
-    "inline-block px-[var(--spacing-6)] py-[var(--spacing-3)] font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--text-xs)] transition-all duration-[var(--duration-instant)] ease-[var(--ease-snap)]";
+type LinkProps = CommonProps & {
+  href: string;
+  external?: boolean;
+  type?: never;
+  onClick?: never;
+  disabled?: never;
+  form?: never;
+};
 
-  const variantClasses =
-    variant === "primary"
-      ? "border-2 border-[var(--color-fg)] text-[var(--color-fg)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-glow)] hover:text-[var(--color-accent)]"
-      : "border border-[var(--color-border)] text-[var(--color-fg-muted)] hover:border-[var(--color-fg-muted)] hover:text-[var(--color-fg)]";
+type ButtonProps = CommonProps & {
+  href?: never;
+  external?: never;
+  type: "button" | "submit" | "reset";
+  onClick?: () => void;
+  disabled?: boolean;
+  form?: string;
+};
 
-  const className = `${baseClasses} ${variantClasses}`;
-  const label = (
-    <>
-      [ {children} <span aria-hidden>→</span> ]
-    </>
-  );
+type Props = LinkProps | ButtonProps;
 
-  if (external) {
+const primaryClasses =
+  "group/cta relative inline-flex items-center justify-center overflow-hidden border-2 border-[var(--color-accent)] bg-transparent px-3 py-1.5 font-bold uppercase tracking-[var(--tracking-widest)] text-xs text-[var(--color-accent)] transition-colors duration-300 ease-out hover:text-[var(--color-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-glow)] disabled:opacity-60 disabled:hover:text-[var(--color-accent)]";
+
+const secondaryClasses =
+  "inline-flex items-center justify-center px-1 py-1.5 font-bold uppercase tracking-[var(--tracking-widest)] text-xs text-[var(--color-accent)] transition-opacity duration-200 ease-out hover:opacity-70 focus-visible:outline-none focus-visible:opacity-70 disabled:opacity-60";
+
+const fillClass =
+  "pointer-events-none absolute inset-0 origin-left scale-x-0 bg-[var(--color-accent)] transition-transform duration-300 ease-out group-hover/cta:scale-x-100 group-disabled/cta:scale-x-0";
+
+export default function CTAButton(props: Props) {
+  const { children, className = "", variant = "primary" } = props;
+  const base = variant === "primary" ? primaryClasses : secondaryClasses;
+  const merged = `${base} ${className}`.trim();
+
+  const content =
+    variant === "primary" ? (
+      <>
+        <span aria-hidden className={fillClass} />
+        <span className="relative whitespace-nowrap">
+          [ {children} <span aria-hidden>→</span> ]
+        </span>
+      </>
+    ) : (
+      <span className="whitespace-nowrap">
+        [ {children} <span aria-hidden>→</span> ]
+      </span>
+    );
+
+  if ("href" in props && props.href) {
+    if (props.external) {
+      return (
+        <a
+          href={props.href}
+          target="_blank"
+          rel="noreferrer noopener"
+          className={merged}
+        >
+          {content}
+        </a>
+      );
+    }
     return (
-      <a href={href} target="_blank" rel="noreferrer noopener" className={className}>
-        {label}
-      </a>
+      <Link href={props.href} className={merged}>
+        {content}
+      </Link>
     );
   }
+
   return (
-    <Link href={href} className={className}>
-      {label}
-    </Link>
+    <button
+      type={props.type}
+      onClick={props.onClick}
+      disabled={props.disabled}
+      form={props.form}
+      className={merged}
+    >
+      {content}
+    </button>
   );
 }
