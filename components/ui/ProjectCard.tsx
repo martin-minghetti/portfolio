@@ -62,7 +62,8 @@ export default function ProjectCard({ project, locale, labels }: Props) {
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-[var(--color-fg)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-accent)]"
+            style={{ color: "#7CFF50" }}
+            className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
           >
             [ {labels.seeLive} → ]
           </a>
@@ -71,7 +72,8 @@ export default function ProjectCard({ project, locale, labels }: Props) {
           href={project.githubUrl}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-[var(--color-fg-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
+          style={{ color: "#7CFF50" }}
+          className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
         >
           [ {labels.github} → ]
         </a>
@@ -80,7 +82,8 @@ export default function ProjectCard({ project, locale, labels }: Props) {
             href={project.buildLogUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="text-[var(--color-fg-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-fg)]"
+            style={{ color: "#7CFF50" }}
+            className="transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
           >
             [ {labels.buildLog} → ]
           </a>
