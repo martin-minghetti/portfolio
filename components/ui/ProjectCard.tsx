@@ -67,9 +67,11 @@ export default function ProjectCard({ project, locale, labels }: Props) {
             {labels.seeLive}
           </CTAButton>
         ) : null}
-        <CTAButton href={project.githubUrl} external variant="secondary">
-          {labels.github}
-        </CTAButton>
+        {project.githubUrl ? (
+          <CTAButton href={project.githubUrl} external variant="secondary">
+            {labels.github}
+          </CTAButton>
+        ) : null}
         {project.buildLogUrl ? (
           <CTAButton href={project.buildLogUrl} external variant="secondary">
             {labels.buildLog}

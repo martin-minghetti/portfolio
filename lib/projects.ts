@@ -10,7 +10,7 @@ export type Project = {
   status: ProjectStatus;
   stack: string;
   liveUrl?: string;
-  githubUrl: string;
+  githubUrl?: string;
   buildLogUrl?: string;
   buildTime?: string;
   cost?: string;
@@ -21,6 +21,20 @@ export const projects: Project[] = [
   // ─────────────────────────────────────────────
   // TRACK A — Commercial demos
   // ─────────────────────────────────────────────
+  {
+    slug: "cumbre",
+    track: "a",
+    name: "Cumbre",
+    status: "live",
+    stack: "Next 16 · Drizzle · Neon · MP Checkout Pro · Vitest + Playwright",
+    liveUrl: "https://cumbre-three.vercel.app",
+    githubUrl: "https://github.com/martin-minghetti/cumbre",
+    buildLogUrl: "https://github.com/martin-minghetti/cumbre/blob/main/BUILD_LOG.md",
+    summary: {
+      en: "White-label brewery e-commerce plus ERP-lite. Public storefront and an admin with batch traceability, stock movements, suppliers, purchase orders, POS, cash register, and reports. Mercado Pago Checkout Pro, one deploy per client.",
+      es: "E-commerce de cervecería white-label más ERP-lite. Storefront público y un admin con trazabilidad de lotes, movimientos de stock, proveedores, órdenes de compra, POS, caja y reportes. Mercado Pago Checkout Pro, un deploy por cliente.",
+    },
+  },
   {
     slug: "norhaven-lodge",
     track: "a",
@@ -85,6 +99,44 @@ export const projects: Project[] = [
   // ─────────────────────────────────────────────
   // TRACK B — AI engineering
   // ─────────────────────────────────────────────
+  {
+    slug: "ragbench",
+    track: "b",
+    name: "RAGBench",
+    status: "live",
+    stack: "Next 16 · Neon · pgvector · Drizzle · Voyage · Claude Sonnet 4.6",
+    liveUrl: "https://ragbench.vercel.app",
+    cost: "~$0.012 / query",
+    summary: {
+      en: "RAG evaluation lab. Benchmarks chunking strategies and retrieval configs end to end, with citations grounded by chunk ID and confidence scoring.",
+      es: "Laboratorio de evaluación RAG. Mide estrategias de chunking y configuraciones de retrieval de punta a punta, con citas ancladas por chunk ID y scoring de confianza.",
+    },
+  },
+  {
+    slug: "invoice-processor",
+    track: "b",
+    name: "Invoice Processor",
+    status: "live",
+    stack: "Next 16 · Drizzle · Claude Vision · PostgreSQL",
+    liveUrl: "https://invoice-processor.vercel.app",
+    githubUrl: "https://github.com/martin-minghetti/invoice-processor",
+    summary: {
+      en: "Invoice automation. Vision extraction, validation, purchase-order matching, and anomaly detection with Claude Vision plus a deterministic rule engine; human-in-the-loop review queue for anomalies.",
+      es: "Automatización de facturas. Extracción por visión, validación, matcheo con órdenes de compra y detección de anomalías con Claude Vision más un motor de reglas determinista; cola de revisión human-in-the-loop para anomalías.",
+    },
+  },
+  {
+    slug: "whatsapp-ai-receptionist",
+    track: "b",
+    name: "WhatsApp AI Receptionist",
+    status: "demo",
+    stack: "FastAPI · Claude · Redis · WhatsApp Business API · Google Calendar",
+    githubUrl: "https://github.com/martin-minghetti/whatsapp-ai-receptionist",
+    summary: {
+      en: "Conversational appointment booking over the WhatsApp Business API with Google Calendar sync. Deployed in production.",
+      es: "Reserva de turnos conversacional sobre la WhatsApp Business API con sincronización a Google Calendar. Deployado en producción.",
+    },
+  },
   {
     slug: "sdr-swarm",
     track: "b",
