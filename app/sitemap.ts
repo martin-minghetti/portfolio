@@ -5,6 +5,11 @@ const BASE = "https://martin-minghetti.vercel.app";
 
 const ROUTES = ["", "/contact", "/contact/sent"] as const;
 
+const ES_ONLY_ROUTES = [
+  "/tiendanube/ocultar-envios-y-pagos/privacidad",
+  "/tiendanube/ocultar-envios-y-pagos/soporte",
+] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
@@ -23,6 +28,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       });
     }
+  }
+
+  for (const route of ES_ONLY_ROUTES) {
+    entries.push({
+      url: `${BASE}/es${route}`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    });
   }
 
   return entries;

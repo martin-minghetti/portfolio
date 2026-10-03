@@ -66,6 +66,8 @@ export type Dictionary = {
     live: string;
     demo: string;
     npm: string;
+    wip: string;
+    support: string;
     seeLive: string;
     github: string;
     buildLog: string;

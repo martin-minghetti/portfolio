@@ -12,7 +12,12 @@ type Props = {
 
 export default function ProjectCard({ project, locale, labels }: Props) {
   const statusLabel =
-    project.status === "live" ? labels.live : project.status === "npm" ? labels.npm : labels.demo;
+    {
+      live: labels.live,
+      npm: labels.npm,
+      wip: labels.wip,
+      demo: labels.demo,
+    }[project.status];
 
   return (
     <article className="group flex flex-col border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-6)] transition-colors duration-[var(--duration-base)] ease-[var(--ease-out-quart)] hover:border-[var(--color-accent)]">
@@ -91,6 +96,11 @@ export default function ProjectCard({ project, locale, labels }: Props) {
         {project.buildLogUrl ? (
           <CTAButton href={project.buildLogUrl} external variant="secondary">
             {labels.buildLog}
+          </CTAButton>
+        ) : null}
+        {project.supportUrl ? (
+          <CTAButton href={project.supportUrl} variant="secondary">
+            {labels.support}
           </CTAButton>
         ) : null}
       </footer>

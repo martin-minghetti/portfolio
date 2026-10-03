@@ -1,6 +1,6 @@
 import type { Locale } from "./i18n";
 
-export type ProjectStatus = "live" | "demo" | "npm";
+export type ProjectStatus = "live" | "demo" | "npm" | "wip";
 export type ProjectTrack = "a" | "b";
 
 export type Project = {
@@ -11,6 +11,7 @@ export type Project = {
   stack: string;
   liveUrl?: string;
   githubUrl?: string;
+  supportUrl?: string;
   buildLogUrl?: string;
   demoLogins?: { role: Record<Locale, string>; url: string; email: string; password: string }[];
   buildTime?: string;
@@ -22,6 +23,18 @@ export const projects: Project[] = [
   // ─────────────────────────────────────────────
   // TRACK A — Commercial demos
   // ─────────────────────────────────────────────
+  {
+    slug: "ocultar-envios-y-pagos",
+    track: "a",
+    name: "Ocultar Envíos y Pagos",
+    status: "wip",
+    stack: "Tiendanube API · Business Rules · Nimbus · Vercel · Supabase · Mercado Pago",
+    supportUrl: "/es/tiendanube/ocultar-envios-y-pagos/soporte",
+    summary: {
+      en: "App for Tiendanube stores that decides which shipping and payment options the buyer sees based on the cart (product, category, cart total), with a simulator to test rules. Built under the Mingo brand. In development, pending Tiendanube's partner enablement.",
+      es: "App para tiendas Tiendanube que decide qué envíos y medios de pago ve el comprador según el carrito (producto, categoría, monto), con un simulador para probar reglas. Hecha bajo la marca Mingo. En desarrollo, a la espera de la habilitación de partner de Tiendanube.",
+    },
+  },
   {
     slug: "cumbre",
     track: "a",
