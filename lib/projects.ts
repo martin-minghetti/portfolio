@@ -34,13 +34,13 @@ export const projects: Project[] = [
     demoLogins: [
       {
         role: { en: "Owner", es: "Dueño" },
-        url: "https://cumbre-three.vercel.app/admin-login?redirect=/admin",
+        url: "https://cumbre-three.vercel.app/admin-login?demo=owner&redirect=/admin",
         email: "owner@cumbre.beer",
         password: "cumbre-owner",
       },
       {
         role: { en: "Cashier", es: "Cajero" },
-        url: "https://cumbre-three.vercel.app/admin-login?redirect=/admin/pos",
+        url: "https://cumbre-three.vercel.app/admin-login?demo=cashier&redirect=/admin/pos",
         email: "cashier@cumbre.beer",
         password: "cumbre-cashier",
       },
