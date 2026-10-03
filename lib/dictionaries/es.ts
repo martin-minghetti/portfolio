@@ -79,6 +79,7 @@ export const es: Dictionary = {
     seeLive: "Ver demo",
     github: "GitHub",
     buildLog: "Build log",
+    login: "login",
     builtIn: "Built en",
   },
   airlst: {

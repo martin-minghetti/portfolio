@@ -12,6 +12,7 @@ export type Project = {
   liveUrl?: string;
   githubUrl?: string;
   buildLogUrl?: string;
+  demoLogins?: { role: Record<Locale, string>; url: string; email: string; password: string }[];
   buildTime?: string;
   cost?: string;
   summary: Record<Locale, string>;
@@ -30,6 +31,20 @@ export const projects: Project[] = [
     liveUrl: "https://cumbre-three.vercel.app",
     githubUrl: "https://github.com/martin-minghetti/cumbre",
     buildLogUrl: "https://github.com/martin-minghetti/cumbre/blob/main/BUILD_LOG.md",
+    demoLogins: [
+      {
+        role: { en: "Owner", es: "Dueño" },
+        url: "https://cumbre-three.vercel.app/admin-login?redirect=/admin",
+        email: "owner@cumbre.beer",
+        password: "cumbre-owner",
+      },
+      {
+        role: { en: "Cashier", es: "Cajero" },
+        url: "https://cumbre-three.vercel.app/admin-login?redirect=/admin/pos",
+        email: "cashier@cumbre.beer",
+        password: "cumbre-cashier",
+      },
+    ],
     summary: {
       en: "White-label brewery e-commerce plus ERP-lite. Public storefront and an admin with batch traceability, stock movements, suppliers, purchase orders, POS, cash register, and reports. Mercado Pago Checkout Pro, one deploy per client.",
       es: "E-commerce de cervecería white-label más ERP-lite. Storefront público y un admin con trazabilidad de lotes, movimientos de stock, proveedores, órdenes de compra, POS, caja y reportes. Mercado Pago Checkout Pro, un deploy por cliente.",

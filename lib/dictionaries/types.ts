@@ -69,6 +69,7 @@ export type Dictionary = {
     seeLive: string;
     github: string;
     buildLog: string;
+    login: string;
     builtIn: string;
   };
   airlst: {

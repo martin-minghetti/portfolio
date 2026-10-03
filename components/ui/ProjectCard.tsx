@@ -40,6 +40,22 @@ export default function ProjectCard({ project, locale, labels }: Props) {
             <dd className="truncate">{project.liveUrl.replace(/^https?:\/\//, "")}</dd>
           </div>
         ) : null}
+        {project.demoLogins?.map((login) => (
+          <div key={login.email} className="flex gap-2">
+            <dt className="shrink-0">→</dt>
+            <dd className="min-w-0 break-all">
+              <a
+                href={login.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-accent)] hover:opacity-70"
+              >
+                {login.role[locale]} {labels.login}
+              </a>{" "}
+              · {login.email} / {login.password}
+            </dd>
+          </div>
+        ))}
         {project.buildTime ? (
           <div className="flex gap-2">
             <dt className="shrink-0">→</dt>
