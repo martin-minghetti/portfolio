@@ -29,7 +29,7 @@ export const projects: Project[] = [
     name: "Ocultar Envíos y Pagos",
     status: "wip",
     stack: "Tiendanube API · Business Rules · Nimbus · Vercel · Supabase · Mercado Pago",
-    supportUrl: "/es/tiendanube/ocultar-envios-y-pagos/soporte",
+    supportUrl: "https://mingo-apps.vercel.app/ocultar-envios-y-pagos/soporte",
     summary: {
       en: "App for Tiendanube stores that decides which shipping and payment options the buyer sees based on the cart (product, category, cart total), with a simulator to test rules. Built under the Mingo brand. In development, pending Tiendanube's partner enablement.",
       es: "App para tiendas Tiendanube que decide qué envíos y medios de pago ve el comprador según el carrito (producto, categoría, monto), con un simulador para probar reglas. Hecha bajo la marca Mingo. En desarrollo, a la espera de la habilitación de partner de Tiendanube.",

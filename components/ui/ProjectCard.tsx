@@ -99,7 +99,7 @@ export default function ProjectCard({ project, locale, labels }: Props) {
           </CTAButton>
         ) : null}
         {project.supportUrl ? (
-          <CTAButton href={project.supportUrl} variant="secondary">
+          <CTAButton href={project.supportUrl} external variant="secondary">
             {labels.support}
           </CTAButton>
         ) : null}
