@@ -43,7 +43,7 @@ export default function ProjectCard({ project, locale, labels }: Props) {
         {project.demoLogins?.map((login) => (
           <div key={login.email} className="flex gap-2">
             <dt className="shrink-0">→</dt>
-            <dd className="min-w-0 break-all">
+            <dd className="min-w-0 break-words">
               <a
                 href={login.url}
                 target="_blank"
