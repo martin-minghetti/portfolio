@@ -40,12 +40,7 @@ export default function AirLST({ dict }: Props) {
       </div>
 
       <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-12)] space-y-2 text-sm leading-[var(--leading-relaxed)]">
-        <p className="text-[var(--color-fg)]">
-          {dict.airlst.disclaimer.split(" — ")[0]}
-          <span className="text-[var(--color-accent)]">
-            {" — " + dict.airlst.disclaimer.split(" — ")[1]}
-          </span>
-        </p>
+        <p className="text-[var(--color-fg)]">{dict.airlst.disclaimer}</p>
         <p className="text-[var(--color-fg-muted)]">{dict.airlst.metrics}</p>
       </div>
     </section>

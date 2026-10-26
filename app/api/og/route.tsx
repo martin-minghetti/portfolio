@@ -7,10 +7,10 @@ const SIZE = { width: 1200, height: 630 };
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title =
-    searchParams.get("title") ?? "Senior Fullstack & AI Engineer";
+    searchParams.get("title") ?? "Web developer";
   const subtitle =
     searchParams.get("subtitle") ??
-    "Production AI systems and commercial web apps";
+    "Websites and apps, built with the help of AI";
 
   return new ImageResponse(
     (

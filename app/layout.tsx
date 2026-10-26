@@ -11,14 +11,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Martin Minghetti — Senior Fullstack & AI Engineer",
+  title: "Martín Minghetti, web developer",
   description:
-    "Senior fullstack engineer building production AI systems and commercial web apps. 7.5 years at AirLST GmbH (Munich). Now independent — 14 open-source projects and 4 commercial demos live. Available for contract AI engineering and fullstack work.",
+    "Web developer based in Bariloche, Argentina. Seven and a half years building event sites at AirLST (Munich). Now I make my own projects with the help of AI agents.",
   metadataBase: new URL("https://martin-minghetti.vercel.app"),
   openGraph: {
-    title: "Martin Minghetti — Senior Fullstack & AI Engineer",
+    title: "Martín Minghetti, web developer",
     description:
-      "Production AI engineering and fullstack web apps. 7.5 years shipping at AirLST. 14 OSS projects. 4 commercial demos live.",
+      "Websites and apps, built with the help of AI. Seven and a half years of frontend at AirLST. Based in Bariloche, Argentina.",
     type: "website",
     url: "https://martin-minghetti.vercel.app",
     siteName: "Martin Minghetti",
@@ -27,15 +27,15 @@ export const metadata: Metadata = {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Martin Minghetti — Senior Fullstack & AI Engineer",
+        alt: "Martín Minghetti, web developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Martin Minghetti — Senior Fullstack & AI Engineer",
+    title: "Martín Minghetti, web developer",
     description:
-      "Production AI engineering and fullstack web apps. 7.5 years shipping at AirLST. 14 OSS projects. 4 commercial demos live.",
+      "Websites and apps, built with the help of AI. Seven and a half years of frontend at AirLST. Based in Bariloche, Argentina.",
     images: ["/api/og"],
   },
   icons: {
@@ -48,7 +48,7 @@ const personJsonLd = JSON.stringify({
   "@type": "Person",
   name: "Martin Minghetti",
   alternateName: "Martín Minghetti",
-  jobTitle: "Senior Fullstack & AI Engineer",
+  jobTitle: "Web developer",
   url: "https://martin-minghetti.vercel.app",
   alumniOf: {
     "@type": "Organization",

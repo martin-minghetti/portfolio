@@ -8,27 +8,27 @@ const labelsByLocale = {
     sectionHeader: "LET'S WORK",
     lead: "Two ways to reach me. Pick whichever feels right.",
     trackA: {
-      heading: "TRACK A · WEBSITE OR FULLSTACK",
+      heading: "Websites and online stores",
       tagline:
         "WhatsApp is fastest. Tell me what you need, I'll send a quote within 24h. No commitment.",
-      cta: "Hablemos por WhatsApp",
+      cta: "Message me on WhatsApp",
       ctaHref: "https://wa.me/5492241622290",
       orForm: "Or use the form below.",
     },
     trackB: {
-      heading: "TRACK B · AI ENGINEERING",
+      heading: "AI apps and automations",
       tagline:
         "Book 30 minutes on my calendar. Bring a use case, a stack, or a hiring brief.",
-      cta: "Book a 30min intro",
+      cta: "Book 30 minutes",
       ctaHref: "https://cal.com/martin-minghetti",
       orForm: "Or use the form below.",
     },
   },
   es: {
-    sectionHeader: "TRABAJEMOS",
+    sectionHeader: "Trabajemos",
     lead: "Dos formas de contactarme. Elegí la que te sirva.",
     trackA: {
-      heading: "TRACK A · SITIO O FULLSTACK",
+      heading: "Sitios web y tiendas",
       tagline:
         "WhatsApp es lo más rápido. Contame qué necesitás, te paso presupuesto en 24h. Sin compromiso.",
       cta: "Hablemos por WhatsApp",
@@ -36,7 +36,7 @@ const labelsByLocale = {
       orForm: "O usá el formulario abajo.",
     },
     trackB: {
-      heading: "TRACK B · AI ENGINEERING",
+      heading: "Apps y automatizaciones con IA",
       tagline:
         "Reservá 30 minutos en mi calendario. Traé un caso de uso, un stack, o un brief de hiring.",
       cta: "Reservá 30 minutos",

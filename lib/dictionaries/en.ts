@@ -2,9 +2,9 @@ import type { Dictionary } from "./types";
 
 export const en: Dictionary = {
   meta: {
-    title: "Martin Minghetti — Senior Fullstack & AI Engineer",
+    title: "Martín Minghetti, web developer",
     description:
-      "Senior AI engineer and fullstack developer. 7.5 years at AirLST GmbH (Munich). 14 open-source projects, 4 commercial demos live. Available for full-time roles and contract work — May 2026.",
+      "Web developer based in Bariloche, Argentina. Seven and a half years building event sites at AirLST (Munich). Now I make my own projects with the help of AI agents. Get in touch.",
   },
   nav: {
     contact: "Contact",
@@ -12,70 +12,67 @@ export const en: Dictionary = {
     langSwitch: "ES",
   },
   hero: {
-    h1Line1: "I build websites that work.",
-    h1Line2: "And AI systems that save hours.",
-    h1Line3: "One engineer, two tracks.",
+    h1Line1: "I'm Martín.",
+    h1Line2: "I make websites.",
+    h1Line3: "And apps, with AI's help.",
     trackA: {
-      label: "WEBSITES & FULLSTACK",
+      label: "Websites and online stores",
       tagline:
-        "Sites for businesses and founders. Design, code, and payments wired up. Time-tracked, no surprises.",
-      cta: "Message on WhatsApp",
+        "For businesses and founders. Design, code and Mercado Pago payments, with a clear quote.",
+      cta: "Message me on WhatsApp",
     },
     trackB: {
-      label: "AI SYSTEMS",
+      label: "AI apps and automations",
       tagline:
-        "I automate the tasks that eat your day: reading inboxes, generating reports, handling questions. Demos you can run.",
-      cta: "Book a 30min intro",
+        "Things that save you hours: reading emails, putting reports together, answering questions. There are demos you can try.",
+      cta: "Book 30 minutes",
     },
-    scrollHint: "Scroll for the receipts",
+    scrollHint: "Scroll to see the projects",
   },
   whoIAm: {
-    lead: "A short version of how I got here.",
+    lead: "How I got here, in four lines.",
     timeline: [
-      { year: "2018", label: "Joined AirLST GmbH (Munich, remote)" },
-      { year: "2024", label: "AI tools as daily infra" },
-      { year: "2025", label: "Independent" },
-      { year: "2026", label: "14 OSS projects · 4 demos live" },
+      { year: "2018", label: "Joined AirLST, in Munich, as a frontend developer" },
+      { year: "2021", label: "Stayed at AirLST, remote from Argentina" },
+      { year: "2024", label: "Started building with AI agents" },
+      { year: "2025", label: "Finished at AirLST and went out on my own" },
     ],
     stats: [
-      "7.5 yrs",
-      "1000+ pages shipped",
-      "30K events served",
-      "20M participants",
-      "14 OSS projects",
-      "4 commercial demos",
+      "7.5 years of frontend",
+      "1000+ event pages",
+      "Own projects with a live demo",
     ],
   },
   trackA: {
-    sectionHeader: "TRACK A · WEBSITES & FULLSTACK",
+    sectionHeader: "Websites and online stores",
     sectionLead:
-      "For businesses, founders, and agencies who need a site that ships.",
+      "For businesses, founders and agencies who need a site that works.",
     pitch: [
-      "Mercado Pago integration done right.",
-      "Fast. Tested. Tracked time.",
-      "Not template-shop output.",
+      "Mercado Pago payments wired in.",
+      "Fast sites, made to measure.",
+      "A clear quote, no surprises.",
     ],
-    cta: "Message on WhatsApp",
-    ctaSub: "Want one of these for your business? Quote in 24h, no commitment.",
+    cta: "Message me on WhatsApp",
+    ctaSub:
+      "If you want something like this for your business, the quote arrives in 24 hours, no commitment.",
   },
   trackB: {
-    sectionHeader: "TRACK B · AI ENGINEERING",
-    sectionLead:
-      "For founders, CTOs, and recruiters hiring builders, not researchers.",
+    sectionHeader: "AI apps and automations",
+    sectionLead: "For anyone who wants to see things running before deciding.",
     pitch: [
-      "Multi-agent systems in production.",
-      "Direct SDK over frameworks.",
-      "Transparent costs. Tests included.",
+      "Demos you can open and try.",
+      "What each run costs, out in the open.",
+      "Public code on GitHub.",
     ],
-    cta: "Book a 30min intro",
+    cta: "Book 30 minutes",
     ctaSub:
-      "Hiring a senior AI engineer? Contract, full-time, or a technical scoping call.",
+      "If you want to talk about a project or a job, message me or book a 30 minute call.",
   },
   cardLabels: {
-    live: "LIVE",
-    demo: "DEMO",
-    npm: "NPM",
-    wip: "IN DEV",
+    live: "Live",
+    demo: "Demo",
+    npm: "npm",
+    wip: "In development",
     support: "Support",
     seeLive: "See demo",
     github: "GitHub",
@@ -84,116 +81,114 @@ export const en: Dictionary = {
     builtIn: "Built in",
   },
   airlst: {
-    sectionHeader: "SHIPPED FOR",
+    sectionHeader: "Where I worked",
     disclaimer:
-      "As Frontend Developer at AirLST GmbH (event management SaaS, Munich) — Jun 2018 → Nov 2025.",
+      "Frontend developer at AirLST (event technology, Munich), from June 2018 to November 2025. I built each event's site to order: registration form, agenda, hotel, speakers and venue.",
     metrics:
-      "1000+ event pages and microsites delivered. Platform serving 30K+ events and 20M+ participants.",
+      "1000+ event pages for AirLST clients such as Mercedes-Benz, Netflix and BioNTech.",
   },
   howIThink: {
-    sectionHeader: "HOW I THINK",
-    sectionLead:
-      "Four things I do differently from the average AI portfolio.",
+    sectionHeader: "How I work",
+    sectionLead: "Four things I do differently.",
     items: [
       {
         index: "01",
-        heading: "Direct SDK over frameworks.",
-        body: "No LangChain, no CrewAI. Every agent call is explicit, debuggable, and cheap to run.",
+        heading: "Demos you can try.",
+        body: "Every commercial demo runs in simulated mode: you complete a checkout, generate a report, trigger a webhook. Nothing to clone, no keys to set. The AI demos accept your own key if you want the real model.",
       },
       {
         index: "02",
-        heading: "Demos you can actually click.",
-        body: "Every commercial demo runs in simulated mode by default — complete a checkout, generate a brief, trigger a webhook. No clone, no API key. AI demos accept your key when you want the real model.",
+        heading: "The real time, written down.",
+        body: "Every repo has a public BUILD_LOG.md with how long it really took. No \"made it in two hours\".",
       },
       {
         index: "03",
-        heading: "Time-tracked builds.",
-        body: "BUILD_LOG.md public on every repo. Honest wall-clock time, T-0 immutable. No 'shipped this in 2 hours' marketing fiction.",
+        heading: "I build with agents, and I say so.",
+        body: "I direct the AI to write the code: I decide what gets done and I test it. In the bigger projects, like Cumbre, there are automated tests with Vitest and Playwright.",
       },
       {
         index: "04",
-        heading: "Tests + security audits, even on demos.",
-        body: "Vitest + Playwright + HMAC + rate limit + CSP + HSTS. Even on builds that cost $0.60 in Replicate credits.",
+        heading: "Public code.",
+        body: "The projects are on GitHub, with their history. You can see how each thing was put together.",
       },
     ],
   },
   stack: {
-    sectionHeader: "STACK",
-    sectionLead: "What I reach for, by category.",
+    sectionHeader: "What I work with",
+    sectionLead: "What my projects use.",
     rows: [
-      { label: "LANGUAGES", values: "TypeScript · Python · SQL" },
+      { label: "Languages", values: "TypeScript, Python, SQL" },
       {
-        label: "FRAMEWORKS",
-        values: "Next.js 16 · FastAPI · Vue 3 / Nuxt 3 · React",
+        label: "Frameworks",
+        values: "Next.js 16, FastAPI, Vue 3 and Nuxt 3, React",
       },
       {
         label: "AI",
         values:
-          "Anthropic Claude (direct SDK) · Vercel AI SDK · Gemini API · Replicate (FLUX 1.1 Pro)",
+          "Anthropic Claude, Vercel AI SDK, Gemini API, Replicate (FLUX 1.1 Pro)",
       },
       {
-        label: "DATA",
+        label: "Data",
         values:
-          "PostgreSQL · Supabase · Neon · Drizzle · SQLite · Redis · pgvector",
+          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis, pgvector",
       },
-      { label: "VALIDATION", values: "Zod" },
+      { label: "Validation", values: "Zod" },
       {
-        label: "PAYMENTS",
+        label: "Payments",
         values:
-          "Mercado Pago Checkout Pro · MP Subscriptions (preapproval) · HMAC webhooks · Stripe",
+          "Mercado Pago Checkout Pro, Mercado Pago subscriptions, HMAC webhooks, Stripe",
       },
       {
-        label: "INFRA",
-        values: "Vercel · Railway · GitHub Actions / Pages · Docker · Cloudflare",
+        label: "Infrastructure",
+        values: "Vercel, Railway, GitHub Actions and Pages, Docker, Cloudflare",
       },
-      { label: "TESTING", values: "Vitest · Playwright · Pytest" },
-      { label: "EMAIL", values: "Resend · react-email" },
-      { label: "SCRAPING", values: "Playwright · BeautifulSoup · cheerio" },
+      { label: "Testing", values: "Vitest, Playwright, Pytest" },
+      { label: "Email", values: "Resend, react-email" },
+      { label: "Scraping", values: "Playwright, BeautifulSoup, cheerio" },
       {
-        label: "INTEGRATIONS",
+        label: "Integrations",
         values:
-          "WhatsApp Business API · Google Calendar · Slack · Discord · Linear · Notion · Apollo · Tavily · Octokit",
+          "WhatsApp Business API, Google Calendar, Slack, Discord, Linear, Notion, Apollo, Tavily, Octokit",
       },
     ],
   },
   about: {
-    sectionHeader: "ABOUT",
+    sectionHeader: "About me",
     paragraphs: [
-      "I started at AirLST GmbH in Munich in 2018 as a Frontend Developer, building event pages and microsites for brands like Mercedes Benz, Amazon, Netflix, Disney, and Zalando. Over 7.5 years I shipped 1000+ custom pages on a Vue/Nuxt platform that served 30K+ events and 20M+ participants. I learned what shipping at scale actually costs, and what it doesn't.",
-      "By 2024 I was using AI dev tools (Claude Code, Codex) as daily infrastructure — not experiments. In November 2025 I left AirLST to go independent. In the six months since, I've shipped 14 open-source projects and 4 live commercial demos, all with public BUILD_LOG.md tracking honest wall-clock time. I ship multi-agent AI systems for production, and fullstack web apps that ship and stay shipped.",
-      "I'm based in Bariloche, Argentine Patagonia. EU citizen (Iceland) — no sponsorship needed for European roles. 100% remote since 2018, overlapping US business hours (GMT-3). Available for contract AI engineering, full-time roles, and select fullstack project work.",
+      "I started in 2018 as a frontend developer at AirLST, an event technology company based in Munich. I built each event's site to order: the registration form and the pages with the agenda, the hotel, the speakers and the venue. That came to more than 1000 pages over seven and a half years, with Vue and Nuxt. I lived in Germany until 2021 and then kept working remotely from Argentina.",
+      "In 2024 I started using AI to build, and that is how I work today: I direct Claude Code, which writes the code, and I decide what gets done and test it. I finished at AirLST in November 2025 and since then I have been making my own projects, with demos you can open.",
+      "I live in Bariloche, in Argentine Patagonia. I have European citizenship (Iceland). I speak Spanish and English, and a little German and Icelandic. If you want us to work together, message me.",
     ],
     facts: [
-      { label: "LOCATION", value: "Bariloche, Argentina" },
-      { label: "TIMEZONE", value: "GMT-3 (overlaps US business hours)" },
-      { label: "CITIZENSHIP", value: "EU (Iceland) — no sponsorship for Europe" },
+      { label: "Location", value: "Bariloche, Argentina" },
+      { label: "Time zone", value: "GMT-3, overlaps US office hours" },
+      { label: "Citizenship", value: "European (Iceland), no visa needed for Europe" },
       {
-        label: "LANGUAGES",
-        value:
-          "Spanish (native) · English (full professional) · Icelandic (basic) · German (basic)",
+        label: "Languages",
+        value: "Spanish (native), English (fluent), German and Icelandic (basic)",
       },
-      { label: "REMOTE SINCE", value: "2018" },
+      { label: "Remote since", value: "2021" },
     ],
   },
   footer: {
     columnAbout: {
-      heading: "MARTIN MINGHETTI",
-      tagline: "Senior fullstack → AI engineer.",
-      stats: "14 OSS repos. 4 demos live.",
-      location: "Bariloche, AR · GMT-3",
-      meta: "EU citizen · Remote since 2018",
+      heading: "Martín Minghetti",
+      tagline: "Web developer. I build with AI's help.",
+      stats: "Own projects, with a live demo.",
+      location: "Bariloche, Argentina",
+      meta: "European citizen (Iceland)",
     },
     columnWork: {
-      heading: "WORK",
+      heading: "Work",
       links: [
-        { label: "Track A — Websites", href: "/en#track-a" },
-        { label: "Track B — AI Engineering", href: "/en#track-b" },
+        { label: "Websites and online stores", href: "/en#track-a" },
+        { label: "AI apps", href: "/en#track-b" },
         { label: "Projects", href: "/en#track-a" },
         { label: "Build log", href: "/en#build-log" },
       ],
     },
     columnReach: {
-      heading: "REACH",
+      heading: "Contact",
       links: [
         { label: "WhatsApp", href: "https://wa.me/5492241622290" },
         { label: "Email", href: "mailto:martin.minghetti@gmail.com" },
@@ -202,7 +197,7 @@ export const en: Dictionary = {
         { label: "LinkedIn", href: "https://linkedin.com/in/martin-minghetti" },
       ],
     },
-    legal: "© 2026 Martin Minghetti · Built with Next 16, Tailwind v4",
-    sourceLink: "View source on GitHub",
+    legal: "© 2026 Martín Minghetti. Built with Next 16 and Tailwind v4",
+    sourceLink: "View the code on GitHub",
   },
 };
