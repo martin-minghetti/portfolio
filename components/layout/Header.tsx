@@ -11,7 +11,7 @@ type Props = {
 export default function Header({ locale, dict }: Props) {
   const otherLocale: Locale = locale === "en" ? "es" : "en";
   return (
-    <header className="sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
+    <header className="site-header sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
       <div className="container flex min-h-16 items-center justify-between gap-4">
         <Link href={`/${locale}`} className="whitespace-nowrap font-display text-lg tracking-(--tracking-display) no-underline sm:text-xl">
           Martin Minghetti

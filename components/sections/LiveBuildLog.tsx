@@ -90,7 +90,7 @@ export default async function LiveBuildLog({ locale }: Props) {
                       href={row.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="tlink !min-h-0 font-display text-(length:--text-lg)"
+                      className="tlink !min-h-0 whitespace-nowrap font-display text-(length:--text-lg)"
                     >
                       {row.repo}
                     </a>

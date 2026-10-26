@@ -52,7 +52,7 @@ export default async function BlogIndex({
                       <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
                     </span>
                     <span className="md:col-span-6">
-                      <span className="block font-display text-(length:--text-display-s) leading-[1.02] text-ink group-hover:text-accent">
+                      <span className="block font-display text-(length:--text-display-s) leading-[1.02] text-ink transition-colors duration-(--dur-short) ease-(--ease-out) group-hover:text-accent">
                         {post.title}
                       </span>
                       <span className="mt-(--space-md) block text-(length:--text-lead) text-ink-2">{post.description}</span>

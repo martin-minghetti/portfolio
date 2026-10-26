@@ -39,6 +39,7 @@ export default async function BlogPost({
 
   return (
     <article>
+      <div className="read-progress" aria-hidden />
       <header className="hero-ground">
         <div className="container pt-(--space-2xl) pb-(--space-2xl)">
           <Link href={`/${locale}/blog`} className="tlink">

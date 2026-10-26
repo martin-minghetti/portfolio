@@ -14,7 +14,7 @@ export const es: Dictionary = {
   },
   blog: {
     title: "Blog",
-    lead: "Notas de aprendizaje sobre cómo construir con modelos de lenguaje. Como máximo un post por semana.",
+    lead: "Notas de aprendizaje sobre cómo construir con modelos de lenguaje.",
     back: "Volver al blog",
     read: "Leer el post",
     empty: "Todavía no hay posts en este idioma.",

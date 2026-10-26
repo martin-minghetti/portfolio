@@ -12,7 +12,7 @@ export default function Footer({ dict }: Props) {
   return (
     <footer className="mt-(--section-gap-s) border-t border-ink">
       <div className="container grid gap-(--space-2xl) py-(--space-3xl) md:grid-cols-12 md:gap-(--gap-columns)">
-        <section className="md:col-span-12 lg:col-span-5">
+        <section className="md:col-span-12 lg:col-span-4">
           <h3 className="font-display text-(length:--text-display-s) leading-none">{columnAbout.heading}</h3>
           <p className="mt-(--space-lg) text-ink">{columnAbout.tagline}</p>
           <p className="mt-(--space-xs)">{columnAbout.stats}</p>
@@ -20,7 +20,7 @@ export default function Footer({ dict }: Props) {
           <p className="label">{columnAbout.meta}</p>
         </section>
 
-        <section className="md:col-span-6 lg:col-span-3 lg:col-start-7">
+        <section className="md:col-span-6 lg:col-span-4">
           <h3 className="label">{columnWork.heading}</h3>
           <ul className="mt-(--space-xs)">
             {columnWork.links.map((link) => (
@@ -33,7 +33,7 @@ export default function Footer({ dict }: Props) {
           </ul>
         </section>
 
-        <section className="md:col-span-6 lg:col-span-3">
+        <section className="md:col-span-6 lg:col-span-4">
           <h3 className="label">{columnReach.heading}</h3>
           <ul className="mt-(--space-xs)">
             {columnReach.links.map((link) => (

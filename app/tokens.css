@@ -19,13 +19,13 @@
   --color-paper: oklch(98.5% 0.004 260);
   --color-paper-2: oklch(95% 0.016 265);
   --color-paper-3: oklch(90% 0.03 265);
-  --color-paper-hi: oklch(100% 0 0);
+  --color-paper-hi: oklch(99.6% 0.006 265);
   --color-ink: oklch(22% 0.07 265);
   --color-ink-2: oklch(36% 0.06 265);
   --color-muted: oklch(47% 0.045 265);
   --color-rule: oklch(86% 0.025 265);
   --color-accent: oklch(48% 0.22 264);
-  --color-accent-ink: oklch(99% 0 0);
+  --color-accent-ink: oklch(99% 0.006 265);
   --color-focus: oklch(42% 0.2 264);
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;

@@ -49,7 +49,7 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
         data-slot={`screen-${project.slug}`}
         data-kind="product"
         data-alt={project.name}
-        className="crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+        className="screen crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
       >
         <Image
           src={screen}

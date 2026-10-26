@@ -10,13 +10,13 @@ export default function Hero({ dict }: Props) {
     <section className="hero-ground">
       <div className="container pt-(--space-3xl) pb-(--space-2xl)">
         <h1 className="max-w-none text-(length:--text-display) leading-[0.98]">
-          <span className="block">{dict.hero.h1Line1}</span>
-          <span className="block">{dict.hero.h1Line2}</span>
-          <span className="block text-ink-2">{dict.hero.h1Line3}</span>
+          <span className="line"><span className="keep-motion">{dict.hero.h1Line1}</span></span>
+          <span className="line"><span className="keep-motion">{dict.hero.h1Line2}</span></span>
+          <span className="line"><span className="keep-motion">{dict.hero.h1Line3}</span></span>
         </h1>
 
         <div className="mt-(--space-2xl) grid gap-(--space-xl) md:grid-cols-2 md:gap-(--gap-columns)">
-          <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+          <article className="sheet keep-motion flex flex-col p-(--space-lg) md:p-(--space-xl)">
             <h2 className="text-(length:--text-title) leading-tight">{dict.hero.trackA.label}</h2>
             <p className="mt-(--space-sm)">{dict.hero.trackA.tagline}</p>
             <div className="mt-auto pt-(--space-lg)">
@@ -26,7 +26,7 @@ export default function Hero({ dict }: Props) {
             </div>
           </article>
 
-          <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+          <article className="sheet keep-motion flex flex-col p-(--space-lg) md:p-(--space-xl)">
             <h2 className="text-(length:--text-title) leading-tight">{dict.hero.trackB.label}</h2>
             <p className="mt-(--space-sm)">{dict.hero.trackB.tagline}</p>
             <div className="mt-auto pt-(--space-lg)">
@@ -42,7 +42,7 @@ export default function Hero({ dict }: Props) {
           </article>
         </div>
 
-        <p className="mt-(--space-xl)">
+        <p className="hero-hint keep-motion mt-(--space-xl)">
           <a href="#track-a" className="tlink">
             {dict.hero.scrollHint}
           </a>
