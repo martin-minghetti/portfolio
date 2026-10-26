@@ -1,4 +1,4 @@
-import Image from "next/image";
+import FadeImage from "@/components/ui/FadeImage";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Project } from "@/lib/projects";
@@ -51,7 +51,7 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
         data-alt={project.name}
         className="screen crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
       >
-        <Image
+        <FadeImage
           src={screen}
           alt={project.name}
           fill

@@ -144,7 +144,16 @@
 }
 
 /* Scroll effects are driven by components/layout/ScrollEffects.tsx so they work in every browser. */
-.screen > img { transition: clip-path 900ms var(--ease-out), transform 1100ms var(--ease-out); }
+.screen > img { transition: clip-path 900ms var(--ease-out), transform 1100ms var(--ease-out), opacity 600ms var(--ease-out); }
+
+/* image loader: a shimmer on the slot while the picture is on its way, a fade when it lands */
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+[data-slot] > img[data-state="loading"] { opacity: 0; }
+[data-slot]:has(> img[data-state="loading"]) {
+  background: linear-gradient(100deg, var(--color-paper-2) 30%, var(--color-paper-hi) 50%, var(--color-paper-2) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
 .screen[data-reveal="pending"] > img { clip-path: inset(100% 0 0 0); transform: scale(1.05); }
 
 /* Arrivals while scrolling, one per kind of content:
