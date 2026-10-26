@@ -10,6 +10,14 @@ export const es: Dictionary = {
     contact: "Contacto",
     github: "GitHub",
     langSwitch: "EN",
+    blog: "Blog",
+  },
+  blog: {
+    title: "Blog",
+    lead: "Notas de aprendizaje sobre cómo construir con modelos de lenguaje. Como máximo un post por semana.",
+    back: "Volver al blog",
+    read: "Leer el post",
+    empty: "Todavía no hay posts en este idioma.",
   },
   hero: {
     h1Line1: "Soy Martín.",
@@ -185,6 +193,7 @@ export const es: Dictionary = {
         { label: "Apps con IA", href: "/es#track-b" },
         { label: "Proyectos", href: "/es#track-a" },
         { label: "Bitácora", href: "/es#build-log" },
+        { label: "Blog", href: "/es/blog" },
       ],
     },
     columnReach: {

@@ -26,7 +26,7 @@ export default function ContactPageView({
 }) {
   return (
     <>
-      <section className="proof">
+      <section>
         <div className="container pt-(--space-3xl) pb-(--space-2xl)">
         <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
           <h1 className="md:col-span-7">{labels.sectionHeader}</h1>
@@ -54,7 +54,7 @@ export default function ContactPageView({
 
 function TrackBlock({ data, primary }: { data: TrackBlockData; primary?: boolean }) {
   return (
-    <article className="crop sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+    <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
       <h2 className="text-(length:--text-title) leading-tight">{data.heading}</h2>
       <p className="mt-(--space-sm)">{data.tagline}</p>
       <div className="mt-auto pt-(--space-lg)">

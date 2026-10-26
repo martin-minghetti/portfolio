@@ -23,6 +23,14 @@ export type Dictionary = {
     contact: string;
     github: string;
     langSwitch: string;
+    blog: string;
+  };
+  blog: {
+    title: string;
+    lead: string;
+    back: string;
+    read: string;
+    empty: string;
   };
   hero: {
     h1Line1: string;

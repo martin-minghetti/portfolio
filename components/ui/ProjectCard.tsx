@@ -9,7 +9,8 @@ type Props = {
   project: Project;
   locale: Locale;
   labels: Dictionary["cardLabels"];
-  variant?: "row" | "tile";
+  variant?: "row" | "tile" | "line";
+  lead?: boolean;
 };
 
 // Screens captured from each live demo (public/projects). A project without one is set in type alone.
@@ -26,7 +27,9 @@ const screens: Record<string, string> = {
   modelsentry: "/projects/modelsentry.jpg",
 };
 
-export default function ProjectCard({ project, locale, labels, variant = "row" }: Props) {
+export const hasScreen = (slug: string) => slug in screens;
+
+export default function ProjectCard({ project, locale, labels, variant = "row", lead = false }: Props) {
   const statusLabel =
     {
       live: labels.live,
@@ -38,20 +41,21 @@ export default function ProjectCard({ project, locale, labels, variant = "row" }
   const screen = screens[project.slug];
   const stack = project.stack.split(" · ");
   const isRow = variant === "row";
+  const isLine = variant === "line";
 
   const picture = screen ? (
-    <div className="crop">
+    <div className="relative">
       <div
         data-slot={`screen-${project.slug}`}
         data-kind="product"
         data-alt={project.name}
-        className="aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+        className="crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
       >
         <Image
           src={screen}
           alt={project.name}
           fill
-          sizes={isRow ? "(min-width: 768px) 40vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"}
+          sizes={isRow || lead ? "(min-width: 768px) 55vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"}
           className="object-cover object-top"
         />
       </div>
@@ -135,6 +139,50 @@ export default function ProjectCard({ project, locale, labels, variant = "row" }
       </footer>
     </div>
   );
+
+  if (isLine) {
+    return (
+      <article className="grid gap-(--space-sm) border-b border-rule py-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+        <header className="flex items-start justify-between gap-3 md:col-span-4">
+          <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
+          <StatusBadge status={project.status} label={statusLabel} />
+        </header>
+        <div className="md:col-span-5">
+          <p>{project.summary[locale]}</p>
+          <ul className="label mt-(--space-xs) flex flex-wrap gap-x-4 gap-y-1">
+            {stack.map((item) => (
+              <li key={item} className="!text-muted">
+                {item}
+              </li>
+            ))}
+          </ul>
+          {project.buildTime ? (
+            <p className="label mt-(--space-xs)">
+              {labels.builtIn} {project.buildTime}
+            </p>
+          ) : null}
+          {project.cost ? <p className="label mt-(--space-xs)">{project.cost}</p> : null}
+        </div>
+        <div className="flex flex-wrap items-start gap-x-5 md:col-span-3">
+          {project.liveUrl ? (
+            <CTAButton href={project.liveUrl} external variant="secondary">
+              {labels.seeLive}
+            </CTAButton>
+          ) : null}
+          {project.githubUrl ? (
+            <CTAButton href={project.githubUrl} external variant="secondary">
+              {labels.github}
+            </CTAButton>
+          ) : null}
+          {project.supportUrl ? (
+            <CTAButton href={project.supportUrl} external variant="secondary">
+              {labels.support}
+            </CTAButton>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
 
   if (isRow) {
     return (

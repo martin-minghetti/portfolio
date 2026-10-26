@@ -25,6 +25,9 @@ export default function Header({ locale, dict }: Props) {
           >
             {dict.nav.langSwitch}
           </Link>
+          <Link href={`/${locale}/blog`} className="tlink">
+            {dict.nav.blog}
+          </Link>
           <a
             href="https://github.com/martin-minghetti"
             target="_blank"

@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Hedvig_Letters_Serif } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import LenisProvider from "@/components/layout/LenisProvider";
 import "./globals.css";
 
-const hedvig = Hedvig_Letters_Serif({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-hedvig",
-  weight: "400",
-});
-
-const geist = Geist({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-geist",
+  variable: "--font-bricolage",
 });
 
 export const metadata: Metadata = {
@@ -86,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${hedvig.variable} ${geist.variable}`}>
+    <html lang="en" className={bricolage.variable}>
       <head>
         <script type="application/ld+json">{personJsonLd}</script>
       </head>

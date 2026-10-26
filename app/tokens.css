@@ -16,26 +16,24 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --color-error: oklch(52% 0.19 27);
   --color-success: oklch(50% 0.12 150);
-  --color-paper: oklch(97.2% 0.006 215);
-  --color-paper-2: oklch(94% 0.009 215);
-  --color-paper-3: oklch(90.5% 0.011 215);
-  --color-paper-hi: oklch(99% 0.004 215);
-  --color-ink: oklch(16% 0.032 250);
-  --color-ink-2: oklch(34% 0.022 245);
-  --color-muted: oklch(49% 0.018 240);
-  --color-rule: oklch(84% 0.010 225);
-  --color-accent: oklch(68% 0.172 50);
-  --color-accent-ink: oklch(16% 0.032 250);
-  --color-focus: oklch(52% 0.15 48);
-  --color-dot: color-mix(in oklab, var(--color-ink) 20%, transparent);
-  --color-mark: color-mix(in oklab, var(--color-ink) 72%, transparent);
-  --font-display: var(--font-hedvig), ui-serif, Georgia, serif;
-  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --radius-card: 3px;
-  --radius-pill: 3px;
+  --color-paper: oklch(98.5% 0.004 260);
+  --color-paper-2: oklch(95% 0.016 265);
+  --color-paper-3: oklch(90% 0.03 265);
+  --color-paper-hi: oklch(100% 0 0);
+  --color-ink: oklch(22% 0.07 265);
+  --color-ink-2: oklch(36% 0.06 265);
+  --color-muted: oklch(47% 0.045 265);
+  --color-rule: oklch(86% 0.025 265);
+  --color-accent: oklch(48% 0.22 264);
+  --color-accent-ink: oklch(99% 0 0);
+  --color-focus: oklch(42% 0.2 264);
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 18px;
+  --radius-pill: 999px;
   --shadow-card: none;
-  --shadow-sheet: 1px 2px 0 color-mix(in oklab, var(--color-ink) 7%, transparent), 10px 18px 36px -14px color-mix(in oklab, var(--color-ink) 32%, transparent);
-  --tracking-display: -0.022em;
+  --shadow-sheet: 0 18px 40px -22px color-mix(in oklab, var(--color-ink) 55%, transparent);
+  --tracking-display: -0.035em;
 }
 :root {
   color-scheme: light;
@@ -67,7 +65,7 @@
   --z-toast: 500;
   --z-tooltip: 600;
   --rule-hair: 1px;
-  --display-weight: 400;
+  --display-weight: 700;
 }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }

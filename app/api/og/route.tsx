@@ -4,14 +4,14 @@ export const runtime = "edge";
 
 const SIZE = { width: 1200, height: 630 };
 
-// Studio tokens as hex: the image renderer has no CSS variables, so these mirror app/tokens.css.
+// Cobalto tokens as hex: the image renderer has no CSS variables, so these mirror app/tokens.css.
 const color = {
-  paper: "#F1F7F8",
-  ink: "#030E1A",
-  inkMuted: "#58626A",
-  rule: "#C4CCCF",
-  dot: "#B8BFC3",
-  accent: "#E97219",
+  paper: "#F8FAFD",
+  ink: "#0A183B",
+  inkMuted: "#4E5B75",
+  rule: "#C9D1E2",
+  dot: "#C9D1E2",
+  accent: "#174BD7",
 };
 
 export async function GET(request: Request) {
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
           flexDirection: "column",
           backgroundColor: color.paper,
           color: color.ink,
-          fontFamily: "serif",
+          fontFamily: "sans-serif",
           padding: "64px",
           position: "relative",
         }}
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
         <h1
           style={{
             fontSize: "96px",
-            fontWeight: 400,
+            fontWeight: 700,
             lineHeight: 1.02,
             letterSpacing: "-0.022em",
             margin: 0,

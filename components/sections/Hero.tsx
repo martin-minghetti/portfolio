@@ -7,7 +7,7 @@ type Props = {
 
 export default function Hero({ dict }: Props) {
   return (
-    <section className="proof">
+    <section className="hero-ground">
       <div className="container pt-(--space-3xl) pb-(--space-2xl)">
         <h1 className="max-w-none text-(length:--text-display) leading-[0.98]">
           <span className="block">{dict.hero.h1Line1}</span>
@@ -16,7 +16,7 @@ export default function Hero({ dict }: Props) {
         </h1>
 
         <div className="mt-(--space-2xl) grid gap-(--space-xl) md:grid-cols-2 md:gap-(--gap-columns)">
-          <article className="crop sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+          <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
             <h2 className="text-(length:--text-title) leading-tight">{dict.hero.trackA.label}</h2>
             <p className="mt-(--space-sm)">{dict.hero.trackA.tagline}</p>
             <div className="mt-auto pt-(--space-lg)">
@@ -26,7 +26,7 @@ export default function Hero({ dict }: Props) {
             </div>
           </article>
 
-          <article className="crop sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+          <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
             <h2 className="text-(length:--text-title) leading-tight">{dict.hero.trackB.label}</h2>
             <p className="mt-(--space-sm)">{dict.hero.trackB.tagline}</p>
             <div className="mt-auto pt-(--space-lg)">

@@ -44,7 +44,7 @@ export default async function ContactSentPage({
   const copy = copyByLocale[locale];
 
   return (
-    <section className="proof">
+    <section>
       <div className="container py-(--space-3xl)">
         <h1>{copy.h1}</h1>
         <p className="lead mt-(--space-lg)">{copy.body}</p>

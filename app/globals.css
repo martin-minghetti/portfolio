@@ -1,7 +1,7 @@
-/* Hallmark · shape: Index First (draw 8feb8c, swapped from Stat-Led: no stats to lead with, ten live screens to show) · genre: editorial · theme: Studio (deal 3/3, seed portfolio-personal-desarrollador-web-b266·512f2ec3·2026-10-26·r0) · redesign: full · copy: verbatim
- * hero: Stage without a visual, the head at display size over two action sheets · nav: edge-aligned · footer: colophon block · imagery: screenshots 10 (capture.mjs) · signature: the project index, each live screen crop-marked at 16:10
- * axes: light/roman-serif/warm · posture: restrained · contrast: pending · fold: pending · v2.0.0 */
-/* Hallmark · pre-emit critique: P3 H3 E3 S3 R3 V3 · weakest: V, the paper stays cool by the theme's rule so the warmth comes from the orange and the serif only */
+/* Hallmark · shape: Index First (draw 8feb8c, swapped from Stat-Led: no stats to lead with, ten live screens to show) · genre: editorial · theme: custom Cobalto (picked by the user from six candidates; Studio, Brutal and Manifesto were dealt) · redesign: full · copy: verbatim
+ * hero: Stage without a visual, the display head on a field of the accent over two action sheets · nav: edge-aligned · footer: colophon block · imagery: screenshots 10 (capture.mjs) · signature: the cobalt hero field and the project index with the live screens
+ * axes: light/grotesk-sans/chromatic-blue · posture: confident · contrast: pending · fold: pending · v2.0.0 */
+/* Hallmark · pre-emit critique: P3 H3 E3 S3 R3 V3 · weakest: V, one grotesque face for head and body keeps the page plain, the hierarchy rests on size and weight */
 @import "tailwindcss";
 @import "./tokens.css";
 @import "./base.css" layer(base);
@@ -18,48 +18,24 @@
 }
 
 @layer components {
-/* the proof ground: a dot grid that fades before the next section */
-.proof { position: relative; isolation: isolate; }
-.proof::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: radial-gradient(circle at 1px 1px, var(--color-dot) 1px, transparent 1.4px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(to bottom, var(--color-ink) 55%, transparent);
-}
-
-/* crop marks: eight ticks set off the corners of a printed piece */
-.crop { position: relative; --l: 8px; --o: 12px; --m: linear-gradient(var(--color-mark), var(--color-mark)); }
-.crop::before {
-  content: ""; position: absolute; inset: calc(-1 * var(--o)); pointer-events: none; z-index: 2;
-  background:
-    var(--m) 0 var(--o) / var(--l) 1px no-repeat,
-    var(--m) var(--o) 0 / 1px var(--l) no-repeat,
-    var(--m) 100% var(--o) / var(--l) 1px no-repeat,
-    var(--m) calc(100% - var(--o)) 0 / 1px var(--l) no-repeat,
-    var(--m) 0 calc(100% - var(--o)) / var(--l) 1px no-repeat,
-    var(--m) var(--o) 100% / 1px var(--l) no-repeat,
-    var(--m) 100% calc(100% - var(--o)) / var(--l) 1px no-repeat,
-    var(--m) calc(100% - var(--o)) 100% / 1px var(--l) no-repeat;
-}
 .sheet { background: var(--color-paper-hi); box-shadow: var(--shadow-sheet); border-radius: var(--radius-card); }
 
 /* labels: the body face, a step smaller, sentence case */
 .label { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); line-height: 1.4; }
 
-/* buttons: a 1px ink border with a second rule inset 2px */
+/* buttons */
 .btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
   min-height: 48px; padding: 0 var(--space-lg); white-space: nowrap; flex-shrink: 0;
-  border: var(--rule-hair) solid var(--color-ink); border-radius: 2px;
+  border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-pill);
   background: transparent; color: var(--color-ink);
   font-weight: 500; font-size: var(--text-md); line-height: 1.2; text-decoration: none; text-align: center; cursor: pointer;
   transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
-.btn::after { content: ""; position: absolute; inset: 2px; border: var(--rule-hair) solid var(--color-mark); border-radius: 1px; pointer-events: none; }
 .btn:hover { background: var(--color-paper-hi); }
 .btn:active { transform: translateY(1px); }
 .btn:disabled { cursor: not-allowed; color: var(--color-muted); border-color: var(--color-muted); background: var(--color-paper-2); }
-.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 .btn--primary:hover { background: color-mix(in oklab, var(--color-accent) 88%, var(--color-paper-hi)); }
 .btn--primary:disabled { background: var(--color-paper-3); color: var(--color-muted); }
 
@@ -90,6 +66,35 @@
 .field:disabled { background: var(--color-paper-2); color: var(--color-muted); cursor: not-allowed; }
 }
 
+/* blog post body: the markdown the post is written in */
+@layer components {
+  .prose { max-width: 66ch; font-size: 1.1875rem; line-height: 1.7; }
+  .prose > * + * { margin-top: 1.25em; }
+  .prose p { max-width: none; }
+  .prose h2 { max-width: none; margin-top: 2.2em; font-size: clamp(1.625rem, 1.2vw + 1.2rem, 2.125rem); line-height: 1.15; }
+  .prose h2 + * { margin-top: 0.7em; }
+  .prose ol, .prose ul { padding-left: 1.4em; }
+  .prose ol { list-style: decimal; }
+  .prose ul { list-style: disc; }
+  .prose li { padding-left: 0.3em; }
+  .prose li + li { margin-top: 0.6em; }
+  .prose strong { color: var(--color-ink); font-weight: 700; }
+  .prose a { text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; }
+  .prose code { padding: 0.1em 0.35em; border-radius: 6px; background: var(--color-paper-2); font-size: 0.92em; }
+  .prose pre { overflow-x: auto; padding: var(--space-md); border-radius: var(--radius-card); background: var(--color-paper-2); }
+  .prose pre code { padding: 0; background: none; }
+  .prose blockquote { padding-left: var(--space-md); border-left: 3px solid var(--color-accent); }
+}
+
 /* one entrance per page, plain CSS so the content shows without scripting */
 @keyframes page-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .page-enter { animation: page-enter var(--dur-long) var(--ease-out) both; }
+
+/* the hero sits on a field of the accent */
+.hero-ground { background: var(--color-accent); }
+.hero-ground h1, .hero-ground h1 span { color: var(--color-paper-hi); }
+.hero-ground h1 span:last-child { color: color-mix(in oklab, var(--color-paper-hi) 72%, var(--color-accent)); }
+.hero-ground .tlink { color: var(--color-paper-hi); text-decoration-color: color-mix(in oklab, var(--color-paper-hi) 60%, transparent); }
+.hero-ground :focus-visible { outline-color: var(--color-paper-hi); }
+.sheet h2 { color: var(--color-ink); }
+.crop-shadow { box-shadow: var(--shadow-sheet); }

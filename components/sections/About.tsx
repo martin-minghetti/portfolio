@@ -13,11 +13,11 @@ export default function About({ dict }: Props) {
 
         <div className="mt-(--space-2xl) grid gap-(--space-2xl) md:grid-cols-12 md:gap-(--gap-columns)">
           <figure className="md:col-span-4">
-            <div className="crop">
+            <div className="relative">
               <div
                 data-slot="portrait"
                 data-alt="Portrait of Martín"
-                className="aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+                className="crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
               >
                 <Image
                   src="/martin-portrait.jpg"

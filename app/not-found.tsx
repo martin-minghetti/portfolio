@@ -18,7 +18,7 @@ export default function NotFound() {
   const locale: "en" = "en";
 
   return (
-    <section className="proof">
+    <section>
       <div className="container py-(--space-3xl)">
         <p className="num font-display text-(length:--text-display) leading-none text-muted">404</p>
         <h1 className="mt-(--space-md)">{copy.h1En}</h1>

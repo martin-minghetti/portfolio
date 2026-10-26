@@ -10,7 +10,7 @@ export default function Footer({ dict }: Props) {
   const { columnAbout, columnWork, columnReach, legal, sourceLink } = dict.footer;
 
   return (
-    <footer className="proof mt-(--section-gap-s) border-t border-ink">
+    <footer className="mt-(--section-gap-s) border-t border-ink">
       <div className="container grid gap-(--space-2xl) py-(--space-3xl) md:grid-cols-12 md:gap-(--gap-columns)">
         <section className="md:col-span-12 lg:col-span-5">
           <h3 className="font-display text-(length:--text-display-s) leading-none">{columnAbout.heading}</h3>

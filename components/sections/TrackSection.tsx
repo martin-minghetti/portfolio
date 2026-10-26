@@ -1,7 +1,7 @@
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import { getProjectsByTrack, type ProjectTrack } from "@/lib/projects";
-import ProjectCard from "@/components/ui/ProjectCard";
+import ProjectCard, { hasScreen } from "@/components/ui/ProjectCard";
 import CTAButton from "@/components/ui/CTAButton";
 
 type Props = {
@@ -13,7 +13,9 @@ type Props = {
 export default function TrackSection({ track, dict, locale }: Props) {
   const data = track === "a" ? dict.trackA : dict.trackB;
   const ctaHref = track === "a" ? "https://wa.me/5492241622290" : "https://cal.com/martin-minghetti";
-  const projects = getProjectsByTrack(track);
+  const all = getProjectsByTrack(track);
+  const projects = all.filter((p) => hasScreen(p.slug));
+  const typed = all.filter((p) => !hasScreen(p.slug));
   const sectionId = track === "a" ? "track-a" : "track-b";
   const isIndex = track === "a";
 
@@ -53,17 +55,33 @@ export default function TrackSection({ track, dict, locale }: Props) {
           </div>
         ) : (
           <div className="mt-(--space-2xl) grid gap-x-(--gap-columns) gap-y-(--space-2xl) md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
+            {projects.map((project, i) => (
+              <div key={project.slug} className={i === 0 ? "md:col-span-2" : ""}>
+                <ProjectCard
+                  project={project}
+                  locale={locale}
+                  labels={dict.cardLabels}
+                  variant="tile"
+                  lead={i === 0}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {typed.length > 0 ? (
+          <div className="set mt-(--space-2xl)">
+            {typed.map((project) => (
               <ProjectCard
                 key={project.slug}
                 project={project}
                 locale={locale}
                 labels={dict.cardLabels}
-                variant="tile"
+                variant="line"
               />
             ))}
           </div>
-        )}
+        ) : null}
 
         <footer className="mt-(--space-2xl) flex flex-col items-start gap-(--space-md) border-t border-ink pt-(--space-lg) md:flex-row md:items-center md:justify-between">
           <p className="max-w-[52ch]">{data.ctaSub}</p>
