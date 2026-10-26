@@ -37,8 +37,8 @@ export default function ScrollEffects() {
         },
         { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
       );
-      // Screens already in view stay as they are; only the ones still below the fold wait to print in.
-      document.querySelectorAll<HTMLElement>(".screen").forEach((el) => {
+      // Whatever is already in view stays as it is; only what is still below the fold waits to arrive.
+      document.querySelectorAll<HTMLElement>(".screen, .reveal, .reveal-fade, .reveal-head").forEach((el) => {
         if (el.getBoundingClientRect().top < window.innerHeight) return;
         el.dataset.reveal = "pending";
         observer?.observe(el);

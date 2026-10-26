@@ -63,7 +63,7 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
   ) : null;
 
   const body = (
-    <div className="flex min-w-0 flex-col">
+    <div className="reveal flex min-w-0 flex-col" style={{ "--i": 1 } as React.CSSProperties}>
       <header className="flex items-start justify-between gap-3">
         <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
         <StatusBadge status={project.status} label={statusLabel} />
@@ -142,7 +142,7 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
 
   if (isLine) {
     return (
-      <article className="grid gap-(--space-sm) border-b border-rule py-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+      <article className="reveal grid gap-(--space-sm) border-b border-rule py-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
         <header className="flex items-start justify-between gap-3 md:col-span-4">
           <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
           <StatusBadge status={project.status} label={statusLabel} />

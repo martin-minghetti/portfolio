@@ -27,9 +27,9 @@ export default function TrackSection({ track, dict, locale }: Props) {
       <div className="container">
         <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
           <div className="md:col-span-6">
-            <h2>{data.sectionHeader}</h2>
+            <h2 className="reveal-head">{data.sectionHeader}</h2>
           </div>
-          <div className="md:col-span-5 md:col-start-8">
+          <div className="reveal md:col-span-5 md:col-start-8" style={{ "--i": 1 } as React.CSSProperties}>
             <p className="lead">{data.sectionLead}</p>
             <ul className="mt-(--space-lg)">
               {data.pitch.map((line, i) => (

@@ -43,7 +43,7 @@ export default async function BlogIndex({
           ) : (
             <ol className="set">
               {posts.map((post) => (
-                <li key={post.slug}>
+                <li key={post.slug} className="reveal">
                   <Link
                     href={`/${locale}/blog/${post.slug}`}
                     className="group grid gap-(--space-sm) py-(--space-xl) no-underline md:grid-cols-12 md:gap-(--gap-columns)"

@@ -9,7 +9,7 @@ export default function About({ dict }: Props) {
   return (
     <section className="py-(--section-gap-s)">
       <div className="container">
-        <h2>{dict.about.sectionHeader}</h2>
+        <h2 className="reveal-head">{dict.about.sectionHeader}</h2>
 
         <div className="mt-(--space-2xl) grid gap-(--space-2xl) md:grid-cols-12 md:gap-(--gap-columns)">
           <figure className="md:col-span-4">
@@ -17,7 +17,7 @@ export default function About({ dict }: Props) {
               <div
                 data-slot="portrait"
                 data-alt="Portrait of Martín"
-                className="crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+                className="screen crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
               >
                 <Image
                   src="/martin-portrait.jpg"
@@ -32,7 +32,7 @@ export default function About({ dict }: Props) {
 
           <div className="space-y-(--space-lg) md:col-span-7 md:col-start-6">
             {dict.about.paragraphs.map((p, i) => (
-              <p key={i} className={i === 0 ? "lead !text-ink" : ""}>
+              <p key={i} className={`reveal ${i === 0 ? "lead !text-ink" : ""}`} style={{ "--i": i } as React.CSSProperties}>
                 {p}
               </p>
             ))}
@@ -40,10 +40,11 @@ export default function About({ dict }: Props) {
         </div>
 
         <dl className="set mt-(--space-3xl)">
-          {dict.about.facts.map((fact) => (
+          {dict.about.facts.map((fact, i) => (
             <div
               key={fact.label}
-              className="grid gap-(--space-xs) py-(--space-md) md:grid-cols-12 md:gap-(--gap-columns)"
+              style={{ "--i": Math.min(i, 5) } as React.CSSProperties}
+              className="reveal-fade grid gap-(--space-xs) py-(--space-md) md:grid-cols-12 md:gap-(--gap-columns)"
             >
               <dt className="label md:col-span-3">{fact.label}</dt>
               <dd className="md:col-span-8 md:col-start-5">{fact.value}</dd>

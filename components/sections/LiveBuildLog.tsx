@@ -32,8 +32,8 @@ export default async function LiveBuildLog({ locale }: Props) {
     <section id="build-log" className="bg-paper-2 border-y border-rule py-(--section-gap-s)">
       <div className="container">
         <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
-          <h2 className="md:col-span-6">{labels.header}</h2>
-          <div className="md:col-span-5 md:col-start-8">
+          <h2 className="reveal-head md:col-span-6">{labels.header}</h2>
+          <div className="reveal md:col-span-5 md:col-start-8" style={{ "--i": 1 } as React.CSSProperties}>
             <p className="lead">{labels.lead}</p>
             <p className="label mt-(--space-sm)">{labels.live}</p>
           </div>
@@ -41,8 +41,8 @@ export default async function LiveBuildLog({ locale }: Props) {
 
         {/* Mobile: stacked rows */}
         <ul className="set mt-(--space-2xl) md:hidden">
-          {rows.map((row) => (
-            <li key={row.repo}>
+          {rows.map((row, i) => (
+            <li key={row.repo} className="reveal" style={{ "--i": Math.min(i, 5) } as React.CSSProperties}>
               <a
                 href={row.url}
                 target="_blank"
@@ -82,8 +82,8 @@ export default async function LiveBuildLog({ locale }: Props) {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
-                <tr key={row.repo} className="border-b border-rule transition-colors duration-(--dur-micro) hover:bg-paper-3">
+              {rows.map((row, i) => (
+                <tr key={row.repo} style={{ "--i": Math.min(i, 8) } as React.CSSProperties} className="reveal-fade border-b border-rule transition-colors duration-(--dur-micro) hover:bg-paper-3">
                   <td className="num py-(--space-sm) pr-(--space-md)">{row.timestamp}</td>
                   <td className="py-(--space-sm) pr-(--space-md)">
                     <a

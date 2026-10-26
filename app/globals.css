@@ -113,6 +113,21 @@
 .screen > img { transition: clip-path 900ms var(--ease-out), transform 1100ms var(--ease-out); }
 .screen[data-reveal="pending"] > img { clip-path: inset(100% 0 0 0); transform: scale(1.05); }
 
+/* Arrivals while scrolling, one per kind of content:
+   headings come out of a blur, blocks rise, tables and lists fade in step. */
+.reveal, .reveal-fade, .reveal-head {
+  transition:
+    opacity 760ms var(--ease-out) calc(var(--i, 0) * 80ms),
+    transform 760ms var(--ease-out) calc(var(--i, 0) * 80ms),
+    filter 760ms var(--ease-out) calc(var(--i, 0) * 80ms);
+}
+.reveal[data-reveal="pending"] { opacity: 0; transform: translateY(30px); }
+.reveal-fade[data-reveal="pending"] { opacity: 0; }
+.reveal-head[data-reveal="pending"] { opacity: 0; transform: translateY(0.4em); filter: blur(10px); }
+
+/* a link to a place on this page lands with the section's content just under the header */
+section[id] { scroll-margin-top: calc(var(--section-gap-s) * -1); }
+
 .site-header { box-shadow: 0 12px 24px -18px color-mix(in oklab, var(--color-ink) calc(var(--scrolled, 0) * 50%), transparent); }
 .read-progress {
   position: fixed; inset: 0 0 auto 0; z-index: calc(var(--z-sticky-nav) + 1); height: 3px;
@@ -130,6 +145,7 @@
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(*), ::view-transition-new(*), ::view-transition-group(*) { animation: none !important; }
   .screen[data-reveal="pending"] > img { clip-path: none; transform: none; }
+  .reveal[data-reveal="pending"], .reveal-fade[data-reveal="pending"], .reveal-head[data-reveal="pending"] { opacity: 1; transform: none; filter: none; }
 }
 
 /* the hero sits on a field of the accent */

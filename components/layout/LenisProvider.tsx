@@ -3,8 +3,6 @@
 import Lenis from "lenis";
 import { useEffect } from "react";
 
-const HEADER_OFFSET = -80;
-
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -33,7 +31,8 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
       if (!target) return;
       event.preventDefault();
-      lenis.scrollTo(target, { offset: HEADER_OFFSET, duration: 1.3 });
+      // Lenis reads the target's scroll-margin and the page's scroll-padding, so the landing spot is set in the CSS.
+      lenis.scrollTo(target, { duration: 1.3 });
       window.history.pushState(null, "", url.hash);
     }
     document.addEventListener("click", onClick, true);
