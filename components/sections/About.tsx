@@ -1,4 +1,4 @@
-import Image from "next/image";
+import FadeImage from "@/components/ui/FadeImage";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
@@ -19,7 +19,7 @@ export default function About({ dict }: Props) {
                 data-alt="Portrait of Martín"
                 className="screen crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
               >
-                <Image
+                <FadeImage
                   src="/martin-portrait.jpg"
                   alt="Martin Minghetti, black and white portrait"
                   fill

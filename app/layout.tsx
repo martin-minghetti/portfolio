@@ -38,9 +38,6 @@ export const metadata: Metadata = {
       "Websites and apps, built with the help of AI. Seven and a half years of frontend at AirLST. Based in Bariloche, Argentina.",
     images: ["/api/og"],
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 const personJsonLd = JSON.stringify({
