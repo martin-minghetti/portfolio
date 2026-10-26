@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import Comments from "@/components/blog/Comments";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
 
 export function generateStaticParams() {
@@ -54,6 +55,13 @@ export default async function BlogPost({
 
       <div className="container py-(--section-gap-s)">
         <div className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <section className="mt-(--space-3xl) max-w-[66ch] border-t border-ink pt-(--space-xl)">
+          <h2 className="text-(length:--text-title)">{dict.blog.comments}</h2>
+          <p className="label mt-(--space-xs)">{dict.blog.commentsHint}</p>
+          <div className="mt-(--space-lg)">
+            <Comments locale={locale} />
+          </div>
+        </section>
         <Link href={`/${locale}/blog`} className="tlink mt-(--space-2xl)">
           {dict.blog.back}
         </Link>

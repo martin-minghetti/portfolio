@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/dictionaries";
 import CTAButton from "@/components/ui/CTAButton";
@@ -10,6 +11,7 @@ export default function Footer({ dict }: Props) {
   const { columnAbout, columnWork, columnReach, legal, sourceLink } = dict.footer;
 
   return (
+    <ViewTransition name="site-footer">
     <footer className="mt-(--section-gap-s) border-t border-ink">
       <div className="container grid gap-(--space-2xl) py-(--space-3xl) md:grid-cols-12 md:gap-(--gap-columns)">
         <section className="md:col-span-12 lg:col-span-4">
@@ -65,5 +67,6 @@ export default function Footer({ dict }: Props) {
         </div>
       </div>
     </footer>
+    </ViewTransition>
   );
 }

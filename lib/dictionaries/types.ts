@@ -31,6 +31,8 @@ export type Dictionary = {
     back: string;
     read: string;
     empty: string;
+    comments: string;
+    commentsHint: string;
   };
   hero: {
     h1Line1: string;

@@ -18,6 +18,8 @@ export const es: Dictionary = {
     back: "Volver al blog",
     read: "Leer el post",
     empty: "Todavía no hay posts en este idioma.",
+    comments: "Comentarios",
+    commentsHint: "Para comentar necesitás una cuenta de GitHub.",
   },
   hero: {
     h1Line1: "Soy Martín.",

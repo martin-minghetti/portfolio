@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import LenisProvider from "@/components/layout/LenisProvider";
+import ScrollEffects from "@/components/layout/ScrollEffects";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -85,6 +86,7 @@ export default function RootLayout({
       </head>
       <body>
         <LenisProvider>{children}</LenisProvider>
+        <ScrollEffects />
       </body>
     </html>
   );

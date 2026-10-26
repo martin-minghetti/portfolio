@@ -18,6 +18,8 @@ export const en: Dictionary = {
     back: "Back to the blog",
     read: "Read the post",
     empty: "There are no posts in this language yet.",
+    comments: "Comments",
+    commentsHint: "You need a GitHub account to comment.",
   },
   hero: {
     h1Line1: "I'm Martín.",
