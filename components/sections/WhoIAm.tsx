@@ -26,7 +26,7 @@ export default function WhoIAm({ dict }: Props) {
           ))}
         </ol>
 
-        <ul className="mt-(--space-2xl) grid gap-(--space-lg) border-y border-ink py-(--space-xl) md:grid-cols-3 md:gap-(--gap-columns)">
+        <ul className="mt-(--space-2xl) grid gap-(--space-lg) border-y border-ink py-(--space-xl) md:grid-cols-3 md:items-baseline md:gap-(--gap-columns)">
           {dict.whoIAm.stats.map((stat, i) => (
             <li key={stat} className="reveal" style={{ "--i": i } as React.CSSProperties}>
               <Counter value={stat} className="label block !text-ink-2" />
