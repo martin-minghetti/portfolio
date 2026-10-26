@@ -6,34 +6,25 @@ type Props = {
 
 export default function HowIThink({ dict }: Props) {
   return (
-    <section className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
-        <header className="space-y-[var(--spacing-4)]">
-          <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
-            {dict.howIThink.sectionHeader}
-          </h2>
-          <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
-            {dict.howIThink.sectionLead}
-          </p>
+    <section className="py-(--section-gap-s)">
+      <div className="container">
+        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+          <h2 className="md:col-span-6">{dict.howIThink.sectionHeader}</h2>
+          <p className="lead md:col-span-5 md:col-start-8">{dict.howIThink.sectionLead}</p>
         </header>
 
-        <ol className="mt-[var(--spacing-12)] grid gap-[var(--spacing-6)] md:grid-cols-2">
+        <ol className="set mt-(--space-2xl) [counter-reset:how]">
           {dict.howIThink.items.map((item) => (
             <li
               key={item.index}
-              className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]"
+              className="grid gap-(--space-sm) py-(--space-xl) [counter-increment:how] md:grid-cols-12 md:gap-(--gap-columns)"
             >
-              <p className="font-bold text-[var(--color-accent)]">
-                <span aria-hidden>{"> "}</span>
-                {item.index}
-                <span className="caret ml-1">_</span>
-              </p>
-              <h3 className="mt-[var(--spacing-3)] text-lg font-bold leading-[var(--leading-snug)]">
-                {item.heading}
-              </h3>
-              <p className="mt-[var(--spacing-3)] text-sm leading-[var(--leading-relaxed)] text-[var(--color-fg-muted)]">
-                {item.body}
-              </p>
+              <span
+                aria-hidden
+                className="num font-display text-(length:--text-display-s) leading-none !text-muted before:content-[counter(how)] md:col-span-2"
+              />
+              <h3 className="md:col-span-4">{item.heading}</h3>
+              <p className="md:col-span-5 md:col-start-8">{item.body}</p>
             </li>
           ))}
         </ol>

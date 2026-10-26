@@ -11,30 +11,25 @@ type Props = {
 export default function Header({ locale, dict }: Props) {
   const otherLocale: Locale = locale === "en" ? "es" : "en";
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[var(--container-wide)] items-center justify-between px-[clamp(16px,4vw,32px)] py-4">
-        <Link
-          href={`/${locale}`}
-          className="font-bold uppercase tracking-[var(--tracking-widest)] text-sm"
-        >
-          MARTIN MINGHETTI<span className="caret text-[var(--color-accent)]">_</span>
+    <header className="sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
+      <div className="container flex min-h-16 items-center justify-between gap-4">
+        <Link href={`/${locale}`} className="whitespace-nowrap font-display text-lg tracking-(--tracking-display) no-underline sm:text-xl">
+          Martin Minghetti
         </Link>
 
-        <nav className="flex items-center gap-3 sm:gap-5 md:gap-6 text-xs uppercase tracking-[var(--tracking-wider)]">
+        <nav className="flex items-center gap-3 sm:gap-6">
           <Link
             href={`/${otherLocale}`}
-            className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+            className="tlink"
             aria-label={`Switch to ${otherLocale.toUpperCase()}`}
           >
-            <span className="font-bold">{locale.toUpperCase()}</span>
-            <span className="mx-1 sm:mx-2 text-[var(--color-fg-subtle)]">·</span>
-            <span>{dict.nav.langSwitch}</span>
+            {dict.nav.langSwitch}
           </Link>
           <a
             href="https://github.com/martin-minghetti"
             target="_blank"
             rel="noreferrer noopener"
-            className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+            className="tlink hidden sm:inline-flex"
           >
             {dict.nav.github}
           </a>

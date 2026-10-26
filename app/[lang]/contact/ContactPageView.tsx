@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import type { Locale } from "@/lib/i18n";
 import ContactForm from "@/components/sections/ContactForm";
 import CTAButton from "@/components/ui/CTAButton";
@@ -20,25 +17,6 @@ type Labels = {
   trackB: TrackBlockData;
 };
 
-const easeOutExpo = [0.16, 1, 0.3, 1] as const;
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: easeOutExpo },
-  },
-};
-
 export default function ContactPageView({
   labels,
   locale,
@@ -47,58 +25,44 @@ export default function ContactPageView({
   locale: Locale;
 }) {
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]"
-    >
-      <motion.header variants={item} className="space-y-[var(--spacing-4)]">
-        <h1 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
-          {labels.sectionHeader}
-        </h1>
-        <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
-          {labels.lead}
-        </p>
-      </motion.header>
+    <>
+      <section className="proof">
+        <div className="container pt-(--space-3xl) pb-(--space-2xl)">
+        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+          <h1 className="md:col-span-7">{labels.sectionHeader}</h1>
+          <p className="lead md:col-span-5 md:col-start-8 md:self-end">{labels.lead}</p>
+        </header>
 
-      <motion.div
-        variants={item}
-        className="mt-[var(--spacing-12)] grid gap-[var(--spacing-6)] md:grid-cols-2"
-      >
-        <TrackBlock data={labels.trackA} />
-        <TrackBlock data={labels.trackB} />
-      </motion.div>
+        <div className="mt-(--space-2xl) grid gap-(--space-xl) md:grid-cols-2 md:gap-(--gap-columns)">
+          <TrackBlock data={labels.trackA} primary />
+          <TrackBlock data={labels.trackB} />
+        </div>
 
-      <motion.hr
-        variants={item}
-        className="my-[var(--spacing-16)] border-[var(--color-border)]"
-      />
+        </div>
+      </section>
 
-      <motion.div variants={item}>
-        <ContactForm locale={locale} />
-      </motion.div>
-    </motion.div>
+      <section className="border-t border-ink py-(--section-gap-s)">
+        <div className="container">
+          <div className="max-w-[640px]">
+            <ContactForm locale={locale} />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
-function TrackBlock({ data }: { data: TrackBlockData }) {
+function TrackBlock({ data, primary }: { data: TrackBlockData; primary?: boolean }) {
   return (
-    <article className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]">
-      <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]">
-        {data.heading}
-      </h2>
-      <p className="mt-[var(--spacing-4)] text-base leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
-        {data.tagline}
-      </p>
-      <div className="mt-[var(--spacing-6)]">
-        <CTAButton href={data.ctaHref} external>
+    <article className="crop sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
+      <h2 className="text-(length:--text-title) leading-tight">{data.heading}</h2>
+      <p className="mt-(--space-sm)">{data.tagline}</p>
+      <div className="mt-auto pt-(--space-lg)">
+        <CTAButton href={data.ctaHref} external variant={primary ? "primary" : "outline"}>
           {data.cta}
         </CTAButton>
       </div>
-      <p className="mt-[var(--spacing-4)] text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
-        {data.orForm}
-      </p>
+      <p className="label mt-(--space-md)">{data.orForm}</p>
     </article>
   );
 }

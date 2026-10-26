@@ -6,42 +6,24 @@ type Props = {
 };
 
 export default function AirLST({ dict }: Props) {
-  const items = [...airlstClients, ...airlstClients];
   return (
-    <section className="border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
-      <div className="mx-auto max-w-[var(--container-wide)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-20)]">
-        <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
-          {dict.airlst.sectionHeader}
-        </h2>
-      </div>
-
-      <div className="marquee-container relative overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg)]">
-        <div className="marquee-track py-[var(--spacing-6)]">
-          {items.map((client, i) => (
-            <span
-              key={`${client}-${i}`}
-              className="shrink-0 px-[var(--spacing-8)] text-2xl font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)]"
+    <section className="bg-ink py-(--section-gap-s)">
+      <div className="container grid gap-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
+        <div className="md:col-span-5">
+          <h2 className="!text-paper">{dict.airlst.sectionHeader}</h2>
+          <p className="lead mt-(--space-lg) !text-paper">{dict.airlst.disclaimer}</p>
+          <p className="mt-(--space-md) !text-paper-3">{dict.airlst.metrics}</p>
+        </div>
+        <ul className="grid auto-rows-min grid-cols-2 border-t border-paper-3/40 md:col-span-6 md:col-start-7">
+          {airlstClients.map((client) => (
+            <li
+              key={client}
+              className="border-b border-paper-3/40 py-(--space-md) font-display text-(length:--text-title) leading-tight !text-paper"
             >
               {client}
-              <span className="ml-[var(--spacing-8)] text-[var(--color-fg-subtle)]">
-                ·
-              </span>
-            </span>
+            </li>
           ))}
-        </div>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--color-bg)] to-transparent"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--color-bg)] to-transparent"
-        />
-      </div>
-
-      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-12)] space-y-2 text-sm leading-[var(--leading-relaxed)]">
-        <p className="text-[var(--color-fg)]">{dict.airlst.disclaimer}</p>
-        <p className="text-[var(--color-fg-muted)]">{dict.airlst.metrics}</p>
+        </ul>
       </div>
     </section>
   );

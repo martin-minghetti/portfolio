@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Project } from "@/lib/projects";
@@ -8,9 +9,24 @@ type Props = {
   project: Project;
   locale: Locale;
   labels: Dictionary["cardLabels"];
+  variant?: "row" | "tile";
 };
 
-export default function ProjectCard({ project, locale, labels }: Props) {
+// Screens captured from each live demo (public/projects). A project without one is set in type alone.
+const screens: Record<string, string> = {
+  cumbre: "/projects/cumbre.jpg",
+  "norhaven-lodge": "/projects/norhaven-lodge.jpg",
+  cohere: "/projects/cohere.jpg",
+  bosque: "/projects/bosque.jpg",
+  sur41: "/projects/sur41.jpg",
+  ragbench: "/projects/ragbench.jpg",
+  "invoice-processor": "/projects/invoice-processor.jpg",
+  "code-review-orchestrator": "/projects/code-review-orchestrator.jpg",
+  "gtm-briefing-copilot": "/projects/gtm-briefing-copilot.jpg",
+  modelsentry: "/projects/modelsentry.jpg",
+};
+
+export default function ProjectCard({ project, locale, labels, variant = "row" }: Props) {
   const statusLabel =
     {
       live: labels.live,
@@ -19,72 +35,85 @@ export default function ProjectCard({ project, locale, labels }: Props) {
       demo: labels.demo,
     }[project.status];
 
-  return (
-    <article className="group flex flex-col border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-6)] transition-colors duration-[var(--duration-base)] ease-[var(--ease-out-quart)] hover:border-[var(--color-accent)]">
+  const screen = screens[project.slug];
+  const stack = project.stack.split(" · ");
+  const isRow = variant === "row";
+
+  const picture = screen ? (
+    <div className="crop">
+      <div
+        data-slot={`screen-${project.slug}`}
+        data-kind="product"
+        data-alt={project.name}
+        className="aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+      >
+        <Image
+          src={screen}
+          alt={project.name}
+          fill
+          sizes={isRow ? "(min-width: 768px) 40vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"}
+          className="object-cover object-top"
+        />
+      </div>
+    </div>
+  ) : null;
+
+  const body = (
+    <div className="flex min-w-0 flex-col">
       <header className="flex items-start justify-between gap-3">
-        <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-base">
-          {project.name}
-        </h3>
+        <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
         <StatusBadge status={project.status} label={statusLabel} />
       </header>
 
-      <hr className="my-[var(--spacing-4)] border-0 border-t border-[var(--color-border)]" />
+      <p className="mt-(--space-sm)">{project.summary[locale]}</p>
 
-      <p className="text-sm leading-[var(--leading-relaxed)] text-[var(--color-fg-muted)]">
-        {project.summary[locale]}
-      </p>
+      <ul className="label mt-(--space-md) flex flex-wrap gap-x-4 gap-y-1">
+        {stack.map((item) => (
+          <li key={item} className="!text-muted">
+            {item}
+          </li>
+        ))}
+      </ul>
 
-      <dl className="mt-[var(--spacing-4)] space-y-1 text-xs text-[var(--color-fg-subtle)]">
-        <div className="flex gap-2">
-          <dt className="shrink-0">→</dt>
-          <dd>{project.stack}</dd>
-        </div>
+      <dl className="label mt-(--space-sm) space-y-1">
         {project.liveUrl ? (
-          <div className="flex gap-2">
-            <dt className="shrink-0">→</dt>
-            <dd className="truncate">{project.liveUrl.replace(/^https?:\/\//, "")}</dd>
+          <div>
+            <dt className="visually-hidden">URL</dt>
+            <dd className="!text-muted break-words">{project.liveUrl.replace(/^https?:\/\//, "")}</dd>
           </div>
         ) : null}
         {project.demoLogins?.map((login) => (
-          <div key={login.email} className="flex gap-2">
-            <dt className="shrink-0">→</dt>
-            <dd className="min-w-0 break-words">
-              <a
-                href={login.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-accent)] hover:opacity-70"
-              >
+          <div key={login.email}>
+            <dt className="visually-hidden">{login.role[locale]}</dt>
+            <dd className="!text-muted min-w-0 break-words">
+              <a href={login.url} target="_blank" rel="noopener noreferrer" className="tlink !min-h-0">
                 {login.role[locale]} {labels.login}
               </a>{" "}
-              · {login.email} / {login.password}
+              <span className="num">
+                {login.email} / {login.password}
+              </span>
             </dd>
           </div>
         ))}
         {project.buildTime ? (
-          <div className="flex gap-2">
-            <dt className="shrink-0">→</dt>
-            <dd>
+          <div>
+            <dt className="visually-hidden">{labels.builtIn}</dt>
+            <dd className="!text-muted">
               {labels.builtIn} {project.buildTime}
-              {project.buildLogUrl ? " · BUILD_LOG" : ""}
             </dd>
           </div>
         ) : null}
         {project.cost ? (
-          <div className="flex gap-2">
-            <dt className="shrink-0">→</dt>
-            <dd>{project.cost}</dd>
+          <div>
+            <dt className="visually-hidden">Cost</dt>
+            <dd className="!text-muted">{project.cost}</dd>
           </div>
         ) : null}
       </dl>
 
-      <footer className="mt-auto flex flex-col gap-2 pt-[var(--spacing-6)] sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
+      <footer className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-1 pt-(--space-md)">
         {project.liveUrl ? (
-          <CTAButton
-            href={project.liveUrl}
-            external
-            className="w-full sm:w-auto"
-          >
+          <CTAButton href={project.liveUrl} external variant="outline" className="!min-h-11">
             {labels.seeLive}
           </CTAButton>
         ) : null}
@@ -104,6 +133,22 @@ export default function ProjectCard({ project, locale, labels }: Props) {
           </CTAButton>
         ) : null}
       </footer>
+    </div>
+  );
+
+  if (isRow) {
+    return (
+      <article className="grid gap-(--space-lg) border-b border-rule py-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
+        {picture ? <div className="md:col-span-5">{picture}</div> : null}
+        <div className="md:col-span-6 md:col-start-7">{body}</div>
+      </article>
+    );
+  }
+
+  return (
+    <article className="flex flex-col gap-(--space-md) border-t border-ink pt-(--space-lg)">
+      {picture}
+      {body}
     </article>
   );
 }

@@ -28,15 +28,15 @@ type Labels = {
 
 const labelsByLocale: Record<Locale, Labels> = {
   en: {
-    name: "NAME",
-    email: "EMAIL",
-    company: "COMPANY OR PROJECT",
-    message: "WHAT ARE YOU BUILDING?",
-    source: "HOW DID YOU FIND ME?",
+    name: "Name",
+    email: "Email",
+    company: "Company or project",
+    message: "What are you building?",
+    source: "How did you find me?",
     messagePlaceholder:
       "Briefly: what it does, current stage, what you need help with",
-    submit: "SEND MESSAGE",
-    submitting: "SENDING…",
+    submit: "Send message",
+    submitting: "Sending…",
     errorGeneric:
       "Could not send message. Try WhatsApp or Cal.com in the meantime.",
     errors: {
@@ -44,19 +44,19 @@ const labelsByLocale: Record<Locale, Labels> = {
       emailRequired: "I need an email to reply",
       emailInvalid: "That email looks off",
       messageRequired: "Tell me what you're building",
-      messageTooShort: "A bit more context — at least 10 characters",
+      messageTooShort: "A bit more context, at least 10 characters",
     },
   },
   es: {
-    name: "NOMBRE",
-    email: "EMAIL",
-    company: "EMPRESA O PROYECTO",
-    message: "¿QUÉ ESTÁS CONSTRUYENDO?",
-    source: "¿CÓMO ME ENCONTRASTE?",
+    name: "Nombre",
+    email: "Email",
+    company: "Empresa o proyecto",
+    message: "Qué estás construyendo?",
+    source: "Cómo me encontraste?",
     messagePlaceholder:
       "En corto: qué hace, en qué etapa está, y en qué necesitás ayuda",
-    submit: "ENVIAR MENSAJE",
-    submitting: "ENVIANDO…",
+    submit: "Enviar mensaje",
+    submitting: "Enviando…",
     errorGeneric:
       "No pude enviar el mensaje. Probá WhatsApp o Cal.com mientras tanto.",
     errors: {
@@ -64,7 +64,7 @@ const labelsByLocale: Record<Locale, Labels> = {
       emailRequired: "Necesito un email para responderte",
       emailInvalid: "Ese email no parece válido",
       messageRequired: "Contame qué estás construyendo",
-      messageTooShort: "Un poco más de contexto — mínimo 10 caracteres",
+      messageTooShort: "Un poco más de contexto, mínimo 10 caracteres",
     },
   },
 };
@@ -175,7 +175,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-[var(--spacing-6)]">
+    <form onSubmit={onSubmit} noValidate className="space-y-(--space-lg)">
       <div aria-hidden className="hidden">
         <label>
           Website
@@ -203,12 +203,12 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       />
       <Field label={labels.company} name="company" type="text" />
 
-      <div className="space-y-[var(--spacing-2)]">
+      <div className="space-y-(--space-xs)">
         <label
           htmlFor="message"
-          className="block text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
+          className="label block"
         >
-          {labels.message} <span className="text-[var(--color-accent)]">*</span>
+          {labels.message} <span aria-hidden className="text-focus">*</span>
         </label>
         <textarea
           id="message"
@@ -220,17 +220,13 @@ export default function ContactForm({ locale }: { locale: Locale }) {
           aria-describedby={fieldErrors.message ? "message-error" : undefined}
           onBlur={handleBlur}
           onChange={handleChange}
-          className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-fg)] placeholder-[var(--color-fg-subtle)] focus:outline-none focus:ring-2 ${
-            fieldErrors.message
-              ? "border-[var(--color-danger)] focus:border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30"
-              : "border-[var(--color-border)] focus:border-[var(--color-accent)] focus:ring-[var(--color-accent-glow)]"
-          }`}
-        />
+          className="field"
+          />
         {fieldErrors.message ? (
           <p
             id="message-error"
             role="alert"
-            className="text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
+            className="text-sm text-error"
           >
             {fieldErrors.message}
           </p>
@@ -242,7 +238,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       {serverError ? (
         <p
           role="alert"
-          className="border border-[var(--color-danger)] bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-danger)]"
+          className="rounded-card border border-error bg-paper-hi px-4 py-3 text-error"
         >
           {serverError}
         </p>
@@ -274,13 +270,13 @@ function Field({
 }) {
   const errorId = `${name}-error`;
   return (
-    <div className="space-y-[var(--spacing-2)]">
+    <div className="space-y-(--space-xs)">
       <label
         htmlFor={name}
-        className="block text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-muted)]"
+        className="label block"
       >
         {label}{" "}
-        {required ? <span className="text-[var(--color-accent)]">*</span> : null}
+        {required ? <span aria-hidden className="text-focus">*</span> : null}
       </label>
       <input
         id={name}
@@ -291,17 +287,13 @@ function Field({
         aria-describedby={error ? errorId : undefined}
         onBlur={onBlur}
         onChange={onChange}
-        className={`w-full rounded-[var(--radius-sm)] border bg-[var(--color-bg-elevated)] px-[var(--spacing-4)] py-[var(--spacing-3)] text-sm text-[var(--color-fg)] focus:outline-none focus:ring-2 ${
-          error
-            ? "border-[var(--color-danger)] focus:border-[var(--color-danger)] focus:ring-[var(--color-danger)]/30"
-            : "border-[var(--color-border)] focus:border-[var(--color-accent)] focus:ring-[var(--color-accent-glow)]"
-        }`}
-      />
+        className="field"
+        />
       {error ? (
         <p
           id={errorId}
           role="alert"
-          className="text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-danger)]"
+          className="text-sm text-error"
         >
           {error}
         </p>

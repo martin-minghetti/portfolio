@@ -5,16 +5,10 @@ type Props = {
   label: string;
 };
 
-const baseClass =
-  "inline-block whitespace-nowrap border px-3 py-1 text-xs font-bold uppercase tracking-[var(--tracking-widest)]";
-
-export default function StatusBadge({ status: _status, label }: Props) {
+export default function StatusBadge({ status, label }: Props) {
   return (
-    <span
-      className={baseClass}
-      style={{ borderColor: "#A8A8A0", color: "#A8A8A0" }}
-    >
-      [ {label} ]
+    <span className="label whitespace-nowrap rounded-card border border-rule px-2 py-0.5" data-status={status}>
+      {label}
     </span>
   );
 }

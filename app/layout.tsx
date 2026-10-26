@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Geist, Hedvig_Letters_Serif } from "next/font/google";
 import LenisProvider from "@/components/layout/LenisProvider";
 import "./globals.css";
 
-const jetbrainsMono = JetBrains_Mono({
+const hedvig = Hedvig_Letters_Serif({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "700"],
+  variable: "--font-hedvig",
+  weight: "400",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist",
 });
 
 export const metadata: Metadata = {
@@ -80,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jetbrainsMono.variable}>
+    <html lang="en" className={`${hedvig.variable} ${geist.variable}`}>
       <head>
         <script type="application/ld+json">{personJsonLd}</script>
       </head>

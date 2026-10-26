@@ -23,9 +23,9 @@ export default async function HomePage({
   return (
     <>
       <Hero dict={dict} />
-      <WhoIAm dict={dict} />
       <TrackSection track="a" dict={dict} locale={locale} />
       <TrackSection track="b" dict={dict} locale={locale} />
+      <WhoIAm dict={dict} />
       <AirLST dict={dict} />
       <HowIThink dict={dict} />
       <LiveBuildLog locale={locale} />

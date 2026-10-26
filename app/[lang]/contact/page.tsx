@@ -5,7 +5,7 @@ import ContactPageView from "./ContactPageView";
 
 const labelsByLocale = {
   en: {
-    sectionHeader: "LET'S WORK",
+    sectionHeader: "Let's work",
     lead: "Two ways to reach me. Pick whichever feels right.",
     trackA: {
       heading: "Websites and online stores",

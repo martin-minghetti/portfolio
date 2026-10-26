@@ -6,29 +6,21 @@ type Props = {
 
 export default function Stack({ dict }: Props) {
   return (
-    <section className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
-        <header className="space-y-[var(--spacing-4)]">
-          <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
-            {dict.stack.sectionHeader}
-          </h2>
-          <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
-            {dict.stack.sectionLead}
-          </p>
+    <section className="border-t border-rule bg-paper-2 py-(--section-gap-s)">
+      <div className="container">
+        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+          <h2 className="md:col-span-6">{dict.stack.sectionHeader}</h2>
+          <p className="lead md:col-span-5 md:col-start-8">{dict.stack.sectionLead}</p>
         </header>
 
-        <dl className="mt-[var(--spacing-12)] divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+        <dl className="set mt-(--space-2xl)">
           {dict.stack.rows.map((row) => (
             <div
               key={row.label}
-              className="grid grid-cols-1 gap-[var(--spacing-2)] py-[var(--spacing-4)] md:grid-cols-[200px_1fr] md:gap-[var(--spacing-6)]"
+              className="grid gap-(--space-xs) py-(--space-md) md:grid-cols-12 md:gap-(--gap-columns)"
             >
-              <dt className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
-                {row.label}
-              </dt>
-              <dd className="text-sm leading-[var(--leading-relaxed)] text-[var(--color-fg)]">
-                {row.values}
-              </dd>
+              <dt className="label md:col-span-3">{row.label}</dt>
+              <dd className="md:col-span-8 md:col-start-5">{row.values}</dd>
             </div>
           ))}
         </dl>

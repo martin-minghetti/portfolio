@@ -12,129 +12,99 @@ export default async function LiveBuildLog({ locale }: Props) {
   const labels =
     locale === "es"
       ? {
-          header: "ÚLTIMOS BUILDS",
-          live: "live · github API",
+          header: "Últimos builds",
+          live: "En vivo, GitHub API",
           lead: "Repos públicos ordenados por último push. Se actualiza cada 24h.",
-          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", diff: "±" },
+          cols: { ts: "Pushed", repo: "Repo", branch: "Branch", diff: "±" },
           seeAll: "Ver todo en GitHub",
+          noDiff: "n/d",
         }
       : {
-          header: "RECENT BUILDS",
-          live: "live · github API",
+          header: "Recent builds",
+          live: "Live, GitHub API",
           lead: "Public repos sorted by last push. Updates every 24h.",
-          cols: { ts: "PUSHED", repo: "REPO", branch: "BRANCH", diff: "±" },
+          cols: { ts: "Pushed", repo: "Repo", branch: "Branch", diff: "±" },
           seeAll: "See all on GitHub",
+          noDiff: "n/a",
         };
 
   return (
-    <section
-      id="build-log"
-      className="border-t border-[var(--color-border)] bg-[var(--color-bg)]"
-    >
-      <div className="mx-auto max-w-[var(--container-wide)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
-        <header className="flex flex-col gap-[var(--spacing-4)] md:flex-row md:items-end md:justify-between">
-          <div className="space-y-[var(--spacing-2)]">
-            <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
-              {labels.header}
-            </h2>
-            <p className="text-base leading-[var(--leading-relaxed)] text-[var(--color-fg-muted)]">
-              {labels.lead}
-            </p>
+    <section id="build-log" className="bg-paper-2 border-y border-rule py-(--section-gap-s)">
+      <div className="container">
+        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+          <h2 className="md:col-span-6">{labels.header}</h2>
+          <div className="md:col-span-5 md:col-start-8">
+            <p className="lead">{labels.lead}</p>
+            <p className="label mt-(--space-sm)">{labels.live}</p>
           </div>
-          <p className="text-xs uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg-subtle)]">
-            [ {labels.live}{" "}
-            <span className="caret text-[var(--color-accent)]">_</span> ]
-          </p>
         </header>
 
-        {/* Mobile: stacked cards */}
-        <ul className="mt-[var(--spacing-12)] space-y-[var(--spacing-3)] md:hidden">
+        {/* Mobile: stacked rows */}
+        <ul className="set mt-(--space-2xl) md:hidden">
           {rows.map((row) => (
             <li key={row.repo}>
               <a
                 href={row.url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="block border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-4)] transition-colors duration-[var(--duration-fast)] hover:border-[var(--color-accent)]"
+                className="block py-(--space-md) no-underline"
               >
-                <div className="flex items-baseline justify-between gap-3">
-                  <span
-                    className="text-sm font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)]"
-                  >
-                    {row.repo}
-                  </span>
-                  <span
-                    style={{ color: "#7CFF50" }}
-                    className="shrink-0 text-xs uppercase tracking-[var(--tracking-wider)]"
-                  >
-                    {row.timestamp}
-                  </span>
-                </div>
-                <p className="mt-1 text-xs text-[var(--color-fg-muted)]">
-                  {row.description}
-                </p>
-                <p className="mt-2 text-xs uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="font-display text-(length:--text-title) text-ink">{row.repo}</span>
+                  <span className="label num shrink-0">{row.timestamp}</span>
+                </span>
+                <span className="mt-1 block">{row.description}</span>
+                <span className="label mt-1 block">
                   {row.branch}
                   {row.additions > 0 || row.deletions > 0 ? (
                     <>
-                      {" · "}
-                      <span style={{ color: "#7CFF50" }}>+{row.additions}</span>
                       {" "}
-                      <span style={{ color: "#FF6B47" }}>-{row.deletions}</span>
+                      <span className="num text-success">+{row.additions}</span>{" "}
+                      <span className="num text-error">-{row.deletions}</span>
                     </>
                   ) : null}
-                </p>
+                </span>
               </a>
             </li>
           ))}
         </ul>
 
         {/* Desktop: table */}
-        <div className="mt-[var(--spacing-12)] hidden border border-[var(--color-border)] bg-[var(--color-bg-elevated)] md:block">
-          <table className="w-full text-left text-xs">
+        <div className="mt-(--space-2xl) hidden md:block">
+          <table className="border-t border-ink">
             <thead>
-              <tr className="border-b border-[var(--color-border)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-fg-subtle)]">
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.ts}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.repo}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">DESCRIPTION</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal">{labels.cols.branch}</th>
-                <th className="px-[var(--spacing-4)] py-[var(--spacing-3)] font-normal text-right">{labels.cols.diff}</th>
+              <tr className="border-b border-rule">
+                <th className="label py-(--space-sm) pr-(--space-md)">{labels.cols.ts}</th>
+                <th className="label py-(--space-sm) pr-(--space-md)">{labels.cols.repo}</th>
+                <th className="label py-(--space-sm) pr-(--space-md)">Description</th>
+                <th className="label py-(--space-sm) pr-(--space-md)">{labels.cols.branch}</th>
+                <th className="label py-(--space-sm) text-right">{labels.cols.diff}</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr
-                  key={row.repo}
-                  className="border-b border-[var(--color-border)]/60 transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-bg-overlay)]"
-                >
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)]" style={{ color: "#7CFF50" }}>
-                    {row.timestamp}
-                  </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)]">
+                <tr key={row.repo} className="border-b border-rule transition-colors duration-(--dur-micro) hover:bg-paper-3">
+                  <td className="num py-(--space-sm) pr-(--space-md)">{row.timestamp}</td>
+                  <td className="py-(--space-sm) pr-(--space-md)">
                     <a
                       href={row.url}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="font-bold text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+                      className="tlink !min-h-0 font-display text-(length:--text-lg)"
                     >
                       {row.repo}
                     </a>
                   </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)] truncate max-w-[300px]">
-                    {row.description}
-                  </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-[var(--color-fg-muted)]">
-                    {row.branch}
-                  </td>
-                  <td className="px-[var(--spacing-4)] py-[var(--spacing-3)] text-right whitespace-nowrap">
+                  <td className="max-w-[300px] truncate py-(--space-sm) pr-(--space-md)">{row.description}</td>
+                  <td className="py-(--space-sm) pr-(--space-md)">{row.branch}</td>
+                  <td className="num whitespace-nowrap py-(--space-sm) text-right">
                     {row.additions > 0 || row.deletions > 0 ? (
                       <>
-                        <span style={{ color: "#7CFF50" }}>+{row.additions}</span>
-                        {" "}
-                        <span style={{ color: "#FF6B47" }}>-{row.deletions}</span>
+                        <span className="text-success">+{row.additions}</span>{" "}
+                        <span className="text-error">-{row.deletions}</span>
                       </>
                     ) : (
-                      <span className="text-[var(--color-fg-subtle)]">—</span>
+                      <span className="text-muted">{labels.noDiff}</span>
                     )}
                   </td>
                 </tr>
@@ -143,12 +113,8 @@ export default async function LiveBuildLog({ locale }: Props) {
           </table>
         </div>
 
-        <div className="mt-[var(--spacing-6)] text-right">
-          <CTAButton
-            href="https://github.com/martin-minghetti"
-            external
-            variant="secondary"
-          >
+        <div className="mt-(--space-lg)">
+          <CTAButton href="https://github.com/martin-minghetti" external variant="secondary">
             {labels.seeAll}
           </CTAButton>
         </div>
