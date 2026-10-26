@@ -6,34 +6,21 @@ type Props = {
 
 export default function HowIThink({ dict }: Props) {
   return (
-    <section className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="mx-auto max-w-[var(--container-default)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-24)]">
-        <header className="space-y-[var(--spacing-4)]">
-          <h2 className="text-xs font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-accent)]">
-            {dict.howIThink.sectionHeader}
-          </h2>
-          <p className="text-2xl leading-[var(--leading-snug)] tracking-[var(--tracking-tight)]">
-            {dict.howIThink.sectionLead}
-          </p>
+    <section className="py-(--section-gap-s)">
+      <div className="container">
+        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
+          <h2 className="reveal-head md:col-span-6">{dict.howIThink.sectionHeader}</h2>
+          <p className="reveal lead md:col-span-5 md:col-start-8" style={{ "--i": 1 } as React.CSSProperties}>{dict.howIThink.sectionLead}</p>
         </header>
 
-        <ol className="mt-[var(--spacing-12)] grid gap-[var(--spacing-6)] md:grid-cols-2">
+        <ol className="set mt-(--space-2xl)">
           {dict.howIThink.items.map((item) => (
             <li
               key={item.index}
-              className="border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-[var(--spacing-8)]"
+              className="reveal grid gap-(--space-sm) py-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)"
             >
-              <p className="font-bold text-[var(--color-accent)]">
-                <span aria-hidden>{"> "}</span>
-                {item.index}
-                <span className="caret ml-1">_</span>
-              </p>
-              <h3 className="mt-[var(--spacing-3)] text-lg font-bold leading-[var(--leading-snug)]">
-                {item.heading}
-              </h3>
-              <p className="mt-[var(--spacing-3)] text-sm leading-[var(--leading-relaxed)] text-[var(--color-fg-muted)]">
-                {item.body}
-              </p>
+              <h3 className="md:col-span-5">{item.heading}</h3>
+              <p className="md:col-span-6 md:col-start-7">{item.body}</p>
             </li>
           ))}
         </ol>

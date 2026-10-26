@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import LenisProvider from "@/components/layout/LenisProvider";
+import ScrollEffects from "@/components/layout/ScrollEffects";
 import "./globals.css";
 
-const jetbrainsMono = JetBrains_Mono({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "700"],
+  variable: "--font-bricolage",
 });
 
 export const metadata: Metadata = {
@@ -80,12 +80,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={jetbrainsMono.variable}>
+    <html lang="en" className={bricolage.variable}>
       <head>
         <script type="application/ld+json">{personJsonLd}</script>
       </head>
       <body>
         <LenisProvider>{children}</LenisProvider>
+        <ScrollEffects />
       </body>
     </html>
   );

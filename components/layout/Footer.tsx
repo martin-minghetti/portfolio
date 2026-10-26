@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/dictionaries";
 import CTAButton from "@/components/ui/CTAButton";
@@ -10,31 +11,23 @@ export default function Footer({ dict }: Props) {
   const { columnAbout, columnWork, columnReach, legal, sourceLink } = dict.footer;
 
   return (
-    <footer className="mt-[var(--spacing-32)] border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
-      <div className="mx-auto grid max-w-[var(--container-wide)] gap-[var(--spacing-12)] px-[clamp(16px,4vw,32px)] py-[var(--spacing-20)] md:grid-cols-3">
-        <section className="space-y-2 text-sm text-[var(--color-fg-muted)]">
-          <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] text-xs">
-            {columnAbout.heading}
-          </h3>
-          <p className="text-[var(--color-fg)]">{columnAbout.tagline}</p>
-          <p>{columnAbout.stats}</p>
-          <div className="pt-[var(--spacing-4)] space-y-1">
-            <p>{columnAbout.location}</p>
-            <p>{columnAbout.meta}</p>
-          </div>
+    <ViewTransition name="site-footer">
+    <footer className="mt-(--section-gap-s) border-t border-ink">
+      <div className="container grid gap-(--space-2xl) py-(--space-3xl) md:grid-cols-12 md:gap-(--gap-columns)">
+        <section className="reveal md:col-span-12 lg:col-span-4">
+          <h3 className="font-display text-(length:--text-display-s) leading-none">{columnAbout.heading}</h3>
+          <p className="mt-(--space-lg) text-ink">{columnAbout.tagline}</p>
+          <p className="mt-(--space-xs)">{columnAbout.stats}</p>
+          <p className="label mt-(--space-lg)">{columnAbout.location}</p>
+          <p className="label">{columnAbout.meta}</p>
         </section>
 
-        <section className="space-y-3">
-          <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] text-xs">
-            {columnWork.heading}
-          </h3>
-          <ul className="space-y-2 text-sm">
+        <section className="reveal md:col-span-6 lg:col-span-4" style={{ "--i": 1 } as React.CSSProperties}>
+          <h3 className="label">{columnWork.heading}</h3>
+          <ul className="mt-(--space-xs)">
             {columnWork.links.map((link) => (
               <li key={`${link.label}-${link.href}`}>
-                <Link
-                  href={link.href}
-                  className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
-                >
+                <Link href={link.href} className="tlink">
                   {link.label}
                 </Link>
               </li>
@@ -42,18 +35,16 @@ export default function Footer({ dict }: Props) {
           </ul>
         </section>
 
-        <section className="space-y-3">
-          <h3 className="font-bold uppercase tracking-[var(--tracking-widest)] text-[var(--color-fg)] text-xs">
-            {columnReach.heading}
-          </h3>
-          <ul className="space-y-2 text-sm">
+        <section className="reveal md:col-span-6 lg:col-span-4" style={{ "--i": 2 } as React.CSSProperties}>
+          <h3 className="label">{columnReach.heading}</h3>
+          <ul className="mt-(--space-xs)">
             {columnReach.links.map((link) => (
               <li key={`${link.label}-${link.href}`}>
                 <a
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer noopener" : undefined}
-                  className="text-[var(--color-accent)] transition-opacity duration-[var(--duration-fast)] hover:opacity-70"
+                  className="tlink"
                 >
                   {link.label}
                 </a>
@@ -63,9 +54,9 @@ export default function Footer({ dict }: Props) {
         </section>
       </div>
 
-      <div className="border-t border-[var(--color-border)]">
-        <div className="mx-auto flex max-w-[var(--container-wide)] flex-col gap-2 px-[clamp(16px,4vw,32px)] py-[var(--spacing-6)] text-xs text-[var(--color-fg-subtle)] md:flex-row md:justify-between">
-          <p>{legal}</p>
+      <div className="border-t border-rule">
+        <div className="container flex flex-col gap-2 py-(--space-lg) md:flex-row md:items-center md:justify-between">
+          <p className="label">{legal}</p>
           <CTAButton
             href="https://github.com/martin-minghetti/portfolio"
             external
@@ -76,5 +67,6 @@ export default function Footer({ dict }: Props) {
         </div>
       </div>
     </footer>
+    </ViewTransition>
   );
 }

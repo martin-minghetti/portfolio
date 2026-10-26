@@ -4,6 +4,16 @@ export const runtime = "edge";
 
 const SIZE = { width: 1200, height: 630 };
 
+// Cobalto tokens as hex: the image renderer has no CSS variables, so these mirror app/tokens.css.
+const color = {
+  paper: "#F8FAFD",
+  ink: "#0A183B",
+  inkMuted: "#4E5B75",
+  rule: "#C9D1E2",
+  dot: "#C9D1E2",
+  accent: "#174BD7",
+};
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title =
@@ -20,45 +30,27 @@ export async function GET(request: Request) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#0A0A0A",
-          color: "#F5F5F0",
-          fontFamily: "monospace",
+          backgroundColor: color.paper,
+          color: color.ink,
+          fontFamily: "sans-serif",
           padding: "64px",
           position: "relative",
         }}
       >
-        {/* Grid pattern background */}
+        {/* Dot grid background */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage:
-              "linear-gradient(to right, #2A2A2A 1px, transparent 1px), linear-gradient(to bottom, #2A2A2A 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
+            backgroundImage: `radial-gradient(circle at 1px 1px, ${color.dot} 1px, transparent 1.4px)`,
+            backgroundSize: "24px 24px",
           }}
         />
 
-        {/* Logo mark */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            zIndex: 1,
-          }}
-        >
-          <span
-            style={{
-              fontSize: "20px",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-            }}
-          >
-            MARTIN MINGHETTI
-          </span>
-          <span style={{ color: "#7CFF50", fontSize: "20px", fontWeight: 700 }}>
-            _
+        {/* Wordmark */}
+        <div style={{ display: "flex", alignItems: "center", zIndex: 1 }}>
+          <span style={{ fontSize: "32px", letterSpacing: "-0.01em" }}>
+            Martin Minghetti
           </span>
         </div>
 
@@ -68,10 +60,10 @@ export async function GET(request: Request) {
         {/* Title */}
         <h1
           style={{
-            fontSize: "84px",
+            fontSize: "96px",
             fontWeight: 700,
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
+            lineHeight: 1.02,
+            letterSpacing: "-0.022em",
             margin: 0,
             zIndex: 1,
             maxWidth: "1000px",
@@ -83,8 +75,9 @@ export async function GET(request: Request) {
         {/* Subtitle */}
         <p
           style={{
-            fontSize: "28px",
-            color: "#A8A8A0",
+            fontSize: "30px",
+            fontFamily: "sans-serif",
+            color: color.inkMuted,
             marginTop: "24px",
             marginBottom: 0,
             zIndex: 1,
@@ -99,20 +92,17 @@ export async function GET(request: Request) {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
             marginTop: "48px",
             paddingTop: "24px",
-            borderTop: "1px solid #2A2A2A",
-            fontSize: "16px",
-            color: "#6E6E66",
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
+            borderTop: `2px solid ${color.accent}`,
+            fontFamily: "sans-serif",
+            fontSize: "20px",
+            color: color.inkMuted,
             zIndex: 1,
           }}
         >
           <span>martin-minghetti.vercel.app</span>
-          <span style={{ color: "#7CFF50" }}>14 OSS · 4 DEMOS LIVE</span>
         </div>
       </div>
     ),

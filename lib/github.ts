@@ -149,7 +149,7 @@ export async function getRecentCommits(): Promise<CommitRow[]> {
           timestamp: repo.pushed_at.slice(0, 10),
           repo: repo.name,
           branch: repo.default_branch,
-          description: (repo.description ?? "—").split(".")[0].slice(0, 60),
+          description: (repo.description ?? "").split(".")[0].slice(0, 60),
           language: repo.language ?? "—",
           url: repo.html_url,
           additions: stats.additions,
