@@ -96,7 +96,12 @@
   .tok-text { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-xs); }
   .tok-word { display: inline-flex; gap: 2px; }
   .tok { padding: 0.15em 0.45em; border-radius: 6px; background: var(--color-paper-3); color: var(--color-ink); font-size: 1rem; line-height: 1.5; }
-  .tok-word .tok:nth-child(even) { background: color-mix(in oklab, var(--color-accent) 22%, var(--color-paper-hi)); }
+  /* one hue per token, cycling, so neighbours never share a color */
+  .tok.c0 { background: oklch(87% 0.07 300); }
+  .tok.c1 { background: oklch(88% 0.08 150); }
+  .tok.c2 { background: oklch(89% 0.09 75); }
+  .tok.c3 { background: oklch(87% 0.07 20); }
+  .tok.c4 { background: oklch(88% 0.07 230); }
   .bars { display: grid; gap: var(--space-sm); margin-top: var(--space-md); }
   .bar-row { display: grid; grid-template-columns: 4.5rem 1fr 7.5rem; align-items: center; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
   .bar-track { position: relative; height: 28px; background: linear-gradient(to right, var(--color-rule) 1px, transparent 1px) 0 0 / 25% 100%; border-left: 1px solid var(--color-muted); }
