@@ -1,7 +1,17 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
-import { isLocale, type Locale } from "@/lib/i18n";
+import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import ContactPageView from "./ContactPageView";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  return {
+    title: `${lang === "es" ? "Contacto" : "Contact"} | Martín Minghetti`,
+    alternates: alternates(lang, "/contact"),
+  };
+}
 
 const labelsByLocale = {
   en: {

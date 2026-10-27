@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import Comments from "@/components/blog/Comments";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
 
@@ -19,11 +19,33 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const post = getPost(lang, slug);
   if (!post) return {};
+  const image = ogImage(post.title);
   return {
     title: `${post.title} | Martín Minghetti`,
     description: post.description,
-    openGraph: { type: "article", title: post.title, description: post.description },
+    alternates: alternates(lang, `/blog/${slug}`, postLanguages(slug)),
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.description,
+      locale: ogLocale[lang],
+      publishedTime: post.date,
+      authors: ["Martín Minghetti"],
+      images: [{ url: image, width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image", title: post.title, description: post.description, images: [image] },
   };
+}
+
+const SITE = "https://martin-minghetti.vercel.app";
+
+function ogImage(title: string) {
+  return `/api/og?title=${encodeURIComponent(title)}`;
+}
+
+// Only languages the post is actually written in get an hreflang.
+function postLanguages(slug: string) {
+  return locales.filter((l) => getPost(l, slug));
 }
 
 export default async function BlogPost({
@@ -37,9 +59,22 @@ export default async function BlogPost({
   const post = getPost(locale, slug);
   if (!post) notFound();
   const dict = await getDictionary(locale);
+  const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: locale,
+    mainEntityOfPage: `${SITE}/${locale}/blog/${slug}`,
+    image: `${SITE}${ogImage(post.title)}`,
+    author: { "@type": "Person", name: "Martín Minghetti", url: SITE },
+  });
 
   return (
     <article>
+      <script type="application/ld+json">{jsonLd}</script>
       <div className="read-progress" aria-hidden />
       <header className="hero-ground">
         <div className="container pt-(--space-2xl) pb-(--space-2xl)">

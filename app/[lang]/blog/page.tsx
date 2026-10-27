@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
-import { isLocale, type Locale } from "@/lib/i18n";
+import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import { formatDate, getPosts } from "@/lib/blog";
 
 export async function generateMetadata({
@@ -13,7 +13,14 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = await getDictionary(lang);
-  return { title: `${dict.blog.title} | Martín Minghetti`, description: dict.blog.lead };
+  const title = `${dict.blog.title} | Martín Minghetti`;
+  return {
+    title,
+    description: dict.blog.lead,
+    alternates: alternates(lang, "/blog"),
+    openGraph: { type: "website", title, description: dict.blog.lead, images: ["/api/og?title=Blog"] },
+    twitter: { card: "summary_large_image", title, description: dict.blog.lead, images: ["/api/og?title=Blog"] },
+  };
 }
 
 export default async function BlogIndex({

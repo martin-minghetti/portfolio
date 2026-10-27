@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { isLocale, type Locale } from "@/lib/i18n";
+
+export const metadata: Metadata = { robots: { index: false } };
 
 const copyByLocale = {
   en: {

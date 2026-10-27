@@ -1,8 +1,8 @@
 ---
 title: "Qué es un AI Builder y qué hace"
-date: 2026-10-25
+date: 2026-10-27
 order: 1
-description: "Un AI Builder es alguien que construye software cuyo cerebro es un modelo de lenguaje."
+description: "Un AI Builder construye software cuyo cerebro es un modelo de lenguaje. Qué es, en qué se diferencia de un desarrollador tradicional y qué hace en el día a día."
 ---
 
 Hace poco empecé a escuchar el término AI Builder en todos lados, y la definición cambia según quién la cuente. Esto es lo que entendí, escrito de la forma más simple que pude.
