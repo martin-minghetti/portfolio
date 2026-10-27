@@ -85,6 +85,35 @@
   .prose pre { overflow-x: auto; padding: var(--space-md); border-radius: var(--radius-card); background: var(--color-paper-2); }
   .prose pre code { padding: 0; background: none; }
   .prose blockquote { padding: var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-2); }
+
+  /* post figures: plain HTML inside the markdown, drawn with the theme tokens */
+  .prose figure { margin-top: 2em; margin-bottom: 2em; padding: var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-hi); }
+  .prose figcaption { margin-top: var(--space-md); font-size: var(--text-sm); line-height: 1.5; color: var(--color-muted); }
+  .prose .fig-title { font-size: var(--text-md); font-weight: 600; color: var(--color-ink); }
+  .tok-row + .tok-row { margin-top: var(--space-md); }
+  .tok-head { display: flex; justify-content: space-between; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
+  .tok-head b { color: var(--color-ink); font-variant-numeric: tabular-nums; }
+  .tok-text { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-xs); }
+  .tok-word { display: inline-flex; gap: 2px; }
+  .tok { padding: 0.15em 0.45em; border-radius: 6px; background: var(--color-paper-3); color: var(--color-ink); font-size: 1rem; line-height: 1.5; }
+  .tok-word .tok:nth-child(even) { background: color-mix(in oklab, var(--color-accent) 22%, var(--color-paper-hi)); }
+  .bars { display: grid; gap: var(--space-sm); margin-top: var(--space-md); }
+  .bar-row { display: grid; grid-template-columns: 4.5rem 1fr 7.5rem; align-items: center; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
+  .bar-track { position: relative; height: 28px; background: linear-gradient(to right, var(--color-rule) 1px, transparent 1px) 0 0 / 25% 100%; border-left: 1px solid var(--color-muted); }
+  .bar { position: absolute; inset: 4px auto 4px 0; border-radius: 0 4px 4px 0; background: var(--color-accent); }
+  .bar--range { background: repeating-linear-gradient(45deg, color-mix(in oklab, var(--color-accent) 45%, var(--color-paper-hi)) 0 4px, var(--color-paper-hi) 4px 7px); border: 1px solid var(--color-accent); border-left: 0; }
+  .bar-val { white-space: nowrap; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+  .bar-axis { display: grid; grid-template-columns: 4.5rem 1fr 7.5rem; gap: var(--space-sm); font-size: 0.75rem; color: var(--color-muted); font-variant-numeric: tabular-nums; }
+  .bar-axis > span:nth-child(2) { position: relative; height: 1.4em; }
+  .bar-axis > span:nth-child(2) > span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .bar-axis > span:nth-child(2) > span:first-child { transform: none; }
+  .bar-axis > span:nth-child(2) > span:last-child { transform: translateX(-100%); }
+  @media (max-width: 40rem) {
+    .bar-row { grid-template-columns: 1fr auto; row-gap: 4px; }
+    .bar-row .bar-track { grid-column: 1 / -1; grid-row: 2; }
+    .bar-axis { grid-template-columns: 1fr; }
+    .bar-axis > span:not(:nth-child(2)), .bar-axis > span:nth-child(2) > span:nth-child(even) { display: none; }
+  }
 }
 
 /* motion ------------------------------------------------------------------
