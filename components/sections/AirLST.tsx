@@ -5,22 +5,21 @@ type Props = {
   dict: Dictionary;
 };
 
+// The one section that breaks the split: a full field of the accent, the clients set as large as the page allows.
 export default function AirLST({ dict }: Props) {
   return (
-    <section className="bg-ink py-(--section-gap-s)">
-      <div className="container grid gap-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
-        <div className="md:col-span-5">
-          <h2 className="reveal-head !text-paper">{dict.airlst.sectionHeader}</h2>
-          <p className="reveal lead mt-(--space-lg) !text-paper" style={{ "--i": 1 } as React.CSSProperties}>{dict.airlst.disclaimer}</p>
-          <p className="reveal mt-(--space-md) !text-paper-3" style={{ "--i": 2 } as React.CSSProperties}>{dict.airlst.metrics}</p>
+    <section className="airlst">
+      <div className="container">
+        <div className="grid gap-(--space-lg) md:grid-cols-2 md:gap-(--space-3xl)">
+          <h2 className="reveal-head">{dict.airlst.sectionHeader}</h2>
+          <div>
+            <p className="reveal lead">{dict.airlst.disclaimer}</p>
+            <p className="reveal mt-(--space-md)" style={{ "--i": 1 } as React.CSSProperties}>{dict.airlst.metrics}</p>
+          </div>
         </div>
-        <ul className="grid auto-rows-min grid-cols-2 border-t border-paper-3/40 md:col-span-6 md:col-start-7">
+        <ul className="airlst-clients">
           {airlstClients.map((client, i) => (
-            <li
-              key={client}
-              style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
-              className="reveal-fade border-b border-paper-3/40 py-(--space-md) font-display text-(length:--text-title) leading-tight !text-paper"
-            >
+            <li key={client} className="reveal-fade" style={{ "--i": Math.min(i, 8) } as React.CSSProperties}>
               {client}
             </li>
           ))}

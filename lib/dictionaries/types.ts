@@ -39,18 +39,11 @@ export type Dictionary = {
   hero: {
     h1Line1: string;
     h1Line2: string;
-    h1Line3: string;
-    trackA: {
-      label: string;
-      tagline: string;
-      cta: string;
-    };
-    trackB: {
-      label: string;
-      tagline: string;
-      cta: string;
-    };
-    scrollHint: string;
+    lead: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    stageLabel: string;
+    stageOpen: string;
   };
   whoIAm: {
     lead: string;

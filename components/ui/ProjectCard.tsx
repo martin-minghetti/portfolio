@@ -9,11 +9,11 @@ type Props = {
   project: Project;
   locale: Locale;
   labels: Dictionary["cardLabels"];
-  variant?: "row" | "tile" | "line";
-  lead?: boolean;
+  variant?: "entry" | "line";
 };
 
-// Screens captured from each live demo (public/projects). A project without one is set in type alone.
+// Screens captured from each live demo (public/projects, phone shots in public/projects/phone).
+// A project without one is set in type alone.
 const screens: Record<string, string> = {
   cumbre: "/projects/cumbre.jpg",
   "norhaven-lodge": "/projects/norhaven-lodge.jpg",
@@ -28,8 +28,9 @@ const screens: Record<string, string> = {
 };
 
 export const hasScreen = (slug: string) => slug in screens;
+export const screenOf = (slug: string) => ({ desktop: screens[slug], phone: `/projects/phone/${slug}.jpg` });
 
-export default function ProjectCard({ project, locale, labels, variant = "row", lead = false }: Props) {
+export default function ProjectCard({ project, locale, labels, variant = "entry" }: Props) {
   const statusLabel =
     {
       live: labels.live,
@@ -40,7 +41,6 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
 
   const screen = screens[project.slug];
   const stack = project.stack.split(" · ");
-  const isRow = variant === "row";
   const isLine = variant === "line";
 
   const picture = screen ? (
@@ -49,13 +49,13 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
         data-slot={`screen-${project.slug}`}
         data-kind="product"
         data-alt={project.name}
-        className="screen crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+        className="screen aspect-[16/10] rounded-card"
       >
         <FadeImage
           src={screen}
           alt={project.name}
           fill
-          sizes={isRow || lead ? "(min-width: 768px) 55vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"}
+          sizes="100vw"
           className="object-cover object-top"
         />
       </div>
@@ -63,13 +63,13 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
   ) : null;
 
   const body = (
-    <div className="reveal flex min-w-0 flex-col" style={{ "--i": 1 } as React.CSSProperties}>
+    <div className="reveal flex min-w-0 flex-col">
       <header className="flex items-start justify-between gap-3">
-        <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
+        <h3 className="entry-name">{project.name}</h3>
         <StatusBadge status={project.status} label={statusLabel} />
       </header>
 
-      <p className="mt-(--space-sm)">{project.summary[locale]}</p>
+      <p className="mt-(--space-md)">{project.summary[locale]}</p>
 
       <ul className="label mt-(--space-md) flex flex-wrap gap-x-4 gap-y-1">
         {stack.map((item) => (
@@ -142,12 +142,12 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
 
   if (isLine) {
     return (
-      <article className="reveal grid gap-(--space-sm) border-b border-rule py-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
-        <header className="flex items-start justify-between gap-3 md:col-span-4">
+      <article className="reveal entry-line grid gap-(--space-sm) py-(--space-lg)">
+        <header className="flex items-start justify-between gap-3">
           <h3 className="font-display text-(length:--text-title) leading-tight">{project.name}</h3>
           <StatusBadge status={project.status} label={statusLabel} />
         </header>
-        <div className="md:col-span-5">
+        <div>
           <p>{project.summary[locale]}</p>
           <ul className="label mt-(--space-xs) flex flex-wrap gap-x-4 gap-y-1">
             {stack.map((item) => (
@@ -163,7 +163,7 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
           ) : null}
           {project.cost ? <p className="label mt-(--space-xs)">{project.cost}</p> : null}
         </div>
-        <div className="flex flex-wrap items-start gap-x-5 md:col-span-3">
+        <div className="flex flex-wrap items-start gap-x-5">
           {project.liveUrl ? (
             <CTAButton href={project.liveUrl} external variant="secondary">
               {labels.seeLive}
@@ -184,18 +184,9 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
     );
   }
 
-  if (isRow) {
-    return (
-      <article className="grid gap-(--space-lg) border-b border-rule py-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
-        {picture ? <div className="md:col-span-5">{picture}</div> : null}
-        <div className="md:col-span-6 md:col-start-7">{body}</div>
-      </article>
-    );
-  }
-
   return (
-    <article className="flex flex-col gap-(--space-md) border-t border-ink pt-(--space-lg)">
-      {picture}
+    <article data-stage={screen ? project.slug : undefined} className="entry">
+      {picture ? <div className="entry-shot">{picture}</div> : null}
       {body}
     </article>
   );

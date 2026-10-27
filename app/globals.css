@@ -1,8 +1,9 @@
-/* Hallmark · shape: Index First (draw 8feb8c, swapped from Stat-Led: no stats to lead with, ten live screens to show) · genre: editorial · theme: custom Cobalto (picked by the user from six candidates; Studio, Brutal and Manifesto were dealt) · redesign: full · copy: verbatim
- * hero: Stage without a visual, the display head on a field of the accent over two action sheets · nav: edge-aligned · footer: colophon block · imagery: screenshots 10 (capture.mjs) · signature: the cobalt hero field and the project index with the live screens
- * axes: light/grotesk-sans/chromatic-blue · posture: confident · contrast: pending · fold: pending · v2.0.0 */
-/* Hallmark · pre-emit critique: P3 H3 E3 S3 R3 V3 · weakest: V, one grotesque face for head and body keeps the page plain, the hierarchy rests on size and weight */
-/* Hallmark · waived 23, 38iii · the cobalt field is the declared posture and the signature of the hero; its third line is a second line at a second tone, never one word inside a head */
+/* Hallmark · shape: Split Stage (taste-skill draw seed 796035554, direction split-stage; type and palette redrawn: Boska and Frost read as perfume, not as a frontend developer) · genre: modern-minimal · theme: custom Cobalto Night (the 26-10 Cobalto accent on a near-black ground) · redesign: full · copy: hero rewritten for frontend, rest verbatim
+ * hero: the name across the full width, lead and actions in the reading half beside the stage · nav: edge-aligned · footer: colophon block · imagery: desktop screens 10 + phone screens 10 (captured from the live demos) · signature: the stage that keeps the project in view, desktop and phone, while its entry is read
+ * axes: dark/grotesk-sans/chromatic-blue · posture: confident · contrast: checked by taste-skill inspect · fold: name, lead, actions and the stage's first screen at 1440 x 900 · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E3 S4 R3 V4 · weakest: R, the sections under the split still run on the earlier row compositions */
+/* Hallmark · waived 23, 38iii · the second line of a head at a second tone is a declared device (hero title, blog field), never one word inside a head */
+/* Hallmark · waived 62 · [data-reveal="pending"] is only ever set by ScrollEffects.tsx, so without script nothing is hidden; the stage's first image renders data-on="true" from the server */
 @import "tailwindcss";
 @import "./tokens.css";
 @import "./base.css" layer(base);
@@ -51,8 +52,7 @@
 .tlink:hover { text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; }
 
 /* rows: an ink rule opens a set, hairlines part the rows */
-.set { border-top: var(--rule-hair) solid var(--color-ink); }
-.set > * { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.set > * + * { box-shadow: inset 0 1px 0 var(--color-paper-2); }
 
 /* fields */
 .field {
@@ -88,12 +88,12 @@
   .prose th, .prose td { padding: 0.6em 0.9em; border-bottom: 1px solid var(--color-rule); text-align: left; vertical-align: top; }
   .prose th { color: var(--color-ink); font-weight: 600; border-bottom-color: var(--color-ink); }
   /* code colors: highlight.js classes, drawn from the theme hues */
-  .hljs-keyword, .hljs-built_in, .hljs-literal { color: var(--color-accent); }
-  .hljs-string { color: oklch(46% 0.13 150); }
-  .hljs-number { color: oklch(50% 0.14 55); }
+  .hljs-keyword, .hljs-built_in, .hljs-literal { color: var(--color-focus); }
+  .hljs-string { color: var(--code-string); }
+  .hljs-number { color: var(--code-number); }
   .hljs-comment { color: var(--color-muted); font-style: italic; }
-  .hljs-title, .hljs-title.function_ { color: oklch(46% 0.17 300); }
-  .hljs-attr, .hljs-property, .hljs-params { color: oklch(45% 0.1 220); }
+  .hljs-title, .hljs-title.function_ { color: var(--code-title); }
+  .hljs-attr, .hljs-property, .hljs-params { color: var(--code-attr); }
   .prose blockquote { padding: var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-2); }
 
   /* post figures: plain HTML inside the markdown, drawn with the theme tokens */
@@ -103,15 +103,16 @@
   .tok-row + .tok-row { margin-top: var(--space-md); }
   .tok-head { display: flex; justify-content: space-between; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
   .tok-head b { color: var(--color-ink); font-variant-numeric: tabular-nums; }
-  .tok-text { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-xs); }
-  .tok-word { display: inline-flex; gap: 2px; }
+  .tok-text { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs); }
+  .tok-word { display: inline-flex; gap: var(--space-3xs); }
   .tok { padding: 0.15em 0.45em; border-radius: 6px; background: var(--color-paper-3); color: var(--color-ink); font-size: 1rem; line-height: 1.5; }
   /* one hue per token, cycling, so neighbours never share a color */
-  .tok.c0 { background: oklch(87% 0.07 300); }
-  .tok.c1 { background: oklch(88% 0.08 150); }
-  .tok.c2 { background: oklch(89% 0.09 75); }
-  .tok.c3 { background: oklch(87% 0.07 20); }
-  .tok.c4 { background: oklch(88% 0.07 230); }
+  .tok[class*=" c"] { color: var(--tok-ink); }
+  .tok.c0 { background: var(--tok-0); }
+  .tok.c1 { background: var(--tok-1); }
+  .tok.c2 { background: var(--tok-2); }
+  .tok.c3 { background: var(--tok-3); }
+  .tok.c4 { background: var(--tok-4); }
   .bars { display: grid; gap: var(--space-sm); margin-top: var(--space-md); }
   .bar-row { display: grid; grid-template-columns: 4.5rem 1fr 7.5rem; align-items: center; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
   .bar-track { position: relative; height: 28px; background: linear-gradient(to right, var(--color-rule) 1px, transparent 1px) 0 0 / 25% 100%; border-left: 1px solid var(--color-muted); }
@@ -124,7 +125,7 @@
   .bar-axis > span:nth-child(2) > span:first-child { transform: none; }
   .bar-axis > span:nth-child(2) > span:last-child { transform: translateX(-100%); }
   @media (max-width: 40rem) {
-    .bar-row { grid-template-columns: 1fr auto; row-gap: 4px; }
+    .bar-row { grid-template-columns: 1fr auto; row-gap: var(--space-2xs); }
     .bar-row .bar-track { grid-column: 1 / -1; grid-row: 2; }
     .bar-axis { grid-template-columns: 1fr; }
     .bar-axis > span:not(:nth-child(2)), .bar-axis > span:nth-child(2) > span:nth-child(even) { display: none; }
@@ -137,33 +138,34 @@
    Content is visible by default; the animations only run where the browser supports them. */
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes line-rise { from { transform: translateY(108%); } to { transform: none; } }
+@keyframes stage-in { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: none; } }
 @keyframes sheet-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 
 
-.hero-ground h1 .line { display: block; overflow: hidden; padding-bottom: 0.16em; margin-bottom: -0.16em; }
-.hero-ground h1 .line > span { display: block; animation: line-rise 820ms var(--ease-out) both; }
-.hero-ground h1 .line:nth-child(2) > span { animation-delay: 90ms; }
+.hero-title .line, .hero-ground h1 .line { display: block; overflow: hidden; padding-bottom: 0.16em; margin-bottom: -0.16em; }
+.hero-title .line > span, .hero-ground h1 .line > span { display: block; animation: line-rise 820ms var(--ease-out) both; }
+.hero-title .line:nth-child(2) > span, .hero-ground h1 .line:nth-child(2) > span { animation-delay: 90ms; }
 .hero-ground h1 .line:nth-child(3) > span { animation-delay: 180ms; }
 .hero-ground .sheet { animation: sheet-in 760ms var(--ease-out) 460ms both; }
 .hero-ground .sheet:nth-of-type(2) { animation-delay: 560ms; }
 .hero-ground .hero-hint { animation: fade-in 600ms var(--ease-out) 900ms both; }
+.hero .hero-lead { animation: sheet-in 760ms var(--ease-out) 360ms both; }
+.hero .hero-actions { animation: sheet-in 760ms var(--ease-out) 480ms both; }
+.stage { animation: stage-in 1100ms var(--ease-out) 200ms both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-ground h1 .line > span, .hero-hint { animation: fade-in 400ms var(--ease-out) both; animation-delay: 0ms; }
+  .hero-title .line > span, .hero .hero-lead, .hero .hero-actions, .stage, .hero-ground h1 .line > span, .hero-hint { animation: fade-in 400ms var(--ease-out) both; animation-delay: 0ms; }
   .hero-ground .sheet { animation: fade-in 400ms var(--ease-out) 120ms both; }
 }
 
 /* Scroll effects are driven by components/layout/ScrollEffects.tsx so they work in every browser. */
+.crop-shadow { box-shadow: none; }
 .screen > img { transition: clip-path 900ms var(--ease-out), transform 1100ms var(--ease-out), opacity 600ms var(--ease-out); }
 
-/* image loader: a shimmer on the slot while the picture is on its way, a fade when it lands */
-@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+/* image loader: the slot breathes between two tones while the picture is on its way, a fade when it lands */
 [data-slot] > img[data-state="loading"] { opacity: 0; }
-[data-slot]:has(> img[data-state="loading"]) {
-  background: linear-gradient(100deg, var(--color-paper-2) 30%, var(--color-paper-hi) 50%, var(--color-paper-2) 70%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s linear infinite;
-}
+[data-slot]:has(> img[data-state="loading"]) { animation: pulse 1.4s var(--ease-in-out) infinite alternate; }
+@keyframes pulse { to { background-color: var(--color-paper-3); } }
 .screen[data-reveal="pending"] > img { clip-path: inset(100% 0 0 0); transform: scale(1.05); }
 
 /* Arrivals while scrolling, one per kind of content:
@@ -202,12 +204,73 @@ section[id] { scroll-margin-top: calc(var(--section-gap-s) * -1); }
 }
 
 /* the hero sits on a field of the accent */
-.hero-ground { background: var(--color-accent); color: var(--color-paper-hi); }
-.hero-ground h1, .hero-ground h1 .line { color: var(--color-paper-hi); }
-.hero-ground h1 .line:last-child { color: color-mix(in oklab, var(--color-paper-hi) 72%, var(--color-accent)); }
-.hero-ground .tlink { color: var(--color-paper-hi); text-decoration-color: color-mix(in oklab, var(--color-paper-hi) 60%, transparent); }
-.hero-ground .tlink:focus-visible { outline-color: var(--color-paper-hi); }
+.hero-ground { background: var(--color-accent); color: var(--color-accent-ink); }
+.hero-ground h1, .hero-ground h1 .line { color: var(--color-accent-ink); }
+.hero-ground h1 .line:last-child { color: color-mix(in oklab, var(--color-accent-ink) 72%, var(--color-accent)); }
+.hero-ground .tlink { color: var(--color-accent-ink); text-decoration-color: color-mix(in oklab, var(--color-accent-ink) 60%, transparent); }
+.hero-ground .tlink:focus-visible { outline-color: var(--color-accent-ink); }
 .hero-ground p { color: inherit; }
 .sheet h2 { color: var(--color-ink); }
 .sheet p { color: var(--color-ink-2); }
 .crop-shadow { box-shadow: var(--shadow-sheet); }
+
+/* the split ------------------------------------------------------------------
+   Reading half on the left, the stage on the right: it stays put and shows the project in view,
+   its desktop screen with the phone screen over its corner. Under 64rem the stage goes and each
+   entry carries its own screen. */
+.split { display: grid; gap: var(--gap-columns); }
+.split-read { min-width: 0; }
+.hero-title { grid-column: 1 / -1; max-width: none; padding-top: var(--space-2xl); font-size: clamp(2.375rem, 8.2vw, 8.75rem); line-height: 0.92; letter-spacing: -0.05em; }
+.hero-title .line:last-child { color: var(--color-muted); }
+.hero { padding-bottom: var(--space-xl); }
+.hero-lead { max-width: 40ch; color: var(--color-ink-2); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+
+.track { padding-top: var(--section-gap-s); }
+.track-head h2 { font-size: clamp(2rem, 3.2vw, 3.25rem); line-height: 1; }
+.track-pitch { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-lg); }
+.track-pitch li { padding: var(--space-xs) var(--space-md); border-radius: var(--radius-pill); background: var(--color-paper-2); font-size: var(--text-sm); color: var(--color-ink-2); }
+.track-foot { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-md); margin-top: var(--space-xl); padding: var(--space-xl); border-radius: var(--radius-card); background: var(--color-paper-2); }
+
+.entry { display: flex; flex-direction: column; justify-content: center; padding-block: var(--space-2xl); }
+.entry-shot { margin-bottom: var(--space-lg); }
+.entry-name { font-size: clamp(1.75rem, 2.6vw, 2.75rem); line-height: 1.05; transition: color var(--dur-short) var(--ease-out); }
+
+
+.stage { display: none; }
+
+@media (min-width: 64rem) {
+  .split { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: var(--space-3xl); }
+  .entry { min-height: 64svh; }
+  .split { row-gap: var(--space-xl); }
+  .entry-shot { display: none; }
+  .stage {
+    display: flex; flex-direction: column; gap: var(--space-md);
+    position: sticky; top: calc(64px + var(--space-lg)); align-self: start;
+    height: calc(100svh - 64px - var(--space-lg) * 2);
+  }
+  .stage-frame { position: relative; flex: 1; min-height: 0; }
+  .stage-desktop, .stage-phone { position: absolute; overflow: hidden; background: var(--color-paper-2); }
+  .stage-desktop { top: 0; left: 0; width: 88%; aspect-ratio: 16 / 10; border-radius: var(--radius-card); }
+  .stage-phone {
+    right: 0; bottom: 0; height: min(78%, 46vw); aspect-ratio: 393 / 852; border-radius: 28px;
+    outline: 6px solid var(--color-paper); box-shadow: 0 30px 60px -20px var(--shadow-float-ink);
+  }
+  .stage-frame img { opacity: 0; transform: scale(1.04); transition: opacity 700ms var(--ease-out), transform 1200ms var(--ease-out); }
+  .stage-frame img[data-on="true"] { opacity: 1; transform: none; }
+  .stage-caption { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); max-width: 88%; }
+  .stage-name { font-family: var(--font-display); font-size: var(--text-title); font-weight: 700; color: var(--color-ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage-frame img { transition: opacity 200ms linear; transform: none; }
+}
+
+/* "desarrollador frontend." runs four characters longer than its English line: a step down keeps it on two lines */
+.hero-title:lang(es) { font-size: clamp(2rem, 6.6vw, 7rem); }
+
+.airlst { background: var(--color-accent); padding-block: var(--section-gap); }
+.airlst h2, .airlst p { color: var(--color-accent-ink); }
+.airlst-clients { display: flex; flex-wrap: wrap; column-gap: 0.55em; margin-top: var(--space-3xl); font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 5.6vw, 5.5rem); line-height: 1; letter-spacing: -0.04em; text-transform: lowercase; }
+.airlst-clients li { color: var(--color-accent-ink); }
+.airlst-clients li:nth-child(even) { color: color-mix(in oklab, var(--color-accent-ink) 62%, var(--color-accent)); }
+

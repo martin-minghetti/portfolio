@@ -24,22 +24,13 @@ export const es: Dictionary = {
     rss: "Seguir por RSS",
   },
   hero: {
-    h1Line1: "Soy Martín.",
-    h1Line2: "Hago sitios web.",
-    h1Line3: "Y apps con ayuda de IA.",
-    trackA: {
-      label: "Sitios web y tiendas",
-      tagline:
-        "Para negocios y emprendedores. Diseño, código y pagos con Mercado Pago, con presupuesto claro.",
-      cta: "Escribime por WhatsApp",
-    },
-    trackB: {
-      label: "Apps y automatizaciones con IA",
-      tagline:
-        "Cosas que te ahorran horas: leer mails, armar informes, contestar consultas. Hay demos para probar.",
-      cta: "Reservá 30 minutos",
-    },
-    scrollHint: "Bajá para ver los proyectos",
+    h1Line1: "Martín Minghetti,",
+    h1Line2: "desarrollador frontend.",
+    lead: "Siete años y medio haciendo sitios de eventos para Mercedes-Benz, Netflix y BioNTech. Ahora mis propios sitios, tiendas y apps con IA, todos andando acá abajo.",
+    ctaPrimary: "Escribime por WhatsApp",
+    ctaSecondary: "Reservá 30 minutos",
+    stageLabel: "Vista previa del proyecto en pantalla",
+    stageOpen: "Abrir la demo",
   },
   whoIAm: {
     lead: "Cómo llegué hasta acá, en cuatro líneas.",
@@ -69,7 +60,7 @@ export const es: Dictionary = {
       "Si querés algo así para tu negocio, el presupuesto llega en 24 horas y sin compromiso.",
   },
   trackB: {
-    sectionHeader: "Apps y automatizaciones con IA",
+    sectionHeader: "Apps con IA",
     sectionLead: "Para quien quiere ver las cosas andando antes de decidir.",
     pitch: [
       "Demos que podés abrir y probar.",

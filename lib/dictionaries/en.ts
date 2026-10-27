@@ -24,22 +24,13 @@ export const en: Dictionary = {
     rss: "Follow via RSS",
   },
   hero: {
-    h1Line1: "I'm Martín.",
-    h1Line2: "I make websites.",
-    h1Line3: "And apps, with AI's help.",
-    trackA: {
-      label: "Websites and online stores",
-      tagline:
-        "For businesses and founders. Design, code and Mercado Pago payments, with a clear quote.",
-      cta: "Message me on WhatsApp",
-    },
-    trackB: {
-      label: "AI apps and automations",
-      tagline:
-        "Things that save you hours: reading emails, putting reports together, answering questions. There are demos you can try.",
-      cta: "Book 30 minutes",
-    },
-    scrollHint: "Scroll to see the projects",
+    h1Line1: "Martín Minghetti,",
+    h1Line2: "frontend developer.",
+    lead: "Seven and a half years building event sites for Mercedes-Benz, Netflix and BioNTech. Now my own sites, stores and AI apps, all live below.",
+    ctaPrimary: "Message me on WhatsApp",
+    ctaSecondary: "Book 30 minutes",
+    stageLabel: "Preview of the project in view",
+    stageOpen: "Open the live demo",
   },
   whoIAm: {
     lead: "How I got here, in four lines.",

@@ -12,7 +12,7 @@ export default function Footer({ dict }: Props) {
 
   return (
     <ViewTransition name="site-footer">
-    <footer className="mt-(--section-gap-s) border-t border-ink">
+    <footer className="mt-(--section-gap-s) bg-paper-2">
       <div className="container grid gap-(--space-2xl) py-(--space-3xl) md:grid-cols-12 md:gap-(--gap-columns)">
         <section className="reveal md:col-span-12 lg:col-span-4">
           <h3 className="font-display text-(length:--text-display-s) leading-none">{columnAbout.heading}</h3>
@@ -54,7 +54,7 @@ export default function Footer({ dict }: Props) {
         </section>
       </div>
 
-      <div className="border-t border-rule">
+      <div>
         <div className="container flex flex-col gap-2 py-(--space-lg) md:flex-row md:items-center md:justify-between">
           <p className="label">{legal}</p>
           <CTAButton

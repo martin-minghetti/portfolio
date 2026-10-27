@@ -6,7 +6,7 @@ type Props = {
 
 export default function Stack({ dict }: Props) {
   return (
-    <section className="border-t border-rule bg-paper-2 py-(--section-gap-s)">
+    <section className="bg-paper-2 py-(--section-gap-s)">
       <div className="container">
         <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
           <h2 className="reveal-head md:col-span-6">{dict.stack.sectionHeader}</h2>
