@@ -33,6 +33,8 @@ export type Dictionary = {
     empty: string;
     comments: string;
     commentsHint: string;
+    minutes: string;
+    rss: string;
   };
   hero: {
     h1Line1: string;

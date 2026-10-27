@@ -20,6 +20,8 @@ export const en: Dictionary = {
     empty: "There are no posts in this language yet.",
     comments: "Comments",
     commentsHint: "You need a GitHub account to comment.",
+    minutes: "min read",
+    rss: "Follow via RSS",
   },
   hero: {
     h1Line1: "I'm Martín.",

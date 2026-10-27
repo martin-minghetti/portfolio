@@ -61,6 +61,25 @@ La cuenta puede cambiar incluso dentro de un mismo proveedor. Anthropic cambió 
 
 Ningún proveedor publica una cifra oficial para el español. Para saber el número exacto de un texto hay que medirlo: Anthropic y Google ofrecen en su API una función que cuenta los tokens antes de mandar el pedido, y OpenAI publica su tokenizador (tiktoken) y una página web para probarlo.
 
+Con la API de Claude, en Python, se ve así:
+
+```python
+import anthropic
+
+client = anthropic.Anthropic()  # toma la clave de la variable ANTHROPIC_API_KEY
+mensajes = [{"role": "user", "content": "Los electrodomésticos llegaron desarmados."}]
+
+# Antes de mandar: cuántos tokens de entrada va a ocupar el pedido
+conteo = client.messages.count_tokens(model="claude-opus-5-5", messages=mensajes)
+print(conteo.input_tokens)
+
+# Después de mandar: cuántos tokens se cobraron de cada lado
+respuesta = client.messages.create(model="claude-opus-5-5", max_tokens=1024, messages=mensajes)
+print(respuesta.usage.input_tokens, respuesta.usage.output_tokens)
+```
+
+Contar es gratis y da una estimación. Lo que se cobra de verdad aparece en `usage`, en la respuesta: `input_tokens` es lo que entró y `output_tokens` lo que generó el modelo.
+
 ## Por qué importan los tokens
 
 Los tokens son la unidad de casi todo lo que importa al construir con un modelo:

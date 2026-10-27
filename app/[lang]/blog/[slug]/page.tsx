@@ -25,7 +25,7 @@ export async function generateMetadata({
     // Long titles go without the name so search results don't cut them.
     title: post.title.length > 45 ? post.title : `${post.title} | Martín Minghetti`,
     description: post.description,
-    alternates: alternates(lang, `/blog/${slug}`, postLanguages(slug)),
+    alternates: { ...alternates(lang, `/blog/${slug}`, postLanguages(slug)), types: { "application/rss+xml": `/${lang}/blog/feed.xml` } },
     openGraph: {
       type: "article",
       title: post.title,
@@ -83,7 +83,7 @@ export default async function BlogPost({
             {dict.blog.back}
           </Link>
           <p className="label mt-(--space-lg) !text-paper-3">
-            <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
+            <time dateTime={post.date}>{formatDate(post.date, locale)}</time> · {post.minutes} {dict.blog.minutes}
           </p>
           <h1 className="mt-(--space-sm) max-w-[22ch] text-(length:--text-display-s) leading-[1.02]">{post.title}</h1>
         </div>

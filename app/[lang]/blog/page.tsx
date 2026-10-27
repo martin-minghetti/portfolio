@@ -17,7 +17,7 @@ export async function generateMetadata({
   return {
     title,
     description: dict.blog.lead,
-    alternates: alternates(lang, "/blog"),
+    alternates: { ...alternates(lang, "/blog"), types: { "application/rss+xml": `/${lang}/blog/feed.xml` } },
     openGraph: { type: "website", title, description: dict.blog.lead, images: ["/api/og?title=Blog"] },
     twitter: { card: "summary_large_image", title, description: dict.blog.lead, images: ["/api/og?title=Blog"] },
   };
@@ -40,6 +40,9 @@ export default async function BlogIndex({
         <div className="container pt-(--space-3xl) pb-(--space-2xl)">
           <h1 className="max-w-none text-(length:--text-display) leading-[0.98]">{dict.blog.title}</h1>
           <p className="lead mt-(--space-lg) !text-paper-hi">{dict.blog.lead}</p>
+          <a href={`/${locale}/blog/feed.xml`} className="tlink mt-(--space-md) !text-paper-hi">
+            {dict.blog.rss}
+          </a>
         </div>
       </section>
 
@@ -56,7 +59,7 @@ export default async function BlogIndex({
                     className="group grid gap-(--space-sm) py-(--space-xl) no-underline md:grid-cols-12 md:gap-(--gap-columns)"
                   >
                     <span className="label md:col-span-3">
-                      <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
+                      <time dateTime={post.date}>{formatDate(post.date, locale)}</time> · {post.minutes} {dict.blog.minutes}
                     </span>
                     <span className="md:col-span-6">
                       <span className="block font-display text-(length:--text-display-s) leading-[1.02] text-ink transition-colors duration-(--dur-short) ease-(--ease-out) group-hover:text-accent">
