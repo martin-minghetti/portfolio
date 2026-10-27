@@ -16,7 +16,7 @@ Este post trata de eso, de pedirle al modelo que piense antes de responder, y de
 
 Funciona por cómo trabaja el modelo, que se vio al principio de la serie: escribe un token por vez, y cada token sale de una cantidad fija de cálculo. Si responde de un saque, tiene ese cálculo y nada más. Si antes escribe los pasos, gana más cálculo, y los resultados intermedios quedan escritos para los tokens que siguen: "3 muzzarellas con 2x1 son 2 pagas, $18.000" queda a la vista cuando llega el momento de sumar.
 
-La técnica se popularizó con un trabajo de Google de 2022 (Wei y otros), que mostró mejoras grandes en problemas de matemática, pero solo en modelos grandes.
+La técnica se popularizó con un estudio de 2022 de Google, llamado [Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903) ("pedir una cadena de pensamiento"), que mostró mejoras grandes en problemas de matemática, pero solo en modelos grandes.
 
 ## Los modelos nuevos razonan solos
 

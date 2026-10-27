@@ -16,7 +16,7 @@ This post is about that, asking the model to think before it answers, and about 
 
 It works because of how the model operates, which the series covered at the start: it writes one token at a time, and each token comes out of a fixed amount of computation. If it answers straight away, it gets that computation and nothing more. If it writes the steps first, it gets more computation, and the intermediate results stay written down for the tokens that follow: "3 mozzarellas with 2-for-1 means 2 paid, $18,000" is in plain view when it is time to add up.
 
-The technique became popular with a 2022 Google paper (Wei and others), which showed large gains on math problems, but only in large models.
+The technique became popular with a 2022 Google study called [Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903), which showed large gains on math problems, but only in large models.
 
 ## New models reason on their own
 
