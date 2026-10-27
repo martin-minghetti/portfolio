@@ -1,8 +1,7 @@
 ---
 title: "Cómo funciona un modelo de lenguaje: qué es, tokens y entrenamiento"
-date: 2026-10-25
+date: 2026-10-27
 order: 2
-draft: true
 description: "Qué hace un modelo de lenguaje, cómo pasa de predecir texto a seguir instrucciones, qué son los tokens y por qué definen lo que se paga y lo que se espera."
 ---
 

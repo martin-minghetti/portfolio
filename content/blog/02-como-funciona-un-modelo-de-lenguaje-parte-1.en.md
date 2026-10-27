@@ -1,8 +1,7 @@
 ---
 title: "How a language model works: what it is, tokens and training"
-date: 2026-10-25
+date: 2026-10-27
 order: 2
-draft: true
 description: "What a language model does, how it goes from predicting text to following instructions, what tokens are and why they set what you pay and how long you wait."
 ---
 
