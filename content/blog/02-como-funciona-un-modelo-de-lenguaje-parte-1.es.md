@@ -14,7 +14,7 @@ Un modelo de lenguaje es un programa que aprendió, leyendo cantidades enormes d
 
 Funciona en un ciclo: recibe un texto, predice el siguiente token, lo agrega al texto y vuelve a predecir. Así, de a un token por vez, se escribe cada respuesta.
 
-El modelo no tiene una única respuesta guardada para cada texto. Calcula qué tan probable es cada continuación posible y elige entre las más probables. Por eso la misma pregunta puede dar respuestas un poco distintas cada vez. Cuánto margen tiene para elegir se puede ajustar, y de eso trata el post 5.
+El modelo no tiene una única respuesta guardada para cada texto. Calcula qué tan probable es cada continuación posible y elige entre las más probables. Por eso la misma pregunta puede dar respuestas un poco distintas cada vez. Cuánto margen tiene para elegir se puede ajustar.
 
 Parece poco para todo lo que hace, pero el aprendizaje es enorme: un modelo se entrena con billones de tokens (millones de millones). Meta, por ejemplo, entrenó Llama 3 con más de 15 billones; Anthropic, OpenAI y Google no publican la cifra de sus modelos. Para predecir bien tanto texto, el modelo tiene que captar gramática, datos del mundo y formas de razonar, y de ahí salen capacidades como resumir, traducir o programar. Nadie se las programó una por una.
 
@@ -23,9 +23,9 @@ Parece poco para todo lo que hace, pero el aprendizaje es enorme: un modelo se e
 Predecir texto no alcanza para tener un asistente. El entrenamiento tiene dos etapas:
 
 - **Pre-entrenamiento (pre-training):** el modelo aprende a predecir texto leyendo una parte enorme de internet y otros documentos. Según la documentación de Anthropic, un modelo que solo pasó por esta etapa no es bueno respondiendo preguntas ni siguiendo instrucciones: tiende a continuar el texto, no a contestarlo.
-- **Post-entrenamiento (post-training):** se lo sigue entrenando con ejemplos de conversaciones y con las preferencias de personas que comparan respuestas y eligen la mejor. A esta última técnica se la llama **RLHF** (aprendizaje por refuerzo con retroalimentación humana).
+- **Post-entrenamiento (post-training):** se lo sigue entrenando con ejemplos de conversaciones y con las preferencias de personas que comparan respuestas y eligen la mejor. A esta última técnica se la llama **RLHF**, por Reinforcement Learning from Human Feedback (aprendizaje por refuerzo con retroalimentación humana).
 
-La segunda etapa es la que le enseña a seguir instrucciones, a responder con tono de asistente y a negarse a ciertos pedidos. Por eso un modelo hace caso a las instrucciones que se le dan antes de la conversación (el system prompt, tema del post 4), y por eso a veces dice que no.
+La segunda etapa es la que le enseña a seguir instrucciones, a responder con tono de asistente y a negarse a ciertos pedidos. Por eso un modelo hace caso a las instrucciones que se le dan antes de la conversación (el system prompt), y por eso a veces dice que no.
 
 ## Tokens: lo que el modelo realmente ve
 
@@ -67,18 +67,18 @@ Los tokens son la unidad de casi todo lo que importa al construir con un modelo:
 
 - **El costo.** Se paga por token, y los que genera el modelo cuestan bastante más que los que se le mandan. En los tres grandes, en octubre de 2026, un token de salida cuesta 5 veces uno de entrada: Claude Opus 5.5 cobra 4 dólares por millón de tokens de entrada y 20 por millón de salida; GPT-6.1 Sol, 2 y 10; Gemini 4 Argon, 2 y 10 hasta el 30 de noviembre y 4 y 20 desde diciembre. Si el modelo razona antes de responder, ese razonamiento también se cobra como salida, aunque no se muestre.
 - **El tiempo de espera.** Como el modelo escribe un token por vez, lo que más tarda es la respuesta. Según la guía de OpenAI, recortar la salida a la mitad puede bajar la espera cerca de un 50%, mientras que recortar a la mitad el texto que se manda la baja apenas entre 1% y 5%.
-- **Los límites.** Lo que el modelo puede procesar en una sola llamada se mide en tokens: hoy, alrededor de un millón entre lo que entra y lo que sale, con un tope aparte para la respuesta (128 mil tokens en Claude). De eso trata el post 6.
+- **Los límites.** Lo que el modelo puede procesar en una sola llamada se mide en tokens: hoy, alrededor de un millón entre lo que entra y lo que sale, con un tope aparte para la respuesta (128 mil tokens en Claude).
 
 ## Entrenamiento e inferencia
 
 Hay dos momentos muy distintos en la vida de un modelo:
 
-- **Entrenamiento (training):** el proceso caro y lento en el que el modelo aprende. Lo hacen empresas como Anthropic, OpenAI o Google, con miles de placas de video (GPUs) durante meses. Quien construye un producto con IA no hace nunca el pre-entrenamiento; ajustar un modelo ya entrenado sí se puede, y se ve en el post 13.
+- **Entrenamiento (training):** el proceso caro y lento en el que el modelo aprende. Lo hacen empresas como Anthropic, OpenAI o Google, con miles de placas de video (GPUs) durante meses. Quien construye un producto con IA no hace nunca el pre-entrenamiento; ajustar un modelo ya entrenado sí se puede, y eso se llama fine-tuning.
 - **Inferencia (inference):** usar el modelo ya entrenado para generar una respuesta. Es lo que pasa cada vez que se le escribe a Claude o que una app llama a su API.
 
-El entrenamiento tiene una fecha de corte. Los modelos actuales de Claude, por ejemplo, conocen el mundo hasta junio de 2026, según Anthropic. Usar el modelo no le enseña nada nuevo: si hace falta información posterior o privada, hay que dársela en el pedido, y de eso trata el RAG (post 12).
+El entrenamiento tiene una fecha de corte. Los modelos actuales de Claude, por ejemplo, conocen el mundo hasta junio de 2026, según Anthropic. Usar el modelo no le enseña nada nuevo: si hace falta información posterior o privada, hay que dársela en el pedido.
 
-Un modelo también se puede correr en la propia computadora. Los modelos abiertos chicos y medianos andan en una computadora de escritorio. Claude, GPT y Gemini no: sus empresas no publican el modelo, así que solo se usan por la API, y el post 3 explica qué es eso que no publican. En una app que usan clientes, lo normal es la API: la inferencia pasa en los servidores del proveedor y la computadora propia solo manda y recibe texto. Por eso no hacen falta máquinas potentes para construir con IA.
+Un modelo también se puede correr en la propia computadora. Los modelos abiertos chicos y medianos andan en una computadora de escritorio. Claude, GPT y Gemini no: sus empresas no publican el modelo, así que solo se usan por la API. En una app que usan clientes, lo normal es la API: la inferencia pasa en los servidores del proveedor y la computadora propia solo manda y recibe texto. Por eso no hacen falta máquinas potentes para construir con IA.
 
 ## En resumen
 
