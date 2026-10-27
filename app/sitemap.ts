@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { getPost, getPosts } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 
-const BASE = "https://martin-minghetti.vercel.app";
+const BASE = SITE_URL;
 
 const ROUTES = ["", "/contact", "/blog"] as const;
 

@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import Comments from "@/components/blog/Comments";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => getPosts(lang).map((post) => ({ lang, slug: post.slug })));
@@ -21,7 +22,8 @@ export async function generateMetadata({
   if (!post) return {};
   const image = ogImage(post.title);
   return {
-    title: `${post.title} | Martín Minghetti`,
+    // Long titles go without the name so search results don't cut them.
+    title: post.title.length > 45 ? post.title : `${post.title} | Martín Minghetti`,
     description: post.description,
     alternates: alternates(lang, `/blog/${slug}`, postLanguages(slug)),
     openGraph: {
@@ -37,7 +39,6 @@ export async function generateMetadata({
   };
 }
 
-const SITE = "https://martin-minghetti.vercel.app";
 
 function ogImage(title: string) {
   return `/api/og?title=${encodeURIComponent(title)}`;
@@ -67,9 +68,9 @@ export default async function BlogPost({
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: locale,
-    mainEntityOfPage: `${SITE}/${locale}/blog/${slug}`,
-    image: `${SITE}${ogImage(post.title)}`,
-    author: { "@type": "Person", name: "Martín Minghetti", url: SITE },
+    mainEntityOfPage: `${SITE_URL}/${locale}/blog/${slug}`,
+    image: `${SITE_URL}${ogImage(post.title)}`,
+    author: { "@type": "Person", name: "Martín Minghetti", url: SITE_URL },
   });
 
   return (

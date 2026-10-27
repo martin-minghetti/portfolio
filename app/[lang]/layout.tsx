@@ -8,6 +8,7 @@ import ScrollEffects from "@/components/layout/ScrollEffects";
 import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import "../globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: m.title,
     description: m.description,
-    metadataBase: new URL("https://martin-minghetti.vercel.app"),
+    metadataBase: new URL(SITE_URL),
     openGraph: {
       title: m.title,
       description: m.social,
@@ -63,7 +64,7 @@ const personJsonLd = JSON.stringify({
   name: "Martin Minghetti",
   alternateName: "Martín Minghetti",
   jobTitle: "Web developer",
-  url: "https://martin-minghetti.vercel.app",
+  url: SITE_URL,
   alumniOf: {
     "@type": "Organization",
     name: "AirLST GmbH",

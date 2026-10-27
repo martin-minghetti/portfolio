@@ -102,7 +102,7 @@ export async function GET(request: Request) {
             zIndex: 1,
           }}
         >
-          <span>martin-minghetti.vercel.app</span>
+          <span>martin-minghetti.is-a.dev</span>
         </div>
       </div>
     ),
