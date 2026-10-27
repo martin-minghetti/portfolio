@@ -52,7 +52,7 @@ A medida que la ventana se llena, el modelo recuerda con menos precisión lo que
 
 La causa tiene que ver con la **atención**, el mecanismo con el que el modelo relaciona cada token con los demás. Con más texto, esa atención se reparte entre más cosas, y lo importante tiene más competencia. En la pizzería, "soy celíaco" compite con cuarenta mensajes sobre direcciones, envíos y stock.
 
-También importa dónde está el dato. Un estudio de 2023, "Lost in the Middle" (Liu y otros), encontró que los modelos de ese momento usaban mejor la información puesta al principio o al final que la del medio. Los modelos mejoraron desde entonces, y cada proveedor recomienda su propio orden, como se vio al hablar del system prompt.
+También importa dónde está el dato. Un estudio de 2023 de la Universidad de Stanford, llamado [Lost in the Middle](https://arxiv.org/abs/2307.03172) ("perdido en el medio"), encontró que los modelos de ese momento usaban mejor la información puesta al principio o al final que la del medio. Los modelos mejoraron desde entonces, y cada proveedor recomienda su propio orden, como se vio al hablar del system prompt.
 
 Por eso, desde septiembre de 2025, Anthropic habla de **context engineering** (ingeniería de contexto): cuidar durante toda la tarea que el modelo vea el conjunto más chico posible de información útil, y no solo escribir bien el primer prompt.
 
