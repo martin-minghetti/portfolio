@@ -11,6 +11,7 @@ export type Post = {
   date: string;
   description: string;
   order: number;
+  draft: boolean;
   html: string;
 };
 
@@ -29,6 +30,7 @@ function read(file: string, locale: Locale): Post {
     date: meta.date,
     description: meta.description,
     order: Number(meta.order),
+    draft: meta.draft === "true",
     // Posts are our own files in the repo, never user input.
     html: marked.parse(body, { async: false }),
   };
@@ -40,6 +42,8 @@ export function getPosts(locale: Locale): Post[] {
     .readdirSync(DIR)
     .filter((file) => file.endsWith(`.${locale}.md`))
     .map((file) => read(file, locale))
+    // Drafts show up in dev only, so a post can be reviewed before it goes live.
+    .filter((post) => !post.draft || process.env.NODE_ENV !== "production")
     .sort((a, b) => b.order - a.order);
 }
 

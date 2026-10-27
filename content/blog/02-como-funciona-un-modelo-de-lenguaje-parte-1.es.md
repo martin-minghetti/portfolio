@@ -2,6 +2,7 @@
 title: "Cómo funciona un modelo de lenguaje: qué es, tokens y entrenamiento"
 date: 2026-10-25
 order: 2
+draft: true
 description: "Lo mínimo para no estar perdido: qué hace un modelo de lenguaje, qué son los tokens y la diferencia entre entrenar y usar un modelo."
 ---
 
@@ -59,7 +60,7 @@ Se puede correr un modelo en la propia computadora, y eso es hacer inferencia en
 
 En producción lo normal sigue siendo la API: la inferencia pasa en los servidores del proveedor, y la computadora de uno solo manda texto y recibe texto. Por eso no hacen falta máquinas potentes para construir con IA. El trabajo pesado ocurre del otro lado.
 
-## Para quedarse con algo
+## En resumen
 
 - Un modelo de lenguaje predice la siguiente pieza de texto, una por vez.
 - Lo que ve son tokens, no palabras, y los tokens son la unidad de costo y de límite.
