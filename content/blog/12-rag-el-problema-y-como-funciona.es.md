@@ -119,7 +119,7 @@ Una regla: el mismo modelo de embeddings para los documentos y para las pregunta
 
 ### Guardarlos en una base vectorial
 
-Cada fragmento se guarda junto con sus números en una **base vectorial** (en inglés, vector store): una base de datos que sabe buscar los vectores más cercanos a otro. Si ya usás Postgres, la extensión pgvector le agrega eso. Si no, hay servicios dedicados.
+Cada fragmento se guarda junto con sus números en una **base vectorial** (en inglés, vector store): una base de datos que sabe buscar los vectores más cercanos a otro. Si ya usás Postgres, una base de datos de código abierto muy común, la extensión pgvector le agrega eso. Si no, hay servicios dedicados.
 
 ## Fase 2: consultar
 
