@@ -20,7 +20,7 @@ Este post trata de cómo se escribe una herramienta una sola vez y se usa desde 
 
 La documentación oficial lo compara con un puerto USB-C: el mismo conector para cualquier aparato. Lo creó Anthropic a fines de 2024. Desde diciembre de 2025 lo cuida la Agentic AI Foundation, parte de la Linux Foundation, que fundaron Anthropic, OpenAI y Block. Por eso hoy lo usan ChatGPT, Claude, Cursor, Gemini, Microsoft Copilot y VS Code, entre otros.
 
-El problema que resuelve se ve con números chicos. Tres aplicaciones (el bot, Claude en la compu del dueño y ChatGPT) y dos sistemas (stock y reservas) son seis integraciones. Con MCP, cada sistema escribe un **servidor** una vez, y cada aplicación que ya habla MCP lo puede usar.
+El problema que resuelve se ve con números chicos. Tres aplicaciones (el asistente, Claude en la compu del dueño y ChatGPT) y dos sistemas (stock y reservas) son seis integraciones. Con MCP, cada sistema escribe un **servidor** una vez, y cada aplicación que ya habla MCP lo puede usar.
 
 ## Para el modelo no cambia nada
 
@@ -36,7 +36,7 @@ Lo que cambia es de dónde sale la lista de herramientas y quién las ejecuta:
 <div class="tok-row"><div class="tok-head"><span>4. Pasa el pedido</span></div><div class="tok-text"><span class="tok c0">servidor, ejecutá consultar_stock(napolitana)</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>5. El servidor devuelve</span></div><div class="tok-text"><span class="tok c3">napolitana: 0 unidades</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>6. El modelo responde</span></div><div class="tok-text"><span class="tok c1">Hoy no queda napolitana. Te tomo una muzzarella?</span></div></div>
-<figcaption>Violeta: la aplicación (Claude, tu bot). Naranja: lo que ofrece el servidor. Celeste: el mensaje del cliente. Verde: lo que escribe el modelo. Rojo: el resultado. Los pasos 2, 3 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro.</figcaption>
+<figcaption>Violeta: la aplicación (Claude, el asistente). Naranja: lo que ofrece el servidor. Celeste: el mensaje del cliente. Verde: lo que escribe el modelo. Rojo: el resultado. Los pasos 2, 3 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro.</figcaption>
 </figure>
 
 ## Las tres piezas
@@ -129,14 +129,14 @@ No hay loop: Anthropic llama al servidor, y la respuesta ya trae el pedido del m
 
 **Hacer de cliente vos.** Tu programa se conecta al servidor con el SDK de MCP, le pide la lista de herramientas y se la pasa al modelo como herramientas normales. Cuando el modelo pide una, tu código se la pasa al servidor. Es más trabajo, pero el pedido pasa por tu código, y los controles que se vieron con los guardrails siguen valiendo. Es también la forma de usar un servidor local, o los recursos y prompts.
 
-Un ejemplo de por qué importa: si `registrar_pedido` estuviera en un servidor MCP y el bot lo conectara con el conector del proveedor, el control de "no registrar sin confirmación" tendría que vivir en el servidor. En el bot ya no hay un lugar donde ponerlo.
+Un ejemplo de por qué importa: si `registrar_pedido` estuviera en un servidor MCP y el asistente lo conectara con el conector del proveedor, el control de "no registrar sin confirmación" tendría que vivir en el servidor. En el asistente ya no hay un lugar donde ponerlo.
 
 ## Cuándo conviene MCP
 
 MCP no hace falta siempre. Un criterio simple:
 
-- **Herramienta propia.** Si la usa una sola aplicación y la escribiste vos, alcanza con definirla como se vio con las herramientas. El bot con `registrar_pedido` no gana nada con MCP: suma un programa más que mantener.
-- **MCP.** Si la herramienta ya existe y la armó otro (el sistema de reservas, GitHub, Notion), o si la querés usar desde varias aplicaciones: el bot, Claude en la compu del dueño y ChatGPT.
+- **Herramienta propia.** Si la usa una sola aplicación y la escribiste vos, alcanza con definirla como se vio con las herramientas. El asistente con `registrar_pedido` no gana nada con MCP: suma un programa más que mantener.
+- **MCP.** Si la herramienta ya existe y la armó otro (el sistema de reservas, GitHub, Notion), o si la querés usar desde varias aplicaciones: el asistente, Claude en la compu del dueño y ChatGPT.
 - **Skill.** Si lo que falta no es acceso a un sistema sino saber cómo hacer algo, como el procedimiento para un reclamo, que ya apareció en la serie. Anthropic lo resume así, en un artículo de 2026: MCP conecta a Claude con los datos; las skills le enseñan qué hacer con ellos. Se usan juntas.
 
 Y un costo que conviene tener en cuenta: cada servidor suma definiciones de herramientas a cada llamada. En un artículo de noviembre de 2025, [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp), Anthropic contó un caso que pasó de 150.000 tokens a 2.000 cargando las herramientas solo cuando hacían falta. Conectar diez servidores "por las dudas" llena la ventana de contexto, como se vio antes en la serie.
