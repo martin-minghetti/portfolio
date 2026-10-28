@@ -18,7 +18,7 @@ Este post trata de cómo se ordenan pasos que esperan, se separan en caminos y t
 
 Orquestar es decidir el orden de los pasos: qué llamada al modelo va primero, qué herramienta después, qué pasa si algo falla.
 
-Si seguiste la serie, ya lo venías haciendo. El loop del agente, que llama al modelo hasta que deja de pedir herramientas, es orquestación. El workflow de pasos fijos también. Las dos cosas estaban escritas a mano, con un `while` y unos `if`.
+Si seguiste la serie, ya lo venías haciendo. El loop del agente, que llama al modelo hasta que deja de pedir herramientas, es orquestación. El workflow de pasos fijos también. Las dos cosas eran código propio: un `while` y unos `if`, sin ninguna librería.
 
 El modelo no orquesta nada por sí solo: responde un mensaje por vez y no recuerda nada entre una llamada y otra. Alguien tiene que guardar en qué paso va cada cliente. Ese alguien es tu código.
 
@@ -30,7 +30,7 @@ Un **framework de orquestación** es una librería que trae resuelto lo que todo
 - Reintentar lo que falló y poner topes.
 - Ver qué pasó, paso por paso.
 
-Eso es lo que venden. Ninguna de esas cosas es magia: se pueden escribir. El framework te ahorra escribirlas, a cambio de aprender su forma de hacer las cosas y depender de él.
+Eso es lo que venden. Ninguna de esas cosas es magia, y hoy una IA te escribe cualquiera de ellas en minutos. Escribirlas no es lo caro: lo caro es tener que entender, probar y mantener ese código. El framework te da esas piezas ya probadas por mucha gente, a cambio de aprender su forma de hacer las cosas y depender de él.
 
 ## LangChain hoy
 
@@ -205,7 +205,7 @@ def respuesta_del_cliente(telefono, dijo):
     return "Listo, pedido 128."  # acá se llama a registrar_pedido
 ```
 
-Hace lo mismo con dos funciones y un diccionario. Son 18 líneas contra casi 60. La espera es guardar el pedido pendiente con el teléfono del cliente: es el hilo de LangGraph, hecho a mano.
+Hace lo mismo con dos funciones y un diccionario. Son 18 líneas contra casi 60. La espera es guardar el pedido pendiente con el teléfono del cliente: es el hilo de LangGraph, hecho con tu propio código.
 
 Lo que no tiene: guardar solo después de cada paso, retomar cualquier punto de un flujo largo, ver el historial de pasos, reintentos. Con una sola espera, no se extraña. Con cinco esperas y tres caminos, como en las reservas con seña, sí.
 
@@ -213,7 +213,7 @@ Lo que no tiene: guardar solo después de cada paso, retomar cualquier punto de 
 
 Con la pizzería se ve claro.
 
-**El asistente de pedidos de hoy: sin framework.** Un agente, pocas herramientas, una sola espera. El loop a mano y una tabla de pedidos pendientes alcanzan. Un framework sumaría una dependencia que se actualiza seguido, una forma de pensar nueva y una capa entre vos y el modelo.
+**El asistente de pedidos de hoy: sin framework.** Un agente, pocas herramientas, una sola espera. El loop propio y una tabla de pedidos pendientes alcanzan. Un framework sumaría una dependencia que se actualiza seguido, una forma de pensar nueva y una capa entre vos y el modelo.
 
 Anthropic lo dice así en [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), de diciembre de 2024: conviene empezar usando la API directo, porque muchos patrones se resuelven en pocas líneas. Y advierte que los frameworks suelen agregar capas que esconden los prompts que se le mandan al modelo, y eso hace más difícil encontrar errores.
 
@@ -223,7 +223,7 @@ Anthropic lo dice así en [Building effective agents](https://www.anthropic.com/
 
 **Un equipo que necesita una forma común de armar agentes: un framework ordena.** Para una persona sola con un asistente, no hace falta.
 
-Una regla para quedarse: empezar sin framework, y sumarlo cuando te encuentres escribiendo a mano lo que el framework ya trae, como guardar el estado de cada charla, pausas o reintentos. Y si lo usás, entender qué hace por debajo. Es el mismo consejo de Anthropic.
+Una regla para quedarse: empezar sin framework, y sumarlo cuando tu código empiece a necesitar lo que el framework ya trae, como guardar el estado de cada charla, pausas o reintentos. Aunque la IA te lo escriba rápido, después ese código es tuyo para entenderlo y mantenerlo. Y si lo usás, entender qué hace por debajo. Es el mismo consejo de Anthropic.
 
 ## Lo mismo en los tres
 
@@ -246,7 +246,7 @@ Dos cosas más del mundo LangChain, que vas a ver nombradas. **LangSmith** es la
 ## En resumen
 
 - Orquestar es decidir el orden de los pasos. El loop del agente y el workflow de pasos fijos ya lo eran.
-- Un framework no hace nada que no puedas escribir vos. Te ahorra escribirlo, a cambio de aprender su forma y depender de él.
+- Un framework no hace nada que tu código no pueda hacer. Lo que te da son piezas ya probadas, a cambio de aprender su forma y depender de él.
 - LangChain hoy es un agente armado (`create_agent`) con piezas enchufables. Las chains de los tutoriales viejos quedaron atrás.
 - LangGraph arma los pasos como un grafo que guarda dónde quedó cada conversación, y puede pausar y retomar horas después.
 - Para un flujo corto, el código propio alcanza y se entiende mejor. El framework conviene cuando hay esperas largas, muchos caminos y procesos que tienen que sobrevivir a un reinicio.

@@ -161,7 +161,7 @@ Lo que cambia respecto de aquel código:
 
 La regla de confirmar antes de registrar está en el system prompt, y es un pedido, no una garantía. Un control en el código, que no deje registrar sin una confirmación guardada, es más firme. Eso también se ve más adelante en la serie.
 
-No hace falta escribir este loop a mano: los tres grandes traen kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop escrito a mano ayuda a saber qué pasa adentro.
+No hace falta armar este loop en tu código: los tres grandes traen kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop por dentro ayuda a saber qué pasa cuando algo falla.
 
 ## Cuándo conviene un agente
 

@@ -185,7 +185,7 @@ La pregunta para cada riesgo es qué tan grave es si pasa, y si se puede deshace
 | Controles en su kit de agentes | Permisos y aprobación de una persona para las herramientas que corre Anthropic; las tuyas las controla tu código | Guardrails de entrada, de salida y de herramientas, y aprobación de una persona por herramienta | Controles antes de cada herramienta, y plugins que aplican la misma política a todos los agentes |
 | Servicio aparte | Su guía propone un filtro propio con Haiku 5.5 | Una librería de guardrails | Model Armor, pago, que sirve aunque la app corra en otra nube |
 
-Hay también librerías abiertas para armar estos controles sin escribirlos de cero, como NeMo Guardrails, de NVIDIA, y Guardrails AI, y modelos abiertos entrenados solo para clasificar mensajes, como Llama Guard, de Meta.
+Hay también librerías abiertas para armar estos controles sin empezar de cero, como NeMo Guardrails, de NVIDIA, y Guardrails AI, y modelos abiertos entrenados solo para clasificar mensajes, como Llama Guard, de Meta.
 
 Lo que la tabla no muestra: ninguno de los tres conoce las reglas de tu negocio. Esas van en tu código.
 
