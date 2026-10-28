@@ -113,7 +113,7 @@ OpenAI además repite 400 tokens entre un fragmento y el siguiente. Eso se llama
 
 Acá entra un segundo modelo, distinto del que responde. Es un **modelo de embeddings**: recibe un texto y devuelve una lista de números que representa su significado. Esa lista es el **embedding** (o vector) del texto.
 
-Con Voyage, por ejemplo, cada fragmento se convierte en una lista de 1.024 números. Lo útil es esto: textos que dicen cosas parecidas quedan con números parecidos, aunque usen otras palabras. "Frutos secos" y "nueces" quedan cerca. "Me llegó la pizza helada" queda cerca de "si un pedido llega frío, se repone".
+Anthropic no tiene un modelo de embeddings propio. Su documentación usa los de Voyage AI, una empresa especializada en estos modelos que hoy es parte de MongoDB. Con el modelo de Voyage, cada fragmento se convierte en una lista de 1.024 números. Lo útil es esto: textos que dicen cosas parecidas quedan con números parecidos, aunque usen otras palabras. "Frutos secos" y "nueces" quedan cerca. "Me llegó la pizza helada" queda cerca de "si un pedido llega frío, se repone".
 
 Una regla: el mismo modelo de embeddings para los documentos y para las preguntas. Los números de modelos distintos no se pueden comparar. Google lo avisa en su documentación: los vectores de su modelo viejo y del nuevo son incompatibles. Si cambiás de modelo, hay que volver a convertir todos los fragmentos.
 
@@ -193,7 +193,7 @@ Lo que hay que mirar:
 - **Las dos fases están separadas.** Indexar corre una vez. Consultar, en cada mensaje.
 - **Hay dos modelos.** Voyage convierte texto en números; Claude escribe la respuesta. Es la confusión más común: el modelo que responde nunca ve los números, solo el texto de los fragmentos elegidos.
 - **`input_type` marca qué es cada cosa.** Un fragmento se embebe como `"document"` y la pregunta como `"query"`. Voyage le agrega a cada uno un texto distinto antes de convertirlo, y eso mejora la búsqueda. Su documentación pide no omitirlo.
-- **`vectores @ p` es la búsqueda.** Multiplica y suma: con vectores de largo 1, es el coseno. Con seis fragmentos alcanza con numpy. Con miles, eso lo hace la base vectorial.
+- **`vectores @ p` es la búsqueda.** Multiplica y suma: con vectores de largo 1, es el coseno. Con seis fragmentos alcanza con numpy, la librería de Python para hacer cuentas. Con miles, eso lo hace la base vectorial.
 - **El prompt pone los fragmentos arriba**, entre etiquetas `<info>`, y la pregunta abajo.
 
 Para probar solo la búsqueda sin clave, se puede reemplazar `embeber` por un modelo de embeddings que corre en la computadora, como EmbeddingGemma de Google (con la librería `fastembed`; la primera vez baja 1,2 GB). Con ese modelo, la búsqueda trae esto:
