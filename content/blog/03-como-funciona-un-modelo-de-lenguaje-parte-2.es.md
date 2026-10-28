@@ -1,8 +1,8 @@
 ---
 title: "Cómo funciona un modelo de lenguaje: roles, memoria y pesos"
-date: 2026-10-27
+date: 2026-10-28
 order: 3
-draft: true
+draft: false
 description: "Cómo se arma una conversación con un modelo, por qué no recuerda nada entre una llamada y otra, qué cuesta eso y dónde queda guardado lo que aprendió."
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: "How a language model works: roles, memory and weights"
-date: 2026-10-27
+date: 2026-10-28
 order: 3
-draft: true
+draft: false
 description: "How a conversation with a model is put together, why it remembers nothing from one call to the next, what that costs and where what it learned is stored."
 ---
 
