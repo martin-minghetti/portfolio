@@ -78,8 +78,20 @@ export default async function BlogPost({
     <article>
       <script type="application/ld+json">{jsonLd}</script>
       <div className="read-progress" aria-hidden />
-      <header className="hero-ground">
-        <div className="container pt-(--space-2xl) pb-(--space-2xl)">
+      <header className={`hero-ground relative overflow-hidden ${post.image ? "!bg-[rgb(4_10_40)]" : ""}`}>
+        {post.image && (
+          // Phone: the whole cover on top, title below. Wider: the cover fills the header, title over its dark left side.
+          <div className="absolute inset-x-0 top-0 aspect-[16/9] md:inset-0 md:aspect-auto">
+            <FadeImage src={post.image} alt="" fill priority sizes="100vw" className="object-cover md:object-right" />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgb(4_10_40)_100%)] md:bg-[linear-gradient(90deg,rgb(4_10_40/0.92)_0%,rgb(4_10_40/0.75)_45%,rgb(4_10_40/0.15)_100%)]"
+            />
+          </div>
+        )}
+        <div
+          className={`container relative pt-(--space-2xl) pb-(--space-2xl) ${post.image ? "!pt-[calc(56.25vw+var(--space-sm))] md:!pt-(--space-2xl) md:flex md:min-h-[min(68vh,620px)] md:flex-col md:justify-end" : ""}`}
+        >
           <Link href={`/${locale}/blog`} className="tlink">
             {dict.blog.back}
           </Link>
@@ -91,11 +103,6 @@ export default async function BlogPost({
       </header>
 
       <div className="container py-(--section-gap-s)">
-        {post.image && (
-          <div className="screen relative mb-(--space-2xl) aspect-[16/9] max-w-[66rem] overflow-hidden rounded-card">
-            <FadeImage src={post.image} alt="" fill priority sizes="(min-width: 1100px) 66rem, 100vw" className="object-cover" />
-          </div>
-        )}
         <div className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
         <section className="mt-(--space-3xl) max-w-[66ch] border-t border-ink pt-(--space-xl)">
           <h2 className="text-(length:--text-title)">{dict.blog.comments}</h2>
