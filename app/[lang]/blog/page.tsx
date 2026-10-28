@@ -58,7 +58,7 @@ export default async function BlogIndex({
                     href={`/${locale}/blog/${post.slug}`}
                     className="group grid gap-(--space-sm) py-(--space-xl) no-underline md:grid-cols-12 md:gap-(--gap-columns)"
                   >
-                    <span className="screen crop-shadow relative block aspect-[16/9] overflow-hidden rounded-card md:col-span-3">
+                    <span className="screen relative block aspect-[16/9] overflow-hidden rounded-card md:col-span-3">
                       {post.image && (
                         <FadeImage src={post.image} alt="" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
                       )}

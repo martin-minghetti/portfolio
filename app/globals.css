@@ -210,5 +210,8 @@ section[id] { scroll-margin-top: calc(var(--section-gap-s) * -1); }
 .hero-ground p { color: inherit; }
 .sheet h2 { color: var(--color-ink); }
 .sheet p { color: var(--color-ink-2); }
-/* Screens and covers cast a cobalt shadow, so they belong to the site's accent. */
-.crop-shadow { box-shadow: 0 24px 48px -18px color-mix(in oklab, var(--color-accent) 60%, transparent); }
+.crop-shadow { box-shadow: var(--shadow-sheet); }
+/* Project screens take the site's cobalt so they read as one set; hovering shows the real colors. */
+.tint { position: relative; overflow: hidden; }
+.tint::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: var(--color-accent); mix-blend-mode: color; opacity: 0.9; pointer-events: none; transition: opacity var(--dur-short) var(--ease-out); }
+.tint:hover::after { opacity: 0; }
