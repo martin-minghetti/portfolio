@@ -127,7 +127,7 @@ claude mcp add pizzeria -- python /ruta/completa/servidor_pizzeria.py
 
 Tres cosas para mirar:
 
-- Con las herramientas había que armar la definición aparte: el nombre, la descripción y los datos con sus opciones. Acá el SDK la arma sola a partir de la función. El nombre sale del nombre de la función, la descripción del texto entre comillas triples, y los datos de los tipos: `producto` queda como obligatorio y con tres opciones.
+- Con las herramientas, la definición iba aparte de la función: el nombre, la descripción y los datos con sus opciones. Acá el SDK la saca de la función misma. El nombre sale del nombre de la función, la descripción del texto entre comillas triples, y los datos de los tipos: `producto` queda como obligatorio y con tres opciones.
 - Si alguien pide `consultar_stock("calabresa")`, el servidor no ejecuta la función: devuelve un error que dice cuáles son las opciones válidas.
 - En el comando, el `--` separa las opciones de Claude Code del comando que arranca el servidor.
 
