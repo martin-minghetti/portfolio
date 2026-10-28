@@ -50,6 +50,9 @@ const PROMPTS = {
   "12-rag-el-problema-y-como-funciona":
     "a tall glowing filing cabinet with open drawers full of small translucent pale ice blue glowing document cards on one pedestal, a magnifying glass sculpture beside it, " +
     "three of the document cards floating along a bright light trace into a glowing processor chip on another pedestal",
+  "13-rag-conceptos-clave-y-cuando-usarlo":
+    "a large glowing translucent funnel sculpture on a pedestal, many small glowing document cards pouring into its wide top and only two cards coming out the narrow bottom, " +
+    "the two cards landing neatly stacked on a second smaller pedestal",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
