@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import Comments from "@/components/blog/Comments";
+import FadeImage from "@/components/ui/FadeImage";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
@@ -20,7 +21,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const post = getPost(lang, slug);
   if (!post) return {};
-  const image = ogImage(post.title);
+  const image = post.image ?? ogImage(post.title);
   return {
     // Long titles go without the name so search results don't cut them.
     title: post.title.length > 45 ? post.title : `${post.title} | Martín Minghetti`,
@@ -33,7 +34,7 @@ export async function generateMetadata({
       locale: ogLocale[lang],
       publishedTime: post.date,
       authors: ["Martín Minghetti"],
-      images: [{ url: image, width: 1200, height: 630 }],
+      images: [post.image ? { url: image, width: 1344, height: 768 } : { url: image, width: 1200, height: 630 }],
     },
     twitter: { card: "summary_large_image", title: post.title, description: post.description, images: [image] },
   };
@@ -69,7 +70,7 @@ export default async function BlogPost({
     dateModified: post.date,
     inLanguage: locale,
     mainEntityOfPage: `${SITE_URL}/${locale}/blog/${slug}`,
-    image: `${SITE_URL}${ogImage(post.title)}`,
+    image: `${SITE_URL}${post.image ?? ogImage(post.title)}`,
     author: { "@type": "Person", name: "Martín Minghetti", url: SITE_URL },
   });
 
@@ -90,6 +91,11 @@ export default async function BlogPost({
       </header>
 
       <div className="container py-(--section-gap-s)">
+        {post.image && (
+          <div className="screen relative mb-(--space-2xl) aspect-[16/9] max-w-[66rem] overflow-hidden rounded-card">
+            <FadeImage src={post.image} alt="" fill priority sizes="(min-width: 1100px) 66rem, 100vw" className="object-cover" />
+          </div>
+        )}
         <div className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
         <section className="mt-(--space-3xl) max-w-[66ch] border-t border-ink pt-(--space-xl)">
           <h2 className="text-(length:--text-title)">{dict.blog.comments}</h2>

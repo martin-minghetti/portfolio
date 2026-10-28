@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import { formatDate, getPosts } from "@/lib/blog";
+import FadeImage from "@/components/ui/FadeImage";
 
 export async function generateMetadata({
   params,
@@ -58,11 +59,16 @@ export default async function BlogIndex({
                     href={`/${locale}/blog/${post.slug}`}
                     className="group grid gap-(--space-sm) py-(--space-xl) no-underline md:grid-cols-12 md:gap-(--gap-columns)"
                   >
-                    <span className="label md:col-span-3">
-                      <time dateTime={post.date}>{formatDate(post.date, locale)}</time> · {post.minutes} {dict.blog.minutes}
+                    <span className="screen relative block aspect-[16/9] overflow-hidden rounded-card md:col-span-3">
+                      {post.image && (
+                        <FadeImage src={post.image} alt="" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
+                      )}
                     </span>
                     <span className="md:col-span-6">
-                      <span className="block font-display text-(length:--text-display-s) leading-[1.02] text-ink transition-colors duration-(--dur-short) ease-(--ease-out) group-hover:text-accent">
+                      <span className="label block">
+                        <time dateTime={post.date}>{formatDate(post.date, locale)}</time> · {post.minutes} {dict.blog.minutes}
+                      </span>
+                      <span className="mt-(--space-xs) block font-display text-(length:--text-display-s) leading-[1.02] text-ink transition-colors duration-(--dur-short) ease-(--ease-out) group-hover:text-accent">
                         {post.title}
                       </span>
                       <span className="mt-(--space-md) block text-(length:--text-lead) text-ink-2">{post.description}</span>

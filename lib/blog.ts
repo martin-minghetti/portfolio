@@ -36,6 +36,8 @@ export type Post = {
   draft: boolean;
   minutes: number;
   html: string;
+  // Cover at public/blog/<slug>.jpg, shared by both languages; posts without one just skip it.
+  image?: string;
 };
 
 function read(file: string, locale: Locale): Post {
@@ -47,8 +49,9 @@ function read(file: string, locale: Locale): Post {
       return [line.slice(0, i).trim(), line.slice(i + 1).trim().replace(/^"|"$/g, "")];
     }),
   );
+  const slug = file.replace(`.${locale}.md`, "");
   return {
-    slug: file.replace(`.${locale}.md`, ""),
+    slug,
     title: meta.title,
     date: meta.date,
     description: meta.description,
@@ -58,6 +61,7 @@ function read(file: string, locale: Locale): Post {
     minutes: Math.max(1, Math.round(body.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 200)),
     // Posts are our own files in the repo, never user input.
     html: markdown.parse(body, { async: false }),
+    image: fs.existsSync(path.join(process.cwd(), "public/blog", `${slug}.jpg`)) ? `/blog/${slug}.jpg` : undefined,
   };
 }
 
