@@ -1,6 +1,7 @@
 // Portadas del blog con Replicate FLUX 1.1 Pro, mismo estilo para toda la serie.
-// Run: REPLICATE_API_TOKEN=r8_xxx node scripts/gen-blog-images.mjs [slug ...]
+// Run: REPLICATE_API_TOKEN=r8_xxx node scripts/gen-blog-images.mjs [slug ...]  (requiere ImageMagick)
 import { existsSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
 // Paleta en azul cobalto, el acento del sitio (28-10-2026).
 // Solo nombrar el azul: listar colores prohibidos hace que FLUX los use.
@@ -53,6 +54,9 @@ const PROMPTS = {
   "13-rag-conceptos-clave-y-cuando-usarlo":
     "a large glowing translucent funnel sculpture on a pedestal, many small glowing document cards pouring into its wide top and only two cards coming out the narrow bottom, " +
     "the two cards landing neatly stacked on a second smaller pedestal",
+  "14-structured-output":
+    "a glowing processor chip on a pedestal emitting a stream of loose glowing cubes that pass through a translucent rectangular mold with neat square slots, " +
+    "coming out the other side as a perfectly ordered grid of cubes on a second pedestal",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
@@ -78,5 +82,7 @@ for (const slug of process.argv.slice(2).length ? process.argv.slice(2) : Object
   if (!res.ok || data.error) throw new Error(`${slug}: ${res.status} ${data.error ?? JSON.stringify(data)}`);
   const url = Array.isArray(data.output) ? data.output[0] : data.output;
   writeFileSync(out, Buffer.from(await (await fetch(url)).arrayBuffer()));
+  // Una sola generación por portada: si FLUX mete otro color, este filtro (ImageMagick) la pasa a la gama cobalto.
+  execFileSync("magick", [out, "-colorspace", "gray", "(", "-size", "1x256", "gradient:#020617-#1d4fd8", "gradient:#1d4fd8-#e0f0ff", "-append", "-resize", "1x256!", ")", "-clut", out]);
   console.log(`ok ${out}`);
 }
