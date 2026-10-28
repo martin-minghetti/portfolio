@@ -6,11 +6,11 @@ draft: true
 description: "Qué es MCP, qué problema resuelve, las tres piezas, qué ofrece un servidor, local o remoto, un servidor de 15 líneas para la pizzería, cómo se conecta desde Claude, OpenAI y Gemini, cuándo conviene y qué cuidar."
 ---
 
-Hasta acá, todas las herramientas del asistente de la pizzería eran tuyas. `consultar_stock` y `registrar_pedido` viven en tu código, y tu código las ejecuta.
+Hasta acá, todas las herramientas del asistente de la pizzería, el que atiende a los clientes por WhatsApp, eran tuyas. `consultar_stock` y `registrar_pedido` viven en tu código, y tu código las ejecuta.
 
-Ahora pasan dos cosas. La Esquina empieza a tomar reservas para el salón con un sistema de otra empresa, y el asistente tiene que poder consultarlo. Y el dueño quiere preguntarle a Claude desde su compu "cuánta muzzarella queda", sin abrir el bot.
+Ahora pasan dos cosas. La Esquina empieza a tomar reservas para el salón con un sistema de otra empresa, y el asistente tiene que poder consultarlo. Y el dueño quiere preguntarle a Claude desde su compu "cuánta muzzarella queda", sin pasar por el asistente.
 
-Sin un acuerdo común, eso es escribir código para hablar con el sistema de reservas dentro del bot. Después, escribir otra vez `consultar_stock` para la aplicación de escritorio. Y otra vez si mañana el dueño prefiere ChatGPT. Cada aplicación con cada sistema, una integración distinta.
+Sin un acuerdo común, eso es escribir código para hablar con el sistema de reservas dentro del asistente. Después, escribir otra vez `consultar_stock` para la aplicación de escritorio. Y otra vez si mañana el dueño prefiere ChatGPT. Cada aplicación con cada sistema, una integración distinta.
 
 Este post trata de cómo se escribe una herramienta una sola vez y se usa desde cualquier aplicación, y de cómo se usa una que escribió otro.
 
@@ -42,7 +42,7 @@ Lo que cambia es de dónde sale la lista de herramientas y quién las ejecuta:
 ## Las tres piezas
 
 - **Servidor**: el programa que ofrece las herramientas. Por ejemplo, uno que expone `consultar_stock`. Lo puede escribir el dueño de los datos o cualquier empresa. Mercado Pago, por ejemplo, publica uno para desarrolladores: desde Claude, Cursor o ChatGPT se puede buscar su documentación, crear usuarios de prueba o configurar los avisos de pagos. Es para quien programa la integración, no para cobrarle al cliente.
-- **Host**: la aplicación donde está el modelo. Claude Code, ChatGPT, tu bot de WhatsApp.
+- **Host**: la aplicación donde está el modelo. Claude Code, ChatGPT, el asistente de la pizzería.
 - **Cliente**: la parte de la aplicación que habla con un servidor. Hay uno por cada servidor conectado. Para arrancar, alcanza con saber que la aplicación lo trae adentro.
 
 En el resto del post, "la aplicación" es el host con sus clientes.
@@ -62,7 +62,7 @@ En la práctica, casi todo son herramientas. Las APIs de Claude, OpenAI y Gemini
 Hay dos formas de conectar un servidor:
 
 - **Local.** La aplicación arranca el servidor como un programa en tu compu, y se hablan por la entrada y la salida de ese programa, como en una terminal. A esto se le dice **stdio**. Sirve para una persona: el dueño en su notebook.
-- **Remoto.** El servidor está en internet, en una dirección web, y atiende a muchos. A esta forma se le dice **Streamable HTTP**. Es la que necesita el bot de WhatsApp si quiere que el proveedor del modelo se conecte al servidor, porque las APIs de los tres solo se conectan a servidores remotos.
+- **Remoto.** El servidor está en internet, en una dirección web, y atiende a muchos. A esta forma se le dice **Streamable HTTP**. Es la que necesita el asistente de la pizzería si quiere que el proveedor del modelo se conecte al servidor, porque las APIs de los tres solo se conectan a servidores remotos.
 
 Desde julio de 2026, la versión vigente del protocolo es más simple: cada pedido viaja con todo lo que necesita, sin una conexión que haya que mantener abierta. Eso hace más fácil repartir un servidor remoto entre varias máquinas.
 
@@ -110,7 +110,7 @@ Para que el servidor sea remoto, la última línea cambia a `mcp.run(transport="
 
 ## Cómo se usa desde tu programa
 
-Si la aplicación es tuya, como el bot de WhatsApp, hay dos formas de conectar un servidor.
+Si la aplicación es tuya, como el asistente de la pizzería, hay dos formas de conectar un servidor.
 
 **Que el proveedor lo llame por vos.** Le pasás la dirección del servidor en el pedido, y el proveedor habla con él. En Claude es el conector MCP de la API, que todavía está en beta (la función existe, pero puede cambiar):
 
