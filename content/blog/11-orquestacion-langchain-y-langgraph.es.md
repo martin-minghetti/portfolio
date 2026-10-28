@@ -230,12 +230,12 @@ Una regla para quedarse: empezar sin framework, y sumarlo cuando tu código empi
 | | Claude | OpenAI | Gemini |
 |---|---|---|---|
 | Su kit para agentes | Claude Agent SDK: el agente de Claude Code como librería | Agents SDK | ADK |
-| Cómo se ordenan varios pasos | El modelo arma el flujo para cada tarea (dynamic workflows) | Con código Python común, o pasando la charla a otro agente | Grafos que escribís vos, desde ADK 2.0 |
+| Cómo se ordenan varios pasos | El modelo arma el flujo para cada tarea (dynamic workflows) | Con código Python común, o pasando la charla a otro agente | Grafos fijos en tu código, desde ADK 2.0 |
 | Alojado por el proveedor | Managed Agents (beta) | Agents API | Agent Runtime, que también aloja agentes de LangGraph |
 
 Cada uno apuesta a algo distinto:
 
-- **Google**, a grafos que escribís vos, como LangGraph. Están en ADK 2.0, para Python, TypeScript y Go.
+- **Google**, a grafos: el flujo queda fijo en tu código, como en LangGraph, y el modelo no lo cambia. Están en ADK 2.0, para Python, TypeScript y Go.
 - **OpenAI**, a código común. Su documentación del Agents SDK lo dice así: orquestar con código hace las tareas más predecibles en velocidad, costo y resultado. Y está cerrando Agent Builder, su editor para armar flujos arrastrando cajas.
 - **Anthropic**, a que el modelo arme el flujo. En Claude Code y en Managed Agents, el agente puede escribir su propio programa que reparte el trabajo entre varios agentes. En [A harness for every task](https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/), de junio de 2026, avisa que eso suele gastar más tokens y conviene para tareas complejas que lo valen.
 

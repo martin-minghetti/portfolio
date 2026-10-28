@@ -162,7 +162,7 @@ Un ejemplo de por qué importa: si `registrar_pedido` estuviera en un servidor M
 
 MCP no hace falta siempre. Un criterio simple:
 
-- **Herramienta propia.** Si la usa una sola aplicación y la escribiste vos, alcanza con definirla como se vio con las herramientas. El asistente con `registrar_pedido` no gana nada con MCP: suma un programa más que mantener.
+- **Herramienta propia.** Si la usa una sola aplicación y es tuya, alcanza con definirla como se vio con las herramientas. El asistente con `registrar_pedido` no gana nada con MCP: suma un programa más que mantener.
 - **MCP.** Si la herramienta ya existe y la armó otro (el sistema de reservas, GitHub, Notion), o si la querés usar desde varias aplicaciones: el asistente, Claude en la compu del dueño y ChatGPT.
 - **Skill.** Si lo que falta no es acceso a un sistema sino saber cómo hacer algo, como el procedimiento para un reclamo, que ya apareció en la serie. Anthropic lo resume así, en un artículo de 2026: MCP conecta a Claude con los datos; las skills le enseñan qué hacer con ellos. Se usan juntas.
 
