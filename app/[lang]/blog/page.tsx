@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import { formatDate, getPosts } from "@/lib/blog";
 import FadeImage from "@/components/ui/FadeImage";
+import CoverHero from "@/components/blog/CoverHero";
 
 export async function generateMetadata({
   params,
@@ -37,15 +38,13 @@ export default async function BlogIndex({
 
   return (
     <>
-      <section className="hero-ground">
-        <div className="container pt-(--space-3xl) pb-(--space-2xl)">
+      <CoverHero image="/blog/blog.jpg" className="pt-(--space-3xl) pb-(--space-2xl)">
           <h1 className="max-w-none text-(length:--text-display) leading-[0.98]">{dict.blog.title}</h1>
           <p className="lead mt-(--space-lg) !text-paper-hi">{dict.blog.lead}</p>
           <a href={`/${locale}/blog/feed.xml`} className="tlink mt-(--space-md) !text-paper-hi">
             {dict.blog.rss}
           </a>
-        </div>
-      </section>
+      </CoverHero>
 
       <section className="py-(--section-gap-s)">
         <div className="container">
@@ -59,7 +58,7 @@ export default async function BlogIndex({
                     href={`/${locale}/blog/${post.slug}`}
                     className="group grid gap-(--space-sm) py-(--space-xl) no-underline md:grid-cols-12 md:gap-(--gap-columns)"
                   >
-                    <span className="screen relative block aspect-[16/9] overflow-hidden rounded-card md:col-span-3">
+                    <span className="screen crop-shadow relative block aspect-[16/9] overflow-hidden rounded-card md:col-span-3">
                       {post.image && (
                         <FadeImage src={post.image} alt="" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
                       )}

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import Comments from "@/components/blog/Comments";
-import FadeImage from "@/components/ui/FadeImage";
+import CoverHero from "@/components/blog/CoverHero";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
@@ -78,20 +78,7 @@ export default async function BlogPost({
     <article>
       <script type="application/ld+json">{jsonLd}</script>
       <div className="read-progress" aria-hidden />
-      <header className={`hero-ground relative overflow-hidden ${post.image ? "!bg-[rgb(4_10_40)]" : ""}`}>
-        {post.image && (
-          // Phone: the whole cover on top, title below. Wider: the cover fills the header, title over its dark left side.
-          <div className="absolute inset-x-0 top-0 aspect-[16/9] md:inset-0 md:aspect-auto">
-            <FadeImage src={post.image} alt="" fill priority sizes="100vw" className="object-cover md:object-right" />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgb(4_10_40)_100%)] md:bg-[linear-gradient(90deg,rgb(4_10_40/0.92)_0%,rgb(4_10_40/0.75)_45%,rgb(4_10_40/0.15)_100%)]"
-            />
-          </div>
-        )}
-        <div
-          className={`container relative pt-(--space-2xl) pb-(--space-2xl) ${post.image ? "!pt-[calc(56.25vw+var(--space-sm))] md:!pt-(--space-2xl) md:flex md:min-h-[min(68vh,620px)] md:flex-col md:justify-end" : ""}`}
-        >
+      <CoverHero image={post.image} className="pt-(--space-2xl) pb-(--space-2xl)">
           <Link href={`/${locale}/blog`} className="tlink">
             {dict.blog.back}
           </Link>
@@ -99,8 +86,7 @@ export default async function BlogPost({
             <time dateTime={post.date}>{formatDate(post.date, locale)}</time> · {post.minutes} {dict.blog.minutes}
           </p>
           <h1 className="mt-(--space-sm) max-w-[22ch] text-(length:--text-display-s) leading-[1.02]">{post.title}</h1>
-        </div>
-      </header>
+      </CoverHero>
 
       <div className="container py-(--section-gap-s)">
         <div className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />

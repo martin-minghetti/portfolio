@@ -13,6 +13,9 @@ const STYLE =
 
 // Un objeto central por tema; el resto lo pone STYLE.
 const PROMPTS = {
+  // Portada de la lista del blog.
+  blog:
+    "composition with all objects in the right third of the frame: an open glowing book sculpture with blank pages on a round pedestal, small glowing cubes rising from its pages, a stylus pen sculpture on a smaller pedestal beside it",
   "01-que-es-un-ai-builder":
     "a glowing processor chip in the center, a magnifying glass sculpture on one pedestal and a wrench sculpture on another pedestal, small blueprint panel floating above",
   "02-como-funciona-un-modelo-de-lenguaje-parte-1":

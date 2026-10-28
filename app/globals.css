@@ -210,4 +210,5 @@ section[id] { scroll-margin-top: calc(var(--section-gap-s) * -1); }
 .hero-ground p { color: inherit; }
 .sheet h2 { color: var(--color-ink); }
 .sheet p { color: var(--color-ink-2); }
-.crop-shadow { box-shadow: var(--shadow-sheet); }
+/* Screens and covers cast a cobalt shadow, so they belong to the site's accent. */
+.crop-shadow { box-shadow: 0 24px 48px -18px color-mix(in oklab, var(--color-accent) 60%, transparent); }
