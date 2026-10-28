@@ -235,7 +235,7 @@ Una regla para quedarse: empezar sin framework, y sumarlo cuando tu código empi
 
 Cada uno apuesta a algo distinto:
 
-- **Google**, a grafos: el flujo queda fijo en tu código, como en LangGraph, y el modelo no lo cambia. Están en ADK 2.0, para Python, TypeScript y Go.
+- **Google**, a grafos: el flujo queda fijo en tu código, como en LangGraph. Están en ADK 2.0, para Python, TypeScript y Go.
 - **OpenAI**, a código común. Su documentación del Agents SDK lo dice así: orquestar con código hace las tareas más predecibles en velocidad, costo y resultado. Y está cerrando Agent Builder, su editor para armar flujos arrastrando cajas.
 - **Anthropic**, a que el modelo arme el flujo. En Claude Code y en Managed Agents, el agente puede escribir su propio programa que reparte el trabajo entre varios agentes. En [A harness for every task](https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/), de junio de 2026, avisa que eso suele gastar más tokens y conviene para tareas complejas que lo valen.
 
