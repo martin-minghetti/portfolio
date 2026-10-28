@@ -2,20 +2,40 @@
 // Run: REPLICATE_API_TOKEN=r8_xxx node scripts/gen-blog-images.mjs [slug ...]
 import { existsSync, writeFileSync } from "node:fs";
 
+// Paleta en azul cobalto, el acento del sitio (28-10-2026).
+// Solo nombrar el azul: listar colores prohibidos hace que FLUX los use.
 const STYLE =
-  "photorealistic isometric 3D render, octane render, glossy materials, on a dark navy circuit board with fine glowing teal circuit traces and tiny chips, " +
-  "color palette strictly limited to deep navy, electric purple, cyan teal and lime green, no orange, no red, no pink, no yellow, " +
-  "stylized objects standing on round dark pedestals with glowing purple or lime rims, soft bloom, subtle depth of field, deep shadows, " +
-  "empty dark navy space on the left side, high detail, " +
-  "no text, no letters, no numbers, no symbols on surfaces, no logos, no watermark";
+  "photorealistic isometric 3D render, octane render, glossy materials, on a dark navy circuit board with fine glowing circuit traces and tiny chips, " +
+  "everything rendered entirely in shades of blue: deep navy, cobalt blue, electric blue neon glow, pale ice blue highlights, cool blue lighting only, " +
+  "stylized objects standing on round dark pedestals with glowing cobalt blue rims, soft bloom, subtle depth of field, deep shadows, " +
+  "empty dark navy space on the left side, high detail, no people, " +
+  "plain blank surfaces without any text, lettering or logos";
 
+// Un objeto central por tema; el resto lo pone STYLE.
 const PROMPTS = {
+  "01-que-es-un-ai-builder":
+    "a glowing processor chip in the center, a magnifying glass sculpture on one pedestal and a wrench sculpture on another pedestal, small blueprint panel floating above",
+  "02-como-funciona-un-modelo-de-lenguaje-parte-1":
+    "a large glowing processor chip with a stream of small glowing cubes of different sizes flowing into it like pieces of a sentence, stacks of books turning into light on a pedestal",
   "03-como-funciona-un-modelo-de-lenguaje-parte-2":
-    "a large glowing processor chip in the center with stacked translucent layers of weights rising above it, " +
-    "three small chat bubble sculptures on pedestals around it in purple, teal and lime",
+    "a large glowing processor chip in the center with stacked translucent layers of weights rising above it, three small chat bubble sculptures on pedestals around it",
+  "04-prompting-system-prompt-y-ejemplos":
+    "a glowing processor chip receiving a floating translucent instruction card with blank lines, three smaller example cards on pedestals beside it",
+  "05-prompting-razonar-paso-a-paso-y-temperatura":
+    "a glowing processor chip with a staircase of glowing steps rising from it, a thermometer sculpture with a glowing dial on a pedestal",
+  "06-context-window-y-como-manejar-el-contexto":
+    "a glowing processor chip with a long translucent window frame above it filled with stacked glowing message cards, some cards fading out at the far end",
+  "07-tool-use-como-un-modelo-usa-herramientas":
+    "a glowing processor chip connected by bright traces to a wrench, a gear and a small database cylinder, each sculpture on its own pedestal",
+  "08-agentes-y-agent-loops":
+    "a glowing processor chip with a bright circular loop of light orbiting around it, small arrows along the loop, two tool sculptures on pedestals",
+  "09-guardrails":
+    "a glowing processor chip surrounded by a translucent glowing shield dome, small barrier posts with glowing rails around the edge, a padlock sculpture on a pedestal",
+  "10-mcp-protocolo-para-conectar-herramientas":
+    "a glowing universal connector plug sculpture in the center linking a processor chip to three different devices on pedestals with bright cables",
   "11-orquestacion-langchain-y-langgraph":
     "a central glowing hub chip connected by bright traces to five smaller node chips arranged like a flowchart, " +
-    "one glowing path splitting into two paths, a purple pause icon sculpture made of two vertical bars on a pedestal, and a lime green checkmark sculpture on another pedestal",
+    "one glowing path splitting into two paths, a pause icon sculpture made of two vertical bars on a pedestal, and a checkmark sculpture on another pedestal",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
@@ -26,7 +46,7 @@ for (const slug of process.argv.slice(2).length ? process.argv.slice(2) : Object
   if (existsSync(out)) continue;
   let res, data;
   // Con menos de USD 5 de crédito, Replicate deja crear una imagen cada ~10 s: esperar y reintentar.
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 12; i++) {
     res = await fetch("https://api.replicate.com/v1/models/black-forest-labs/flux-1.1-pro/predictions", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json", Prefer: "wait" },
