@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/lib/dictionaries";
 import { airlstClients } from "@/lib/projects";
+import FadeImage from "@/components/ui/FadeImage";
 
 type Props = {
   dict: Dictionary;
@@ -14,7 +15,14 @@ export default function AirLST({ dict }: Props) {
           <p className="reveal lead mt-(--space-lg) !text-paper" style={{ "--i": 1 } as React.CSSProperties}>{dict.airlst.disclaimer}</p>
           <p className="reveal mt-(--space-md) !text-paper-3" style={{ "--i": 2 } as React.CSSProperties}>{dict.airlst.metrics}</p>
         </div>
-        <ul className="grid auto-rows-min grid-cols-2 border-t border-paper-3/40 md:col-span-6 md:col-start-7">
+        <div
+          data-slot="airlst-venue"
+          data-alt=""
+          className="screen relative aspect-[16/10] overflow-hidden rounded-card md:col-span-7 md:self-center"
+        >
+          <FadeImage src="/home/airlst.jpg" alt="" fill sizes="(min-width: 768px) 55vw, 100vw" className="object-cover" />
+        </div>
+        <ul className="mt-(--space-lg) grid auto-rows-min grid-cols-2 gap-x-(--gap-columns) border-t border-paper-3/40 md:col-span-12 md:grid-cols-5">
           {airlstClients.map((client, i) => (
             <li
               key={client}

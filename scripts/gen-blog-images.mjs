@@ -13,6 +13,14 @@ const STYLE =
 
 // Un objeto central por tema; el resto lo pone STYLE.
 const PROMPTS = {
+  // Páginas del sitio: una clave con "/" se guarda en public/<clave>.jpg.
+  "home/hero":
+    "wide shot, the left 45 percent of the frame is empty dark navy, all objects grouped in the right half: a sleek open laptop with a blank glowing website layout on screen, " +
+    "a smartphone standing beside it with a blank glowing shop screen, a large glowing AI processor chip on a pedestal connected to both by bright light traces, " +
+    "a small payment card sculpture on a pedestal",
+  "home/airlst":
+    "an event venue in miniature: a glowing stage with a large blank screen, neat rows of tiny chairs facing it, " +
+    "a conference badge on a lanyard sculpture and a calendar sculpture with blank pages on pedestals in the foreground",
   // Portada de la lista del blog.
   blog:
     "composition with all objects in the right third of the frame: an open glowing book sculpture with blank pages on a round pedestal, small glowing cubes rising from its pages, a stylus pen sculpture on a smaller pedestal beside it",
@@ -45,7 +53,7 @@ const token = process.env.REPLICATE_API_TOKEN;
 if (!token) throw new Error("Missing REPLICATE_API_TOKEN");
 
 for (const slug of process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(PROMPTS)) {
-  const out = `public/blog/${slug}.jpg`;
+  const out = slug.includes("/") ? `public/${slug}.jpg` : `public/blog/${slug}.jpg`;
   if (existsSync(out)) continue;
   let res, data;
   // Con menos de USD 5 de crédito, Replicate deja crear una imagen cada ~10 s: esperar y reintentar.

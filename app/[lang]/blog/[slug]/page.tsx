@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n";
 import Comments from "@/components/blog/Comments";
-import CoverHero from "@/components/blog/CoverHero";
+import CoverHero from "@/components/ui/CoverHero";
 import { formatDate, getPost, getPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 

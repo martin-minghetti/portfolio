@@ -5,7 +5,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import { formatDate, getPosts } from "@/lib/blog";
 import FadeImage from "@/components/ui/FadeImage";
-import CoverHero from "@/components/blog/CoverHero";
+import CoverHero from "@/components/ui/CoverHero";
 
 export async function generateMetadata({
   params,
