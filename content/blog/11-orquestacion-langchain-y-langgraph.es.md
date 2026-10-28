@@ -60,11 +60,43 @@ Las piezas, con el pedido de la pizzería:
 
 <figure>
 <p class="fig-title">El pedido como grafo</p>
-<div class="tok-row"><div class="tok-head"><span>Camino principal</span></div><div class="tok-text"><span class="tok c4">Quiero 3 muzzarellas</span><span class="tok c1">entender el pedido</span><span class="tok c2">consultar stock</span><span class="tok c2">calcular total</span><span class="tok c0">pausa: Lo confirmo?</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Horas después</span></div><div class="tok-text"><span class="tok c4">si</span><span class="tok c0">retoma donde quedó</span><span class="tok c3">registrar pedido</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Si falta algo</span></div><div class="tok-text"><span class="tok c2">consultar stock</span><span class="tok c2">avisar: hoy no queda napolitana</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Si dice que no</span></div><div class="tok-text"><span class="tok c0">pausa</span><span class="tok c2">fin, sin registrar</span></div></div>
-<figcaption>Celeste: lo que escribe el cliente. Verde: el único paso que usa el modelo. Naranja: pasos de tu código. Violeta: la pausa, que guarda el pedido con el número del cliente. Rojo: lo que tiene efecto. Registrar solo se alcanza después de un "si": no hay otro camino.</figcaption>
+<svg viewBox="0 0 400 800" width="100%" role="img" aria-labelledby="g11t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
+<title id="g11t">Diagrama del pedido: el mensaje del cliente pasa por entender el pedido, consultar stock y calcular el total; si no hay stock avisa y termina; después pausa hasta que el cliente contesta; si dice que si registra el pedido, si no termina sin registrar.</title>
+<defs><marker id="g11a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--color-ink)"/></marker></defs>
+<g stroke="var(--color-ink)" stroke-width="1.5" fill="none" marker-end="url(#g11a)">
+<path d="M110 72V98"/><path d="M110 156V182"/><path d="M110 234V262"/><path d="M110 338V364"/><path d="M110 416V444"/><path d="M110 538V564"/><path d="M110 640V666"/><path d="M110 718V744"/>
+<path d="M180 300H243"/><path d="M180 602H243"/>
+</g>
+<g font-size="15" fill="var(--color-muted)"><text x="198" y="291">no</text><text x="120" y="356">si</text><text x="198" y="593">no</text><text x="120" y="658">si</text></g>
+<g stroke="var(--color-ink)" stroke-opacity=".25">
+<rect x="10" y="20" width="200" height="52" rx="10" fill="oklch(88% 0.07 230)"/>
+<rect x="10" y="100" width="200" height="56" rx="10" fill="oklch(88% 0.08 150)"/>
+<rect x="10" y="184" width="200" height="50" rx="10" fill="oklch(89% 0.09 75)"/>
+<path d="M110 264L180 300L110 336L40 300Z" fill="var(--color-paper-hi)"/>
+<rect x="10" y="366" width="200" height="50" rx="10" fill="oklch(89% 0.09 75)"/>
+<rect x="10" y="446" width="200" height="92" rx="10" fill="oklch(87% 0.07 300)"/>
+<path d="M110 566L180 602L110 638L40 602Z" fill="var(--color-paper-hi)"/>
+<rect x="10" y="668" width="200" height="50" rx="10" fill="oklch(87% 0.07 20)"/>
+<rect x="245" y="274" width="145" height="52" rx="10" fill="oklch(89% 0.09 75)"/>
+<rect x="245" y="576" width="145" height="52" rx="10" fill="oklch(89% 0.09 75)"/>
+<rect x="72" y="746" width="76" height="34" rx="17" fill="var(--color-paper-hi)"/>
+</g>
+<g fill="var(--color-ink)" font-size="17" text-anchor="middle">
+<text x="110" y="52">"Quiero 3 muzzarellas"</text>
+<text x="110" y="125">Entender el pedido</text><text x="110" y="145" font-size="14" fill="var(--color-muted)">el paso con el modelo</text>
+<text x="110" y="215">Consultar stock</text>
+<text x="110" y="306" font-size="16">Hay stock?</text>
+<text x="110" y="397">Calcular total</text>
+<text x="110" y="472">Pausa: "Son $27.000.</text><text x="110" y="492">Lo confirmo?"</text>
+<text x="110" y="513" font-size="14" fill="var(--color-muted)">guarda el pedido y espera,</text><text x="110" y="529" font-size="14" fill="var(--color-muted)">aunque pasen horas</text>
+<text x="110" y="608" font-size="16">Dijo que si?</text>
+<text x="110" y="699">Registrar pedido</text>
+<text x="110" y="769" font-size="15">Fin</text>
+<text x="317" y="297" font-size="16">Avisar</text><text x="317" y="316" font-size="14" fill="var(--color-muted)">y terminar</text>
+<text x="317" y="599" font-size="16">No registrar</text><text x="317" y="618" font-size="14" fill="var(--color-muted)">y terminar</text>
+</g>
+</svg>
+<figcaption>Celeste: lo que escribe el cliente. Verde: el paso que usa el modelo. Naranja: pasos de tu código. Violeta: la pausa. Rojo: el paso que tiene efecto. Los rombos son los caminos que se eligen según el estado. A "Registrar pedido" se llega por un solo camino, después de un "si".</figcaption>
 </figure>
 
 LangChain y LangGraph se llevan así: `create_agent` está construido sobre LangGraph. Uno es el auto armado y el otro es el motor. Y el motor se puede usar solo: la documentación lo dice tal cual, "you don't need to use LangChain to use LangGraph". Adentro de un paso podés llamar al SDK de Anthropic directo, sin LangChain.
