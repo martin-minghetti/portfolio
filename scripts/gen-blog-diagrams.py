@@ -1,4 +1,4 @@
-# Genera los diagramas SVG de los posts 7 a 10, 12 y 13 y los reemplaza en los .es.md del portfolio.
+# Genera los diagramas SVG de los posts 7 a 10 y 12 a 14 y los reemplaza en los .es.md del portfolio.
 import re, sys
 from pathlib import Path
 
@@ -184,6 +184,26 @@ def fig13b():
     g.box(10, 478, 230, 52, "c1", ["Fine-tuning, si tu", "proveedor lo ofrece"], size=15)
     return g.render()
 
+def fig14():
+    g = Svg("g14", 400, 482, "Diagrama del mensaje al pedido registrado: tu código manda el mensaje del cliente con el esquema Pedido; Claude escribe solo lo que el esquema permite; Pydantic valida el JSON en tu código; después las reglas de La Esquina; si todo pasa, se registra el pedido. Si Claude se niega, la respuesta se corta o no pasa la validación, el pedido va a una persona; si falta un dato, se le pregunta al cliente.")
+    g.box(10, 14, 240, 58, "c4", ['"quiero 2 muzzas y una', 'fugazzeta sin cebolla..."'], size=15)
+    g.arrow("M130 72V94")
+    g.box(10, 96, 240, 56, "c2", ["Tu código manda el mensaje"], ["y el esquema Pedido"], size=15)
+    g.arrow("M130 152V174")
+    g.box(10, 176, 240, 56, "c1", ["Claude escribe el JSON"], ["solo lo que el esquema permite"], size=15)
+    g.arrow("M250 204H326V234", dash=True); g.text(334, 196, "se negó", size=13, anchor="start"); g.text(334, 212, "o se cortó", size=13, anchor="start")
+    g.box(262, 236, 128, 58, "c3", ["Pasar a", "una persona"], size=15)
+    g.arrow("M130 232V254")
+    g.box(10, 256, 240, 56, "c3", ["Pydantic valida"], ["la forma y lo que el modelo no ve"], size=15)
+    g.arrow("M250 284H260", dash=True)
+    g.arrow("M130 312V334")
+    g.box(10, 336, 240, 56, "c3", ["Reglas de La Esquina"], ["más de 20, falta la dirección"], size=15)
+    g.arrow("M250 364H260", dash=True)
+    g.box(262, 336, 128, 56, "c4", ["Preguntarle", "al cliente"], size=15)
+    g.arrow("M130 392V414")
+    g.box(10, 416, 240, 50, "c0", ["Registrar el pedido"], size=15)
+    return g.render()
+
 CAPS = {
  "07": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación y lo que manda.", "Naranja: tu código, que tiene acceso al stock.", "Rojo: el resultado que devuelve tu código.", "El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega."],
  "08": ["Celeste: lo que escribe el cliente.", "Verde: las llamadas al modelo y su respuesta.", "Naranja: tu código, que ejecuta las herramientas.", "Rojo: el tope, que corta aunque el modelo siga pidiendo.", 'En el ejemplo: la vuelta 1 consulta el stock de muzzarella y napolitana, la 2 calcula el total ($19.500) y la 3 responde "Lo confirmo?". Cuando el cliente dice "Dale", la vuelta 4 registra el pedido y la 5 responde "Listo, tu pedido es el 128."', "Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior."],
@@ -191,9 +211,10 @@ CAPS = {
  "12": ["Celeste: lo que escribe el cliente.", "Verde: los dos modelos. El de embeddings convierte texto en números; Claude escribe la respuesta.", "Naranja: tu código.", "Violeta: lo que se guarda, los documentos y la base vectorial.", "La línea punteada: cada búsqueda usa lo que se guardó al indexar."],
  "13": ["Celeste: lo que escribe el cliente.", "Rojo: el filtro, que deja afuera los fragmentos de los otros 29 locales antes de buscar.", "Verde: los modelos (el de embeddings, el reranker y Claude).", "Naranja: tu código.", "Las cantidades son las de la prueba de Anthropic: 150 candidatos, 20 al prompt."],
  "13b": ["Blanco: las preguntas.", "Naranja: lo que se resuelve con tu prompt y tu código.", "Verde: lo que cambia el modelo.", "Primero hay que saber qué falla: si no sabe algo, o si lo sabe y responde mal."],
+ "14": ["Celeste: el cliente.", "Naranja: tu código.", "Verde: el modelo.", "Rojo: los controles. Si Claude se niega, si la respuesta llega cortada o si el JSON no pasa la validación, el pedido va a una persona. Si las reglas del local encuentran un problema, se le pregunta al cliente (o, con más de 20 pizzas, a una persona).", "Violeta: lo que se guarda."],
  "10": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación (Claude, el asistente).", "Naranja: el servidor MCP y lo que devuelve.", "Los pasos 2, 3, 5 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro."],
 }
-FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b}
+FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14}
 
 def ul(items): return "<ul>" + "".join(f"<li>{esc(i)}</li>" for i in items) + "</ul>"
 
