@@ -39,7 +39,7 @@ export const en: Dictionary = {
         "Things that save you hours: reading emails, putting reports together, answering questions. There are demos you can try.",
       cta: "Book 30 minutes",
     },
-    scrollHint: "Scroll to see the projects",
+    seeProjects: "See {n} projects",
   },
   whoIAm: {
     lead: "How I got here, in four lines.",

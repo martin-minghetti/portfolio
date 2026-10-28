@@ -50,7 +50,7 @@ export type Dictionary = {
       tagline: string;
       cta: string;
     };
-    scrollHint: string;
+    seeProjects: string;
   };
   whoIAm: {
     lead: string;

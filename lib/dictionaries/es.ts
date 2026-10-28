@@ -39,7 +39,7 @@ export const es: Dictionary = {
         "Cosas que te ahorran horas: leer mails, armar informes, contestar consultas. Hay demos para probar.",
       cta: "Reservá 30 minutos",
     },
-    scrollHint: "Bajá para ver los proyectos",
+    seeProjects: "Ver {n} proyectos",
   },
   whoIAm: {
     lead: "Cómo llegué hasta acá, en cuatro líneas.",
