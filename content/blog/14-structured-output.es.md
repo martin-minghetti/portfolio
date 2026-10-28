@@ -46,7 +46,7 @@ Para que tu código pueda confiar en eso, hace falta un **esquema**: la lista de
 
 Lo primero que se le ocurre a cualquiera es pedirlo en el system prompt: "Respondé solo con JSON, con estos campos". Con un par de ejemplos, como se vio al hablar de prompting, el modelo lo hace casi siempre.
 
-El problema es el "casi". Alguna vez el JSON queda mal cerrado, falta un campo, o la cantidad viene como texto ("2" entre comillas, o "dos"). Con unos pocos mensajes no se nota. Con miles por día, cada una de esas veces es un pedido que tu código no puede leer.
+El problema es el "casi". En JSON, cada llave o corchete que se abre se tiene que cerrar, y alguna vez el modelo se olvida de una: `{"producto": "muzzarella", "cantidad": 2` sin la `}` del final ya no se puede leer. Otras veces falta un campo, o la cantidad viene como texto ("2" entre comillas, o "dos"). Con unos pocos mensajes no se nota. Con miles por día, cada una de esas veces es un pedido que tu código no puede leer.
 
 ## Cómo lo asegura la API
 
