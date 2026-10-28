@@ -45,7 +45,7 @@ Eso tiene un costo. Como se paga por cada token que entra, cada llamada paga de 
 <div class="tok-row"><div class="tok-head"><span>Llamada 1</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">pregunta 1</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>Llamada 2</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">pregunta 1</span><span class="tok c1">respuesta 1</span><span class="tok c4">pregunta 2</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>Llamada 3</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">pregunta 1</span><span class="tok c1">respuesta 1</span><span class="tok c4">pregunta 2</span><span class="tok c1">respuesta 2</span><span class="tok c4">pregunta 3</span></div></div>
-<figcaption>Violeta: system. Celeste: mensajes del usuario. Verde: respuestas del modelo. Diagrama sin escala: cada llamada lleva todo lo anterior más lo nuevo.</figcaption>
+<figcaption><ul><li>Violeta: system.</li><li>Celeste: mensajes del usuario.</li><li>Verde: respuestas del modelo.</li><li>Diagrama sin escala: cada llamada lleva todo lo anterior más lo nuevo.</li></ul></figcaption>
 </figure>
 
 OpenAI y Google ofrecen guardar el historial de su lado, para no tener que reenviarlo: OpenAI con un identificador de la respuesta anterior y Google con su API de Interactions, que guarda las conversaciones 55 días en el plan pago. Eso ahorra trabajo, pero el modelo sigue sin recordar nada: el proveedor arma la lista y se la pasa entera. OpenAI aclara que, aun así, todos los tokens anteriores se cobran de nuevo como entrada. Hay formas de abaratar esa repetición, como la caché, que se ven más adelante en la serie.

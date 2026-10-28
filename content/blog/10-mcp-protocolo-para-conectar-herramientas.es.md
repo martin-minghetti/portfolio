@@ -30,13 +30,40 @@ Lo que cambia es de dónde sale la lista de herramientas y quién las ejecuta:
 
 <figure>
 <p class="fig-title">Lo que cambia cuando la herramienta llega por MCP</p>
-<div class="tok-row"><div class="tok-head"><span>1. Pregunta al servidor</span></div><div class="tok-text"><span class="tok c0">qué herramientas tenés?</span><span class="tok c2">consultar_stock: nombre, descripción y datos</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>2. Llama al modelo</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c2">herramientas</span><span class="tok c4">Hay napolitana?</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>3. El modelo pide</span></div><div class="tok-text"><span class="tok c1">consultar_stock(napolitana)</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>4. Pasa el pedido</span></div><div class="tok-text"><span class="tok c0">servidor, ejecutá consultar_stock(napolitana)</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>5. El servidor devuelve</span></div><div class="tok-text"><span class="tok c3">napolitana: 0 unidades</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>6. El modelo responde</span></div><div class="tok-text"><span class="tok c1">Hoy no queda napolitana. Te tomo una muzzarella?</span></div></div>
-<figcaption>Violeta: la aplicación (Claude, el asistente). Naranja: lo que ofrece el servidor. Celeste: el mensaje del cliente. Verde: lo que escribe el modelo. Rojo: el resultado. Los pasos 2, 3 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro.</figcaption>
+<svg viewBox="0 0 400 530" width="100%" role="img" aria-labelledby="g10t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
+<title id="g10t">Diagrama de secuencia entre el modelo, tu aplicación y un servidor MCP: la aplicación pide la lista de herramientas al servidor, llama al modelo, y cuando el modelo pide una herramienta se la pasa al servidor para que la ejecute.</title>
+<defs><marker id="g10c0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(55% 0.15 300)"/></marker><marker id="g10c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(52% 0.13 150)"/></marker><marker id="g10c2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(58% 0.13 70)"/></marker></defs>
+<path d="M60 58V520" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M200 58V520" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M340 58V520" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="4" y="14" width="112" height="44" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="60.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Modelo</text>
+<rect x="144" y="14" width="112" height="44" rx="10" fill="oklch(87% 0.07 300)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="200.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Tu aplicación</text>
+<rect x="284" y="14" width="112" height="44" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="340.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Servidor MCP</text>
+<path d="M204 100H336" fill="none" stroke="oklch(58% 0.13 70)" stroke-width="1.6" marker-end="url(#g10c2)"/>
+<text x="270.0" y="92" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">1. qué herramientas tenés?</text>
+<path d="M336 140H204" fill="none" stroke="oklch(58% 0.13 70)" stroke-width="1.6" marker-end="url(#g10c2)"/>
+<text x="270.0" y="132" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">consultar_stock y su descripción</text>
+<path d="M196 212H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g10c0)"/>
+<text x="130.0" y="187" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">2. system, herramientas</text>
+<text x="130.0" y="204" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">y "Hay napolitana?"</text>
+<path d="M64 272H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g10c1)"/>
+<text x="130.0" y="247" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">3. pide consultar_stock</text>
+<text x="130.0" y="264" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">(napolitana)</text>
+<path d="M204 322H336" fill="none" stroke="oklch(58% 0.13 70)" stroke-width="1.6" marker-end="url(#g10c2)"/>
+<text x="270.0" y="314" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">4. ejecutá consultar_stock</text>
+<path d="M336 362H204" fill="none" stroke="oklch(58% 0.13 70)" stroke-width="1.6" marker-end="url(#g10c2)"/>
+<text x="270.0" y="354" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">napolitana: 0 unidades</text>
+<path d="M196 432H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g10c0)"/>
+<text x="130.0" y="407" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">5. todo lo anterior</text>
+<text x="130.0" y="424" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">y el resultado</text>
+<path d="M64 502H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g10c1)"/>
+<text x="130.0" y="477" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">6. "Hoy no queda napolitana.</text>
+<text x="130.0" y="494" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Te tomo una muzzarella?"</text>
+</svg>
+<figcaption><ul><li>Verde: el modelo y lo que escribe.</li><li>Violeta: tu aplicación (Claude, el asistente).</li><li>Naranja: el servidor MCP y lo que devuelve.</li><li>Los pasos 2, 3, 5 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro.</li></ul></figcaption>
 </figure>
 
 ## Las tres piezas

@@ -99,6 +99,8 @@
   /* post figures: plain HTML inside the markdown, drawn with the theme tokens */
   .prose figure { margin-top: 2em; margin-bottom: 2em; padding: var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-hi); }
   .prose figcaption { margin-top: var(--space-md); font-size: var(--text-sm); line-height: 1.5; color: var(--color-muted); }
+  .prose figcaption ul { margin: 0; }
+  .prose figcaption li + li { margin-top: 0.25em; }
   .prose .fig-title { font-size: var(--text-md); font-weight: 600; color: var(--color-ink); }
   .tok-row + .tok-row { margin-top: var(--space-md); }
   .tok-head { display: flex; justify-content: space-between; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }

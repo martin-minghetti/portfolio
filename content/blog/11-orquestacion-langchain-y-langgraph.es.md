@@ -96,7 +96,7 @@ Las piezas, con el pedido de la pizzería:
 <text x="317" y="599" font-size="16">No registrar</text><text x="317" y="618" font-size="14" fill="var(--color-muted)">y terminar</text>
 </g>
 </svg>
-<figcaption>Celeste: lo que escribe el cliente. Verde: el paso que usa el modelo. Naranja: pasos de tu código. Violeta: la pausa. Rojo: el paso que tiene efecto. Los rombos son los caminos que se eligen según el estado. A "Registrar pedido" se llega por un solo camino, después de un "si".</figcaption>
+<figcaption><ul><li>Celeste: lo que escribe el cliente.</li><li>Verde: el paso que usa el modelo.</li><li>Naranja: pasos de tu código.</li><li>Violeta: la pausa.</li><li>Rojo: el paso que tiene efecto.</li><li>Los rombos son los caminos que se eligen según el estado.</li><li>A "Registrar pedido" se llega por un solo camino, después de un "si".</li></ul></figcaption>
 </figure>
 
 LangChain y LangGraph se llevan así: `create_agent` está construido sobre LangGraph. Uno es el auto armado y el otro es el motor. Y el motor se puede usar solo: la documentación lo dice tal cual, "you don't need to use LangChain to use LangGraph". Adentro de un paso podés llamar al SDK de Anthropic directo, sin LangChain.

@@ -26,12 +26,36 @@ Con la pizzería, una sola respuesta al cliente lleva cinco pasos:
 
 <figure>
 <p class="fig-title">Lo que va y viene cuando el modelo usa una herramienta</p>
-<div class="tok-row"><div class="tok-head"><span>1. La aplicación llama al modelo</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c2">herramientas</span><span class="tok c4">Hay napolitana?</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>2. El modelo pide</span></div><div class="tok-text"><span class="tok c1">consultar_stock(napolitana)</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>3. Tu código ejecuta</span></div><div class="tok-text"><span class="tok c3">napolitana: 0 unidades</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>4. La aplicación llama de nuevo</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c2">herramientas</span><span class="tok c4">Hay napolitana?</span><span class="tok c1">consultar_stock(napolitana)</span><span class="tok c3">napolitana: 0 unidades</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>5. El modelo responde</span></div><div class="tok-text"><span class="tok c1">Hoy no queda napolitana. Te tomo una muzzarella?</span></div></div>
-<figcaption>Violeta: system prompt. Naranja: definiciones de herramientas. Celeste: mensaje del cliente. Verde: lo que escribe el modelo, incluido el pedido. Rojo: el resultado que devuelve tu código. El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega.</figcaption>
+<svg viewBox="0 0 400 430" width="100%" role="img" aria-labelledby="g07t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
+<title id="g07t">Diagrama de secuencia entre el modelo, tu aplicación y tu código cuando el modelo usa una herramienta.</title>
+<defs><marker id="g07c0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(55% 0.15 300)"/></marker><marker id="g07c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(52% 0.13 150)"/></marker><marker id="g07c3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(55% 0.17 25)"/></marker></defs>
+<path d="M60 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M200 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M340 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="4" y="14" width="112" height="44" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="60.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Modelo</text>
+<rect x="144" y="14" width="112" height="44" rx="10" fill="oklch(87% 0.07 300)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="200.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Tu aplicación</text>
+<rect x="284" y="14" width="112" height="44" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="340.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Tu código</text>
+<path d="M196 112H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="130.0" y="87" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">1. system, herramientas</text>
+<text x="130.0" y="104" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">y "Hay napolitana?"</text>
+<path d="M64 172H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g07c1)"/>
+<text x="130.0" y="147" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">2. pide consultar_stock</text>
+<text x="130.0" y="164" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">(napolitana)</text>
+<path d="M204 222H336" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="270.0" y="214" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">3. ejecuta la función</text>
+<path d="M336 262H204" fill="none" stroke="oklch(55% 0.17 25)" stroke-width="1.6" marker-end="url(#g07c3)"/>
+<text x="270.0" y="254" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">napolitana: 0 unidades</text>
+<path d="M196 332H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="130.0" y="307" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">4. todo lo anterior</text>
+<text x="130.0" y="324" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">y el resultado</text>
+<path d="M64 402H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g07c1)"/>
+<text x="130.0" y="377" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">5. "Hoy no queda napolitana.</text>
+<text x="130.0" y="394" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Te tomo una muzzarella?"</text>
+</svg>
+<figcaption><ul><li>Verde: el modelo y lo que escribe.</li><li>Violeta: tu aplicación y lo que manda.</li><li>Naranja: tu código, que tiene acceso al stock.</li><li>Rojo: el resultado que devuelve tu código.</li><li>El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega.</li></ul></figcaption>
 </figure>
 
 1. La aplicación manda el system prompt, la lista de herramientas y el mensaje del cliente.

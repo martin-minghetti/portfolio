@@ -37,14 +37,38 @@ Así se resolvería el pedido del martes con un agente que tiene tres herramient
 
 <figure>
 <p class="fig-title">Un pedido, vuelta por vuelta</p>
-<div class="tok-row"><div class="tok-head"><span>Cliente</span></div><div class="tok-text"><span class="tok c4">3 muzzarellas y una napolitana, a Mitre 450</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Vuelta 1</span></div><div class="tok-text"><span class="tok c1">consultar_stock(muzzarella)</span><span class="tok c1">consultar_stock(napolitana)</span><span class="tok c3">12</span><span class="tok c3">0</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Vuelta 2</span></div><div class="tok-text"><span class="tok c1">calcular_total(3 muzzarellas)</span><span class="tok c3">$19.500</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Vuelta 3: responde y corta</span></div><div class="tok-text"><span class="tok c1">No queda napolitana. Con el 2x1 y el envío son $19.500. Lo confirmo?</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Cliente</span></div><div class="tok-text"><span class="tok c4">Dale</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Vuelta 4</span></div><div class="tok-text"><span class="tok c1">registrar_pedido(3 muzzarellas, Mitre 450)</span><span class="tok c3">pedido 128</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>Vuelta 5: responde y corta</span></div><div class="tok-text"><span class="tok c1">Listo, tu pedido es el 128.</span></div></div>
-<figcaption>Celeste: lo que escribe el cliente. Verde: lo que escribe el modelo, sea un pedido de herramienta o la respuesta. Rojo: lo que devuelve tu código. Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior. El loop corta cuando el modelo escribe sin pedir herramientas.</figcaption>
+<svg viewBox="0 0 400 432" width="100%" role="img" aria-labelledby="g08t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
+<title id="g08t">Diagrama del loop de un agente: el cliente escribe, se llama al modelo con todo lo anterior; si pide herramientas, tu código las ejecuta y se vuelve a llamar al modelo; si no, responde y corta. Un tope de vueltas corta el loop.</title>
+<defs><marker id="g08ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--color-ink)"/></marker></defs>
+<rect x="10" y="20" width="200" height="50" rx="10" fill="oklch(88% 0.07 230)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="110.0" y="49.8" font-size="16" fill="var(--color-ink)" text-anchor="middle">El cliente escribe</text>
+<path d="M110 70V98" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<rect x="10" y="100" width="200" height="56" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="110.0" y="124.8" font-size="16" fill="var(--color-ink)" text-anchor="middle">Llamar al modelo</text>
+<text x="110.0" y="143.8" font-size="13.5" fill="var(--color-muted)" text-anchor="middle">con todo lo anterior</text>
+<path d="M110 156V186" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<path d="M110 188L198 226L110 264L22 226Z" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="110" y="231" font-size="15" fill="var(--color-ink)" text-anchor="middle">Pide herramientas?</text>
+<path d="M198 226H243" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<text x="220" y="216" font-size="14" fill="var(--color-muted)" text-anchor="middle">si</text>
+<rect x="245" y="200" width="145" height="52" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="317.5" y="221.3" font-size="16" fill="var(--color-ink)" text-anchor="middle">Tu código</text>
+<text x="317.5" y="240.3" font-size="16" fill="var(--color-ink)" text-anchor="middle">las ejecuta</text>
+<path d="M317 200V128H212" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<text x="330" y="168" font-size="14" fill="var(--color-muted)" text-anchor="start">otra vuelta</text>
+<path d="M317 252V284" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="245" y="286" width="145" height="52" rx="10" fill="oklch(87% 0.07 20)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="317.5" y="308.8" font-size="16" fill="var(--color-ink)" text-anchor="middle">Tope de vueltas</text>
+<text x="317.5" y="327.8" font-size="13.5" fill="var(--color-muted)" text-anchor="middle">si se pasa, corta</text>
+<path d="M110 264V296" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<text x="120" y="286" font-size="14" fill="var(--color-muted)" text-anchor="start">no</text>
+<rect x="10" y="298" width="200" height="50" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="110.0" y="327.8" font-size="16" fill="var(--color-ink)" text-anchor="middle">Responde y corta</text>
+<path d="M110 348V378" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g08ink)"/>
+<rect x="35" y="380" width="150" height="40" rx="20" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="110.0" y="404.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Espera al cliente</text>
+</svg>
+<figcaption><ul><li>Celeste: lo que escribe el cliente.</li><li>Verde: las llamadas al modelo y su respuesta.</li><li>Naranja: tu código, que ejecuta las herramientas.</li><li>Rojo: el tope, que corta aunque el modelo siga pidiendo.</li><li>En el ejemplo: la vuelta 1 consulta el stock de muzzarella y napolitana, la 2 calcula el total ($19.500) y la 3 responde "Lo confirmo?". Cuando el cliente dice "Dale", la vuelta 4 registra el pedido y la 5 responde "Listo, tu pedido es el 128."</li><li>Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior.</li></ul></figcaption>
 </figure>
 
 En la primera vuelta, el modelo pide las dos consultas de stock juntas. La napolitana está en 0. En la segunda, calcula el total solo con las muzzarellas: con el 2x1 paga dos, $18.000, más $1.500 de envío porque no llega a $25.000. En la tercera, responde sin pedir herramientas y el loop termina, aunque el pedido todavía no está hecho: terminar también puede ser preguntar. Cuando el cliente confirma, empieza otra tanda de vueltas.

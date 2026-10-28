@@ -45,7 +45,7 @@ That has a cost. Since you pay for every token that goes in, every call pays aga
 <div class="tok-row"><div class="tok-head"><span>Call 1</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">question 1</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>Call 2</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">question 1</span><span class="tok c1">answer 1</span><span class="tok c4">question 2</span></div></div>
 <div class="tok-row"><div class="tok-head"><span>Call 3</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c4">question 1</span><span class="tok c1">answer 1</span><span class="tok c4">question 2</span><span class="tok c1">answer 2</span><span class="tok c4">question 3</span></div></div>
-<figcaption>Purple: system. Light blue: user messages. Green: model answers. Not to scale: each call carries everything before it plus what is new.</figcaption>
+<figcaption><ul><li>Purple: system.</li><li>Light blue: user messages.</li><li>Green: model answers.</li><li>Not to scale: each call carries everything before it plus what is new.</li></ul></figcaption>
 </figure>
 
 OpenAI and Google offer to store the history on their side, so you do not have to resend it: OpenAI with an ID for the previous response and Google with its Interactions API, which keeps conversations for 55 days on the paid tier. That saves work, but the model still remembers nothing: the provider puts the list together and passes it in whole. OpenAI points out that, even so, all earlier tokens are billed again as input. There are ways to make that repetition cheaper, such as caching, which come later in the series.

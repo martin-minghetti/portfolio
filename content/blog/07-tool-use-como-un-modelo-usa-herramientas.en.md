@@ -26,12 +26,36 @@ At the pizzeria, a single answer to the customer takes five steps:
 
 <figure>
 <p class="fig-title">What goes back and forth when the model uses a tool</p>
-<div class="tok-row"><div class="tok-head"><span>1. The application calls the model</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c2">tools</span><span class="tok c4">Do you have Neapolitan?</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>2. The model asks</span></div><div class="tok-text"><span class="tok c1">check_stock(neapolitan)</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>3. Your code runs it</span></div><div class="tok-text"><span class="tok c3">neapolitan: 0 left</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>4. The application calls again</span></div><div class="tok-text"><span class="tok c0">system</span><span class="tok c2">tools</span><span class="tok c4">Do you have Neapolitan?</span><span class="tok c1">check_stock(neapolitan)</span><span class="tok c3">neapolitan: 0 left</span></div></div>
-<div class="tok-row"><div class="tok-head"><span>5. The model answers</span></div><div class="tok-text"><span class="tok c1">There's no Neapolitan left today. Want a mozzarella instead?</span></div></div>
-<figcaption>Purple: system prompt. Orange: tool definitions. Light blue: the customer's message. Green: what the model writes, including the request. Red: the result your code sends back. The model never touches the stock system: it only sees the request it wrote and the result it receives.</figcaption>
+<svg viewBox="0 0 400 430" width="100%" role="img" aria-labelledby="g07t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
+<title id="g07t">Sequence diagram between the model, your app and your code when the model uses a tool.</title>
+<defs><marker id="g07c0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(55% 0.15 300)"/></marker><marker id="g07c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(52% 0.13 150)"/></marker><marker id="g07c3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="oklch(55% 0.17 25)"/></marker></defs>
+<path d="M60 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M200 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<path d="M340 58V420" fill="none" stroke="var(--color-ink)" stroke-opacity=".3" stroke-width="1.2" stroke-dasharray="4 4"/>
+<rect x="4" y="14" width="112" height="44" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="60.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Model</text>
+<rect x="144" y="14" width="112" height="44" rx="10" fill="oklch(87% 0.07 300)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="200.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Your app</text>
+<rect x="284" y="14" width="112" height="44" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
+<text x="340.0" y="40.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Your code</text>
+<path d="M196 112H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="130.0" y="87" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">1. system, tools and</text>
+<text x="130.0" y="104" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">"Do you have Neapolitan?"</text>
+<path d="M64 172H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g07c1)"/>
+<text x="130.0" y="147" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">2. asks for check_stock</text>
+<text x="130.0" y="164" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">(neapolitan)</text>
+<path d="M204 222H336" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="270.0" y="214" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">3. runs the function</text>
+<path d="M336 262H204" fill="none" stroke="oklch(55% 0.17 25)" stroke-width="1.6" marker-end="url(#g07c3)"/>
+<text x="270.0" y="254" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">neapolitan: 0 left</text>
+<path d="M196 332H64" fill="none" stroke="oklch(55% 0.15 300)" stroke-width="1.6" marker-end="url(#g07c0)"/>
+<text x="130.0" y="307" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">4. everything so far</text>
+<text x="130.0" y="324" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">plus the result</text>
+<path d="M64 402H196" fill="none" stroke="oklch(52% 0.13 150)" stroke-width="1.6" marker-end="url(#g07c1)"/>
+<text x="130.0" y="377" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">5. "No Neapolitan left today.</text>
+<text x="130.0" y="394" font-size="14" fill="var(--color-ink)" text-anchor="middle" stroke="var(--color-paper-hi)" stroke-width="5" stroke-linejoin="round" paint-order="stroke">Want a mozzarella instead?"</text>
+</svg>
+<figcaption><ul><li>Green: the model and what it writes.</li><li>Purple: your app and what it sends.</li><li>Orange: your code, which can reach the stock.</li><li>Red: the result your code sends back.</li><li>The model never touches the stock system: it only sees the request it wrote and the result it receives.</li></ul></figcaption>
 </figure>
 
 1. The application sends the system prompt, the list of tools and the customer's message.
