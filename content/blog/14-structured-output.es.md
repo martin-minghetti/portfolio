@@ -46,7 +46,7 @@ Para que tu código pueda confiar en eso, hace falta un **esquema**: la lista de
 
 Lo primero que se le ocurre a cualquiera es pedirlo en el system prompt: "Respondé solo con JSON, con estos campos". Con un par de ejemplos, como se vio al hablar de prompting, el modelo lo hace casi siempre.
 
-El problema es el "casi". Alguna vez el JSON queda mal cerrado, falta un campo, o la cantidad viene como texto ("2" entre comillas, o "dos"). Con unos pocos mensajes no se nota. Con miles por día, cada una de esas veces es un pedido que tu código no puede leer.
+El problema es el "casi". Esto no es código que se escribe una vez y se prueba: es la respuesta que el modelo escribe en el momento, con cada mensaje de un cliente, y nadie la revisa antes de que tu programa la lea. A veces agrega texto alrededor ("Acá tenés el pedido: ..."), a veces se corta a la mitad porque llegó al límite de tokens, a veces falta un campo o la cantidad viene como texto ("dos"). Con unos pocos mensajes no se nota. Con miles por día, cada una de esas veces es un pedido que tu código no puede leer.
 
 ## Cómo lo asegura la API
 
@@ -77,7 +77,7 @@ Y una que ya se vio al hablar de razonar paso a paso: no agregar un campo "razon
 
 ## Cómo se ve en código
 
-Este es el pedido con el SDK de Anthropic y **Pydantic**, una librería de Python para definir datos con sus tipos y validarlos. De una clase de Pydantic sale el JSON Schema solo, y el SDK se lo manda a Claude:
+Este es el pedido con el SDK de Anthropic y **Pydantic**, una librería de Python muy usada. Con Pydantic se describe cómo tiene que ser un dato (un pedido tiene productos, cada producto una cantidad que es un número, y así), y después se chequea que lo que llega cumpla esa descripción. De esa descripción sale el JSON Schema solo, y el SDK se lo manda a Claude:
 
 ```python
 from typing import Literal
