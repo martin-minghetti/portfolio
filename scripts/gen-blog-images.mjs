@@ -47,6 +47,9 @@ const PROMPTS = {
   "11-orquestacion-langchain-y-langgraph":
     "a central glowing hub chip connected by bright traces to five smaller node chips arranged like a flowchart, " +
     "one glowing path splitting into two paths, a pause icon sculpture made of two vertical bars on a pedestal, and a checkmark sculpture on another pedestal",
+  "12-rag-el-problema-y-como-funciona":
+    "a tall glowing filing cabinet with open drawers full of small translucent pale ice blue glowing document cards on one pedestal, a magnifying glass sculpture beside it, " +
+    "three of the document cards floating along a bright light trace into a glowing processor chip on another pedestal",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
