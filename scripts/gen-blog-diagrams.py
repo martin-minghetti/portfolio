@@ -1,4 +1,4 @@
-# Genera los diagramas SVG de los posts 7 a 10 y 12 a 16 y los reemplaza en los .es.md del portfolio.
+# Genera los diagramas SVG de los posts 7 a 10 y 12 a 17 y los reemplaza en los .es.md del portfolio.
 import re, sys
 from pathlib import Path
 
@@ -238,6 +238,28 @@ def fig16():
     g.text(150, 546, "ya en uso, cada falla nueva es un caso más", size=13.5)
     return g.render()
 
+def fig17():
+    lanes = [(72, "Cliente simulado", "c4"), (200, "Asistente", "c1"), (328, "Tu código", "c2")]
+    g = Svg("g17", 400, 420, "Diagrama de secuencia de una prueba con un cliente simulado: otro modelo hace de cliente con un plan (pedir 2 muzzarellas para Barrio Norte), el asistente le pregunta el barrio, el cliente contesta, el asistente registra el pedido, y tu código compara el pedido registrado con el esperado.")
+    for x, name, col in lanes:
+        g.line(f"M{x} 58V{410}")
+    for x, name, col in lanes:
+        g.box(x - 60, 14, 120, 44, col, [name], size=14)
+    for y, a, b, col, lines in [
+        (122, 0, 1, "ink", ["quiero 2 muzzas"]),
+        (182, 1, 0, "c1", ["para qué barrio?"]),
+        (242, 0, 1, "ink", ["Barrio Norte"]),
+        (312, 1, 2, "c1", ["registra el pedido"]),
+    ]:
+        xa, xb = lanes[a][0], lanes[b][0]
+        sgn = 1 if xb > xa else -1
+        g.arrow(f"M{xa + 4*sgn} {y}H{xb - 4*sgn}", col)
+        g.text((xa + xb) / 2, y - 8, lines[0], size=14, fill=INK, halo=True)
+    g.text(72, 84, "plan: 2 muzzarellas,", size=13, halo=True)
+    g.text(72, 99, "Barrio Norte", size=13, halo=True)
+    g.box(270, 342, 116, 56, "c2", ["compara con el"], ["pedido esperado"], size=14)
+    return g.render()
+
 CAPS = {
  "07": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación y lo que manda.", "Naranja: tu código, que tiene acceso al stock.", "Rojo: el resultado que devuelve tu código.", "El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega."],
  "08": ["Celeste: lo que escribe el cliente.", "Verde: las llamadas al modelo y su respuesta.", "Naranja: tu código, que ejecuta las herramientas.", "Rojo: el tope, que corta aunque el modelo siga pidiendo.", 'En el ejemplo: la vuelta 1 consulta el stock de muzzarella y napolitana, la 2 calcula el total ($19.500) y la 3 responde "Lo confirmo?". Cuando el cliente dice "Dale", la vuelta 4 registra el pedido y la 5 responde "Listo, tu pedido es el 128."', "Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior."],
@@ -248,9 +270,10 @@ CAPS = {
  "14": ["Celeste: el cliente.", "Naranja: tu código.", "Verde: el modelo.", "Rojo: los controles. Si Claude se niega, si la respuesta llega cortada o si el JSON no pasa la validación, el pedido va a una persona. Si las reglas del local encuentran un problema, se le pregunta al cliente (o, con más de 20 pizzas, a una persona).", "Violeta: lo que se guarda."],
  "15": ["Naranja: tu código, que manda la parte fija y el mensaje.", "Verde: la API de Claude.", "Violeta: la caché.", "Rojo: el mensaje llegó cuando la caché ya se había vencido.", "Con la caché de 1 hora, el último paso sería otra lectura."],
  "16": ["Violeta: el golden set, lo que se guarda.", "Verde: el asistente que se prueba, y el cambio que entra.", "Naranja: tu código, que califica y compara.", "Rojo: el cambio no entra.", "La línea punteada: cada falla nueva que aparece se suma como un caso."],
+ "17": ["Celeste: el cliente simulado, otro modelo que sigue un plan.", "Verde: el asistente que se prueba.", "Naranja: tu código, que califica el resultado: el pedido registrado, no las palabras exactas de la charla.", "Como el cliente simulado no dice siempre lo mismo, cada prueba se corre varias veces."],
  "10": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación (Claude, el asistente).", "Naranja: el servidor MCP y lo que devuelve.", "Los pasos 2, 3, 5 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro."],
 }
-FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15, "16": fig16}
+FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15, "16": fig16, "17": fig17}
 
 def ul(items): return "<ul>" + "".join(f"<li>{esc(i)}</li>" for i in items) + "</ul>"
 

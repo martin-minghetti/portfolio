@@ -64,6 +64,10 @@ const PROMPTS = {
     "a glowing processor chip on a pedestal facing a neat row of ten small translucent glowing cubes on a long pedestal, " +
     "each cube with a small glowing indicator light on top, most lights steady and one cube cracked with its light dimmed, " +
     "a large precise balance scale sculpture on a second pedestal beside the row",
+  "17-evals-jueces-agentes-y-clientes-reales":
+    "two glowing processor chips on separate pedestals facing each other, one holding up a translucent glowing shield-shaped plaque toward the other, " +
+    "between them a small human-shaped silhouette sculpture made of translucent glass on its own pedestal, holding a matching plaque, " +
+    "a large balance scale sculpture behind them with both pans level",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
