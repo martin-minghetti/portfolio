@@ -57,6 +57,9 @@ const PROMPTS = {
   "14-structured-output":
     "a glowing processor chip on a pedestal emitting a stream of loose glowing cubes that pass through a translucent rectangular mold with neat square slots, " +
     "coming out the other side as a perfectly ordered grid of cubes on a second pedestal",
+  "15-prompt-caching":
+    "a glowing processor chip on a pedestal with a tall stack of identical translucent glowing cards above it, the lower part of the stack locked inside a clear glass vault box with a glowing rim, " +
+    "a single new card floating down onto the top of the stack, a small hourglass sculpture with glowing sand on a second pedestal beside it",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
