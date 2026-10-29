@@ -1,8 +1,8 @@
 ---
 title: "Prompting: system prompt y ejemplos"
-date: 2026-10-27
+date: 2026-10-29
 order: 4
-draft: true
+draft: false
 description: "Cómo escribir un system prompt que el modelo siga, qué recomienda cada proveedor y cuándo conviene darle ejemplos, con un caso concreto de punta a punta."
 ---
 
