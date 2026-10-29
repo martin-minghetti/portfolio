@@ -1,4 +1,4 @@
-# Genera los diagramas SVG de los posts 7 a 10 y 12 a 15 y los reemplaza en los .es.md del portfolio.
+# Genera los diagramas SVG de los posts 7 a 10 y 12 a 16 y los reemplaza en los .es.md del portfolio.
 import re, sys
 from pathlib import Path
 
@@ -216,6 +216,28 @@ def fig15():
     ]
     return seq("g15", "Diagrama de secuencia entre tu código, la API y la caché: el primer pedido escribe la parte fija, el segundo, tres minutos después, la lee y renueva el plazo, y el tercero llega 36 minutos después, cuando ya se venció, y la vuelve a escribir.", lanes, msgs, 440)
 
+def fig16():
+    g = Svg("g16", 400, 560, "Diagrama del proceso de un eval: el golden set, con casos sacados de fallas reales, se corre con la versión nueva; cada respuesta se califica; se compara caso por caso con la versión anterior; si se rompió un caso crítico o pasan menos casos, no se aprueba y se vuelve a cambiar; si no, se aprueba. Cada falla nueva que aparece se suma como caso al golden set.")
+    g.box(30, 14, 240, 56, "c0", ["Golden set"], ["casos sacados de fallas reales"], size=15)
+    g.arrow("M150 70V92")
+    g.box(30, 94, 240, 56, "c1", ["Correr la versión nueva"], ["cada caso, el mismo mensaje"], size=15)
+    g.arrow("M150 150V172")
+    g.box(30, 174, 240, 56, "c2", ["Calificar cada respuesta"], ["con código, un juez o una persona"], size=15)
+    g.arrow("M150 230V252")
+    g.box(30, 254, 240, 56, "c2", ["Comparar con la anterior"], ["caso por caso, no solo el total"], size=15)
+    g.arrow("M150 310V336")
+    g.diamond(150, 380, 118, 42, "", size=14)
+    g.text(150, 376, "Se rompió algo crítico", size=14, fill=INK)
+    g.text(150, 394, "o pasan menos?", size=14, fill=INK)
+    g.arrow("M268 380H296"); g.text(282, 370, "sí")
+    g.box(298, 352, 94, 56, "c3", ["No se", "aprueba"], size=15)
+    g.arrow("M345 352V122H272"); g.text(352, 240, "otro", anchor="start", size=13.5); g.text(352, 256, "cambio", anchor="start", size=13.5)
+    g.arrow("M150 422V452"); g.text(160, 442, "no", anchor="start")
+    g.box(30, 454, 240, 50, "c1", ["Se aprueba"], size=15)
+    g.arrow("M150 504V522H12V42H28", dash=True)
+    g.text(150, 546, "ya en uso, cada falla nueva es un caso más", size=13.5)
+    return g.render()
+
 CAPS = {
  "07": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación y lo que manda.", "Naranja: tu código, que tiene acceso al stock.", "Rojo: el resultado que devuelve tu código.", "El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega."],
  "08": ["Celeste: lo que escribe el cliente.", "Verde: las llamadas al modelo y su respuesta.", "Naranja: tu código, que ejecuta las herramientas.", "Rojo: el tope, que corta aunque el modelo siga pidiendo.", 'En el ejemplo: la vuelta 1 consulta el stock de muzzarella y napolitana, la 2 calcula el total ($19.500) y la 3 responde "Lo confirmo?". Cuando el cliente dice "Dale", la vuelta 4 registra el pedido y la 5 responde "Listo, tu pedido es el 128."', "Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior."],
@@ -225,9 +247,10 @@ CAPS = {
  "13b": ["Blanco: las preguntas.", "Naranja: lo que se resuelve con tu prompt y tu código.", "Verde: lo que cambia el modelo.", "Primero hay que saber qué falla: si no sabe algo, o si lo sabe y responde mal."],
  "14": ["Celeste: el cliente.", "Naranja: tu código.", "Verde: el modelo.", "Rojo: los controles. Si Claude se niega, si la respuesta llega cortada o si el JSON no pasa la validación, el pedido va a una persona. Si las reglas del local encuentran un problema, se le pregunta al cliente (o, con más de 20 pizzas, a una persona).", "Violeta: lo que se guarda."],
  "15": ["Naranja: tu código, que manda la parte fija y el mensaje.", "Verde: la API de Claude.", "Violeta: la caché.", "Rojo: el mensaje llegó cuando la caché ya se había vencido.", "Con la caché de 1 hora, el último paso sería otra lectura."],
+ "16": ["Violeta: el golden set, lo que se guarda.", "Verde: el asistente que se prueba, y el cambio que entra.", "Naranja: tu código, que califica y compara.", "Rojo: el cambio no entra.", "La línea punteada: cada falla nueva que aparece se suma como un caso."],
  "10": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación (Claude, el asistente).", "Naranja: el servidor MCP y lo que devuelve.", "Los pasos 2, 3, 5 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro."],
 }
-FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15}
+FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15, "16": fig16}
 
 def ul(items): return "<ul>" + "".join(f"<li>{esc(i)}</li>" for i in items) + "</ul>"
 

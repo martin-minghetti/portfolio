@@ -60,6 +60,10 @@ const PROMPTS = {
   "15-prompt-caching":
     "a glowing processor chip on a pedestal with a tall stack of identical translucent glowing cards above it, the lower part of the stack locked inside a clear glass vault box with a glowing rim, " +
     "a single new card floating down onto the top of the stack, a small hourglass sculpture with glowing sand on a second pedestal beside it",
+  "16-evals-como-saber-si-un-cambio-mejoro":
+    "a glowing processor chip on a pedestal facing a neat row of ten small translucent glowing cubes on a long pedestal, " +
+    "each cube with a small glowing indicator light on top, most lights steady and one cube cracked with its light dimmed, " +
+    "a large precise balance scale sculpture on a second pedestal beside the row",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
