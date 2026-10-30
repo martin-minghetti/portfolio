@@ -51,6 +51,34 @@ export const en: Dictionary = {
     login: "login",
     builtIn: "Built in",
   },
+  redesign: {
+    sectionHeader: "Proposed redesign",
+    name: "Italia Inn, a hostel in Bariloche",
+    status: "Proposal, not live",
+    intro:
+      "The hostel's site hadn't been updated in a while: a May promo in an auto-rotating carousel, almost 4 MB to load and, on phones, a page that jumped around while loading. I proposed this redesign. It isn't live yet: the current site is still up.",
+    before: "Before",
+    after: "After",
+    slider: "Drag to compare the current site with the redesign",
+    metricsHeading: "Measured with Lighthouse",
+    metricsNote: "Home page, October 22, 2026.",
+    metrics: [
+      { label: "Mobile performance", before: "44", after: "100" },
+      { label: "Page weight", before: "3.9 MB", after: "0.4 MB" },
+      { label: "Mobile load (LCP)", before: "6.1 s", after: "1.5 s" },
+      { label: "Accessibility", before: "92", after: "100" },
+    ],
+    featuresHeading: "What the new site has",
+    features: [
+      "WhatsApp inquiries: a form with its own calendar writes the message with dates, guests and room. No online booking, on purpose: the hostel sells direct and pays no commission.",
+      "Three languages: Spanish, Portuguese and English.",
+      "All six rooms with photos, the common areas, the location and the apartments, on one page.",
+      "Google rating and reviews in plain sight.",
+      "Optimized photos, alt text on every image and a single heading per page.",
+    ],
+    stack: "HTML · CSS · JavaScript · Python · Vercel",
+    cta: "See the redesign",
+  },
   airlst: {
     sectionHeader: "Career",
     disclaimer:
