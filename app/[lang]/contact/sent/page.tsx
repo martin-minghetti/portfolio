@@ -11,8 +11,7 @@ const copyByLocale = {
     body: "I'll reply within 24h, usually faster.",
     waitTitle: "While you wait:",
     waitItems: [
-      { label: "Read a build log", href: "/en#build-log" },
-      { label: "See the projects", href: "/en#track-a" },
+      { label: "See the sample sites", href: "/en#track-a" },
       {
         label: "Open the GitHub",
         href: "https://github.com/martin-minghetti",
@@ -25,8 +24,7 @@ const copyByLocale = {
     body: "Te respondo en 24h, normalmente antes.",
     waitTitle: "Mientras esperás:",
     waitItems: [
-      { label: "Leé un build log", href: "/es#build-log" },
-      { label: "Mirá los proyectos", href: "/es#track-a" },
+      { label: "Mirá los sitios de muestra", href: "/es#track-a" },
       {
         label: "Abrí el GitHub",
         href: "https://github.com/martin-minghetti",

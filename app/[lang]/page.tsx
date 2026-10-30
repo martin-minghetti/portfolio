@@ -3,13 +3,10 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/dictionaries";
 import { alternates, isLocale, type Locale } from "@/lib/i18n";
 import Hero from "@/components/sections/Hero";
-import WhoIAm from "@/components/sections/WhoIAm";
 import TrackSection from "@/components/sections/TrackSection";
 import AirLST from "@/components/sections/AirLST";
-import HowIThink from "@/components/sections/HowIThink";
 import Stack from "@/components/sections/Stack";
 import About from "@/components/sections/About";
-import LiveBuildLog from "@/components/sections/LiveBuildLog";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
@@ -30,11 +27,8 @@ export default async function HomePage({
   return (
     <>
       <Hero dict={dict} />
-      <TrackSection track="a" dict={dict} locale={locale} />
-      <WhoIAm dict={dict} />
+      <TrackSection dict={dict} locale={locale} />
       <AirLST dict={dict} />
-      <HowIThink dict={dict} />
-      <LiveBuildLog locale={locale} />
       <About dict={dict} />
       <Stack dict={dict} />
     </>

@@ -8,7 +8,7 @@ type Props = {
 
 export default function AirLST({ dict }: Props) {
   return (
-    <section className="bg-ink py-(--section-gap-s)">
+    <section id="experience" className="bg-ink py-(--section-gap-s)">
       <div className="container grid gap-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
         <div className="md:col-span-5">
           <h2 className="reveal-head !text-paper">{dict.airlst.sectionHeader}</h2>

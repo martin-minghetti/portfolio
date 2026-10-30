@@ -7,9 +7,6 @@ type Props = {
   dict: Dictionary;
 };
 
-// Between the section titles below and the hero headline.
-const TITLE = "text-[clamp(1.75rem,2.4vw+0.5rem,2.75rem)] leading-[1.05]";
-
 export default function Hero({ dict }: Props) {
   const count = dict.hero.seeProjects.replace("{n}", String(getProjectsByTrack("a").length));
 
@@ -30,14 +27,7 @@ export default function Hero({ dict }: Props) {
             <span className="line"><span className="keep-motion">{dict.hero.h1Line2}</span></span>
             <span className="line"><span className="keep-motion">{dict.hero.h1Line3}</span></span>
           </h1>
-        </div>
-      </section>
-
-      {/* The offer as a cobalt band flush under the hero; the text stays on the page container like everything else. */}
-      <section className="bg-accent">
-        <div className="container py-(--space-2xl)">
-          <h2 className={`${TITLE} !text-paper-hi`}>{dict.hero.trackA.label}</h2>
-          <p className="lead mt-(--space-md) max-w-[38ch] !text-paper-hi">{dict.hero.trackA.tagline}</p>
+          <p className="lead mt-(--space-lg) max-w-[38ch] !text-paper-hi">{dict.hero.trackA.tagline}</p>
           <div className="flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
             <CTAButton href="https://wa.me/5492241622290" external className="!border-paper-hi !bg-paper-hi !text-accent">
               {dict.hero.trackA.cta}

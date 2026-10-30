@@ -41,36 +41,13 @@ export type Dictionary = {
     h1Line2: string;
     h1Line3: string;
     trackA: {
-      label: string;
-      tagline: string;
-      cta: string;
-    };
-    trackB: {
-      label: string;
       tagline: string;
       cta: string;
     };
     seeProjects: string;
   };
-  whoIAm: {
-    lead: string;
-    timeline: {
-      year: string;
-      label: string;
-    }[];
-    stats: string[];
-  };
   trackA: {
     sectionHeader: string;
-    sectionLead: string;
-    pitch: string[];
-    cta: string;
-    ctaSub: string;
-  };
-  trackB: {
-    sectionHeader: string;
-    sectionLead: string;
-    pitch: string[];
     cta: string;
     ctaSub: string;
   };
@@ -90,11 +67,6 @@ export type Dictionary = {
     sectionHeader: string;
     disclaimer: string;
     metrics: string;
-  };
-  howIThink: {
-    sectionHeader: string;
-    sectionLead: string;
-    items: Manifesto[];
   };
   stack: {
     sectionHeader: string;

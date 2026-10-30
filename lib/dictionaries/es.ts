@@ -25,60 +25,19 @@ export const es: Dictionary = {
   },
   hero: {
     h1Line1: "Soy Martín.",
-    h1Line2: "Desarrollador frontend.",
-    h1Line3: "Hago sitios web.",
+    h1Line2: "Hago sitios web",
+    h1Line3: "y tiendas online.",
     trackA: {
-      label: "Sitios web y tiendas",
-      tagline:
-        "Para negocios y emprendedores. Diseño, código y pagos con Mercado Pago, con presupuesto claro.",
+      tagline: "Para negocios y emprendedores. Diseño, código y pagos con Mercado Pago.",
       cta: "Escribime por WhatsApp",
-    },
-    trackB: {
-      label: "Apps y automatizaciones con IA",
-      tagline:
-        "Cosas que te ahorran horas: leer mails, armar informes, contestar consultas. Hay demos para probar.",
-      cta: "Reservá 30 minutos",
     },
     seeProjects: "Ver {n} proyectos",
   },
-  whoIAm: {
-    lead: "Cómo llegué hasta acá, en cuatro líneas.",
-    timeline: [
-      { year: "2018", label: "Entré a AirLST, en Múnich, como desarrollador frontend" },
-      { year: "2021", label: "Seguí en AirLST, remoto desde Argentina" },
-      { year: "2024", label: "Empecé a construir con agentes de IA" },
-      { year: "2025", label: "Terminé en AirLST y arranqué por mi cuenta" },
-    ],
-    stats: [
-      "7 años y medio de frontend",
-      "Cientos de páginas de eventos",
-      "Proyectos propios con demo online",
-    ],
-  },
   trackA: {
-    sectionHeader: "Sitios web y tiendas",
-    sectionLead:
-      "Para negocios, emprendedores y agencias que necesitan un sitio que funcione.",
-    pitch: [
-      "Pagos con Mercado Pago integrados.",
-      "Sitios rápidos, hechos a medida.",
-      "Presupuesto claro, sin sorpresas.",
-    ],
+    sectionHeader: "Sitios y tiendas de muestra",
     cta: "Escribime por WhatsApp",
     ctaSub:
       "Si querés algo así para tu negocio, el presupuesto llega en 24 horas y sin compromiso.",
-  },
-  trackB: {
-    sectionHeader: "Apps y automatizaciones con IA",
-    sectionLead: "Para quien quiere ver las cosas andando antes de decidir.",
-    pitch: [
-      "Demos que podés abrir y probar.",
-      "Cuánto cuesta cada corrida, a la vista.",
-      "Código público en GitHub.",
-    ],
-    cta: "Reservá 30 minutos",
-    ctaSub:
-      "Si querés hablar de un proyecto o de un trabajo, escribime o reservá una llamada de 30 minutos.",
   },
   cardLabels: {
     live: "En vivo",
@@ -93,69 +52,22 @@ export const es: Dictionary = {
     builtIn: "Armado en",
   },
   airlst: {
-    sectionHeader: "Dónde trabajé",
+    sectionHeader: "Trayectoria",
     disclaimer:
       "Desarrollador frontend en AirLST (tecnología para eventos, Múnich), de junio de 2018 a noviembre de 2025. Hacía a medida el sitio de cada evento: formulario de registro, agenda, hotel, speakers y lugar.",
     metrics:
       "Cientos de páginas de eventos para clientes de AirLST como Mercedes-Benz, Netflix y BioNTech.",
   },
-  howIThink: {
-    sectionHeader: "Cómo trabajo",
-    sectionLead: "Cuatro cosas que hago distinto.",
-    items: [
-      {
-        index: "01",
-        heading: "Demos que se pueden probar.",
-        body: "Cada demo funciona en modo simulado: completás un checkout o un pedido sin pagar de verdad. No hay que clonar nada ni poner claves.",
-      },
-      {
-        index: "02",
-        heading: "El tiempo real, anotado.",
-        body: "Cada repo tiene un BUILD_LOG.md público con lo que realmente tardó. Nada de «lo hice en dos horas».",
-      },
-      {
-        index: "03",
-        heading: "Construyo con agentes, y lo digo.",
-        body: "Dirijo a la IA para que escriba el código: yo decido qué se hace y lo pruebo. En los proyectos más grandes, como Cumbre, hay pruebas automáticas con Vitest y Playwright.",
-      },
-      {
-        index: "04",
-        heading: "Código público.",
-        body: "Los proyectos están en GitHub, con su historial. Podés ver cómo se armó cada cosa.",
-      },
-    ],
-  },
   stack: {
     sectionHeader: "Con qué trabajo",
-    sectionLead: "Lo que usan mis proyectos.",
+    sectionLead: "Lo que uso para trabajar.",
     rows: [
-      { label: "Lenguajes", values: "JavaScript, TypeScript, HTML, CSS" },
-      {
-        label: "Frameworks",
-        values: "Vue 3 y Nuxt 3, Next.js 16, Tailwind CSS",
-      },
-      {
-        label: "Datos",
-        values:
-          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis",
-      },
-      { label: "Validación", values: "Zod" },
-      {
-        label: "Pagos",
-        values:
-          "Mercado Pago Checkout Pro, suscripciones de Mercado Pago, webhooks con HMAC, Stripe",
-      },
-      {
-        label: "Infraestructura",
-        values: "Vercel, Railway, GitHub Actions y Pages, Docker, Cloudflare",
-      },
-      { label: "Pruebas", values: "Vitest, Playwright" },
-      { label: "Email", values: "Resend, react-email" },
-      {
-        label: "Integraciones",
-        values:
-          "WhatsApp Business API, Google Calendar, Google Maps",
-      },
+      { label: "Frontend", values: "HTML, CSS, JavaScript, Vue 3 y Nuxt 3, Tailwind CSS" },
+      { label: "Diseño", values: "Del diseño en Figma o Adobe XD al sitio terminado" },
+      { label: "Proyectos propios", values: "Next.js 16 y Supabase, hechos con Claude Code" },
+      { label: "Pagos", values: "Mercado Pago: Checkout Pro y suscripciones" },
+      { label: "Publicación", values: "Vercel, Hostinger, GitHub" },
+      { label: "Integraciones", values: "WhatsApp, Google Maps, Google Calendar" },
     ],
   },
   about: {
@@ -187,9 +99,9 @@ export const es: Dictionary = {
     columnWork: {
       heading: "Trabajo",
       links: [
-        { label: "Sitios web y tiendas", href: "/es#track-a" },
-        { label: "Proyectos", href: "/es#track-a" },
-        { label: "Bitácora", href: "/es#build-log" },
+        { label: "Sitios de muestra", href: "/es#track-a" },
+        { label: "Trayectoria", href: "/es#experience" },
+        { label: "Sobre mí", href: "/es#about" },
         { label: "Blog", href: "/es/blog" },
       ],
     },

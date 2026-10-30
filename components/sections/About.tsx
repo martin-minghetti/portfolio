@@ -7,7 +7,7 @@ type Props = {
 
 export default function About({ dict }: Props) {
   return (
-    <section className="py-(--section-gap-s)">
+    <section id="about" className="py-(--section-gap-s)">
       <div className="container">
         <h2 className="reveal-head">{dict.about.sectionHeader}</h2>
 
