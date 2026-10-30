@@ -1,12 +1,12 @@
 ---
 title: "Prompting: razonar paso a paso y temperatura"
-date: 2026-10-27
+date: 2026-10-30
 order: 5
-draft: true
+draft: false
 description: "Por qué pensar antes de responder mejora las respuestas, cómo se controla hoy cuánto razona un modelo y qué pasó con la temperatura en Claude, OpenAI y Gemini."
 ---
 
-Un cliente le escribe al asistente de la pizzería: "Hoy martes hay 2x1 en muzzarella. Pido 3 muzzarellas y una napolitana. El envío sale $1.500, gratis desde $25.000. Cuánto pago?". Si el modelo contesta de un saque, es fácil que se equivoque en la promo o en el envío. Si primero hace las cuentas, acierta mucho más seguido.
+Un cliente le escribe al asistente de la pizzería: "Hoy martes hay 2x1 en muzzarella ($9.000). Pido 3 muzzarellas y una napolitana ($10.500). El envío sale $1.500, gratis desde $25.000. Cuánto pago?". Si el modelo contesta de un saque, es fácil que se equivoque en la promo o en el envío. Si primero hace las cuentas, acierta mucho más seguido.
 
 Este post trata de eso, de pedirle al modelo que piense antes de responder, y de la otra perilla clásica del prompting: qué tan predecibles o variadas son sus respuestas.
 

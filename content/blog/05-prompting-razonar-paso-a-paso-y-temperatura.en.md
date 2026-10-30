@@ -1,12 +1,12 @@
 ---
 title: "Prompting: step-by-step reasoning and temperature"
-date: 2026-10-27
+date: 2026-10-30
 order: 5
-draft: true
+draft: false
 description: "Why thinking before answering improves the answers, how you control today how much a model reasons, and what happened to temperature in Claude, OpenAI and Gemini."
 ---
 
-A customer writes to the pizzeria's assistant: "Today is Tuesday, there's 2-for-1 on mozzarella. I'll have 3 mozzarellas and one Neapolitan. Delivery is $1,500, free from $25,000. How much do I pay?". If the model answers straight away, it can easily get the promo or the delivery wrong. If it does the math first, it gets it right much more often.
+A customer writes to the pizzeria's assistant: "Today is Tuesday, there's 2-for-1 on mozzarella ($9,000). I'll have 3 mozzarellas and one Neapolitan ($10,500). Delivery is $1,500, free from $25,000. How much do I pay?". If the model answers straight away, it can easily get the promo or the delivery wrong. If it does the math first, it gets it right much more often.
 
 This post is about that, asking the model to think before it answers, and about the other classic prompting knob: how predictable or varied its answers are.
 
