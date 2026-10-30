@@ -255,7 +255,7 @@ export const airlstClients = [
   { name: "Husqvarna", logo: "/clients/husqvarna.svg" },
   { name: "ING", logo: "/clients/ing.svg" },
   { name: "Interhyp Gruppe", logo: "/clients/interhyp.svg" },
-  { name: "medi", logo: "/clients/medi.svg" },
+  { name: "medi", logo: "/clients/medi-gray.svg" },
   { name: "Mercedes-Benz", logo: "/clients/mercedes-benz.webp" },
   { name: "Merck", logo: "/clients/merck.svg" },
   { name: "Netflix", logo: "/clients/netflix.svg" },
