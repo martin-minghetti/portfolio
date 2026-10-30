@@ -31,12 +31,30 @@ export default function AirLST({ dict }: Props) {
                 className="reveal-fade group flex h-16 items-center justify-center rounded-xl px-(--space-sm) [transition:background-color_150ms_ease-out,box-shadow_300ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] hover:bg-paper-hi hover:shadow-lg motion-safe:hover:-translate-y-1 sm:h-24"
               >
                 {/* Logos come in their brand colors; the filter turns them white on the dark band and hover brings the color back on a light cell. */}
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  loading="lazy"
-                  className="max-h-9 max-w-[75%] object-contain opacity-80 [transition:filter_120ms_ease-out,opacity_120ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none] motion-safe:group-hover:scale-110"
-                />
+                {client.hoverLogo ? (
+                  <span className="relative flex h-full w-full items-center justify-center">
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      loading="lazy"
+                      className="max-h-9 max-w-[75%] object-contain opacity-80 [filter:brightness(0)_invert(1)] [transition:opacity_120ms_ease-out] group-hover:opacity-0"
+                    />
+                    <img
+                      src={client.hoverLogo}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      className="absolute max-h-14 object-contain opacity-0 [transition:opacity_120ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] group-hover:opacity-100 motion-safe:group-hover:scale-110"
+                    />
+                  </span>
+                ) : (
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    loading="lazy"
+                    className="max-h-9 max-w-[75%] object-contain opacity-80 [transition:filter_120ms_ease-out,opacity_120ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none] motion-safe:group-hover:scale-110"
+                  />
+                  )}
               </li>
             ))}
           </ul>

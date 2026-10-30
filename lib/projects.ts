@@ -239,7 +239,8 @@ export function getProjectsByTrack(track: ProjectTrack): Project[] {
   return projects.filter((p) => p.track === track);
 }
 
-export const airlstClients = [
+// hoverLogo: when the brand logo can't be shown by just dropping the white filter (medi is white text on a pink square).
+export const airlstClients: { name: string; logo: string; hoverLogo?: string }[] = [
   { name: "AIDA Cruises", logo: "/clients/aida.svg" },
   { name: "Amazon", logo: "/clients/amazon.svg" },
   { name: "BASF", logo: "/clients/basf.webp" },
@@ -255,7 +256,7 @@ export const airlstClients = [
   { name: "Husqvarna", logo: "/clients/husqvarna.svg" },
   { name: "ING", logo: "/clients/ing.svg" },
   { name: "Interhyp Gruppe", logo: "/clients/interhyp.svg" },
-  { name: "medi", logo: "/clients/medi-gray.svg" },
+  { name: "medi", logo: "/clients/medi-text.svg", hoverLogo: "/clients/medi-color.svg" },
   { name: "Mercedes-Benz", logo: "/clients/mercedes-benz.webp" },
   { name: "Merck", logo: "/clients/merck.svg" },
   { name: "Netflix", logo: "/clients/netflix.svg" },
@@ -268,4 +269,4 @@ export const airlstClients = [
   { name: "Uniper", logo: "/clients/uniper.svg" },
   { name: "Warner Bros. Discovery", logo: "/clients/warner-bros-discovery.svg" },
   { name: "Zalando", logo: "/clients/zalando.svg" },
-] as const;
+];
