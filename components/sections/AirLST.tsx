@@ -28,14 +28,14 @@ export default function AirLST({ dict }: Props) {
               <li
                 key={client.name}
                 style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
-                className="reveal-fade flex h-16 items-center sm:h-24 justify-center border-b border-paper-3/40 px-(--space-sm)"
+                className="reveal-fade group flex h-16 items-center justify-center border-b border-paper-3/40 px-(--space-sm) transition-colors duration-300 hover:bg-paper-hi sm:h-24"
               >
-                {/* Logos come in their brand colors; the filter turns them all white on the dark band. */}
+                {/* Logos come in their brand colors; the filter turns them white on the dark band and hover brings the color back on a light cell. */}
                 <img
                   src={client.logo}
                   alt={client.name}
                   loading="lazy"
-                  className="max-h-9 max-w-[75%] object-contain opacity-80 [filter:brightness(0)_invert(1)]"
+                  className="max-h-9 max-w-[75%] object-contain opacity-80 transition-[filter,opacity] duration-300 [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none]"
                 />
               </li>
             ))}
