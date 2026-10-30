@@ -29,7 +29,7 @@ export default function Hero({ dict }: Props) {
           </h1>
           <p className="lead mt-(--space-lg) max-w-[38ch] !text-paper-hi">{dict.hero.trackA.tagline}</p>
           <div className="flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
-            <CTAButton href="https://wa.me/5492241622290" external className="!border-paper-hi !bg-paper-hi !text-accent">
+            <CTAButton href="https://wa.me/5492241622290" external variant="primary">
               {dict.hero.trackA.cta}
             </CTAButton>
             <a href="#track-a" className="tlink !text-paper-hi">
