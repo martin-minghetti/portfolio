@@ -23,19 +23,19 @@ export default function AirLST({ dict }: Props) {
         </div>
         <div className="mt-(--space-lg) md:col-span-12">
           <p className="label !text-paper-3">{dict.airlst.clientsLabel}</p>
-          <ul className="mt-(--space-sm) grid grid-cols-2 border-t border-paper-3/40 sm:grid-cols-4 lg:grid-cols-7">
+          <ul className="mt-(--space-md) grid grid-cols-2 gap-(--space-xs) sm:grid-cols-4 lg:grid-cols-7">
             {airlstClients.map((client, i) => (
               <li
                 key={client.name}
                 style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
-                className="reveal-fade group flex h-16 items-center justify-center border-b border-paper-3/40 px-(--space-sm) transition-colors duration-300 hover:bg-paper-hi sm:h-24"
+                className="reveal-fade group flex h-16 items-center justify-center rounded-xl px-(--space-sm) transition-[background-color,transform,box-shadow] duration-300 ease-out hover:bg-paper-hi hover:shadow-lg motion-safe:hover:-translate-y-1 sm:h-24"
               >
                 {/* Logos come in their brand colors; the filter turns them white on the dark band and hover brings the color back on a light cell. */}
                 <img
                   src={client.logo}
                   alt={client.name}
                   loading="lazy"
-                  className="max-h-9 max-w-[75%] object-contain opacity-80 transition-[filter,opacity] duration-300 [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none]"
+                  className="max-h-9 max-w-[75%] object-contain opacity-80 transition-[filter,opacity,transform] duration-300 ease-out [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none] motion-safe:group-hover:scale-110"
                 />
               </li>
             ))}
