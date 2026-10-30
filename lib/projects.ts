@@ -239,9 +239,9 @@ export function getProjectsByTrack(track: ProjectTrack): Project[] {
   return projects.filter((p) => p.track === track);
 }
 
-// hoverLogo: when the brand logo can't be shown by just dropping the white filter (medi is white text on a pink square).
-export const airlstClients: { name: string; logo: string; hoverLogo?: string }[] = [
-  { name: "AIDA Cruises", logo: "/clients/aida.svg" },
+// hoverBg: brand color for logos that are white on a colored box (medi); the logo stays white and the cell takes the color.
+export const airlstClients: { name: string; logo: string; hoverBg?: string }[] = [
+  { name: "AIDA Cruises", logo: "/clients/aida-cruises.svg" },
   { name: "Amazon", logo: "/clients/amazon.svg" },
   { name: "BASF", logo: "/clients/basf.webp" },
   { name: "BioNTech", logo: "/clients/biontech.svg" },
@@ -256,7 +256,7 @@ export const airlstClients: { name: string; logo: string; hoverLogo?: string }[]
   { name: "Husqvarna", logo: "/clients/husqvarna.svg" },
   { name: "ING", logo: "/clients/ing.svg" },
   { name: "Interhyp Gruppe", logo: "/clients/interhyp.svg" },
-  { name: "medi", logo: "/clients/medi-text.svg", hoverLogo: "/clients/medi-color.svg" },
+  { name: "medi", logo: "/clients/medi-text.svg", hoverBg: "#E6007E" },
   { name: "Mercedes-Benz", logo: "/clients/mercedes-benz.webp" },
   { name: "Merck", logo: "/clients/merck.svg" },
   { name: "Netflix", logo: "/clients/netflix.svg" },

@@ -25,36 +25,20 @@ export default function AirLST({ dict }: Props) {
           <p className="label !text-paper-3">{dict.airlst.clientsLabel}</p>
           <ul className="mt-(--space-md) grid grid-cols-2 gap-(--space-xs) sm:grid-cols-4 lg:grid-cols-7">
             {airlstClients.map((client, i) => (
-              <li
-                key={client.name}
-                style={{ "--i": Math.min(i, 8) } as React.CSSProperties}
-                className="reveal-fade group flex h-16 items-center justify-center rounded-xl px-(--space-sm) [transition:background-color_150ms_ease-out,box-shadow_300ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] hover:bg-paper-hi hover:shadow-lg motion-safe:hover:-translate-y-1 sm:h-24"
-              >
-                {/* Logos come in their brand colors; the filter turns them white on the dark band and hover brings the color back on a light cell. */}
-                {client.hoverLogo ? (
-                  <span className="relative flex h-full w-full items-center justify-center">
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      loading="lazy"
-                      className="max-h-9 max-w-[75%] object-contain opacity-80 [filter:brightness(0)_invert(1)] [transition:opacity_120ms_ease-out] group-hover:opacity-0"
-                    />
-                    <img
-                      src={client.hoverLogo}
-                      alt=""
-                      aria-hidden
-                      loading="lazy"
-                      className="absolute max-h-14 object-contain opacity-0 [transition:opacity_120ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] group-hover:opacity-100 motion-safe:group-hover:scale-110"
-                    />
-                  </span>
-                ) : (
+              // The reveal transition lives on the li; hover lives on the inner box so the two don't override each other.
+              <li key={client.name} style={{ "--i": Math.min(i, 8) } as React.CSSProperties} className="reveal-fade">
+                <div
+                  style={{ "--hover-bg": client.hoverBg ?? "var(--color-paper-hi)" } as React.CSSProperties}
+                  className="group flex h-16 items-center justify-center rounded-xl px-(--space-sm) [transition:background-color_200ms_ease-out,box-shadow_300ms_ease-out,translate_300ms_cubic-bezier(0.2,0.8,0.2,1)] hover:bg-(--hover-bg) hover:shadow-lg motion-safe:hover:-translate-y-1 sm:h-24"
+                >
+                  {/* Logos come in their brand colors; the filter turns them white on the dark band and hover brings the color back on a light box. */}
                   <img
                     src={client.logo}
                     alt={client.name}
                     loading="lazy"
-                    className="max-h-9 max-w-[75%] object-contain opacity-80 [transition:filter_120ms_ease-out,opacity_120ms_ease-out,transform_300ms_cubic-bezier(0.2,0.8,0.2,1)] [filter:brightness(0)_invert(1)] group-hover:opacity-100 group-hover:[filter:none] motion-safe:group-hover:scale-110"
+                    className={`max-h-9 max-w-[75%] object-contain opacity-80 [filter:brightness(0)_invert(1)] [transition:filter_200ms_ease-out,opacity_200ms_ease-out,scale_300ms_cubic-bezier(0.2,0.8,0.2,1)] group-hover:opacity-100 motion-safe:group-hover:scale-110 ${client.hoverBg ? "" : "group-hover:[filter:none]"}`}
                   />
-                  )}
+                </div>
               </li>
             ))}
           </ul>
