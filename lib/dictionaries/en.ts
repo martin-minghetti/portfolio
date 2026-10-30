@@ -2,9 +2,9 @@ import type { Dictionary } from "./types";
 
 export const en: Dictionary = {
   meta: {
-    title: "Martín Minghetti, web developer",
+    title: "Martín Minghetti, frontend developer",
     description:
-      "Web developer based in Bariloche, Argentina. Seven and a half years building event sites at AirLST (Munich). Now I make my own projects with the help of AI agents. Get in touch.",
+      "Frontend developer based in Bariloche, Argentina. Seven and a half years building event sites at AirLST (Munich). Now I build websites and online stores for businesses. Get in touch.",
   },
   nav: {
     contact: "Contact",
@@ -25,8 +25,8 @@ export const en: Dictionary = {
   },
   hero: {
     h1Line1: "I'm Martín.",
-    h1Line2: "I make websites.",
-    h1Line3: "And apps, with AI's help.",
+    h1Line2: "Frontend developer.",
+    h1Line3: "I make websites.",
     trackA: {
       label: "Websites and online stores",
       tagline:
@@ -51,7 +51,7 @@ export const en: Dictionary = {
     ],
     stats: [
       "7.5 years of frontend",
-      "1000+ event pages",
+      "Hundreds of event pages",
       "Own projects with a live demo",
     ],
   },
@@ -97,7 +97,7 @@ export const en: Dictionary = {
     disclaimer:
       "Frontend developer at AirLST (event technology, Munich), from June 2018 to November 2025. I built each event's site to order: registration form, agenda, hotel, speakers and venue.",
     metrics:
-      "1000+ event pages for AirLST clients such as Mercedes-Benz, Netflix and BioNTech.",
+      "Hundreds of event pages for AirLST clients such as Mercedes-Benz, Netflix and BioNTech.",
   },
   howIThink: {
     sectionHeader: "How I work",
@@ -106,7 +106,7 @@ export const en: Dictionary = {
       {
         index: "01",
         heading: "Demos you can try.",
-        body: "Every commercial demo runs in simulated mode: you complete a checkout, generate a report, trigger a webhook. Nothing to clone, no keys to set. The AI demos accept your own key if you want the real model.",
+        body: "Every demo runs in simulated mode: you complete a checkout or an order without paying for real. Nothing to clone, no keys to set.",
       },
       {
         index: "02",
@@ -129,20 +129,15 @@ export const en: Dictionary = {
     sectionHeader: "What I work with",
     sectionLead: "What my projects use.",
     rows: [
-      { label: "Languages", values: "TypeScript, Python, SQL" },
+      { label: "Languages", values: "JavaScript, TypeScript, HTML, CSS" },
       {
         label: "Frameworks",
-        values: "Next.js 16, FastAPI, Vue 3 and Nuxt 3, React",
-      },
-      {
-        label: "AI",
-        values:
-          "Anthropic Claude, Vercel AI SDK, Gemini API, Replicate (FLUX 1.1 Pro)",
+        values: "Vue 3 and Nuxt 3, Next.js 16, Tailwind CSS",
       },
       {
         label: "Data",
         values:
-          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis, pgvector",
+          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis",
       },
       { label: "Validation", values: "Zod" },
       {
@@ -154,20 +149,19 @@ export const en: Dictionary = {
         label: "Infrastructure",
         values: "Vercel, Railway, GitHub Actions and Pages, Docker, Cloudflare",
       },
-      { label: "Testing", values: "Vitest, Playwright, Pytest" },
+      { label: "Testing", values: "Vitest, Playwright" },
       { label: "Email", values: "Resend, react-email" },
-      { label: "Scraping", values: "Playwright, BeautifulSoup, cheerio" },
       {
         label: "Integrations",
         values:
-          "WhatsApp Business API, Google Calendar, Slack, Discord, Linear, Notion, Apollo, Tavily, Octokit",
+          "WhatsApp Business API, Google Calendar, Google Maps",
       },
     ],
   },
   about: {
     sectionHeader: "About me",
     paragraphs: [
-      "I started in 2018 as a frontend developer at AirLST, an event technology company based in Munich. I built each event's site to order: the registration form and the pages with the agenda, the hotel, the speakers and the venue. That came to more than 1000 pages over seven and a half years, with Vue and Nuxt. I lived in Germany until 2021 and then kept working remotely from Argentina.",
+      "I started in 2018 as a frontend developer at AirLST, an event technology company based in Munich. I built each event's site to order: the registration form and the pages with the agenda, the hotel, the speakers and the venue. That came to hundreds of pages over seven and a half years, with Vue and Nuxt. I lived in Germany until 2021 and then kept working remotely from Argentina.",
       "In 2024 I started using AI to build, and that is how I work today: I direct Claude Code, which writes the code, and I decide what gets done and test it. I finished at AirLST in November 2025 and since then I have been making my own projects, with demos you can open.",
       "I live in Bariloche, in Argentine Patagonia. I have European citizenship (Iceland). I speak Spanish and English, and a little German and Icelandic. If you want us to work together, message me.",
     ],
@@ -185,7 +179,7 @@ export const en: Dictionary = {
   footer: {
     columnAbout: {
       heading: "Martín Minghetti",
-      tagline: "Web developer. I build with AI's help.",
+      tagline: "Frontend developer. Custom websites and online stores.",
       stats: "Own projects, with a live demo.",
       location: "Bariloche, Argentina",
       meta: "European citizen (Iceland)",
@@ -194,7 +188,6 @@ export const en: Dictionary = {
       heading: "Work",
       links: [
         { label: "Websites and online stores", href: "/en#track-a" },
-        { label: "AI apps", href: "/en#track-b" },
         { label: "Projects", href: "/en#track-a" },
         { label: "Build log", href: "/en#build-log" },
         { label: "Blog", href: "/en/blog" },

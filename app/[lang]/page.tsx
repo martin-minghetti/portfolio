@@ -31,7 +31,6 @@ export default async function HomePage({
     <>
       <Hero dict={dict} />
       <TrackSection track="a" dict={dict} locale={locale} />
-      <TrackSection track="b" dict={dict} locale={locale} />
       <WhoIAm dict={dict} />
       <AirLST dict={dict} />
       <HowIThink dict={dict} />

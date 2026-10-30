@@ -2,9 +2,9 @@ import type { Dictionary } from "./types";
 
 export const es: Dictionary = {
   meta: {
-    title: "Martín Minghetti, desarrollador web",
+    title: "Martín Minghetti, desarrollador frontend",
     description:
-      "Desarrollador web de Bariloche. Siete años y medio armando sitios de eventos en AirLST (Múnich). Hoy hago proyectos propios con ayuda de agentes de IA. Escribime.",
+      "Desarrollador frontend de Bariloche. Siete años y medio armando sitios de eventos en AirLST (Múnich). Hoy hago sitios web y tiendas para negocios. Escribime.",
   },
   nav: {
     contact: "Contacto",
@@ -25,8 +25,8 @@ export const es: Dictionary = {
   },
   hero: {
     h1Line1: "Soy Martín.",
-    h1Line2: "Hago sitios web.",
-    h1Line3: "Y apps con ayuda de IA.",
+    h1Line2: "Desarrollador frontend.",
+    h1Line3: "Hago sitios web.",
     trackA: {
       label: "Sitios web y tiendas",
       tagline:
@@ -51,7 +51,7 @@ export const es: Dictionary = {
     ],
     stats: [
       "7 años y medio de frontend",
-      "Más de 1000 páginas de eventos",
+      "Cientos de páginas de eventos",
       "Proyectos propios con demo online",
     ],
   },
@@ -97,7 +97,7 @@ export const es: Dictionary = {
     disclaimer:
       "Desarrollador frontend en AirLST (tecnología para eventos, Múnich), de junio de 2018 a noviembre de 2025. Hacía a medida el sitio de cada evento: formulario de registro, agenda, hotel, speakers y lugar.",
     metrics:
-      "Más de 1000 páginas de eventos para clientes de AirLST como Mercedes-Benz, Netflix y BioNTech.",
+      "Cientos de páginas de eventos para clientes de AirLST como Mercedes-Benz, Netflix y BioNTech.",
   },
   howIThink: {
     sectionHeader: "Cómo trabajo",
@@ -106,7 +106,7 @@ export const es: Dictionary = {
       {
         index: "01",
         heading: "Demos que se pueden probar.",
-        body: "Cada demo comercial funciona en modo simulado: completás un checkout, generás un informe, disparás un webhook. No hay que clonar nada ni poner claves. Las demos con IA aceptan tu propia clave si querés el modelo real.",
+        body: "Cada demo funciona en modo simulado: completás un checkout o un pedido sin pagar de verdad. No hay que clonar nada ni poner claves.",
       },
       {
         index: "02",
@@ -129,20 +129,15 @@ export const es: Dictionary = {
     sectionHeader: "Con qué trabajo",
     sectionLead: "Lo que usan mis proyectos.",
     rows: [
-      { label: "Lenguajes", values: "TypeScript, Python, SQL" },
+      { label: "Lenguajes", values: "JavaScript, TypeScript, HTML, CSS" },
       {
         label: "Frameworks",
-        values: "Next.js 16, FastAPI, Vue 3 y Nuxt 3, React",
-      },
-      {
-        label: "IA",
-        values:
-          "Anthropic Claude, Vercel AI SDK, Gemini API, Replicate (FLUX 1.1 Pro)",
+        values: "Vue 3 y Nuxt 3, Next.js 16, Tailwind CSS",
       },
       {
         label: "Datos",
         values:
-          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis, pgvector",
+          "PostgreSQL, Supabase, Neon, Drizzle, SQLite, Redis",
       },
       { label: "Validación", values: "Zod" },
       {
@@ -154,20 +149,19 @@ export const es: Dictionary = {
         label: "Infraestructura",
         values: "Vercel, Railway, GitHub Actions y Pages, Docker, Cloudflare",
       },
-      { label: "Pruebas", values: "Vitest, Playwright, Pytest" },
+      { label: "Pruebas", values: "Vitest, Playwright" },
       { label: "Email", values: "Resend, react-email" },
-      { label: "Scraping", values: "Playwright, BeautifulSoup, cheerio" },
       {
         label: "Integraciones",
         values:
-          "WhatsApp Business API, Google Calendar, Slack, Discord, Linear, Notion, Apollo, Tavily, Octokit",
+          "WhatsApp Business API, Google Calendar, Google Maps",
       },
     ],
   },
   about: {
     sectionHeader: "Sobre mí",
     paragraphs: [
-      "Empecé en 2018 como desarrollador frontend en AirLST, una empresa de tecnología para eventos con base en Múnich. Hacía a medida el sitio de cada evento: el formulario de registro y las páginas con la agenda, el hotel, los speakers y el lugar. Fueron más de 1000 páginas en siete años y medio, con Vue y Nuxt. Viví en Alemania hasta 2021 y después seguí trabajando remoto desde Argentina.",
+      "Empecé en 2018 como desarrollador frontend en AirLST, una empresa de tecnología para eventos con base en Múnich. Hacía a medida el sitio de cada evento: el formulario de registro y las páginas con la agenda, el hotel, los speakers y el lugar. Fueron cientos de páginas en siete años y medio, con Vue y Nuxt. Viví en Alemania hasta 2021 y después seguí trabajando remoto desde Argentina.",
       "En 2024 empecé a usar IA para construir, y hoy trabajo así: dirijo a Claude Code, que escribe el código, y yo decido qué se hace y lo pruebo. Terminé en AirLST en noviembre de 2025 y desde entonces armo proyectos propios, con demos que podés abrir.",
       "Vivo en Bariloche, en la Patagonia argentina. Tengo ciudadanía europea (Islandia). Hablo español e inglés, y un poco de alemán e islandés. Si querés que trabajemos juntos, escribime.",
     ],
@@ -185,7 +179,7 @@ export const es: Dictionary = {
   footer: {
     columnAbout: {
       heading: "Martín Minghetti",
-      tagline: "Desarrollador web. Construyo con ayuda de IA.",
+      tagline: "Desarrollador frontend. Sitios web y tiendas a medida.",
       stats: "Proyectos propios, con demo online.",
       location: "Bariloche, Argentina",
       meta: "Ciudadano europeo (Islandia)",
@@ -194,7 +188,6 @@ export const es: Dictionary = {
       heading: "Trabajo",
       links: [
         { label: "Sitios web y tiendas", href: "/es#track-a" },
-        { label: "Apps con IA", href: "/es#track-b" },
         { label: "Proyectos", href: "/es#track-a" },
         { label: "Bitácora", href: "/es#build-log" },
         { label: "Blog", href: "/es/blog" },

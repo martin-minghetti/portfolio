@@ -7,11 +7,11 @@ type Props = {
   dict: Dictionary;
 };
 
-// Between the section titles below and the hero headline, so "Apps y automatizaciones" holds on one line.
+// Between the section titles below and the hero headline.
 const TITLE = "text-[clamp(1.75rem,2.4vw+0.5rem,2.75rem)] leading-[1.05]";
 
 export default function Hero({ dict }: Props) {
-  const count = (track: "a" | "b") => dict.hero.seeProjects.replace("{n}", String(getProjectsByTrack(track).length));
+  const count = dict.hero.seeProjects.replace("{n}", String(getProjectsByTrack("a").length));
 
   return (
     <>
@@ -33,39 +33,19 @@ export default function Hero({ dict }: Props) {
         </div>
       </section>
 
-      {/* The two offers as one band split down the middle, flush under the hero: cobalt for sites, paper for AI apps.
-          The colors bleed to the screen edges; the text stays on the page container like everything else. */}
-      <section className="relative">
-        <div aria-hidden className="absolute inset-0 hidden md:grid md:grid-cols-2">
-          <div className="bg-accent" />
-          <div className="bg-paper-hi" />
-        </div>
-        <div className="container relative grid md:grid-cols-2">
-          <article className="-mx-(--gutter) flex flex-col bg-accent px-(--gutter) py-(--space-2xl) md:mx-0 md:bg-transparent md:pl-0 md:pr-(--space-2xl)">
-            <h2 className={`${TITLE} !text-paper-hi`}>{dict.hero.trackA.label}</h2>
-            <p className="lead mt-(--space-md) max-w-[38ch] !text-paper-hi">{dict.hero.trackA.tagline}</p>
-            <div className="mt-auto flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
-              <CTAButton href="https://wa.me/5492241622290" external className="!border-paper-hi !bg-paper-hi !text-accent">
-                {dict.hero.trackA.cta}
-              </CTAButton>
-              <a href="#track-a" className="tlink !text-paper-hi">
-                {count("a")}
-              </a>
-            </div>
-          </article>
-
-          <article className="-mx-(--gutter) flex flex-col bg-paper-hi px-(--gutter) py-(--space-2xl) md:mx-0 md:bg-transparent md:pr-0 md:pl-(--space-2xl)">
-            <h2 className={TITLE}>{dict.hero.trackB.label}</h2>
-            <p className="lead mt-(--space-md) max-w-[38ch]">{dict.hero.trackB.tagline}</p>
-            <div className="mt-auto flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
-              <CTAButton href="https://cal.com/martin-minghetti" external variant="outline">
-                {dict.hero.trackB.cta}
-              </CTAButton>
-              <a href="#track-b" className="tlink">
-                {count("b")}
-              </a>
-            </div>
-          </article>
+      {/* The offer as a cobalt band flush under the hero; the text stays on the page container like everything else. */}
+      <section className="bg-accent">
+        <div className="container py-(--space-2xl)">
+          <h2 className={`${TITLE} !text-paper-hi`}>{dict.hero.trackA.label}</h2>
+          <p className="lead mt-(--space-md) max-w-[38ch] !text-paper-hi">{dict.hero.trackA.tagline}</p>
+          <div className="flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
+            <CTAButton href="https://wa.me/5492241622290" external className="!border-paper-hi !bg-paper-hi !text-accent">
+              {dict.hero.trackA.cta}
+            </CTAButton>
+            <a href="#track-a" className="tlink !text-paper-hi">
+              {count}
+            </a>
+          </div>
         </div>
       </section>
     </>
