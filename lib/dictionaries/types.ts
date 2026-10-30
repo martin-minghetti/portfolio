@@ -66,7 +66,7 @@ export type Dictionary = {
   airlst: {
     sectionHeader: string;
     disclaimer: string;
-    metrics: string;
+    clientsLabel: string;
   };
   stack: {
     sectionHeader: string;

@@ -55,8 +55,7 @@ export const en: Dictionary = {
     sectionHeader: "Career",
     disclaimer:
       "Frontend developer at AirLST (event technology, Munich), from June 2018 to November 2025. I built each event's site to order: registration form, agenda, hotel, speakers and venue.",
-    metrics:
-      "Hundreds of event pages for AirLST clients such as Mercedes-Benz, Netflix and BioNTech.",
+    clientsLabel: "AirLST clients",
   },
   stack: {
     sectionHeader: "What I work with",

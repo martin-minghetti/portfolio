@@ -55,8 +55,7 @@ export const es: Dictionary = {
     sectionHeader: "Trayectoria",
     disclaimer:
       "Desarrollador frontend en AirLST (tecnología para eventos, Múnich), de junio de 2018 a noviembre de 2025. Hacía a medida el sitio de cada evento: formulario de registro, agenda, hotel, speakers y lugar.",
-    metrics:
-      "Cientos de páginas de eventos para clientes de AirLST como Mercedes-Benz, Netflix y BioNTech.",
+    clientsLabel: "Clientes de AirLST",
   },
   stack: {
     sectionHeader: "Con qué trabajo",
