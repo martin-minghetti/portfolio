@@ -1,8 +1,8 @@
 ---
 title: "The context window and how to manage context"
-date: 2026-10-27
+date: 2026-10-31
 order: 6
-draft: true
+draft: false
 description: "What the context window is, what fills it, what happens when it fills up, what it costs, and the techniques to decide what the model sees, in Claude, OpenAI and Gemini."
 ---
 
@@ -41,7 +41,7 @@ Today the big three have windows of around one million tokens:
 | | Claude | OpenAI | Gemini |
 |---|---|---|---|
 | Window | 1 million in Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5 | 1.05 million in the GPT-6 family | 1,048,576 in Gemini 4 Argon |
-| Answer limit | 128 thousand tokens | 128 thousand tokens | no limit of its own: it can use whatever the input leaves free (65,536 by default) |
+| Answer limit | 128 thousand tokens | 128 thousand tokens | 65,536 by default, up to 1,048,576 if you ask for a long answer |
 | Long-context surcharge | only in Haiku 5.5: above 100 thousand input tokens, the whole request costs five times more | above 272 thousand input tokens, double for input and 1.5 times for output, on the whole request | none |
 
 In all three, the input and the answer come out of the same space. A million tokens is a lot, but it is not infinite, and it is not a good idea to use it all.
@@ -68,7 +68,7 @@ These are the most common techniques, from the simplest to the most elaborate.
 
 **Trimming.** Send only the latest messages and drop the oldest ones. It is the cheapest option, and Anthropic says some chat apps work this way. But you lose what came first: at the pizzeria, the celiac part.
 
-**Summarizing, or compaction.** When the conversation gets close to a limit, the old messages are replaced with a summary and the conversation continues from there. A good summary keeps the celiac part and drops the delivery details. It has two costs: the summary is one more call to the model, and it loses details. In an Anthropic example with six facts, the three central ones survived the summary and the three that came from tables in an appendix were lost. Anthropic notes that it is an example, not a measurement.
+**Summarizing, or compaction.** When the conversation gets close to a limit, the old messages are replaced with a summary and the conversation continues from there. A good summary keeps the celiac part and drops the delivery details. It has two costs: the summary is one more call to the model, and it loses details. In an Anthropic example with six facts, the three central ones survived the summary and the three that came from tables in an appendix were lost.
 
 - **Claude** does it in its API, in beta, in two ways: on its own, when it passes a limit you set, or when you ask for it. Anthropic recommends the second.
 - **OpenAI** also compacts in its API, when it passes a limit or on request. The summary comes encrypted: you cannot read what it kept.
@@ -78,9 +78,9 @@ These are the most common techniques, from the simplest to the most elaborate.
 
 **Bringing in only what is relevant.** Instead of pasting the whole menu or every review, find the parts that answer the question and send only those. This technique is called RAG and has its own post later on.
 
-**Keeping memory outside the window.** The model writes down what matters, like "celiac customer", and reads it again when needed, even in another session. None of the three basic APIs keeps memory between sessions on its own. Claude has a memory tool: the model asks to save or read a note, and it is your application that stores it, wherever you want. The memory is yours, not the provider's. In an Anthropic example, a second session with memory used almost half the context it used without it (173 thousand tokens versus 334 thousand). Google offers something similar on its agent platform (Memory Bank), and OpenAI in its kit for building agents.
+**Keeping memory outside the window.** The model writes down what matters, like "celiac customer", and reads it again when needed, even in another session. None of the three basic APIs keeps memory between sessions on its own. Claude has a memory tool: the model asks to save or read a note, and it is your application that stores it, wherever you want. The memory is yours, not the provider's. In an Anthropic example, a second session with memory used almost half the context it used without it (173 thousand tokens versus 334 thousand). Google offers something similar on its agent platform (Memory Bank).
 
-**Loading just in time.** Instead of preloading everything, you give the model lightweight references, like file names or links, and it fetches the content only when it needs it. Skills work this way: the model sees a short description of each one and loads the rest only if it is going to use it. Partly thanks to this idea, Anthropic cut Claude Code's fixed instructions by more than 80% for the most advanced models.
+**Loading just in time.** Instead of preloading everything, you give the model lightweight references, like file names or links, and it fetches the content only when it needs it. Skills (packages of instructions the model loads for a specific task) work this way: the model sees a short description of each one and loads the rest only if it is going to use it.
 
 **Splitting the work.** An agent can send another one, a subagent, to look into something in its own window, and get back only a short summary. According to Anthropic, these are usually between one and two thousand tokens. It has a downside, which we will see with agents, later in the series.
 
@@ -117,6 +117,8 @@ def prepare(history):
         return history
     # Trim: keep the last 20 messages.
     # Anything said earlier, like "I'm celiac", is lost.
+    # Careful: if the cut separates a tool request from its result,
+    # the API returns an error. Cut at a customer message.
     return history[-20:]
 ```
 
