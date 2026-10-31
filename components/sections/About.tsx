@@ -17,7 +17,7 @@ export default function About({ dict }: Props) {
               <div
                 data-slot="portrait"
                 data-alt="Portrait of Martín"
-                className="screen crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
+                className="screen crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10 grayscale transition-[filter] duration-(--dur-short) ease-(--ease-out) hover:grayscale-0"
               >
                 <FadeImage
                   src="/martin-portrait-hen.jpg"
