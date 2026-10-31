@@ -127,7 +127,6 @@ export const es: Dictionary = {
       links: [
         { label: "WhatsApp", href: "https://wa.me/5492241622290" },
         { label: "Email", href: "mailto:martin.minghetti@gmail.com" },
-        { label: "Cal.com", href: "https://cal.com/martin-minghetti" },
         { label: "GitHub", href: "https://github.com/martin-minghetti" },
         { label: "LinkedIn", href: "https://linkedin.com/in/martin-minghetti" },
       ],

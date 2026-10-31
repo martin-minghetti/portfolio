@@ -24,16 +24,16 @@ const meta = {
   en: {
     title: "Martín Minghetti, web developer",
     description:
-      "Web developer based in Bariloche, Argentina. Seven and a half years building event sites at AirLST (Munich). Now I make my own projects with the help of AI agents.",
+      "Web developer based in Bariloche, Argentina. I build websites and online stores for businesses, with Mercado Pago payments. Seven and a half years of frontend at AirLST (Munich).",
     social:
-      "Websites and apps, built with the help of AI. Seven and a half years of frontend at AirLST. Based in Bariloche, Argentina.",
+      "Websites and online stores for businesses. Seven and a half years of frontend at AirLST. Based in Bariloche, Argentina.",
   },
   es: {
     title: "Martín Minghetti, desarrollador web",
     description:
-      "Desarrollador web en Bariloche, Argentina. Siete años y medio haciendo sitios de eventos en AirLST (Múnich). Ahora hago mis propios proyectos con ayuda de agentes de IA.",
+      "Desarrollador web en Bariloche, Argentina. Hago sitios web y tiendas online para negocios y emprendedores, con pagos por Mercado Pago. Siete años y medio de frontend en AirLST (Múnich).",
     social:
-      "Sitios web y apps, hechos con ayuda de IA. Siete años y medio de frontend en AirLST. En Bariloche, Argentina.",
+      "Sitios web y tiendas online para negocios y emprendedores. Siete años y medio de frontend en AirLST. En Bariloche, Argentina.",
   },
 } as const;
 
@@ -85,7 +85,6 @@ const personJsonLd = JSON.stringify({
   sameAs: [
     "https://github.com/martin-minghetti",
     "https://www.linkedin.com/in/martin-minghetti",
-    "https://cal.com/martin-minghetti",
   ],
 });
 

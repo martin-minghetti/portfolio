@@ -75,8 +75,8 @@ export async function POST(request: Request) {
         status: "error",
         message:
           data.locale === "es"
-            ? "No pude enviar el mensaje. Probá WhatsApp o Cal.com mientras tanto."
-            : "Could not send message. Try WhatsApp or Cal.com in the meantime.",
+            ? "No pude enviar el mensaje. Escribime por WhatsApp mientras tanto."
+            : "Could not send the message. Message me on WhatsApp in the meantime.",
       },
       { status: 500 },
     );

@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     searchParams.get("title") ?? "Web developer";
   const subtitle =
     searchParams.get("subtitle") ??
-    "Websites and apps, built with the help of AI";
+    "Websites and online stores";
 
   return new ImageResponse(
     (
