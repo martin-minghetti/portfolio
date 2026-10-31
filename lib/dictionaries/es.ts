@@ -60,7 +60,7 @@ export const es: Dictionary = {
     oldSiteHeading: "Cómo era el sitio anterior",
     oldSiteHint: "Elegí el aparato y bajá dentro del recuadro para recorrer la página entera.",
     oldSiteAlt: "Página completa del sitio anterior",
-    devices: { mobile: "Celular", tablet: "Tablet", desktop: "Compu" },
+    devices: { mobile: "Celular", tablet: "Tablet", desktop: "Desktop" },
     scoresHeading: "Cómo anda, según Google",
     scoresNote: "Puntaje de 0 a 100 de Lighthouse, la herramienta de Google para medir sitios.",
     legend: { bad: "0 a 49: malo", mid: "50 a 89: mejorable", good: "90 a 100: bueno" },

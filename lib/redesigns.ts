@@ -4,6 +4,7 @@ export type Redesign = {
   slug: string;
   name: Record<Locale, string>;
   newUrl: string;
+  oldUrl: string;
   stack: string;
   // Screens in public/projects/<slug>: antes-desktop and despues-desktop (first screen, for the slider)
   // plus antes-{mobile,tablet,desktop}-completa (the whole old page). The new site is seen live.
@@ -20,6 +21,7 @@ export const redesigns: Redesign[] = [
     slug: "italia-inn",
     name: { es: "Italia Inn, hostel en Bariloche", en: "Italia Inn, a hostel in Bariloche" },
     newUrl: "https://italia-inn.vercel.app",
+    oldUrl: "hostelbariloche.com.ar",
     stack: "HTML · CSS · JavaScript · Python · Vercel",
     intro: {
       es: "El sitio del hostel no se actualizaba hace tiempo: una promo de mayo en un carrusel automático, casi 4 MB de carga y, en el celular, una página que saltaba mientras cargaba. Propuse este rediseño. Todavía no está publicado: el sitio actual sigue en línea.",
@@ -29,7 +31,7 @@ export const redesigns: Redesign[] = [
     scores: {
       es: [
         { label: "Velocidad en el celular", hint: "Qué tan rápido abre en un teléfono.", before: 44, after: 100 },
-        { label: "Velocidad en la compu", hint: "Qué tan rápido abre en una computadora.", before: 77, after: 100 },
+        { label: "Velocidad en computadora", hint: "Qué tan rápido abre en una computadora.", before: 77, after: 100 },
         { label: "Fácil de usar para todos", hint: "Se lee bien y funciona con teclado y con lectores de pantalla.", before: 92, after: 100 },
         { label: "Bien hecho por dentro", hint: "Seguro y sin errores técnicos.", before: 79, after: 100 },
       ],

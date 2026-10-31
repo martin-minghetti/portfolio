@@ -105,6 +105,7 @@ export default async function RedesignPage({ params }: { params: Promise<{ lang:
               tablet: shot(slug, "antes-tablet-completa"),
               desktop: shot(slug, "antes-desktop-completa"),
             }}
+            url={r.oldUrl}
             labels={{ ...data.devices, alt: data.oldSiteAlt }}
           />
         </div>

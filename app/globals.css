@@ -218,3 +218,7 @@ section[id] { scroll-margin-top: calc(var(--section-gap-s) * -1); }
 .tint { position: relative; overflow: hidden; }
 .tint::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: var(--color-accent); mix-blend-mode: color; opacity: 0.9; pointer-events: none; transition: opacity var(--dur-short) var(--ease-out); }
 .tint:hover::after { opacity: 0; }
+/* Old-site viewer: each device frame rises in when it's picked. */
+@keyframes device-in { from { opacity: 0; transform: translateY(16px) scale(0.97); } }
+.device-in { animation: device-in 520ms var(--ease-out) both; }
+@media (prefers-reduced-motion: reduce) { .device-in { animation: none; } }

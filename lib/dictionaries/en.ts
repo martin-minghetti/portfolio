@@ -60,7 +60,7 @@ export const en: Dictionary = {
     oldSiteHeading: "What the old site looked like",
     oldSiteHint: "Pick a device and scroll inside the frame to see the whole page.",
     oldSiteAlt: "Full page of the old site",
-    devices: { mobile: "Phone", tablet: "Tablet", desktop: "Computer" },
+    devices: { mobile: "Phone", tablet: "Tablet", desktop: "Desktop" },
     scoresHeading: "How it performs, according to Google",
     scoresNote: "Score from 0 to 100 by Lighthouse, Google's tool for measuring websites.",
     legend: { bad: "0 to 49: poor", mid: "50 to 89: needs work", good: "90 to 100: good" },
