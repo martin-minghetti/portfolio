@@ -5,10 +5,13 @@ export type Redesign = {
   name: Record<Locale, string>;
   newUrl: string;
   stack: string;
-  // Screens in public/projects/<slug>: antes-desktop, despues-desktop, antes-mobile, despues-mobile (.jpg).
+  // Screens in public/projects/<slug>: antes-desktop and despues-desktop (first screen, for the slider)
+  // plus antes-{mobile,tablet,desktop}-completa (the whole old page). The new site is seen live.
   intro: Record<Locale, string>;
-  metricsNote: Record<Locale, string>;
-  metrics: Record<Locale, { label: string; before: string; after: string }[]>;
+  measuredOn: Record<Locale, string>;
+  // Lighthouse scores, 0 to 100.
+  scores: Record<Locale, { label: string; hint: string; before: number; after: number }[]>;
+  facts: Record<Locale, { label: string; hint: string; before: string; after: string }[]>;
   features: Record<Locale, string[]>;
 };
 
@@ -22,19 +25,29 @@ export const redesigns: Redesign[] = [
       es: "El sitio del hostel no se actualizaba hace tiempo: una promo de mayo en un carrusel automático, casi 4 MB de carga y, en el celular, una página que saltaba mientras cargaba. Propuse este rediseño. Todavía no está publicado: el sitio actual sigue en línea.",
       en: "The hostel's site hadn't been updated in a while: a May promo in an auto-rotating carousel, almost 4 MB to load and, on phones, a page that jumped around while loading. I proposed this redesign. It isn't live yet: the current site is still up.",
     },
-    metricsNote: { es: "Página de inicio, 22 de octubre de 2026.", en: "Home page, October 22, 2026." },
-    metrics: {
+    measuredOn: { es: "Medido el 22 de octubre de 2026, en la página de inicio.", en: "Measured on October 22, 2026, on the home page." },
+    scores: {
       es: [
-        { label: "Velocidad en celular", before: "44", after: "100" },
-        { label: "Peso de la página", before: "3,9 MB", after: "0,4 MB" },
-        { label: "Carga en celular", before: "6,1 s", after: "1,5 s" },
-        { label: "Accesibilidad", before: "92", after: "100" },
+        { label: "Velocidad en el celular", hint: "Qué tan rápido abre en un teléfono.", before: 44, after: 100 },
+        { label: "Velocidad en la compu", hint: "Qué tan rápido abre en una computadora.", before: 77, after: 100 },
+        { label: "Fácil de usar para todos", hint: "Se lee bien y funciona con teclado y con lectores de pantalla.", before: 92, after: 100 },
+        { label: "Bien hecho por dentro", hint: "Seguro y sin errores técnicos.", before: 79, after: 100 },
       ],
       en: [
-        { label: "Mobile performance", before: "44", after: "100" },
-        { label: "Page weight", before: "3.9 MB", after: "0.4 MB" },
-        { label: "Mobile load (LCP)", before: "6.1 s", after: "1.5 s" },
-        { label: "Accessibility", before: "92", after: "100" },
+        { label: "Speed on phones", hint: "How fast it opens on a phone.", before: 44, after: 100 },
+        { label: "Speed on computers", hint: "How fast it opens on a computer.", before: 77, after: 100 },
+        { label: "Easy for everyone", hint: "Readable, and works with a keyboard and screen readers.", before: 92, after: 100 },
+        { label: "Well built inside", hint: "Secure and free of technical errors.", before: 79, after: 100 },
+      ],
+    },
+    facts: {
+      es: [
+        { label: "Tarda en aparecer en el celular", hint: "Hasta que se ve lo principal.", before: "6,1 segundos", after: "1,5 segundos" },
+        { label: "Datos que descarga para abrir", hint: "Menos datos del plan del huésped.", before: "3,9 MB", after: "0,4 MB" },
+      ],
+      en: [
+        { label: "Time to show up on a phone", hint: "Until the main content is visible.", before: "6.1 seconds", after: "1.5 seconds" },
+        { label: "Data downloaded to open it", hint: "Less of the guest's data plan.", before: "3.9 MB", after: "0.4 MB" },
       ],
     },
     features: {
@@ -58,5 +71,4 @@ export const redesigns: Redesign[] = [
 
 export const getRedesign = (slug: string) => redesigns.find((r) => r.slug === slug);
 
-export const shot = (slug: string, name: "antes-desktop" | "despues-desktop" | "antes-mobile" | "despues-mobile") =>
-  `/projects/${slug}/${name}.jpg`;
+export const shot = (slug: string, name: string) => `/projects/${slug}/${name}.jpg`;

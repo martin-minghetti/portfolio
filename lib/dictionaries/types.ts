@@ -69,7 +69,13 @@ export type Dictionary = {
     before: string;
     after: string;
     slider: string;
-    metricsHeading: string;
+    oldSiteHeading: string;
+    oldSiteHint: string;
+    oldSiteAlt: string;
+    devices: { mobile: string; tablet: string; desktop: string };
+    scoresHeading: string;
+    scoresNote: string;
+    legend: { bad: string; mid: string; good: string };
     featuresHeading: string;
     open: string;
     cta: string;
