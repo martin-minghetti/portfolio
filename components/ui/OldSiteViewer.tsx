@@ -13,10 +13,11 @@ type Props = {
 const devices: Device[] = ["mobile", "tablet", "desktop"];
 
 // Each device gets its own body: a phone with an island, a tablet with a camera dot, a browser window.
+// One frame stays mounted and its width, padding and corners animate from one device to the next.
 const body: Record<Device, string> = {
-  mobile: "max-w-[414px] rounded-[3rem] bg-ink p-3",
-  tablet: "max-w-[800px] rounded-[2rem] bg-ink p-4 pt-7",
-  desktop: "max-w-none rounded-xl border border-rule bg-paper-2",
+  mobile: "max-w-[414px] rounded-[3rem] border-ink bg-ink p-3",
+  tablet: "max-w-[800px] rounded-[2rem] border-ink bg-ink p-4 pt-7",
+  desktop: "max-w-full rounded-xl border-rule bg-paper-2 p-0",
 };
 const screen: Record<Device, string> = {
   mobile: "h-[min(75vh,760px)] rounded-[2.25rem]",
@@ -46,8 +47,9 @@ export default function OldSiteViewer({ shots, url, labels }: Props) {
         ))}
       </div>
 
-      {/* key remounts the frame, so every switch replays the rise-in. */}
-      <div key={device} className={`device-in relative mx-auto mt-(--space-lg) shadow-xl ${body[device]}`}>
+      <div
+        className={`relative mx-auto mt-(--space-lg) w-full border shadow-xl transition-[max-width,padding,border-radius,background-color,border-color] duration-700 [transition-timing-function:var(--ease-out)] motion-reduce:transition-none ${body[device]}`}
+      >
         {device === "mobile" ? (
           <span aria-hidden className="absolute top-6 left-1/2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
         ) : null}
@@ -64,7 +66,7 @@ export default function OldSiteViewer({ shots, url, labels }: Props) {
         ) : null}
 
         {/* data-lenis-prevent: the page's smooth scroll would otherwise swallow the wheel inside the screen. */}
-        <div role="tabpanel" data-lenis-prevent tabIndex={0} aria-busy={loading} className={`relative overflow-y-auto bg-paper ${screen[device]}`}>
+        <div role="tabpanel" data-lenis-prevent tabIndex={0} aria-busy={loading} className={`relative overflow-y-auto bg-paper transition-[height,border-radius] duration-700 [transition-timing-function:var(--ease-out)] motion-reduce:transition-none ${screen[device]}`}>
           {loading ? (
             <div className="absolute inset-0 grid place-items-center">
               <span aria-hidden className="size-8 animate-spin rounded-full border-2 border-rule border-t-ink" />
@@ -72,6 +74,7 @@ export default function OldSiteViewer({ shots, url, labels }: Props) {
           ) : null}
           {/* eslint-disable-next-line @next/next/no-img-element -- very tall captures; the optimizer would only shrink them */}
           <img
+            key={device}
             src={shots[device]}
             alt={`${labels.alt} (${labels[device]})`}
             ref={(el) => {
