@@ -20,8 +20,8 @@ export default function About({ dict }: Props) {
                 className="screen crop-shadow aspect-[4/5] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
               >
                 <FadeImage
-                  src="/martin-portrait.jpg"
-                  alt="Martin Minghetti, black and white portrait"
+                  src="/martin-portrait-hen.jpg"
+                  alt="Martín Minghetti holding a hen, under a cloudy sky"
                   fill
                   sizes="(min-width: 768px) 30vw, 80vw"
                   className="object-cover"
