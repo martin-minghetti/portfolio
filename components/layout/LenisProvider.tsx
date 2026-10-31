@@ -1,9 +1,20 @@
 "use client";
 
 import Lenis from "lenis";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
+  // A glide still running when a link is clicked would drag the new page back down after Next puts it at the top:
+  // stop() and start() drop the glide and resync Lenis with where the page really is.
+  useLayoutEffect(() => {
+    lenisRef.current?.stop();
+    lenisRef.current?.start();
+  }, [pathname]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -13,6 +24,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
+    lenisRef.current = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -41,6 +53,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       document.removeEventListener("click", onClick, true);
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
