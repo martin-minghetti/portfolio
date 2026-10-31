@@ -21,8 +21,8 @@ export default function TrackSection({ dict, locale }: Props) {
         <h2 className="reveal-head">{data.sectionHeader}</h2>
 
         <div className="set mt-(--space-2xl) [&>*:last-child]:border-b-0">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} locale={locale} labels={dict.cardLabels} variant="row" />
+          {projects.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} locale={locale} labels={dict.cardLabels} variant="row" imageRight={i % 2 === 0} />
           ))}
         </div>
 

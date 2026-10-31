@@ -11,6 +11,8 @@ type Props = {
   labels: Dictionary["cardLabels"];
   variant?: "row" | "tile" | "line";
   lead?: boolean;
+  // Rows alternate sides down the list: the picture goes right on even rows.
+  imageRight?: boolean;
 };
 
 // Screens captured from each live demo (public/projects). A project without one is set in type alone.
@@ -29,7 +31,7 @@ const screens: Record<string, string> = {
 
 export const hasScreen = (slug: string) => slug in screens;
 
-export default function ProjectCard({ project, locale, labels, variant = "row", lead = false }: Props) {
+export default function ProjectCard({ project, locale, labels, variant = "row", lead = false, imageRight = false }: Props) {
   const statusLabel =
     {
       live: labels.live,
@@ -187,8 +189,8 @@ export default function ProjectCard({ project, locale, labels, variant = "row", 
   if (isRow) {
     return (
       <article className="grid gap-(--space-lg) border-b border-rule py-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
-        {picture ? <div className="md:col-span-5">{picture}</div> : null}
-        <div className="md:col-span-6 md:col-start-7">{body}</div>
+        {picture ? <div className={imageRight ? "md:col-span-5 md:col-start-8 md:row-start-1" : "md:col-span-5"}>{picture}</div> : null}
+        <div className={imageRight ? "md:col-span-6 md:col-start-1 md:row-start-1" : "md:col-span-6 md:col-start-7"}>{body}</div>
       </article>
     );
   }

@@ -20,11 +20,13 @@ export default function Redesigns({ dict, locale }: Props) {
         <h2 className="reveal-head">{data.sectionHeader}</h2>
 
         <div className="set mt-(--space-2xl) [&>*:last-child]:border-b-0">
-          {redesigns.map((r) => {
+          {redesigns.map((r, i) => {
             const href = `/${locale}/redesigns/${r.slug}`;
+            // Same alternation as the sample projects: the picture goes right on even rows.
+            const imageRight = i % 2 === 0;
             return (
               <article key={r.slug} className="grid gap-(--space-lg) border-b border-rule py-(--space-xl) md:grid-cols-12 md:gap-(--gap-columns)">
-                <Link href={href} className="block md:col-span-5" aria-label={r.name[locale]}>
+                <Link href={href} className={`block md:col-span-5 ${imageRight ? "md:col-start-8 md:row-start-1" : ""}`} aria-label={r.name[locale]}>
                   <div
                     data-slot={`screen-${r.slug}`}
                     className="screen tint crop-shadow aspect-[16/10] rounded-card outline outline-1 -outline-offset-1 outline-ink/10"
@@ -38,7 +40,7 @@ export default function Redesigns({ dict, locale }: Props) {
                     />
                   </div>
                 </Link>
-                <div className="reveal flex min-w-0 flex-col md:col-span-6 md:col-start-7" style={{ "--i": 1 } as React.CSSProperties}>
+                <div className={`reveal flex min-w-0 flex-col md:col-span-6 md:row-start-1 ${imageRight ? "md:col-start-1" : "md:col-start-7"}`} style={{ "--i": 1 } as React.CSSProperties}>
                   <header className="flex items-start justify-between gap-3">
                     <h3 className="font-display text-(length:--text-title) leading-tight">
                       <Link href={href}>{r.name[locale]}</Link>
