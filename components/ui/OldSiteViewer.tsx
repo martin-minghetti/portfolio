@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Device = "mobile" | "tablet" | "desktop";
 
@@ -29,6 +29,17 @@ export default function OldSiteViewer({ shots, url, labels }: Props) {
   const [device, setDevice] = useState<Device>("mobile");
   const [loaded, setLoaded] = useState<Device | null>(null);
   const loading = loaded !== device;
+  // Once the first capture is in, fetch and decode the other two so switching devices is instant.
+  const warm = useRef<HTMLImageElement[] | null>(null);
+  useEffect(() => {
+    if (!loaded || warm.current) return;
+    warm.current = devices.map((d) => {
+      const img = new Image();
+      img.src = shots[d];
+      img.decode().catch(() => {});
+      return img;
+    });
+  }, [loaded, shots]);
 
   return (
     <div>
@@ -80,9 +91,10 @@ export default function OldSiteViewer({ shots, url, labels }: Props) {
             ref={(el) => {
               if (el?.complete && el.naturalWidth > 0) setLoaded(device);
             }}
+            loading="lazy"
             onLoad={() => setLoaded(device)}
             onError={() => setLoaded(device)}
-            className={`block w-full transition-opacity duration-500 ${loading ? "opacity-0" : "opacity-100"}`}
+            className={`block w-full transition-opacity duration-150 ${loading ? "opacity-0" : "opacity-100"}`}
           />
         </div>
       </div>
