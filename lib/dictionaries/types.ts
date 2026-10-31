@@ -65,19 +65,15 @@ export type Dictionary = {
   };
   redesign: {
     sectionHeader: string;
-    name: string;
     status: string;
-    intro: string;
     before: string;
     after: string;
     slider: string;
     metricsHeading: string;
-    metricsNote: string;
-    metrics: { label: string; before: string; after: string }[];
     featuresHeading: string;
-    features: string[];
-    stack: string;
+    open: string;
     cta: string;
+    back: string;
   };
   airlst: {
     sectionHeader: string;
