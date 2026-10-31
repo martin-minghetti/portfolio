@@ -22,6 +22,9 @@ const PROMPTS = {
   "home/airlst":
     "an event venue in miniature: a glowing stage with a large blank screen, neat rows of tiny chairs facing it, " +
     "a conference badge on a lanyard sculpture and a calendar sculpture with blank pages on pedestals in the foreground",
+  "contact/hero":
+    "composition with all objects in the right half of the frame: a smartphone standing upright with a blank glowing chat screen, two floating speech bubble sculptures beside it, " +
+    "a sealed envelope sculpture on a smaller pedestal",
   // Portada de la lista del blog.
   blog:
     "composition with all objects in the right third of the frame: an open glowing book sculpture with blank pages on a round pedestal, small glowing cubes rising from its pages, a stylus pen sculpture on a smaller pedestal beside it",

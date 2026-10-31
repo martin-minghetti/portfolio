@@ -15,44 +15,30 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 const labelsByLocale = {
   en: {
-    sectionHeader: "Let's work",
-    lead: "Two ways to reach me. Pick whichever feels right.",
-    trackA: {
-      heading: "Websites and online stores",
-      tagline:
-        "WhatsApp is fastest. Tell me what you need, I'll send a quote within 24h. No commitment.",
-      cta: "Message me on WhatsApp",
-      ctaHref: "https://wa.me/5492241622290",
-      orForm: "Or use the form below.",
-    },
-    trackB: {
-      heading: "AI apps and automations",
-      tagline:
-        "Book 30 minutes on my calendar. Bring a use case, a stack, or a hiring brief.",
-      cta: "Book 30 minutes",
-      ctaHref: "https://cal.com/martin-minghetti",
-      orForm: "Or use the form below.",
-    },
+    title: "Let's talk.",
+    lead: "Tell me what you need: a website, an online store or changes to the one you have. I'll send you a quote within 24 hours, no commitment.",
+    whatsapp: "Message me on WhatsApp",
+    toForm: "Or use the form",
+    formTitle: "Send me a message",
+    stepsTitle: "What happens next",
+    steps: [
+      "You tell me about your business and what you need.",
+      "I reply within 24 hours with questions or a quote.",
+      "If it works for you, we get started.",
+    ],
   },
   es: {
-    sectionHeader: "Trabajemos",
-    lead: "Dos formas de contactarme. Elegí la que te sirva.",
-    trackA: {
-      heading: "Sitios web y tiendas",
-      tagline:
-        "WhatsApp es lo más rápido. Contame qué necesitás, te paso presupuesto en 24h. Sin compromiso.",
-      cta: "Hablemos por WhatsApp",
-      ctaHref: "https://wa.me/5492241622290",
-      orForm: "O usá el formulario abajo.",
-    },
-    trackB: {
-      heading: "Apps y automatizaciones con IA",
-      tagline:
-        "Reservá 30 minutos en mi calendario. Traé un caso de uso, un stack, o un brief de hiring.",
-      cta: "Reservá 30 minutos",
-      ctaHref: "https://cal.com/martin-minghetti",
-      orForm: "O usá el formulario abajo.",
-    },
+    title: "Hablemos.",
+    lead: "Contame qué necesitás: un sitio, una tienda online o cambios en el que ya tenés. Te paso presupuesto en 24 horas, sin compromiso.",
+    whatsapp: "Escribime por WhatsApp",
+    toForm: "O usá el formulario",
+    formTitle: "Mandame un mensaje",
+    stepsTitle: "Cómo sigue",
+    steps: [
+      "Me contás de tu negocio y qué necesitás.",
+      "Te respondo en 24 horas con preguntas o un presupuesto.",
+      "Si te sirve, arrancamos.",
+    ],
   },
 } as const;
 

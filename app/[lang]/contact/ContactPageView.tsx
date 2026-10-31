@@ -1,68 +1,56 @@
 import type { Locale } from "@/lib/i18n";
 import ContactForm from "@/components/sections/ContactForm";
 import CTAButton from "@/components/ui/CTAButton";
-
-type TrackBlockData = {
-  heading: string;
-  tagline: string;
-  cta: string;
-  ctaHref: string;
-  orForm: string;
-};
+import CoverHero from "@/components/ui/CoverHero";
 
 type Labels = {
-  sectionHeader: string;
+  title: string;
   lead: string;
-  trackA: TrackBlockData;
-  trackB: TrackBlockData;
+  whatsapp: string;
+  toForm: string;
+  formTitle: string;
+  stepsTitle: string;
+  steps: readonly string[];
 };
 
-export default function ContactPageView({
-  labels,
-  locale,
-}: {
-  labels: Labels;
-  locale: Locale;
-}) {
+export default function ContactPageView({ labels, locale }: { labels: Labels; locale: Locale }) {
   return (
     <>
-      <section>
-        <div className="container pt-(--space-3xl) pb-(--space-2xl)">
-        <header className="grid gap-(--space-lg) md:grid-cols-12 md:gap-(--gap-columns)">
-          <h1 className="md:col-span-7">{labels.sectionHeader}</h1>
-          <p className="lead md:col-span-5 md:col-start-8 md:self-end">{labels.lead}</p>
-        </header>
-
-        <div className="mt-(--space-2xl) grid gap-(--space-xl) md:grid-cols-2 md:gap-(--gap-columns)">
-          <TrackBlock data={labels.trackA} primary />
-          <TrackBlock data={labels.trackB} />
+      <CoverHero image="/contact/hero.jpg" className="pt-(--space-3xl) pb-(--space-2xl)">
+        <h1 className="max-w-none text-(length:--text-display) leading-[0.98]">{labels.title}</h1>
+        <p className="lead mt-(--space-lg) max-w-[38ch] !text-paper-hi">{labels.lead}</p>
+        <div className="flex flex-wrap items-center gap-(--space-lg) pt-(--space-xl)">
+          <CTAButton href="https://wa.me/5492241622290" external variant="primary">
+            {labels.whatsapp}
+          </CTAButton>
+          <a href="#form" className="tlink !text-paper-hi">
+            {labels.toForm}
+          </a>
         </div>
+      </CoverHero>
 
-        </div>
-      </section>
-
-      <section className="border-t border-ink py-(--section-gap-s)">
-        <div className="container">
-          <div className="max-w-[640px]">
-            <ContactForm locale={locale} />
+      <section id="form" className="py-(--section-gap-s)">
+        <div className="container grid gap-(--space-2xl) md:grid-cols-12 md:gap-(--gap-columns)">
+          <div className="sheet reveal p-(--space-lg) md:col-span-7 md:p-(--space-xl)">
+            <h2 className="text-(length:--text-title) leading-tight">{labels.formTitle}</h2>
+            <div className="mt-(--space-lg)">
+              <ContactForm locale={locale} />
+            </div>
           </div>
+
+          <aside className="reveal md:sticky md:top-(--space-3xl) md:col-span-4 md:col-start-9 md:self-start">
+            <h2 className="text-(length:--text-title) leading-tight">{labels.stepsTitle}</h2>
+            <ol className="mt-(--space-lg) space-y-(--space-lg)">
+              {labels.steps.map((step, i) => (
+                <li key={step} className="grid grid-cols-[1.25rem_1fr] gap-(--space-md)">
+                  <span className="font-display text-(length:--text-title) leading-none text-accent">{i + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
       </section>
     </>
-  );
-}
-
-function TrackBlock({ data, primary }: { data: TrackBlockData; primary?: boolean }) {
-  return (
-    <article className="sheet flex flex-col p-(--space-lg) md:p-(--space-xl)">
-      <h2 className="text-(length:--text-title) leading-tight">{data.heading}</h2>
-      <p className="mt-(--space-sm)">{data.tagline}</p>
-      <div className="mt-auto pt-(--space-lg)">
-        <CTAButton href={data.ctaHref} external variant={primary ? "primary" : "outline"}>
-          {data.cta}
-        </CTAButton>
-      </div>
-      <p className="label mt-(--space-md)">{data.orForm}</p>
-    </article>
   );
 }
