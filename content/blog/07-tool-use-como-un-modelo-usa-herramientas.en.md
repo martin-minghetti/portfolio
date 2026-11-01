@@ -1,8 +1,8 @@
 ---
 title: "Tool use: how a model uses tools"
-date: 2026-10-27
+date: 2026-11-01
 order: 7
-draft: true
+draft: false
 description: "How a model that only writes text can look up data and do things: the cycle of asking and running, how to describe a tool, what to do when it fails and when it is worth using one, in Claude, OpenAI and Gemini."
 ---
 
@@ -18,7 +18,7 @@ A **tool** is a function in your program that you describe to the model with thr
 
 Anthropic puts it this way in its documentation: the model never runs anything on its own. It does not even see your code: it only sees the description you gave it and the result you sent back.
 
-This is called **tool use** or **function calling**. It is the same thing with two names. The model learned to write those requests during training, and the API builds a system prompt behind the scenes with the list of available tools. That is why the definitions take up space in the context window, as we saw earlier in the series.
+This is called **tool use** or **function calling**. It is the same thing with two names. The model learned to write those requests during training, and the API builds a system prompt behind the scenes with the list of available tools. That is why the definitions take up space in the context window, as we saw earlier in the series. In Claude, that hidden system prompt alone adds 286 tokens to every call (in Opus 5.5, Sonnet 5.5 and Haiku 5.5), and on top of it go the name, description and data of each tool.
 
 ## The cycle, step by step
 
@@ -95,7 +95,7 @@ A few more rules, from the OpenAI and Google guides:
 - **Few tools.** OpenAI suggests fewer than 20 available at a time, and Google between 10 and 20. With many, the model chooses worse.
 - **Return little, and clearly.** Only what the model needs for the next step.
 
-If a required piece of data is missing, like the delivery address, the model may ask for it or make it up. Anthropic says Opus is more likely to ask, and that Sonnet sometimes fills in a reasonable value on its own. It is one more reason to describe each piece of data well.
+If a required piece of data is missing, like the delivery address, the model may ask for it or make it up. Anthropic says Opus, its model for most uses, is more likely to ask, and that Sonnet, faster and cheaper, sometimes fills in a reasonable value on its own. It is one more reason to describe each piece of data well.
 
 ## When something fails
 
@@ -107,7 +107,7 @@ Other times it is the model that gets it wrong: it builds the request badly, for
 
 So far, the tools were yours: your code runs them. Providers also offer their own tools, which run on their computers. The most common are web search and code execution. You turn them on in the request, the provider runs the whole cycle in the same call and your code only reads the result.
 
-For example, the pizzeria could ask the model to look up Saturday's forecast to decide whether to open the terrace. These tools have their own cost: web search costs USD 10 per thousand searches in Claude and OpenAI, and in Gemini the first 5,000 of the month are free and then cost USD 14 per thousand. On top of that come the tokens for whatever the search brings back.
+For example, the pizzeria could ask the model to look up Saturday's forecast to decide whether to open the terrace. These tools have their own cost: web search costs USD 10 per thousand searches in Claude and OpenAI, and in Gemini, on the paid plan, the first 5,000 of the month are free and then cost USD 14 per thousand. On top of that come the tokens for whatever the search brings back.
 
 ## The same thing in all three
 
@@ -117,12 +117,12 @@ The names change, but the cycle is the same:
 |---|---|---|---|
 | The model asks with | a `tool_use` block with an `id` | a `function_call` with a `call_id` | a `function_call` |
 | You answer with | a `tool_result` with the same `id` (and a flag if it was an error) | a `function_call_output` with the same `call_id` | a `function_result` |
-| To force it to use one | Opus 5.5, Sonnet 5.5 and Fable 5.1 do not allow it: you ask in the prompt | `required`, or the name of a tool | `any` mode |
+| To force it to use one | Opus 5.5, Sonnet 5.5, Fable 5.1 and Mythos 5.1 do not allow it: you ask in the prompt | `required`, or the name of a tool | `any` mode |
 | Requests that match the format | `strict: true` | `strict: true` (recommended always) | `validated` mode |
 | Several at once | yes, by default | yes, by default | yes, and also chained |
 | Provider tools | web search, page fetching, code execution | web search, among others | Google Search, among others |
 
-A detail in the middle row: in the newest Claude models, requiring the model to use a tool no matter what gives an error. Anthropic recommends letting it choose, telling it in the prompt which tool to use and turning on strict mode.
+A detail about forcing it to use a tool: in the newest Claude models, requiring the model to use a tool no matter what gives an error. Anthropic recommends letting it choose, telling it in the prompt which tool to use and turning on strict mode.
 
 ## What it looks like in code
 

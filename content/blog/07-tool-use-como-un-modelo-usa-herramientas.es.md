@@ -1,8 +1,8 @@
 ---
 title: "Tool use: cómo un modelo usa herramientas"
-date: 2026-10-27
+date: 2026-11-01
 order: 7
-draft: true
+draft: false
 description: "Cómo un modelo que solo escribe texto puede consultar datos y hacer cosas: el ciclo de pedir y ejecutar, cómo describir una herramienta, qué hacer cuando falla y cuándo conviene usarla, en Claude, OpenAI y Gemini."
 ---
 
@@ -18,7 +18,7 @@ Una **herramienta** es una función de tu programa que le describís al modelo c
 
 Anthropic lo dice así en su documentación: el modelo nunca ejecuta nada por su cuenta. Ni siquiera ve tu código: solo ve la descripción que le diste y el resultado que le devolviste.
 
-A esto se le dice **tool use** (uso de herramientas) o **function calling** (llamada a funciones). Es lo mismo con dos nombres. El modelo aprendió a escribir esos pedidos durante el entrenamiento, y la API le arma por debajo un system prompt con la lista de herramientas disponibles. Por eso las definiciones ocupan lugar en la ventana de contexto, como se vio antes en la serie.
+A esto se le dice **tool use** (uso de herramientas) o **function calling** (llamada a funciones). Es lo mismo con dos nombres. El modelo aprendió a escribir esos pedidos durante el entrenamiento, y la API le arma por debajo un system prompt con la lista de herramientas disponibles. Por eso las definiciones ocupan lugar en la ventana de contexto, como se vio antes en la serie. En Claude, solo ese system prompt oculto suma 286 tokens en cada llamada (en Opus 5.5, Sonnet 5.5 y Haiku 5.5), y encima van el nombre, la descripción y los datos de cada herramienta.
 
 ## El ciclo, paso a paso
 
@@ -95,7 +95,7 @@ Algunas reglas más, de las guías de OpenAI y Google:
 - **Pocas herramientas.** OpenAI sugiere menos de 20 disponibles a la vez, y Google entre 10 y 20. Con muchas, el modelo elige peor.
 - **Devolver poco y claro.** Solo lo que el modelo necesita para el paso siguiente.
 
-Si falta un dato obligatorio, como la dirección de entrega, el modelo puede preguntarlo o inventarlo. Anthropic cuenta que Opus tiende más a preguntar, y que Sonnet a veces completa un valor razonable por su cuenta. Es otro motivo para describir bien cada dato.
+Si falta un dato obligatorio, como la dirección de entrega, el modelo puede preguntarlo o inventarlo. Anthropic cuenta que Opus, su modelo para la mayoría de los usos, tiende más a preguntar, y que Sonnet, más rápido y barato, a veces completa un valor razonable por su cuenta. Es otro motivo para describir bien cada dato.
 
 ## Cuando algo falla
 
@@ -107,7 +107,7 @@ Otras veces el que se equivoca es el modelo: arma mal el pedido, por ejemplo con
 
 Hasta acá, las herramientas eran tuyas: las ejecuta tu código. Los proveedores ofrecen además herramientas propias, que corren en sus computadoras. Las más comunes son la búsqueda web y la ejecución de código. Se activan en el pedido, el proveedor hace todo el ciclo en la misma llamada y tu código solo lee el resultado.
 
-Por ejemplo, la pizzería podría pedirle al modelo que busque el pronóstico del sábado para decidir si abre la terraza. Esas herramientas tienen un costo aparte: la búsqueda web cuesta USD 10 cada mil búsquedas en Claude y en OpenAI, y en Gemini las primeras 5.000 del mes son gratis y después cuestan USD 14 cada mil. A eso se suman los tokens de lo que la búsqueda trae.
+Por ejemplo, la pizzería podría pedirle al modelo que busque el pronóstico del sábado para decidir si abre la terraza. Esas herramientas tienen un costo aparte: la búsqueda web cuesta USD 10 cada mil búsquedas en Claude y en OpenAI, y en Gemini, en el plan pago, las primeras 5.000 del mes son gratis y después cuestan USD 14 cada mil. A eso se suman los tokens de lo que la búsqueda trae.
 
 ## Lo mismo en los tres
 
@@ -117,12 +117,12 @@ Cambian los nombres, pero el ciclo es el mismo:
 |---|---|---|---|
 | El modelo pide con | un bloque `tool_use` con un `id` | un `function_call` con un `call_id` | un `function_call` |
 | Se devuelve con | un `tool_result` con el mismo `id` (y una marca si fue error) | un `function_call_output` con el mismo `call_id` | un `function_result` |
-| Para obligarlo a usar una | Opus 5.5, Sonnet 5.5 y Fable 5.1 no lo permiten: se le pide en el prompt | `required`, o el nombre de una herramienta | modo `any` |
+| Para obligarlo a usar una | Opus 5.5, Sonnet 5.5, Fable 5.1 y Mythos 5.1 no lo permiten: se le pide en el prompt | `required`, o el nombre de una herramienta | modo `any` |
 | Pedidos que cumplen el formato | `strict: true` | `strict: true` (lo recomienda siempre) | modo `validated` |
 | Varias a la vez | sí, por defecto | sí, por defecto | sí, y también encadenadas |
 | Herramientas del proveedor | búsqueda web, lectura de páginas, ejecución de código | búsqueda web, entre otras | Google Search, entre otras |
 
-Un detalle de la fila del medio: en los Claude más nuevos, pedir que el modelo use sí o sí una herramienta da error. Anthropic recomienda dejarlo elegir, indicarle en el prompt qué herramienta usar y prender el modo estricto.
+Un detalle sobre obligarlo a usar una herramienta: en los Claude más nuevos, pedir que el modelo use sí o sí una herramienta da error. Anthropic recomienda dejarlo elegir, indicarle en el prompt qué herramienta usar y prender el modo estricto.
 
 ## Cómo se ve en código
 
