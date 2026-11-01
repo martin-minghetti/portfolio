@@ -50,9 +50,9 @@ The providers' official guides agree on a few ideas:
 - **Do not take anything for granted.** Anthropic warns that its current models follow instructions more literally than earlier ones. If a rule applies to every answer, you have to say so.
 - **The colleague test.** Anthropic suggests showing the prompt to someone who does not know the task: if that person would be confused, the model will be too.
 
-Where the guides differ is in how to lay out the prompt:
+Where the guides for Claude (from Anthropic), GPT (the OpenAI models behind ChatGPT) and Gemini (from Google) differ is in how to lay out the prompt:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | How to separate the parts | XML tags, like `<menu>` or `<instructions>` | Markdown headings for sections and XML tags to mark off content | XML tags or Markdown headings, but only one of them across the whole prompt |
 | Suggested order | long documents at the top, the question at the end | identity, instructions, examples and context, in that order | all the context first, the question at the end |

@@ -66,7 +66,7 @@ At the pizzeria, a single answer to the customer takes five steps:
 
 That is two calls to the model for a single answer. It means more waiting time and more tokens.
 
-If the customer asks "Do you have Neapolitan? And fainá?", the model can ask for both lookups in the same response. This is called parallel calls, and all of the big three allow it.
+If the customer asks "Do you have Neapolitan? And fainá?", the model can ask for both lookups in the same response. This is called parallel calls, and Claude (from Anthropic), GPT (the OpenAI models behind ChatGPT) and Gemini (from Google) all allow it.
 
 ## How to describe a good tool
 
@@ -113,7 +113,7 @@ For example, the pizzeria could ask the model to look up Saturday's forecast to 
 
 The names change, but the cycle is the same:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | The model asks with | a `tool_use` block with an `id` | a `function_call` with a `call_id` | a `function_call` |
 | You answer with | a `tool_result` with the same `id` (and a flag if it was an error) | a `function_call_output` with the same `call_id` | a `function_result` |

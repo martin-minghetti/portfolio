@@ -83,7 +83,7 @@ Contar es gratis y da una estimación. Lo que se cobra de verdad aparece en `usa
 
 Los tokens son la unidad de casi todo lo que importa al construir con un modelo:
 
-- **El costo.** Se paga por token, y los que genera el modelo cuestan bastante más que los que se le mandan. En los tres grandes, en octubre de 2026, un token de salida cuesta 5 veces uno de entrada: Claude Opus 5.5 cobra 4 dólares por millón de tokens de entrada y 20 por millón de salida; GPT-6.1 Sol, 2 y 10; Gemini 4 Argon, 2 y 10 hasta el 30 de noviembre y 4 y 20 desde diciembre. Si el modelo razona antes de responder, ese razonamiento también se cobra como salida, aunque no se muestre.
+- **El costo.** Se paga por token, y los que genera el modelo cuestan bastante más que los que se le mandan. En Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google), en octubre de 2026, un token de salida cuesta 5 veces uno de entrada: Claude Opus 5.5 cobra 4 dólares por millón de tokens de entrada y 20 por millón de salida; GPT-6.1 Sol, 2 y 10; Gemini 4 Argon, 2 y 10 hasta el 30 de noviembre y 4 y 20 desde diciembre. Si el modelo razona antes de responder, ese razonamiento también se cobra como salida, aunque no se muestre.
 - **El tiempo de espera.** Como el modelo escribe un token por vez, lo que más tarda es la respuesta. Según la guía de OpenAI, recortar la salida a la mitad puede bajar la espera cerca de un 50%, mientras que recortar a la mitad el texto que se manda la baja apenas entre 1% y 5%.
 - **Los límites.** Lo que el modelo puede procesar en una sola llamada se mide en tokens: hoy, alrededor de un millón entre lo que entra y lo que sale, con un tope aparte para la respuesta (128 mil tokens en Claude).
 

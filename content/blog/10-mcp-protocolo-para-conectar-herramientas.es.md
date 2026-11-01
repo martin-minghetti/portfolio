@@ -184,7 +184,9 @@ Los ataques con nombre propio y cómo se defienden se ven más adelante en la se
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Conectar un servidor desde la API | Conector MCP (beta) | Herramienta `mcp` | Herramienta `mcp_server` |
 | Qué servidores acepta | Remotos | Remotos; locales con un túnel | Remotos, solo con Streamable HTTP |

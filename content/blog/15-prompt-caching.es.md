@@ -39,7 +39,7 @@ Y el orden importa. En Claude, el pedido se arma siempre igual: primero las herr
 <figcaption><ul><li>Naranja: lo que se procesa y se guarda la primera vez.</li><li>Violeta: lo que se lee de la caché.</li><li>Celeste: lo nuevo de cada pedido, que se paga entero.</li><li>Rojo: desde el primer token distinto, nada se aprovecha, aunque la carta y el esquema sean los mismos.</li><li>La marca de hasta dónde guardar va al final de la parte fija, antes del mensaje.</li></ul></figcaption>
 </figure>
 
-De ahí sale la regla que dan los tres grandes proveedores: lo fijo arriba, lo que cambia abajo.
+De ahí sale la regla que dan Anthropic, OpenAI y Google: lo fijo arriba, lo que cambia abajo.
 
 ## Escribir, leer y vencerse
 
@@ -212,9 +212,9 @@ Porque también es velocidad: el modelo no vuelve a procesar la parte fija, y la
 
 ## Lo mismo en los tres
 
-OpenAI es la empresa de ChatGPT; Google ofrece sus modelos Gemini. Los dos tienen caché, con diferencias:
+GPT son los modelos de OpenAI que usa ChatGPT, y Gemini, los de Google. Los dos tienen caché, con diferencias:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Cómo se activa | `cache_control`: arriba de todo (automática) o en un bloque (hasta 4 marcas) | Sola. Desde GPT-5.6 también se puede elegir dónde corta | Sola. En Gemini 4 Argon no hay otra opción |
 | Leer | 10% de la entrada (5% en Opus 5.5 y Sonnet 5.5) | 10% (5% en GPT-6.1 Sol y Terra) | 5% en Argon |

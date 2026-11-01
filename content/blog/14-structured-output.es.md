@@ -50,7 +50,7 @@ El problema es el "casi". Esto no es código que se escribe una vez y se prueba:
 
 ## Cómo lo asegura la API
 
-Hoy los tres grandes proveedores tienen la salida estructurada en su API: le pasás el esquema junto con el mensaje y la respuesta lo cumple. No es que el modelo se esfuerce más. Es que no puede salirse.
+Hoy Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) tienen la salida estructurada en su API: le pasás el esquema junto con el mensaje y la respuesta lo cumple. No es que el modelo se esfuerce más. Es que no puede salirse.
 
 Como se vio al principio de la serie, un modelo escribe de a un token por vez: calcula qué tan probable es cada opción y elige una. Con salida estructurada, la API convierte el esquema en reglas y, en cada paso, solo le deja elegir tokens que mantengan el JSON dentro de esas reglas. Anthropic lo llama "constrained decoding", algo así como generación restringida.
 
@@ -199,7 +199,7 @@ Una duda que aparece seguido: si obligar al modelo a un formato no le hace pensa
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Cómo se pide | `output_config.format`, con el esquema | `text.format`, con el esquema y `strict: true` | `response_format`, con el esquema |
 | Con Pydantic | `messages.parse()` devuelve el objeto validado | `responses.parse()` devuelve el objeto validado | Se manda el esquema y se valida en tu código |

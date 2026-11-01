@@ -221,7 +221,9 @@ Si un local cambia el horario o el proveedor del pesto cambia la receta, hay que
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Modelo de embeddings | No tiene propio. Su documentación usa Voyage: `voyage-4`, 1.024 números por texto | `text-embedding-3-small` (1.536 números) y `text-embedding-3-large` (3.072) | `gemini-embedding-2` (3.072 números), que también acepta imágenes, audio, video y PDF |
 | Búsqueda armada | No hay: la búsqueda queda en tu código | File Search: subís archivos y OpenAI corta, embebe y busca | File Search: lo mismo, del lado de Google |

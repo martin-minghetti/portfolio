@@ -22,9 +22,9 @@ La técnica se popularizó con un estudio de 2022 de Google, llamado [Chain-of-T
 
 Los modelos actuales son **modelos de razonamiento**: antes de responder, pueden escribir un razonamiento propio, aparte de la respuesta, sin que nadie se lo pida. Eso cambió dónde está la perilla. Ya no hace falta escribir "pensá paso a paso"; lo que se ajusta es cuánto piensa, con un parámetro de **esfuerzo**.
 
-Los tres grandes lo resuelven parecido:
+Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) lo resuelven parecido:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Cómo se controla | `effort`: low, medium, high, xhigh y max | `reasoning.effort`: en GPT-6.1 Sol, de low a max | `thinking_level` en Gemini 4 Argon: low, medium y high |
 | Valor de fábrica | medium en Opus 5.5 y Haiku 5.5, high en el resto | medium | medium |
@@ -82,7 +82,7 @@ Durante años la regla fue: temperatura baja para clasificar o extraer datos, al
 
 ## La temperatura está desapareciendo
 
-Con los modelos de razonamiento, los tres grandes la fueron sacando de las manos de quien construye:
+Con los modelos de razonamiento, Anthropic, OpenAI y Google la fueron sacando de las manos de quien construye:
 
 - **Claude:** desde los modelos 4.7 (Opus 4.7 en adelante y toda la familia 5), mandar `temperature`, `top_p` o `top_k` con un valor distinto al de fábrica da error. Y desde la versión de la API del 21 de octubre de 2026 (una fecha que el código manda en cada pedido; las librerías nuevas mandan la nueva), da error en cualquier modelo aunque se mande el valor de fábrica.
 - **OpenAI:** la temperatura solo se acepta con el razonamiento apagado (nivel `none`). Con GPT-6.1 Sol, que no se puede apagar, no hay temperatura.
@@ -100,7 +100,7 @@ Lo que antes se buscaba con la temperatura ahora se pide de otras formas:
 ## En resumen
 
 - Razonar antes de responder le da al modelo más cálculo y deja a la vista los pasos intermedios. Por eso mejora en tareas de varios pasos.
-- Los modelos actuales razonan solos. Lo que se ajusta es el esfuerzo, que en los tres grandes se cobra como salida y suma espera.
+- Los modelos actuales razonan solos. Lo que se ajusta es el esfuerzo, que en Claude, GPT y Gemini se cobra como salida y suma espera.
 - La temperatura decide cuánto se arriesga el modelo al elegir. Hoy Claude la rechaza, OpenAI la acepta solo sin razonamiento y Gemini la ignora.
 - Ni la temperatura 0 garantizaba la misma respuesta. Lo predecible o lo variado ahora se pide en el prompt, con ejemplos y con el formato.
 

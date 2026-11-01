@@ -36,9 +36,9 @@ Hay un detalle fácil de pasar por alto. El razonamiento del modelo cuenta dentr
 
 En Claude hay dos casos. Si lo que se manda ya no entra en la ventana, la API rechaza el pedido con un error. Si entra, pero no queda lugar para toda la respuesta, el modelo empieza a responder y se corta al llegar al límite.
 
-Hoy los tres grandes tienen ventanas de alrededor de un millón de tokens:
+Hoy Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) tienen ventanas de alrededor de un millón de tokens:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Ventana | 1 millón en Fable 5.1, Opus 5.5, Sonnet 5.5 y Haiku 5.5 | 1,05 millones en la familia GPT-6 | 1.048.576 en Gemini 4 Argon |
 | Tope de la respuesta | 128 mil tokens | 128 mil tokens | 65.536 por defecto, hasta 1.048.576 si se pide una respuesta larga |
@@ -99,7 +99,7 @@ Se pueden combinar. Anthropic sugiere empezar por la que ataca lo que de verdad 
 
 ## Contar antes de mandar
 
-Los tres grandes permiten saber cuántos tokens ocupa un pedido antes de mandarlo, y después de cada llamada lo informan en la respuesta. Con la API de Claude, en Python, se puede medir la conversación y recortarla si se pasa de un límite:
+Las API de Claude, GPT y Gemini permiten saber cuántos tokens ocupa un pedido antes de mandarlo, y después de cada llamada lo informan en la respuesta. Con la API de Claude, en Python, se puede medir la conversación y recortarla si se pasa de un límite:
 
 ```python
 import anthropic
@@ -127,7 +127,7 @@ El recorte es la técnica más simple, y el comentario muestra su problema. Para
 ## En resumen
 
 - La ventana de contexto es todo lo que el modelo procesa en una llamada: system prompt, mensajes, herramientas, sus resultados y la respuesta, razonamiento incluido.
-- Los tres grandes rondan el millón de tokens, pero llenarla sale caro y no da mejores resultados: el modelo recuerda peor cuanto más tiene adelante.
+- Las ventanas de Claude, GPT y Gemini rondan el millón de tokens, pero llenarlas sale caro y no da mejores resultados: el modelo recuerda peor cuanto más tiene adelante.
 - En una charla larga, lo que más la llena son los mensajes viejos y los resultados de herramientas.
 - Hay técnicas para cada caso: recortar, resumir, borrar resultados de herramientas, traer solo lo relevante, memoria, cargar justo a tiempo y repartir el trabajo. Se elige según qué esté llenando la ventana.
 

@@ -22,9 +22,9 @@ The technique became popular with a 2022 Google study called [Chain-of-Thought P
 
 Current models are **reasoning models**: before answering, they can write their own reasoning, separate from the answer, without anyone asking. That moved the knob. You no longer need to write "think step by step"; what you adjust is how much it thinks, with an **effort** parameter.
 
-The big three handle it in a similar way:
+Claude (from Anthropic), GPT (the OpenAI models behind ChatGPT) and Gemini (from Google) handle it in a similar way:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | How you control it | `effort`: low, medium, high, xhigh and max | `reasoning.effort`: in GPT-6.1 Sol, from low to max | `thinking_level` in Gemini 4 Argon: low, medium and high |
 | Default value | medium in Opus 5.5 and Haiku 5.5, high in the rest | medium | medium |
@@ -82,7 +82,7 @@ For years the rule was: low temperature to classify or extract data, high for id
 
 ## Temperature is disappearing
 
-With reasoning models, the big three took it out of the builder's hands:
+With reasoning models, Anthropic, OpenAI and Google took it out of the builder's hands:
 
 - **Claude:** since the 4.7 models (Opus 4.7 onward and the whole 5 family), sending `temperature`, `top_p` or `top_k` with a value other than the default gives an error. And since the API version of October 21, 2026 (a date your code sends with every request; new libraries send the new one), it gives an error on any model even if you send the default value.
 - **OpenAI:** temperature is only accepted with reasoning turned off (level `none`). With GPT-6.1 Sol, which cannot be turned off, there is no temperature.
@@ -100,7 +100,7 @@ What you used to get with temperature is now asked for in other ways:
 ## In short
 
 - Reasoning before answering gives the model more computation and keeps the intermediate steps in view. That is why it does better on multi-step tasks.
-- Current models reason on their own. What you adjust is the effort, which in the big three is billed as output and adds waiting time.
+- Current models reason on their own. What you adjust is the effort, which in Claude, GPT and Gemini is billed as output and adds waiting time.
 - Temperature decides how much the model takes a chance when choosing. Today Claude rejects it, OpenAI accepts it only without reasoning and Gemini ignores it.
 - Not even temperature 0 guaranteed the same answer. Predictable or varied is now asked for in the prompt, with examples and with the format.
 

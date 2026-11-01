@@ -83,7 +83,7 @@ Counting is free and gives an estimate. What you are actually billed shows up in
 
 Tokens are the unit of almost everything that matters when building with a model:
 
-- **Cost.** You pay per token, and the tokens the model generates cost a lot more than the ones you send it. Across the big three, in October 2026, an output token costs 5 times an input token: Claude Opus 5.5 charges 4 dollars per million input tokens and 20 per million output tokens; GPT-6.1 Sol, 2 and 10; Gemini 4 Argon, 2 and 10 until November 30 and 4 and 20 from December. If the model reasons before answering, that reasoning is billed as output too, even when it is not shown.
+- **Cost.** You pay per token, and the tokens the model generates cost a lot more than the ones you send it. Across Claude (from Anthropic), GPT (the OpenAI models behind ChatGPT) and Gemini (from Google), in October 2026, an output token costs 5 times an input token: Claude Opus 5.5 charges 4 dollars per million input tokens and 20 per million output tokens; GPT-6.1 Sol, 2 and 10; Gemini 4 Argon, 2 and 10 until November 30 and 4 and 20 from December. If the model reasons before answering, that reasoning is billed as output too, even when it is not shown.
 - **Waiting time.** Since the model writes one token at a time, the answer is what takes longest. According to OpenAI's guide, cutting the output in half can cut the wait by close to 50%, while cutting the text you send in half only cuts it by 1% to 5%.
 - **Limits.** What the model can process in a single call is measured in tokens: today, around a million between what goes in and what comes out, with a separate cap for the answer (128,000 tokens on Claude).
 

@@ -227,7 +227,9 @@ Una regla para quedarse: empezar sin framework, y sumarlo cuando tu código empi
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Su kit para agentes | Claude Agent SDK: el agente de Claude Code como librería | Agents SDK | ADK |
 | Cómo se ordenan varios pasos | El modelo arma el flujo para cada tarea (dynamic workflows) | Con código Python común, o pasando la charla a otro agente | Grafos fijos en tu código, desde ADK 2.0 |

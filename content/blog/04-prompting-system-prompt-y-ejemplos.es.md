@@ -50,9 +50,9 @@ Las guías oficiales de los proveedores coinciden en algunas ideas:
 - **No dar nada por obvio.** Anthropic avisa que sus modelos actuales siguen las instrucciones más al pie de la letra que los anteriores. Si una regla vale para todas las respuestas, hay que decirlo.
 - **La prueba del colega.** Anthropic propone mostrarle el prompt a alguien que no conoce la tarea: si esa persona se confundiría, el modelo también.
 
-Donde las guías difieren es en cómo ordenar el prompt:
+Donde las guías de Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) difieren es en cómo ordenar el prompt:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Cómo separar las partes | etiquetas XML, como `<menu>` o `<instrucciones>` | títulos de Markdown para las secciones y etiquetas XML para delimitar contenido | etiquetas XML o títulos de Markdown, pero uno solo en todo el prompt |
 | Orden sugerido | documentos largos arriba, la pregunta al final | identidad, instrucciones, ejemplos y contexto, en ese orden | todo el contexto primero, la pregunta al final |

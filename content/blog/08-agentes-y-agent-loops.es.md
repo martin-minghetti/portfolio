@@ -161,7 +161,7 @@ Lo que cambia respecto de aquel código:
 
 La regla de confirmar antes de registrar está en el system prompt, y es un pedido, no una garantía. Un control en el código, que no deje registrar sin una confirmación guardada, es más firme. Eso también se ve más adelante en la serie.
 
-No hace falta armar este loop en tu código: los tres grandes traen kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop por dentro ayuda a saber qué pasa cuando algo falla.
+No hace falta armar este loop en tu código: Anthropic, OpenAI y Google traen kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop por dentro ayuda a saber qué pasa cuando algo falla.
 
 ## Cuándo conviene un agente
 
@@ -176,7 +176,7 @@ La regla de Anthropic es buscar la solución más simple posible y sumar complej
 
 ## Un agente o varios
 
-Con la pizzería, la tentación es armar un agente de pedidos, otro de reclamos, otro de promos y un "jefe" que reparte. Los tres grandes recomiendan lo contrario: empezar con uno.
+Con la pizzería, la tentación es armar un agente de pedidos, otro de reclamos, otro de promos y un "jefe" que reparte. Anthropic, OpenAI y Google recomiendan lo contrario: empezar con uno.
 
 - **Anthropic**, en una guía de octubre de 2026, dice que un solo agente con skills suele dar mejor calidad que varios, muchas veces con menos costo y demora. En cada pase de un agente a otro se pierde información, como en el teléfono descompuesto. Un cliente que comparó las dos formas vio que un solo agente corría el doble de rápido. En la pizzería: un solo asistente, con una skill de reclamos que carga solo cuando alguien se queja.
 - **OpenAI**: "empezá con un agente siempre que puedas", y separá solo cuando una parte necesita otras instrucciones o permisos.

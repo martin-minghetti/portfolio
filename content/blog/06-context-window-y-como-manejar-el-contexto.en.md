@@ -36,9 +36,9 @@ There is a detail that is easy to miss. The model's reasoning counts toward the 
 
 In Claude there are two cases. If what you send no longer fits in the window, the API rejects the request with an error. If it fits, but there is not enough room left for the whole answer, the model starts answering and gets cut off when it reaches the limit.
 
-Today the big three have windows of around one million tokens:
+Today Claude (from Anthropic), GPT (the OpenAI models behind ChatGPT) and Gemini (from Google) have windows of around one million tokens:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Window | 1 million in Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5 | 1.05 million in the GPT-6 family | 1,048,576 in Gemini 4 Argon |
 | Answer limit | 128 thousand tokens | 128 thousand tokens | 65,536 by default, up to 1,048,576 if you ask for a long answer |
@@ -99,7 +99,7 @@ They can be combined. Anthropic suggests starting with the one that tackles what
 
 ## Count before you send
 
-The big three let you know how many tokens a request takes before sending it, and after each call they report it in the response. With the Claude API, in Python, you can measure the conversation and trim it if it goes over a limit:
+The Claude, GPT and Gemini APIs let you know how many tokens a request takes before sending it, and after each call they report it in the response. With the Claude API, in Python, you can measure the conversation and trim it if it goes over a limit:
 
 ```python
 import anthropic
@@ -127,7 +127,7 @@ Trimming is the simplest technique, and the comment shows its problem. To avoid 
 ## In short
 
 - The context window is everything the model processes in one call: system prompt, messages, tools, their results and the answer, reasoning included.
-- The big three are around a million tokens, but filling it is expensive and does not give better results: the model remembers worse the more it has in front of it.
+- The Claude, GPT and Gemini windows are around a million tokens, but filling them is expensive and does not give better results: the model remembers worse the more it has in front of it.
 - In a long conversation, what fills it most are the old messages and the tool results.
 - There is a technique for each case: trimming, summarizing, clearing tool results, bringing in only what is relevant, memory, loading just in time and splitting the work. You pick based on what is filling the window.
 

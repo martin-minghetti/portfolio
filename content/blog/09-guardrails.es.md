@@ -179,7 +179,9 @@ La pregunta para cada riesgo es qué tan grave es si pasa, y si se puede deshace
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Filtros propios del proveedor | Los modelos nuevos se niegan en ciertos temas y avisan por qué. No se configuran | Una API de moderación aparte, gratis, que llamás vos | Filtros por categoría (acoso, odio, sexual, peligroso, jailbreak), apagados de fábrica desde Gemini 2.5 |
 | Controles en su kit de agentes | Permisos y aprobación de una persona para las herramientas que corre Anthropic; las tuyas las controla tu código | Guardrails de entrada, de salida y de herramientas, y aprobación de una persona por herramienta | Controles antes de cada herramienta, y plugins que aplican la misma política a todos los agentes |

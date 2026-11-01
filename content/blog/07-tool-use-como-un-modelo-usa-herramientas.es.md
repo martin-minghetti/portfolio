@@ -66,7 +66,7 @@ Con la pizzería, una sola respuesta al cliente lleva cinco pasos:
 
 Son dos llamadas al modelo para una sola respuesta. Eso es más tiempo de espera y más tokens.
 
-Si el cliente pregunta "Hay napolitana? Y fainá?", el modelo puede pedir las dos consultas en la misma respuesta. A eso se le dice llamadas en paralelo, y los tres grandes lo permiten.
+Si el cliente pregunta "Hay napolitana? Y fainá?", el modelo puede pedir las dos consultas en la misma respuesta. A eso se le dice llamadas en paralelo, y Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) lo permiten.
 
 ## Cómo describir una buena herramienta
 
@@ -113,7 +113,7 @@ Por ejemplo, la pizzería podría pedirle al modelo que busque el pronóstico de
 
 Cambian los nombres, pero el ciclo es el mismo:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | El modelo pide con | un bloque `tool_use` con un `id` | un `function_call` con un `call_id` | un `function_call` |
 | Se devuelve con | un `tool_result` con el mismo `id` (y una marca si fue error) | un `function_call_output` con el mismo `call_id` | un `function_result` |

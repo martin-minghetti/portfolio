@@ -254,7 +254,9 @@ Si el problema es cómo responde, lo primero son instrucciones claras y unos poc
 
 ## Lo mismo en los tres
 
-| | Claude | OpenAI | Gemini |
+Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Reranker | No tiene propio. Su documentación usa Voyage (`rerank-3`) | No hay uno suelto: su File Search ordena por dentro | Un servicio de reranking en su plataforma para empresas |
 | Búsqueda híbrida armada | No: queda en tu código | File Search junta embeddings y palabras, y se ajusta el peso de cada una | File Search busca solo por embeddings, según su documentación |

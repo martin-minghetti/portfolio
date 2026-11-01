@@ -18,9 +18,9 @@ Cuando una aplicación le habla a un modelo por la API, no le manda un bloque de
 - **user:** lo que la aplicación manda del lado del usuario. Casi siempre es lo que escribió la persona, pero también puede incluir documentos o datos que la aplicación suma a la pregunta.
 - **assistant:** las respuestas del modelo. La aplicación también puede escribir mensajes de este rol, por ejemplo para mostrarle al modelo cómo tiene que responder. Anthropic lo dice en su documentación: los turnos anteriores no tienen por qué haber salido del modelo.
 
-La idea es la misma en los tres grandes, pero cada uno lo nombra a su manera:
+La idea es la misma en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google), pero cada uno lo nombra a su manera:
 
-| | Claude | OpenAI | Gemini |
+| | Claude | GPT | Gemini |
 |---|---|---|---|
 | Instrucciones de fondo | parámetro `system`, aparte de la lista | rol `developer` o parámetro `instructions` | parámetro `system_instruction` |
 | Lo que manda el usuario | `user` | `user` | `user` |
@@ -87,7 +87,7 @@ En general, más parámetros dan más capacidad, pero también hacen más caro c
 - **Modelos de pesos abiertos:** la empresa publica los pesos, y cualquiera puede descargarlos y correrlos en su computadora o servidor, o usarlos a través de un tercero que los ofrezca. Pesos abiertos no es lo mismo que código abierto: en general no se publican los datos ni el código con que se entrenaron.
 - **Modelos cerrados:** los pesos no se publican, y el modelo solo se usa por la API del proveedor o de las nubes que lo ofrecen (Claude, por ejemplo, también está en Amazon, Google Cloud y Microsoft).
 
-De los tres grandes, OpenAI y Google publican también modelos abiertos: OpenAI tiene gpt-oss y Google tiene Gemma, cuya versión 4 salió en abril de 2026 con licencia Apache 2.0, que permite uso comercial. Anthropic no publica modelos abiertos. Otras familias abiertas conocidas son Llama, de Meta, y Qwen y DeepSeek, de empresas chinas.
+De las tres empresas, OpenAI y Google publican también modelos abiertos: OpenAI tiene gpt-oss y Google tiene Gemma, cuya versión 4 salió en abril de 2026 con licencia Apache 2.0, que permite uso comercial. Anthropic no publica modelos abiertos. Otras familias abiertas conocidas son Llama, de Meta, y Qwen y DeepSeek, de empresas chinas.
 
 Que un modelo sea abierto no lo hace mejor ni peor. Cambia otras cosas: los datos no salen del servidor propio, a mucho volumen puede salir más barato, y el modelo no se retira. Los cerrados sí tienen fecha de retiro: Anthropic, por ejemplo, se compromete a mantener Claude Opus 5.5 hasta por lo menos septiembre de 2027. A cambio, un modelo abierto hay que correrlo y mantenerlo uno mismo.
 
