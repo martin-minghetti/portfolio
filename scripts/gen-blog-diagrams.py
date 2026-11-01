@@ -260,6 +260,22 @@ def fig17():
     g.box(270, 342, 116, 56, "c2", ["compara con el"], ["pedido esperado"], size=14)
     return g.render()
 
+def fig18():
+    g = Svg("g18", 400, 330, "Diagrama de una traza: el mensaje del cliente 'Hay napolitana? Mandame dos' tardó 9 segundos en total. La primera llamada al modelo duró 2,3 segundos y pidió consultar el stock; la consulta al sistema de stock tardó 5,1 segundos; la segunda llamada al modelo duró 1,6 segundos y respondió. Casi todo el tiempo se fue en la herramienta, no en el modelo.")
+    X0, PX = 112, 30  # el segundo 0 está en x=112; 30 px por segundo (9 s = 270 px)
+    g.text(X0 - 8, 30, "Hay napolitana? Mandame dos", size=14, fill=INK, anchor="start")
+    for s in range(0, 10, 3):
+        g.line(f"M{X0 + s*PX} 44V292"); g.text(X0 + s*PX, 312, f"{s} s", size=13)
+    for y, etiqueta, a, b, col, txt in [  # (y, etiqueta, desde, hasta, color, texto en la barra)
+        (52, "Mensaje", 0, 9.0, "c4", "9,0 s en total"),
+        (112, "Modelo", 0, 2.3, "c1", "2,3 s"),
+        (172, "Stock", 2.3, 7.4, "c2", "5,1 s"),
+        (232, "Modelo", 7.4, 9.0, "c1", "1,6 s"),
+    ]:
+        g.text(X0 - 8, y + 25, etiqueta, size=14, fill=INK, anchor="end")
+        g.box(X0 + a*PX, y, (b - a)*PX, 40, col, [txt], size=14, rx=6)
+    return g.render()
+
 CAPS = {
  "07": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación y lo que manda.", "Naranja: tu código, que tiene acceso al stock.", "Rojo: el resultado que devuelve tu código.", "El modelo nunca toca el sistema de stock: solo ve el pedido que escribió y el resultado que le llega."],
  "08": ["Celeste: lo que escribe el cliente.", "Verde: las llamadas al modelo y su respuesta.", "Naranja: tu código, que ejecuta las herramientas.", "Rojo: el tope, que corta aunque el modelo siga pidiendo.", 'En el ejemplo: la vuelta 1 consulta el stock de muzzarella y napolitana, la 2 calcula el total ($19.500) y la 3 responde "Lo confirmo?". Cuando el cliente dice "Dale", la vuelta 4 registra el pedido y la 5 responde "Listo, tu pedido es el 128."', "Cada vuelta es una llamada al modelo que vuelve a mandar todo lo anterior."],
@@ -271,9 +287,10 @@ CAPS = {
  "15": ["Naranja: tu código, que manda la parte fija y el mensaje.", "Verde: la API de Claude.", "Violeta: la caché.", "Rojo: el mensaje llegó cuando la caché ya se había vencido.", "Con la caché de 1 hora, el último paso sería otra lectura."],
  "16": ["Violeta: el golden set, lo que se guarda.", "Verde: el asistente que se prueba, y el cambio que entra.", "Naranja: tu código, que califica y compara.", "Rojo: el cambio no entra.", "La línea punteada: cada falla nueva que aparece se suma como un caso."],
  "17": ["Celeste: el cliente simulado, otro modelo que sigue un plan.", "Verde: el asistente que se prueba.", "Naranja: tu código, que califica el resultado: el pedido registrado, no las palabras exactas de la charla.", "Como el cliente simulado no dice siempre lo mismo, cada prueba se corre varias veces."],
+ "18": ["Celeste: el mensaje del cliente, de punta a punta: lo que espera.", "Verde: cada llamada al modelo. La primera pide la herramienta; la segunda responde.", "Naranja: la herramienta que corre tu código. El sistema de stock tardó 5,1 de los 9 segundos.", "Sin la traza, el registro solo diría 9 segundos, y la culpa iba al modelo."],
  "10": ["Verde: el modelo y lo que escribe.", "Violeta: tu aplicación (Claude, el asistente).", "Naranja: el servidor MCP y lo que devuelve.", "Los pasos 2, 3, 5 y 6 son los mismos que se vieron con las herramientas. Lo nuevo son el 1 y el 4: la lista y la ejecución vienen de un programa aparte, que puede haber escrito otro."],
 }
-FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15, "16": fig16, "17": fig17}
+FIGS = {"07": fig07, "08": fig08, "09": fig09, "10": fig10, "12": fig12, "13": fig13, "13b": fig13b, "14": fig14, "15": fig15, "16": fig16, "17": fig17, "18": fig18}
 
 def ul(items): return "<ul>" + "".join(f"<li>{esc(i)}</li>" for i in items) + "</ul>"
 

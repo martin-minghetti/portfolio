@@ -71,6 +71,10 @@ const PROMPTS = {
     "two glowing processor chips on separate pedestals facing each other, one holding up a translucent glowing shield-shaped plaque toward the other, " +
     "between them a small human-shaped silhouette sculpture made of translucent glass on its own pedestal, holding a matching plaque, " +
     "a large balance scale sculpture behind them with both pans level",
+  "18-observabilidad":
+    "a glowing processor chip on a pedestal, with a row of horizontal translucent glowing bars of different lengths floating beside it, " +
+    "stacked and offset like a cascade, one bar noticeably longer than the others, " +
+    "a large precise glass magnifying lens on a stand in front of the bars",
 };
 
 const token = process.env.REPLICATE_API_TOKEN;
