@@ -1,9 +1,9 @@
 ---
 title: "Agentes: cuando el modelo decide los pasos"
-date: 2026-10-27
+date: 2026-11-02
 order: 8
-draft: true
-description: "Qué es un agente, en qué se diferencia de un flujo de pasos fijos, cómo funciona el loop y cómo se corta, qué puede salir mal, y cuándo conviene uno, varios o ninguno, en Claude, OpenAI y Gemini."
+draft: false
+description: "Qué es un agente, en qué se diferencia de un flujo de pasos fijos, cómo funciona el loop y cómo se corta, qué puede salir mal, y cuándo conviene uno, varios o ninguno, en Claude, GPT y Gemini."
 ---
 
 Un martes, un cliente le escribe a la pizzería: "Quiero 3 muzzarellas y una napolitana, a Mitre 450". Los martes hay 2x1 en muzzarella, y el envío cuesta $1.500, gratis desde $25.000.
@@ -80,14 +80,14 @@ Nadie programó "si falta la napolitana, recalcular sin ella". Lo decidió el mo
 Un loop necesita una salida. Hay tres formas:
 
 - **Cuando el modelo termina.** Responde sin pedir herramientas. Es lo normal. Pero también puede cortar porque se quedó sin espacio para escribir o porque se negó a seguir, y en esos casos el trabajo no está hecho. Conviene revisar el motivo antes de darlo por terminado.
-- **Un tope de vueltas.** Tu código cuenta las vueltas y corta en un número, por ejemplo 10. Anthropic lo recomienda en su guía de 2024. Qué hacer al llegar al tope es una decisión de producto: en la pizzería, pasarle la charla a una persona. Los kits que traen el loop armado tienen cada uno su propio tope por defecto, y algunos no tienen ninguno: el ayudante de las librerías de Claude da vueltas hasta que el modelo termina, salvo que le pongas un tope. Conviene revisarlo en el kit que se use.
+- **Un tope de vueltas.** Tu código cuenta las vueltas y corta en un número, por ejemplo 10. Anthropic lo menciona como una práctica común en su guía de 2024. Qué hacer al llegar al tope es una decisión de producto: en la pizzería, pasarle la charla a una persona. Los kits que traen el loop armado tienen cada uno su propio tope por defecto, y algunos no tienen ninguno: el ayudante de las librerías de Claude da vueltas hasta que el modelo termina, salvo que le pongas un tope. Conviene revisarlo en el kit que se use.
 - **Un presupuesto.** En vez de contar vueltas, se cuenta el gasto. Claude tiene en beta un presupuesto de tokens para toda la tarea: el modelo ve cuánto le queda y se dosifica para terminar prolijo en vez de quedar cortado a la mitad. Anthropic aclara que es una guía para el modelo, no un tope duro.
 
 Estos topes son el primer control de un agente. El resto de los controles se ven más adelante en la serie.
 
 ## Qué puede salir mal
 
-**Loops sin fin.** El modelo consulta el stock una y otra vez, o dos agentes se pasan el trabajo entre ellos sin terminar. Google lo marca como el riesgo principal de los loops. Para eso está el tope.
+**Loops sin fin.** El modelo consulta el stock una y otra vez, o dos agentes se pasan el trabajo entre ellos sin terminar. Google lo marca como el riesgo principal de su patrón de loop. Para eso está el tope.
 
 **Errores que se acumulan.** Un error en la segunda vuelta, como un total mal calculado, arrastra todo lo que sigue. Anthropic lo resume así: los agentes tienen memoria de lo que pasó, y los errores se suman. Una cuenta para que se entienda, que supone pasos independientes: si cada paso sale bien el 95% de las veces, diez pasos seguidos salen bien alrededor del 60%. Por eso conviene que las cuentas las haga una herramienta y no el modelo, y que las herramientas devuelvan errores claros.
 
@@ -161,7 +161,7 @@ Lo que cambia respecto de aquel código:
 
 La regla de confirmar antes de registrar está en el system prompt, y es un pedido, no una garantía. Un control en el código, que no deje registrar sin una confirmación guardada, es más firme. Eso también se ve más adelante en la serie.
 
-No hace falta armar este loop en tu código: Anthropic, OpenAI y Google traen kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop por dentro ayuda a saber qué pasa cuando algo falla.
+No hace falta armar este loop en tu código: para Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google) hay kits que lo resuelven. Claude tiene un ayudante en sus librerías (en beta) y Managed Agents (también en beta), donde Anthropic corre el agente por vos. OpenAI tiene su Agents SDK, y Google, su ADK. Igual, entender el loop por dentro ayuda a saber qué pasa cuando algo falla.
 
 ## Cuándo conviene un agente
 
@@ -178,13 +178,13 @@ La regla de Anthropic es buscar la solución más simple posible y sumar complej
 
 Con la pizzería, la tentación es armar un agente de pedidos, otro de reclamos, otro de promos y un "jefe" que reparte. Anthropic, OpenAI y Google recomiendan lo contrario: empezar con uno.
 
-- **Anthropic**, en una guía de octubre de 2026, dice que un solo agente con skills suele dar mejor calidad que varios, muchas veces con menos costo y demora. En cada pase de un agente a otro se pierde información, como en el teléfono descompuesto. Un cliente que comparó las dos formas vio que un solo agente corría el doble de rápido. En la pizzería: un solo asistente, con una skill de reclamos que carga solo cuando alguien se queja.
-- **OpenAI**: "empezá con un agente siempre que puedas", y separá solo cuando una parte necesita otras instrucciones o permisos.
+- **Anthropic**, en una guía de octubre de 2026, dice que un solo agente con skills (paquetes de instrucciones que el agente carga solo cuando los necesita) suele dar mejor calidad que varios, muchas veces con menos costo y demora. En cada pase de un agente a otro se pierde información, como en el teléfono descompuesto. Un cliente que comparó las dos formas vio que un solo agente corría el doble de rápido. En la pizzería: un solo asistente, con una skill de reclamos que carga solo cuando alguien se queja.
+- **OpenAI**: "empezá con un agente siempre que puedas", y separá solo cuando una parte necesita otras instrucciones, otras herramientas u otras reglas.
 - **Google**: un solo agente es ideal para tareas de varios pasos con datos externos, y recomienda empezar por ahí.
 
 Un **subagente**, otro agente al que el principal le encarga una parte, sí tiene sentido para tareas pesadas que llenarían la ventana. Por ejemplo, leer las 2.000 reseñas del mes y devolver las tres quejas más repetidas: lo hace en su propia ventana y devuelve solo el resumen. También sirve para tareas en paralelo.
 
-Esa es la contracara que se anunció al hablar de la ventana de contexto: según Anthropic, en enero de 2026, varios agentes gastan entre 3 y 10 veces más tokens que uno solo para la misma tarea. Y juntar agentes también puede romper algo: en un ejemplo de la guía de octubre, al fusionar un subagente de envíos con el principal, el asistente empezó a contestar solo y dejó de consultar la fecha de entrega. Por eso la guía pide medir antes y después de cada cambio. Cómo se mide se ve más adelante en la serie.
+Esa es la contracara que se anunció al hablar de la ventana de contexto: según Anthropic, en enero de 2026, varios agentes gastan entre 3 y 10 veces más tokens que uno solo para la misma tarea. Y juntar agentes también puede romper algo: en un ejemplo de la guía de octubre, al fusionar un subagente con otro, el asistente principal empezó a contestar solo con la herramienta de pedidos y dejó de preguntarle la fecha de entrega al subagente de envíos. Por eso la guía pide medir antes y después de cada cambio. Cómo se mide se ve más adelante en la serie.
 
 No es "nunca varios". En 2025, Anthropic mostró que para investigar un tema, que se reparte bien en partes, varios agentes rindieron 90% más que uno en su prueba interna, a cambio de muchos más tokens. Es "varios, solo con una razón concreta".
 
