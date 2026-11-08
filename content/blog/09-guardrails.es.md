@@ -2,7 +2,7 @@
 title: "Guardrails: los controles alrededor del modelo"
 date: 2026-11-03
 order: 9
-draft: true
+draft: false
 description: "Qué es un guardrail, por qué el system prompt no alcanza, dónde va cada control (entrada, herramientas, salida y límites), qué hacer cuando salta, cuánto cuesta y cómo elegir, en Claude, GPT y Gemini."
 ---
 
