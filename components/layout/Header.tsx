@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import StickyContactCta from "./StickyContactCta";
+import LangSwitch from "./LangSwitch";
 
 type Props = {
   locale: Locale;
@@ -10,7 +11,6 @@ type Props = {
 };
 
 export default function Header({ locale, dict }: Props) {
-  const otherLocale: Locale = locale === "en" ? "es" : "en";
   return (
     <ViewTransition name="site-header">
     <header className="site-header sticky top-0 z-(--z-sticky-nav) border-b border-rule bg-paper">
@@ -20,13 +20,7 @@ export default function Header({ locale, dict }: Props) {
         </Link>
 
         <nav className="flex items-center gap-3 sm:gap-6">
-          <Link
-            href={`/${otherLocale}`}
-            className="tlink"
-            aria-label={`Switch to ${otherLocale.toUpperCase()}`}
-          >
-            {dict.nav.langSwitch}
-          </Link>
+          <LangSwitch locale={locale} label={dict.nav.langSwitch} />
           <Link href={`/${locale}/blog`} className="tlink">
             {dict.nav.blog}
           </Link>
