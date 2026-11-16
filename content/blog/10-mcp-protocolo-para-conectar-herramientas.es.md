@@ -1,14 +1,14 @@
 ---
 title: "MCP: el protocolo para conectar herramientas"
-date: 2026-10-27
+date: 2026-11-04
 order: 10
-draft: true
-description: "Qué es MCP, qué problema resuelve, las tres piezas, qué ofrece un servidor, local o remoto, un servidor de 15 líneas para la pizzería, cómo se conecta desde Claude, OpenAI y Gemini, cuándo conviene y qué cuidar."
+draft: false
+description: "Qué es MCP, qué problema resuelve, las tres piezas, qué ofrece un servidor, local o remoto, un servidor de menos de 20 líneas para la pizzería, cómo se conecta desde Claude, GPT y Gemini, cuándo conviene y qué cuidar."
 ---
 
 Hasta acá, todas las herramientas del asistente de la pizzería, el que atiende a los clientes por WhatsApp, eran tuyas. `consultar_stock` y `registrar_pedido` viven en tu código, y tu código las ejecuta.
 
-Ahora pasan dos cosas. La Esquina empieza a tomar reservas para el salón con un sistema de otra empresa, y el asistente tiene que poder consultarlo. Y el dueño quiere preguntarle a Claude desde su compu "cuánta muzzarella queda", sin pasar por el asistente.
+Ahora pasan dos cosas. La Esquina empieza a tomar reservas para el salón con un sistema de otra empresa, y el asistente tiene que poder consultarlo. Y el dueño quiere preguntarle a Claude desde su computadora "cuánta muzzarella queda", sin pasar por el asistente.
 
 Sin un acuerdo común, eso es escribir código para hablar con el sistema de reservas dentro del asistente. Después, escribir otra vez `consultar_stock` para la aplicación de escritorio. Y otra vez si mañana el dueño prefiere ChatGPT. Cada aplicación con cada sistema, una integración distinta.
 
@@ -18,9 +18,9 @@ Este post trata de cómo se escribe una herramienta una sola vez y se usa desde 
 
 **MCP** (Model Context Protocol) es un protocolo: un acuerdo público sobre cómo se hablan dos programas. En este caso, cómo una aplicación de IA le pregunta a otro programa qué herramientas tiene, y cómo le pide que ejecute una.
 
-La documentación oficial lo compara con un puerto USB-C: el mismo conector para cualquier aparato. Lo creó Anthropic a fines de 2024. Desde diciembre de 2025 lo cuida la Agentic AI Foundation, parte de la Linux Foundation, que fundaron Anthropic, OpenAI y Block. Por eso hoy lo usan ChatGPT, Claude, Cursor, Gemini, Microsoft Copilot y VS Code, entre otros.
+La documentación oficial lo compara con un puerto USB-C: el mismo conector para cualquier aparato. Lo creó Anthropic a fines de 2024. Desde diciembre de 2025 lo cuida la Agentic AI Foundation, un fondo dentro de la Linux Foundation (la organización sin fines de lucro detrás de Linux y de otros proyectos abiertos) que fundaron Anthropic, OpenAI y Block, la empresa de pagos dueña de Square. Hoy lo usan las aplicaciones Claude (de Anthropic), ChatGPT (de OpenAI, que funciona con sus modelos GPT) y Gemini (de Google), y también Microsoft Copilot y editores de código como Cursor y VS Code, entre otros.
 
-El problema que resuelve se ve con números chicos. Tres aplicaciones (el asistente, Claude en la compu del dueño y ChatGPT) y dos sistemas (stock y reservas) son seis integraciones. Con MCP, cada sistema escribe un **servidor** una vez, y cada aplicación que ya habla MCP lo puede usar.
+El problema que resuelve se ve con números chicos. Tres aplicaciones (el asistente, Claude en la computadora del dueño y ChatGPT) y dos sistemas (stock y reservas) son seis integraciones. Con MCP, cada sistema escribe un **servidor** una vez, y cada aplicación que ya habla MCP lo puede usar.
 
 ## Para el modelo no cambia nada
 
@@ -69,7 +69,7 @@ Lo que cambia es de dónde sale la lista de herramientas y quién las ejecuta:
 ## Las tres piezas
 
 - **Servidor**: el programa que ofrece las herramientas. Por ejemplo, uno que expone `consultar_stock`. Lo puede escribir el dueño de los datos o cualquier empresa. Mercado Pago, por ejemplo, publica uno para desarrolladores: desde Claude, Cursor o ChatGPT se puede buscar su documentación, crear usuarios de prueba o configurar los avisos de pagos. Es para quien programa la integración, no para cobrarle al cliente.
-- **Host**: la aplicación donde está el modelo. Claude Code, ChatGPT, el asistente de la pizzería.
+- **Host**: la aplicación donde está el modelo. Claude Code (la herramienta de Anthropic para programar con Claude desde la terminal), ChatGPT, el asistente de la pizzería.
 - **Cliente**: la parte de la aplicación que habla con un servidor. Hay uno por cada servidor conectado. Para arrancar, alcanza con saber que la aplicación lo trae adentro.
 
 En el resto del post, "la aplicación" es el host con sus clientes.
@@ -82,20 +82,20 @@ Un servidor puede ofrecer tres cosas, y cada una la decide alguien distinto:
 - **Recursos**: datos para leer, que trae la aplicación. Por ejemplo, el menú del día como texto.
 - **Prompts**: plantillas que elige el usuario, como "armá el resumen de ventas del día".
 
-En la práctica, casi todo son herramientas. Las APIs de Claude, OpenAI y Gemini solo toman herramientas de un servidor. Los recursos y los prompts los aprovechan aplicaciones como Claude Code.
+En la práctica, casi todo son herramientas. Las APIs de Claude, GPT y Gemini traen solo las herramientas de un servidor: Anthropic lo aclara, y OpenAI y Google documentan solo eso. Los recursos y los prompts los aprovechan aplicaciones como Claude Code.
 
 ## Local o remoto
 
 Hay dos formas de conectar un servidor:
 
-- **Local.** La aplicación arranca el servidor como un programa en tu compu, y se hablan por la entrada y la salida de ese programa, como en una terminal. A esto se le dice **stdio**. Sirve para una persona: el dueño en su notebook.
-- **Remoto.** El servidor está en internet, en una dirección web, y atiende a muchos. A esta forma se le dice **Streamable HTTP**. Es la que necesita el asistente de la pizzería si quiere que el proveedor del modelo se conecte al servidor, porque las APIs de los tres solo se conectan a servidores remotos.
+- **Local.** La aplicación arranca el servidor como un programa en tu computadora, y se hablan por la entrada y la salida de ese programa, como en una terminal. A esto se le dice **stdio**. Sirve para una persona: el dueño en su notebook.
+- **Remoto.** El servidor está en internet, en una dirección web, y atiende a muchos. A esta forma se le dice **Streamable HTTP**. Es la que necesita el asistente de la pizzería si quiere que el proveedor del modelo se conecte al servidor, porque las APIs de Claude, GPT y Gemini se conectan a servidores remotos (OpenAI acepta además uno local, a través de un túnel).
 
 Desde julio de 2026, la versión vigente del protocolo es más simple: cada pedido viaja con todo lo que necesita, sin una conexión que haya que mantener abierta. Eso hace más fácil repartir un servidor remoto entre varias máquinas.
 
 ## Cómo se ve en código
 
-Este es un servidor completo, con el SDK oficial de Python, que expone `consultar_stock` con la misma descripción que se vio con las herramientas:
+Este es un servidor completo, con el SDK oficial de Python (la librería que publica el proyecto MCP para armar servidores y clientes), que expone `consultar_stock` con la misma descripción que se vio con las herramientas:
 
 ```python
 from typing import Literal
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     mcp.run()  # por defecto, local: la aplicación lo arranca como un programa
 ```
 
-Y para usarlo desde Claude Code, en la compu del dueño:
+Y para usarlo desde Claude Code, en la computadora del dueño:
 
 ```bash
 pip install mcp
@@ -163,8 +163,8 @@ Un ejemplo de por qué importa: si `registrar_pedido` estuviera en un servidor M
 MCP no hace falta siempre. Un criterio simple:
 
 - **Herramienta propia.** Si la usa una sola aplicación y es tuya, alcanza con definirla como se vio con las herramientas. El asistente con `registrar_pedido` no gana nada con MCP: suma un programa más que mantener.
-- **MCP.** Si la herramienta ya existe y la armó otro (el sistema de reservas, GitHub, Notion), o si la querés usar desde varias aplicaciones: el asistente, Claude en la compu del dueño y ChatGPT.
-- **Skill.** Si lo que falta no es acceso a un sistema sino saber cómo hacer algo, como el procedimiento para un reclamo, que ya apareció en la serie. Anthropic lo resume así, en un artículo de 2026: MCP conecta a Claude con los datos; las skills le enseñan qué hacer con ellos. Se usan juntas.
+- **MCP.** Si la herramienta ya existe y la armó otro (el sistema de reservas, GitHub, donde se guarda código, o Notion, una aplicación de notas y documentos), o si la querés usar desde varias aplicaciones: el asistente, Claude en la computadora del dueño y ChatGPT.
+- **Skill** (un paquete de instrucciones que el modelo carga solo cuando lo necesita). Si lo que falta no es acceso a un sistema sino saber cómo hacer algo, como el procedimiento para un reclamo, que ya apareció en la serie. Anthropic lo resume así, en un artículo de 2026: MCP conecta a Claude con los datos; las skills le enseñan qué hacer con ellos. Se usan juntas.
 
 Y un costo que conviene tener en cuenta: cada servidor suma definiciones de herramientas a cada llamada. En un artículo de noviembre de 2025, [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp), Anthropic contó un caso que pasó de 150.000 tokens a 2.000 cargando las herramientas solo cuando hacían falta. Conectar diez servidores "por las dudas" llena la ventana de contexto, como se vio antes en la serie.
 
@@ -184,16 +184,16 @@ Los ataques con nombre propio y cómo se defienden se ven más adelante en la se
 
 ## Lo mismo en los tres
 
-Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+Así se ve en Claude, GPT y Gemini:
 
 | | Claude | GPT | Gemini |
 |---|---|---|---|
 | Conectar un servidor desde la API | Conector MCP (beta) | Herramienta `mcp` | Herramienta `mcp_server` |
 | Qué servidores acepta | Remotos | Remotos; locales con un túnel | Remotos, solo con Streamable HTTP |
 | Quién aprueba cada llamada | Nadie: elegís qué herramientas habilitar | Pide aprobación por defecto; se puede apagar | Su guía no lo menciona |
-| En sus herramientas para agentes | Claude Code y el Agent SDK, locales y remotos | Agents SDK, locales y remotos | ADK, locales y remotos |
+| En sus herramientas para agentes | Claude Code y el Agent SDK, locales y remotos | Agents SDK, locales y remotos | ADK (el kit de Google para agentes), locales y remotos |
 
-Los tres toman solo herramientas del servidor, y OpenAI aclara que no cobra aparte por usarlo: solo los tokens. En Gemini hay un detalle sin resolver: una página de Google dice que Gemini 3 todavía no acepta servidores remotos, y otra lo muestra funcionando con un Gemini 3. Antes de contar con eso, conviene probarlo.
+Los tres traen las herramientas del servidor, y OpenAI aclara que no cobra aparte por usarlo: solo los tokens. En Gemini hay un detalle sin resolver: una página de Google dice que Gemini 3 todavía no acepta servidores remotos, y otra lo muestra funcionando con un Gemini 3. Antes de contar con eso, conviene probarlo.
 
 Y para no confundir, lo que MCP no es. No es un modelo ni la API de un proveedor. No reemplaza al uso de herramientas: es lo mismo, con la lista y la ejecución afuera. Y no es A2A, otro protocolo abierto, creado por Google y hoy también en la Agentic AI Foundation, que sirve para que un agente hable con otro agente.
 
@@ -201,8 +201,8 @@ Y para no confundir, lo que MCP no es. No es un modelo ni la API de un proveedor
 
 - MCP es un acuerdo para que cualquier aplicación use las herramientas de cualquier servidor. Se escribe la herramienta una vez y se usa desde muchas.
 - Para el modelo no cambia nada: una herramienta MCP es una herramienta más. Cambia quién tiene la lista y quién la ejecuta.
-- Un servidor ofrece sobre todo herramientas. Puede ser local, en tu compu, o remoto, en internet.
-- Con el SDK oficial, un servidor entra en 15 líneas.
+- Un servidor ofrece sobre todo herramientas. Puede ser local, en tu computadora, o remoto, en internet.
+- Con el SDK oficial, un servidor entra en menos de 20 líneas.
 - Conviene cuando la herramienta la armó otro o la querés en varias aplicaciones. Para una herramienta propia de una sola aplicación, no hace falta.
 - Conectá solo servidores que conocés, con las herramientas que usás, y con aprobación para lo que tiene efecto.
 
