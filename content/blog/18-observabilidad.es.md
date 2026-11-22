@@ -287,7 +287,7 @@ Los tres hablan OpenTelemetry: lo que se registra con el estándar se puede mira
 
 ## Del registro al golden set
 
-La observabilidad no reemplaza a los evals: los completa. Anthropic, en su guía de evals, pone las contras del monitoreo con clientes reales sin vueltas: "Reactive; problems reach users before you know about them" (es reactivo: los problemas llegan a los clientes antes de que te enteres), y "Lacks ground truth for grading" (no hay respuesta correcta para comparar).
+La observabilidad no reemplaza a los evals: los completa. Anthropic, en su guía de evals, pone así las contras del monitoreo con clientes reales: "Reactive; problems reach users before you know about them" (es reactivo: los problemas llegan a los clientes antes de que te enteres), y "Lacks ground truth for grading" (no hay respuesta correcta para comparar).
 
 Los evals frenan los errores conocidos antes de salir. El monitoreo encuentra los que nadie imaginó. Y se unen en un punto: cada falla que aparece con un cliente real se convierte en un caso del golden set. Si el viernes la consulta al stock tardó 5 segundos y el asistente le dijo al cliente que no había napolitana, ese mensaje entra al golden set, y el próximo cambio se prueba también con él.
 

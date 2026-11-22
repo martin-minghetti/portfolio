@@ -26,7 +26,7 @@ La salida obvia es pegar todos los documentos en el prompt. Tiene tres problemas
 
 ### Antes de seguir: si entra, ponelo en el prompt
 
-Anthropic lo dice sin vueltas en [Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval), de septiembre de 2024: si tu base de conocimiento tiene menos de 200.000 tokens (unas 500 páginas), podés ponerla entera en el prompt, y el prompt caching lo abarata.
+Anthropic lo explica en [Introducing Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval), de septiembre de 2024: si tu base de conocimiento tiene menos de 200.000 tokens (unas 500 páginas), podés ponerla entera en el prompt, y el prompt caching lo abarata.
 
 Con una sola pizzería, no hace falta nada de lo que sigue. La carta va en el prompt. Lo que sigue es para cuando los documentos no entran, o son muchos más de lo que cada pregunta necesita.
 
