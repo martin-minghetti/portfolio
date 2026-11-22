@@ -172,7 +172,7 @@ Y un costo que conviene tener en cuenta: cada servidor suma definiciones de herr
 
 Un servidor que conectás mete dos cosas en tu agente. Texto que el modelo lee, como las descripciones de las herramientas y lo que devuelven. Y acciones que se ejecutan afuera de tu código.
 
-Con un servidor local es todavía más directo. La [guía de seguridad para servidores locales](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/local-server-security) de MCP lo dice sin vueltas: es código bajado de internet que corre con tu usuario, y puede leer todo lo que tu usuario puede leer. Del lado remoto, OpenAI avisa en su guía que un servidor malicioso puede sacar datos de todo lo que entra al contexto del modelo.
+Con un servidor local es todavía más directo. La [guía de seguridad para servidores locales](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/local-server-security) de MCP lo explica así: es código bajado de internet que corre con tu usuario, y puede leer todo lo que tu usuario puede leer. Del lado remoto, OpenAI avisa en su guía que un servidor malicioso puede sacar datos de todo lo que entra al contexto del modelo.
 
 Tres reglas para empezar:
 
