@@ -1,14 +1,14 @@
 ---
 title: "Orquestación: cuándo conviene LangChain o LangGraph"
-date: 2026-10-28
+date: 2026-11-05
 order: 11
-draft: true
-description: "Qué es orquestar, qué agregan los frameworks, LangChain hoy, cómo funciona un grafo de LangGraph con pausas y estado guardado, el mismo flujo con y sin framework, cuándo conviene y qué hacen Claude, OpenAI y Gemini."
+draft: false
+description: "Qué es orquestar, qué agregan los frameworks, LangChain hoy, cómo funciona un grafo de LangGraph con pausas y estado guardado, el mismo flujo con y sin framework, cuándo conviene y qué hacen Claude, GPT y Gemini."
 ---
 
 El asistente de la pizzería ya toma pedidos por WhatsApp. Es un agente con dos o tres herramientas, un loop de veinte líneas y un control en el código que no registra nada sin la confirmación del cliente.
 
-Ahora La Esquina quiere tomar reservas del salón para cumpleaños, con seña. El flujo es otro: ver si hay lugar en el sistema de reservas (el de otra empresa, conectado por MCP), pedir la seña, esperar que el cliente pague, confirmar la reserva en el sistema y mandar un recordatorio el día antes.
+Ahora La Esquina quiere tomar reservas del salón para cumpleaños, con seña. El flujo es otro: ver si hay lugar en el sistema de reservas (el de otra empresa, conectado por MCP, el protocolo estándar para conectar herramientas de otras empresas), pedir la seña, esperar que el cliente pague, confirmar la reserva en el sistema y mandar un recordatorio el día antes.
 
 Lo nuevo no es la cantidad de pasos. Son las esperas. Entre un paso y otro pueden pasar horas, el servidor se puede reiniciar en el medio, y cuando el cliente vuelve a escribir hay que saber en qué punto quedó.
 
@@ -40,7 +40,7 @@ Desde la versión 1.0, de octubre de 2025, su pieza central es `create_agent`: e
 
 Lo que suma son los **middleware**: piezas que se enchufan al loop para agregar cosas sin escribirlas. Pedir aprobación antes de usar una herramienta, cortar después de cierta cantidad de llamadas, pasar a otro modelo si el primero falla, resumir la charla cuando se alarga. Son los controles que se vieron con los guardrails, empaquetados.
 
-Su ventaja más concreta es no atarte a un proveedor. Cambiar de Claude a OpenAI es cambiar un texto: `"anthropic:claude-opus-5-5"` por el nombre del otro modelo. La contracara: lo más nuevo de cada proveedor llega primero a su propio SDK, y a LangChain después.
+Su ventaja más concreta es no atarte a un proveedor. Cambiar de Claude (de Anthropic) a GPT (los modelos de OpenAI que usa ChatGPT) o a Gemini (de Google) es cambiar un texto: `"anthropic:claude-opus-5-5"` por el nombre del otro modelo. La contracara: lo más nuevo de cada proveedor llega primero a su propio SDK (la librería oficial de cada uno), y a LangChain después.
 
 Un aviso para quien busque tutoriales: casi todos los de 2023 y 2024 usan "chains" (`LLMChain` y parecidas). Desde la 1.0 se mudaron a un paquete aparte, y el import viejo da error. Si un tutorial arranca con `from langchain.chains import ...`, está desactualizado.
 
@@ -61,13 +61,13 @@ Las piezas, con el pedido de la pizzería:
 <figure>
 <p class="fig-title">El pedido como grafo</p>
 <svg viewBox="0 0 400 800" width="100%" role="img" aria-labelledby="g11t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
-<title id="g11t">Diagrama del pedido: el mensaje del cliente pasa por entender el pedido, consultar stock y calcular el total; si no hay stock avisa y termina; después pausa hasta que el cliente contesta; si dice que si registra el pedido, si no termina sin registrar.</title>
+<title id="g11t">Diagrama del pedido: el mensaje del cliente pasa por entender el pedido, consultar stock y calcular el total; si no hay stock avisa y termina; después pausa hasta que el cliente contesta; si dice que sí registra el pedido, si no termina sin registrar.</title>
 <defs><marker id="g11a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--color-ink)"/></marker></defs>
 <g stroke="var(--color-ink)" stroke-width="1.5" fill="none" marker-end="url(#g11a)">
 <path d="M110 72V98"/><path d="M110 156V182"/><path d="M110 234V262"/><path d="M110 338V364"/><path d="M110 416V444"/><path d="M110 538V564"/><path d="M110 640V666"/><path d="M110 718V744"/>
 <path d="M180 300H243"/><path d="M180 602H243"/>
 </g>
-<g font-size="15" fill="var(--color-muted)"><text x="198" y="291">no</text><text x="120" y="356">si</text><text x="198" y="593">no</text><text x="120" y="658">si</text></g>
+<g font-size="15" fill="var(--color-muted)"><text x="198" y="291">no</text><text x="120" y="356">sí</text><text x="198" y="593">no</text><text x="120" y="658">sí</text></g>
 <g stroke="var(--color-ink)" stroke-opacity=".25">
 <rect x="10" y="20" width="200" height="52" rx="10" fill="oklch(88% 0.07 230)"/>
 <rect x="10" y="100" width="200" height="56" rx="10" fill="oklch(88% 0.08 150)"/>
@@ -89,17 +89,17 @@ Las piezas, con el pedido de la pizzería:
 <text x="110" y="397">Calcular total</text>
 <text x="110" y="472">Pausa: "Son $27.000.</text><text x="110" y="492">Lo confirmo?"</text>
 <text x="110" y="513" font-size="14" fill="var(--color-muted)">guarda el pedido y espera,</text><text x="110" y="529" font-size="14" fill="var(--color-muted)">aunque pasen horas</text>
-<text x="110" y="608" font-size="16">Dijo que si?</text>
+<text x="110" y="608" font-size="16">Dijo que sí?</text>
 <text x="110" y="699">Registrar pedido</text>
 <text x="110" y="769" font-size="15">Fin</text>
 <text x="317" y="297" font-size="16">Avisar</text><text x="317" y="316" font-size="14" fill="var(--color-muted)">y terminar</text>
 <text x="317" y="599" font-size="16">No registrar</text><text x="317" y="618" font-size="14" fill="var(--color-muted)">y terminar</text>
 </g>
 </svg>
-<figcaption><ul><li>Celeste: lo que escribe el cliente.</li><li>Verde: el paso que usa el modelo.</li><li>Naranja: pasos de tu código.</li><li>Violeta: la pausa.</li><li>Rojo: el paso que tiene efecto.</li><li>Los rombos son los caminos que se eligen según el estado.</li><li>A "Registrar pedido" se llega por un solo camino, después de un "si".</li></ul></figcaption>
+<figcaption><ul><li>Celeste: lo que escribe el cliente.</li><li>Verde: el paso que usa el modelo.</li><li>Naranja: pasos de tu código.</li><li>Violeta: la pausa.</li><li>Rojo: el paso que cambia algo de verdad (registra el pedido).</li><li>Los rombos son los caminos que se eligen según el estado.</li><li>A "Registrar pedido" se llega por un solo camino, después de un "sí".</li></ul></figcaption>
 </figure>
 
-LangChain y LangGraph se llevan así: `create_agent` está construido sobre LangGraph. Uno es el auto armado y el otro es el motor. Y el motor se puede usar solo: la documentación lo dice tal cual, "you don't need to use LangChain to use LangGraph". Adentro de un paso podés llamar al SDK de Anthropic directo, sin LangChain.
+LangChain y LangGraph se llevan así: `create_agent` está construido sobre LangGraph. Uno es el auto armado y el otro es el motor. Y el motor se puede usar solo. La documentación lo dice tal cual: "LangGraph does not require LangChain". Adentro de un paso podés llamar al SDK de Anthropic directo, sin LangChain.
 
 ## Workflow o agente, otra vez
 
@@ -109,7 +109,7 @@ LangGraph deja mezclar los dos. Un grafo de pasos fijos donde uno de los pasos e
 
 ## Cómo se ve en código
 
-Este es el pedido completo como grafo, con LangGraph en Python. El paso que en la vida real llama al modelo acá devuelve un pedido fijo, para que se pueda correr sin clave:
+Este es el pedido completo como grafo, con LangGraph en Python. El paso que en la vida real llama al modelo acá devuelve un pedido fijo, para que se pueda correr sin clave de la API:
 
 ```python
 from typing import TypedDict
@@ -137,7 +137,7 @@ def consultar_stock(p):
 
 def calcular_total(p):
     total = sum(PRECIOS[x] * n for x, n in p["items"].items())
-    return {"total": total + (0 if total >= 25000 else 1500)}
+    return {"total": total + (0 if total >= 25000 else 1500)}  # envío gratis desde $25.000
 
 def pedir_confirmacion(p):
     dijo = interrupt(f"Son ${p['total']}. Lo confirmo?")  # se frena hasta que el cliente conteste
@@ -146,12 +146,15 @@ def pedir_confirmacion(p):
 def registrar_pedido(p):
     return {"respuesta": "Listo, pedido 128."}
 
+def no_registrar(p):
+    return {"respuesta": "Dale, no lo registro."}
+
 def avisar_faltante(p):
     return {"respuesta": f"Hoy no queda {', '.join(p['faltantes'])}."}
 
 g = StateGraph(Pedido)
 for paso in (entender_pedido, consultar_stock, calcular_total,
-             pedir_confirmacion, registrar_pedido, avisar_faltante):
+             pedir_confirmacion, registrar_pedido, no_registrar, avisar_faltante):
     g.add_node(paso)
 g.add_edge(START, "entender_pedido")
 g.add_edge("entender_pedido", "consultar_stock")
@@ -159,8 +162,9 @@ g.add_conditional_edges("consultar_stock",
     lambda p: "avisar_faltante" if p["faltantes"] else "calcular_total")
 g.add_edge("calcular_total", "pedir_confirmacion")
 g.add_conditional_edges("pedir_confirmacion",
-    lambda p: "registrar_pedido" if p["confirmado"] else END)
+    lambda p: "registrar_pedido" if p["confirmado"] else "no_registrar")
 g.add_edge("registrar_pedido", END)
+g.add_edge("no_registrar", END)
 g.add_edge("avisar_faltante", END)
 grafo = g.compile(checkpointer=InMemorySaver())
 
@@ -176,7 +180,7 @@ Lo que hay que mirar:
 - **El control quedó en la forma del grafo.** `registrar_pedido` solo se alcanza por el camino que sale de la confirmación cuando el cliente dijo que sí. El "no registrar sin confirmación" que se vio con los guardrails ya no es un `if` que alguien se puede olvidar: no hay otro camino que llegue ahí.
 - **El hilo une las dos mitades.** Entre el primer `invoke` y el segundo pueden pasar horas. Lo que los conecta es el `thread_id`, el número de WhatsApp del cliente.
 - **LangGraph no le escribe al cliente.** El texto de la pausa vuelve en `r["__interrupt__"]`, y lo manda tu código por WhatsApp.
-- **En memoria no alcanza.** `InMemorySaver` guarda el estado en la memoria del programa: si se reinicia, se pierde. Para que sobreviva, se cambia por uno que guarda en una base de datos, como SQLite o Postgres.
+- **En memoria no alcanza.** `InMemorySaver` guarda el estado en la memoria del programa: si se reinicia, se pierde. Para que sobreviva, se cambia por uno que guarda en una base de datos, como SQLite o Postgres, dos bases de datos muy usadas.
 
 Y una trampa que conviene conocer antes de que muerda. Cuando el grafo retoma, el paso de la pausa vuelve a correr desde el principio. La [documentación de las pausas](https://docs.langchain.com/oss/python/langgraph/interrupts) lo avisa: todo lo que está antes del `interrupt` se ejecuta otra vez. Si `pedir_confirmacion` mandara un WhatsApp antes de pausar, el cliente lo recibiría dos veces. Por eso el total se calcula en el paso anterior, y el paso de la pausa no hace nada antes de frenarse.
 
@@ -194,7 +198,7 @@ def nuevo_pedido(telefono, items):
     if faltan:
         return f"Hoy no queda {', '.join(faltan)}."
     total = sum(PRECIOS[p] * n for p, n in items.items())
-    total += 0 if total >= 25000 else 1500
+    total += 0 if total >= 25000 else 1500  # envío gratis desde $25.000
     pendientes[telefono] = {"items": items, "total": total}
     return f"Son ${total}. Lo confirmo?"
 
@@ -205,7 +209,7 @@ def respuesta_del_cliente(telefono, dijo):
     return "Listo, pedido 128."  # acá se llama a registrar_pedido
 ```
 
-Hace lo mismo con dos funciones y un diccionario. Son 18 líneas contra casi 60. La espera es guardar el pedido pendiente con el teléfono del cliente: es el hilo de LangGraph, hecho con tu propio código.
+Hace lo mismo con dos funciones y un diccionario. Son 18 líneas contra unas 60. La espera es guardar el pedido pendiente con el teléfono del cliente: es el hilo de LangGraph, hecho con tu propio código.
 
 Lo que no tiene: guardar solo después de cada paso, retomar cualquier punto de un flujo largo, ver el historial de pasos, reintentos. Con una sola espera, no se extraña. Con cinco esperas y tres caminos, como en las reservas con seña, sí.
 
@@ -215,35 +219,35 @@ Con la pizzería se ve claro.
 
 **El asistente de pedidos de hoy: sin framework.** Un agente, pocas herramientas, una sola espera. El loop propio y una tabla de pedidos pendientes alcanzan. Un framework sumaría una dependencia que se actualiza seguido, una forma de pensar nueva y una capa entre vos y el modelo.
 
-Anthropic lo dice así en [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), de diciembre de 2024: conviene empezar usando la API directo, porque muchos patrones se resuelven en pocas líneas. Y advierte que los frameworks suelen agregar capas que esconden los prompts que se le mandan al modelo, y eso hace más difícil encontrar errores.
+Anthropic lo dice así en [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), de diciembre de 2024: conviene empezar usando la API directo, porque muchos patrones se resuelven en pocas líneas. Y advierte que los frameworks suelen agregar capas que esconden los prompts que se le mandan al modelo, y eso hace más difícil encontrar errores. La propia Anthropic aclara arriba de ese artículo que las herramientas cambiaron mucho desde entonces, pero el consejo de empezar simple sigue en pie.
 
 **Las reservas con seña: ahí empieza a convenir.** Varias esperas: el pago, la confirmación del sistema de reservas, el recordatorio del día antes. Caminos distintos: si no paga en una hora, se libera la mesa; si el sistema de reservas falla, se reintenta. Y un proceso que dura días y tiene que sobrevivir a un reinicio. Es justo para lo que LangChain dice que sirve LangGraph en el anuncio de su versión 1.0: procesos de negocio largos, y flujos sensibles donde una persona tiene que aprobar.
 
-**Probar varios proveedores sin reescribir: LangChain ayuda.** Si hoy no sabés si vas a quedarte con Claude, OpenAI o Gemini, cambiar de uno a otro es cambiar un texto.
+**Probar varios proveedores sin reescribir: LangChain ayuda.** Si hoy no sabés si vas a quedarte con Claude, GPT o Gemini, cambiar de uno a otro es cambiar un texto.
 
 **Un equipo que necesita una forma común de armar agentes: un framework ordena.** Para una persona sola con un asistente, no hace falta.
 
 Una regla para quedarse: empezar sin framework, y sumarlo cuando tu código empiece a necesitar lo que el framework ya trae, como guardar el estado de cada charla, pausas o reintentos. Aunque la IA te lo escriba rápido, después ese código es tuyo para entenderlo y mantenerlo. Y si lo usás, entender qué hace por debajo. Es el mismo consejo de Anthropic.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
-Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
+Así se ve en Claude, GPT y Gemini:
 
 | | Claude | GPT | Gemini |
 |---|---|---|---|
-| Su kit para agentes | Claude Agent SDK: el agente de Claude Code como librería | Agents SDK | ADK |
+| Su kit para agentes | Claude Agent SDK: el agente de Claude Code (la herramienta de Anthropic para programar con Claude) como librería | Agents SDK | ADK (Agent Development Kit) |
 | Cómo se ordenan varios pasos | El modelo arma el flujo para cada tarea (dynamic workflows) | Con código Python común, o pasando la charla a otro agente | Grafos fijos en tu código, desde ADK 2.0 |
-| Alojado por el proveedor | Managed Agents (beta) | Agents API | Agent Runtime, que también aloja agentes de LangGraph |
+| Alojado por el proveedor | Managed Agents (beta) | Agents API (beta) | Agent Runtime, que también aloja agentes de LangGraph |
 
 Cada uno apuesta a algo distinto:
 
 - **Google**, a grafos: el flujo queda fijo en tu código, como en LangGraph. Están en ADK 2.0, para Python, TypeScript y Go.
-- **OpenAI**, a código común. Su documentación del Agents SDK lo dice así: orquestar con código hace las tareas más predecibles en velocidad, costo y resultado. Y está cerrando Agent Builder, su editor para armar flujos arrastrando cajas.
+- **OpenAI**, a código común. Su documentación del Agents SDK lo dice así: orquestar con código hace las tareas más predecibles en velocidad, costo y resultado. Y en junio de 2026 anunció que el 30 de noviembre cierra Agent Builder, su editor para armar flujos arrastrando cajas.
 - **Anthropic**, a que el modelo arme el flujo. En Claude Code y en Managed Agents, el agente puede escribir su propio programa que reparte el trabajo entre varios agentes. En [A harness for every task](https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/), de junio de 2026, avisa que eso suele gastar más tokens y conviene para tareas complejas que lo valen.
 
-Los tres modelos se pueden usar desde LangChain y LangGraph, pero ninguno de los tres arma su propio kit sobre ellos.
+Claude, GPT y Gemini se pueden usar desde LangChain y LangGraph, pero ni Anthropic ni OpenAI ni Google arman su propio kit sobre ellos.
 
-Dos cosas más del mundo LangChain, que vas a ver nombradas. **LangSmith** es la parte paga de la empresa: sirve para ver paso a paso qué hizo un agente, medirlo y alojarlo. Tiene un plan gratis, no es obligatorio, y se ve más adelante en la serie. LangGraph es código abierto y gratis. Y LangChain puede cargar las herramientas de un servidor MCP como herramientas propias: el sistema de reservas de otra empresa entra al grafo como un paso más.
+Dos cosas más del mundo LangChain, que vas a ver nombradas. **LangSmith** es la parte paga de la empresa: sirve para ver paso a paso qué hizo un agente, medirlo y alojarlo. Tiene un plan gratis, no es obligatorio, y se ve más adelante en la serie. LangGraph es código abierto y gratis. Y LangChain puede cargar las herramientas de un servidor MCP como herramientas propias: el sistema de reservas de otra empresa entra como una herramienta más del agente.
 
 ## En resumen
 
@@ -252,6 +256,6 @@ Dos cosas más del mundo LangChain, que vas a ver nombradas. **LangSmith** es la
 - LangChain hoy es un agente armado (`create_agent`) con piezas enchufables. Las chains de los tutoriales viejos quedaron atrás.
 - LangGraph arma los pasos como un grafo que guarda dónde quedó cada conversación, y puede pausar y retomar horas después.
 - Para un flujo corto, el código propio alcanza y se entiende mejor. El framework conviene cuando hay esperas largas, muchos caminos y procesos que tienen que sobrevivir a un reinicio.
-- Claude, OpenAI y Gemini tienen su propio kit, y cada uno ordena los pasos a su manera.
+- Anthropic, OpenAI y Google tienen su propio kit, y cada uno ordena los pasos a su manera.
 
 Hasta acá, el asistente sabe lo que está en su prompt y lo que le devuelven sus herramientas. Más adelante en la serie: cómo darle acceso a documentos que no entran en la ventana de contexto.
