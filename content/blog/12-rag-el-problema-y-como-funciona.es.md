@@ -3,14 +3,14 @@ title: "RAG: el problema y cómo funciona"
 date: 2026-10-28
 order: 12
 draft: true
-description: "Qué problema resuelve RAG, cuándo no hace falta, cómo se cortan e indexan los documentos, qué es un embedding, cómo se buscan los fragmentos más parecidos y se arman en el prompt, el código de punta a punta y qué ofrecen Claude, OpenAI y Gemini."
+description: "Qué problema resuelve RAG, cuándo no hace falta, cómo se cortan e indexan los documentos, qué es un embedding, cómo se buscan los fragmentos más parecidos y se arman en el prompt, el código de punta a punta y qué ofrecen Claude, GPT y Gemini."
 ---
 
 Un cliente le escribe al asistente de la pizzería: "La de rúcula tiene frutos secos? Mi hijo es alérgico".
 
 Si La Esquina es una sola pizzería, la respuesta es fácil. La carta con los ingredientes, los horarios y las zonas de envío ocupan unos pocos miles de tokens. Van en el system prompt y listo: el modelo los lee en cada mensaje y responde con eso.
 
-Pero supongamos que La Esquina creció. Ahora son 30 locales, cada uno con su carta, su horario y sus zonas. Hay un manual para los empleados, fichas en PDF de cada proveedor con los alérgenos de cada insumo y un historial de reclamos que crece todos los días. La respuesta a la pregunta de la rúcula no está en la carta: está en la ficha del proveedor del pesto.
+Pero supongamos que La Esquina creció. Ahora son 30 locales, cada uno con su carta, su horario y sus zonas. Hay un manual para los empleados, fichas en PDF de cada proveedor con los alérgenos de cada insumo y un historial de reclamos que crece todos los días. La respuesta a la pregunta de la rúcula está repartida entre la carta y la ficha del proveedor del pesto.
 
 Eso ya no entra en el prompt. Y es una pregunta donde inventar es peligroso. Este post trata de cómo se le da al asistente acceso a documentos que no entran en la ventana de contexto.
 
@@ -113,7 +113,7 @@ OpenAI además repite 400 tokens entre un fragmento y el siguiente. Eso se llama
 
 Acá entra un segundo modelo, distinto del que responde. Es un **modelo de embeddings**: recibe un texto y devuelve una lista de números que representa su significado. Esa lista es el **embedding** (o vector) del texto.
 
-Anthropic no tiene un modelo de embeddings propio. Su documentación usa los de Voyage AI, una empresa especializada en estos modelos que hoy es parte de MongoDB. Con el modelo de Voyage, cada fragmento se convierte en una lista de 1.024 números. Lo útil es esto: textos que dicen cosas parecidas quedan con números parecidos, aunque usen otras palabras. "Frutos secos" y "nueces" quedan cerca. "Me llegó la pizza helada" queda cerca de "si un pedido llega frío, se repone".
+Anthropic no tiene un modelo de embeddings propio. Su documentación usa los de Voyage AI, una empresa especializada en estos modelos que hoy es parte de MongoDB, la empresa de la base de datos del mismo nombre. Con el modelo de Voyage, cada fragmento se convierte en una lista de 1.024 números. Lo útil es esto: textos que dicen cosas parecidas quedan con números parecidos, aunque usen otras palabras. "Frutos secos" y "nueces" quedan cerca. "Me llegó la pizza helada" queda cerca de "si un pedido llega frío, se repone".
 
 Una regla: el mismo modelo de embeddings para los documentos y para las preguntas. Los números de modelos distintos no se pueden comparar. Google lo avisa en su documentación: los vectores de su modelo viejo y del nuevo son incompatibles. Si cambiás de modelo, hay que volver a convertir todos los fragmentos.
 
@@ -196,7 +196,7 @@ Lo que hay que mirar:
 - **`vectores @ p` es la búsqueda.** Multiplica y suma: con vectores de largo 1, es el coseno. Con seis fragmentos alcanza con numpy, la librería de Python para hacer cuentas. Con miles, eso lo hace la base vectorial.
 - **El prompt pone los fragmentos arriba**, entre etiquetas `<info>`, y la pregunta abajo.
 
-Para probar solo la búsqueda sin clave, se puede reemplazar `embeber` por un modelo de embeddings que corre en la computadora, como EmbeddingGemma de Google (con la librería `fastembed`; la primera vez baja 1,2 GB). Con ese modelo, la búsqueda trae esto:
+Para probar solo la búsqueda sin clave, se puede reemplazar `embeber` por un modelo de embeddings que corre en la computadora, como EmbeddingGemma de Google (con la librería `fastembed`; la primera vez baja 1,2 GB). Ese modelo pide un texto fijo antes de cada pregunta (`task: search result | query: `) y antes de cada fragmento (`title: none | text: `); sin eso, los puntajes cambian. Con ese modelo, la búsqueda trae esto:
 
 ```text
 0.44  Rúcula y parmesano: muzzarella, rúcula, parmesano y pesto de la casa. El pesto lleva nueces.
@@ -219,7 +219,7 @@ La idea que no hay que perder: **si la búsqueda trae el pedazo equivocado, el m
 
 Si un local cambia el horario o el proveedor del pesto cambia la receta, hay que volver a cortar y embeber ese documento. Si no, el asistente responde muy seguro con datos viejos. Indexar no es una tarea que se hace una vez y se olvida: es una tarea que corre cada vez que cambian los documentos.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
 Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
 
@@ -232,7 +232,7 @@ Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT)
 Lo que cuesta, con los precios publicados al 28-10-2026:
 
 - **Voyage**: `voyage-4` sale USD 0,06 por millón de tokens, con 200 millones gratis. Indexar todo el ejemplo cuesta fracciones de centavo.
-- **OpenAI**: guardar hasta 1 GB en sus bases vectoriales es gratis; después, USD 0,10 por GB por día. Corta por defecto en fragmentos de 800 tokens con 400 de solapamiento.
+- **OpenAI**: guardar hasta 1 GB en sus bases vectoriales es gratis; después, USD 0,10 por GB por día.
 - **Gemini**: se paga convertir los documentos al indexar. Guardarlos y convertir las preguntas es gratis.
 
 La diferencia de fondo: con OpenAI y Gemini se puede tener RAG sin armar la búsqueda, a cambio de no controlar del todo cómo se corta ni cómo se busca. Con Claude, la búsqueda queda de tu lado, con el modelo de embeddings y la base que elijas.
