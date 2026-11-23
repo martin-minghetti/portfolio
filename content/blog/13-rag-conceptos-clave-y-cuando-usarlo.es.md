@@ -1,8 +1,8 @@
 ---
 title: "RAG: conceptos clave y cuándo usarlo"
-date: 2026-10-28
+date: 2026-11-07
 order: 13
-draft: true
+draft: false
 description: "Por qué la búsqueda de un RAG trae el fragmento equivocado y cómo se mejora: filtros, reranking, búsqueda híbrida, Contextual Retrieval y búsqueda con agentes. Y cuándo conviene poner todo en el prompt o hacer fine-tuning, con lo que ofrecen Claude, GPT y Gemini."
 ---
 
