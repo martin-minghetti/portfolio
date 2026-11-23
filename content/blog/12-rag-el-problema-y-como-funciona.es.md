@@ -1,8 +1,8 @@
 ---
 title: "RAG: el problema y cómo funciona"
-date: 2026-10-28
+date: 2026-11-06
 order: 12
-draft: true
+draft: false
 description: "Qué problema resuelve RAG, cuándo no hace falta, cómo se cortan e indexan los documentos, qué es un embedding, cómo se buscan los fragmentos más parecidos y se arman en el prompt, el código de punta a punta y qué ofrecen Claude, GPT y Gemini."
 ---
 
