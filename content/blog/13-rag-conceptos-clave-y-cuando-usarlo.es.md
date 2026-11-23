@@ -3,7 +3,7 @@ title: "RAG: conceptos clave y cuándo usarlo"
 date: 2026-10-28
 order: 13
 draft: true
-description: "Por qué la búsqueda de un RAG trae el fragmento equivocado y cómo se mejora: filtros, reranking, búsqueda híbrida, Contextual Retrieval y búsqueda con agentes. Y cuándo conviene poner todo en el prompt o hacer fine-tuning, con lo que ofrecen Claude, OpenAI y Gemini."
+description: "Por qué la búsqueda de un RAG trae el fragmento equivocado y cómo se mejora: filtros, reranking, búsqueda híbrida, Contextual Retrieval y búsqueda con agentes. Y cuándo conviene poner todo en el prompt o hacer fine-tuning, con lo que ofrecen Claude, GPT y Gemini."
 ---
 
 Un RAG de punta a punta entra en treinta líneas: cortar los documentos, convertirlos en números, buscar los fragmentos más parecidos a la pregunta y ponerlos en el prompt. Pero con la pizzería ya aparecieron dos fallas.
@@ -80,7 +80,7 @@ Lo que sí arregló la rúcula fue reescribir la pregunta antes de buscar: con "
 
 ## Búsqueda híbrida: sumar las palabras exactas
 
-Antes de los embeddings, los buscadores encontraban texto por palabras. El método más usado se llama **BM25**, y es el que trae por defecto Elasticsearch, uno de los buscadores de texto más usados. En criollo, BM25:
+Antes de los embeddings, los buscadores encontraban texto por palabras. El método más usado se llama **BM25**, y es el que trae por defecto Elasticsearch, uno de los buscadores de texto más usados. Dicho simple, BM25:
 
 - Cuenta qué palabras de la pregunta aparecen en cada fragmento.
 - Les da más peso a las palabras raras, las que aparecen en pocos fragmentos, que a las comunes.
@@ -202,7 +202,7 @@ Para la carta de 30 locales, el fine-tuning no sirve. Lo que aprende queda fijo 
 
 Además, hoy casi no está disponible:
 
-- **OpenAI lo está cerrando.** Desde mayo de 2026 no acepta organizaciones que no lo hayan usado antes, y desde el 6 de enero de 2027 nadie va a poder crear entrenamientos nuevos. Los modelos ya entrenados siguen andando.
+- **OpenAI lo está cerrando.** Desde mayo de 2026 no acepta organizaciones que no lo hayan usado antes, y desde el 6 de enero de 2027 nadie va a poder crear entrenamientos nuevos. Los modelos ya entrenados siguen andando hasta que se retira el modelo en el que se basan: algunos se apagan el 14 de enero de 2027.
 - **Anthropic no lo ofrece para sus modelos actuales.** El único camino era Claude 3 Haiku en Amazon Bedrock, el servicio de Amazon para usar modelos de varias empresas, y ese modelo ya fue retirado.
 - **Google lo ofrece solo en su plataforma para empresas**, para algunos modelos Flash y Gemini 2.5 Pro, no para Gemini 4. En la API de Gemini no está.
 
@@ -217,12 +217,12 @@ Si el problema es cómo responde, lo primero son instrucciones claras y unos poc
 <text x="125.0" y="38.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">El problema es que</text>
 <text x="125.0" y="56.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">no conoce tus datos?</text>
 <path d="M125 72V106" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g13bink)"/>
-<text x="135" y="94" font-size="14" fill="var(--color-muted)" text-anchor="start">si</text>
+<text x="135" y="94" font-size="14" fill="var(--color-muted)" text-anchor="start">sí</text>
 <rect x="10" y="108" width="230" height="58" rx="10" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="125.0" y="132.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Entran en el prompt</text>
 <text x="125.0" y="150.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">y cambian poco?</text>
 <path d="M240 137H260" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g13bink)"/>
-<text x="250" y="128" font-size="14" fill="var(--color-muted)" text-anchor="middle">si</text>
+<text x="250" y="128" font-size="14" fill="var(--color-muted)" text-anchor="middle">sí</text>
 <rect x="262" y="108" width="128" height="58" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="326.0" y="132.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">En el prompt,</text>
 <text x="326.0" y="150.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">con caché</text>
@@ -240,7 +240,7 @@ Si el problema es cómo responde, lo primero son instrucciones claras y unos poc
 <rect x="10" y="396" width="230" height="46" rx="10" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="125.0" y="423.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Alcanza?</text>
 <path d="M240 419H260" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g13bink)"/>
-<text x="250" y="410" font-size="14" fill="var(--color-muted)" text-anchor="middle">si</text>
+<text x="250" y="410" font-size="14" fill="var(--color-muted)" text-anchor="middle">sí</text>
 <rect x="262" y="400" width="110" height="38" rx="19" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="317.0" y="423.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Listo</text>
 <path d="M125 442V476" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g13bink)"/>
@@ -252,7 +252,7 @@ Si el problema es cómo responde, lo primero son instrucciones claras y unos poc
 <figcaption><ul><li>Blanco: las preguntas.</li><li>Naranja: lo que se resuelve con tu prompt y tu código.</li><li>Verde: lo que cambia el modelo.</li><li>Primero hay que saber qué falla: si no sabe algo, o si lo sabe y responde mal.</li></ul></figcaption>
 </figure>
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
 Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
 
