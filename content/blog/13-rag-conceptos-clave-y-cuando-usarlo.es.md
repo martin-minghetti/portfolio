@@ -6,7 +6,7 @@ draft: true
 description: "Por qué la búsqueda de un RAG trae el fragmento equivocado y cómo se mejora: filtros, reranking, búsqueda híbrida, Contextual Retrieval y búsqueda con agentes. Y cuándo conviene poner todo en el prompt o hacer fine-tuning, con lo que ofrecen Claude, GPT y Gemini."
 ---
 
-Un RAG de punta a punta entra en treinta líneas: cortar los documentos, convertirlos en números, buscar los fragmentos más parecidos a la pregunta y ponerlos en el prompt. Pero con la pizzería ya aparecieron dos fallas.
+Un RAG completo entra en treinta líneas: cortar los documentos, convertirlos en números, buscar los fragmentos más parecidos a la pregunta y ponerlos en el prompt. Pero con la pizzería ya aparecieron dos fallas.
 
 La búsqueda siempre trae algo. "Cuánto sale la muzzarella?" trajo dos fragmentos con puntajes de 0,40 y 0,39, aunque ninguno tenía precios. Y el más parecido no siempre es el correcto: con un modelo de embeddings chico, la pregunta por la de rúcula trajo primero la fugazzeta, porque dice "frutos secos" con todas las letras.
 
@@ -80,7 +80,7 @@ Lo que sí arregló la rúcula fue reescribir la pregunta antes de buscar: con "
 
 ## Búsqueda híbrida: sumar las palabras exactas
 
-Antes de los embeddings, los buscadores encontraban texto por palabras. El método más usado se llama **BM25**, y es el que trae por defecto Elasticsearch, uno de los buscadores de texto más usados. Dicho simple, BM25:
+Antes de los embeddings, los buscadores encontraban texto por palabras. El método más usado se llama **BM25**, y es el que trae por defecto Elasticsearch, uno de los buscadores de texto más usados. Dicho de forma más simple, BM25:
 
 - Cuenta qué palabras de la pregunta aparecen en cada fragmento.
 - Les da más peso a las palabras raras, las que aparecen en pocos fragmentos, que a las comunes.

@@ -51,7 +51,7 @@ Así se ve la traza del mensaje que tardó:
 <rect x="334.0" y="232" width="47.999999999999986" height="40" rx="6" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="358.0" y="256.2" font-size="14" fill="var(--color-ink)" text-anchor="middle">1,6 s</text>
 </svg>
-<figcaption><ul><li>Celeste: el mensaje del cliente, de punta a punta: lo que espera.</li><li>Verde: cada llamada al modelo. La primera pide la herramienta; la segunda responde.</li><li>Naranja: la herramienta que corre tu código. El sistema de stock tardó 5,1 de los 9 segundos.</li><li>Sin la traza, el registro solo diría 9 segundos, y la culpa iba al modelo.</li></ul></figcaption>
+<figcaption><ul><li>Celeste: el mensaje del cliente, desde que llega hasta que se responde: lo que espera.</li><li>Verde: cada llamada al modelo. La primera pide la herramienta; la segunda responde.</li><li>Naranja: la herramienta que corre tu código. El sistema de stock tardó 5,1 de los 9 segundos.</li><li>Sin la traza, el registro solo diría 9 segundos, y la culpa iba al modelo.</li></ul></figcaption>
 </figure>
 
 El cliente esperó 9 segundos, y el modelo usó menos de 4. El resto fue el sistema de stock. Sin la traza, el registro diría "9 segundos" y la culpa iba al modelo. Con la traza, se ve que lo que hay que arreglar es la consulta al stock.

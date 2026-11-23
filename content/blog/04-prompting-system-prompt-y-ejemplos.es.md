@@ -3,7 +3,7 @@ title: "Prompting: system prompt y ejemplos"
 date: 2026-10-29
 order: 4
 draft: false
-description: "Cómo escribir un system prompt que el modelo siga, qué recomienda cada proveedor y cuándo conviene darle ejemplos, con un caso concreto de punta a punta."
+description: "Cómo escribir un system prompt que el modelo siga, qué recomienda cada proveedor y cuándo conviene darle ejemplos, con un caso concreto completo."
 ---
 
 El post anterior armó la conversación del asistente de una pizzería: una lista de mensajes, con las instrucciones de fondo adelante de todo. Este post trata de qué escribir ahí, y de cómo mostrarle al modelo ejemplos de lo que se espera.

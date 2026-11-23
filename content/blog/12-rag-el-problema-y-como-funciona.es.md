@@ -3,7 +3,7 @@ title: "RAG: el problema y cómo funciona"
 date: 2026-11-06
 order: 12
 draft: false
-description: "Qué problema resuelve RAG, cuándo no hace falta, cómo se cortan e indexan los documentos, qué es un embedding, cómo se buscan los fragmentos más parecidos y se arman en el prompt, el código de punta a punta y qué ofrecen Claude, GPT y Gemini."
+description: "Qué problema resuelve RAG, cuándo no hace falta, cómo se cortan e indexan los documentos, qué es un embedding, cómo se buscan los fragmentos más parecidos y se arman en el prompt, el código completo y qué ofrecen Claude, GPT y Gemini."
 ---
 
 Un cliente le escribe al asistente de la pizzería: "La de rúcula tiene frutos secos? Mi hijo es alérgico".
@@ -148,7 +148,7 @@ Y una instrucción que no puede faltar: responder solo con lo que está en los f
 
 ## Cómo se ve en código
 
-Este es RAG de punta a punta con la pizzería, en Python. Usa Voyage para los embeddings y Claude para responder. Los fragmentos son de una línea para que se lean; en la vida real son de unos cientos de tokens.
+Este es un RAG completo con la pizzería, desde indexar hasta responder, en Python. Usa Voyage para los embeddings y Claude para responder. Los fragmentos son de una línea para que se lean; en la vida real son de unos cientos de tokens.
 
 ```python
 import numpy as np
