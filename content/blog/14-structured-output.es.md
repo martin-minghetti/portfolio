@@ -1,9 +1,9 @@
 ---
 title: "Structured output: respuestas que tu código puede leer"
-date: 2026-10-28
+date: 2026-11-08
 order: 14
-draft: true
-description: "Cómo hacer que un modelo responda con un formato fijo que tu código pueda leer: qué es JSON y un esquema, cómo lo asegura la API, qué no garantiza, cómo diseñar el esquema para que no invente y cómo se hace en Claude, OpenAI y Gemini."
+draft: false
+description: "Cómo hacer que un modelo responda con un formato fijo que tu código pueda leer: qué es JSON y un esquema, cómo lo asegura la API, qué no garantiza, cómo diseñar el esquema para que no invente y cómo se hace en Claude, GPT y Gemini."
 ---
 
 Volvamos a un solo local de La Esquina. Un cliente escribe por WhatsApp: "quiero 2 muzzas y una fugazzeta sin cebolla para Barrio Norte".
@@ -107,8 +107,8 @@ try:
         messages=[{"role": "user", "content": mensaje}],
         output_format=Pedido,
     )
-    pedido = r.parsed_output  # un Pedido ya validado, o None si el modelo se negó
-except ValidationError:  # llegó cortado, o rompe una regla que el modelo no ve
+    pedido = r.parsed_output  # un Pedido ya validado
+except ValidationError:  # llegó cortado, el modelo se negó, o rompe una regla que el modelo no ve
     pedido = None
 
 if pedido is None:
@@ -123,10 +123,10 @@ Lo que hay que mirar:
 
 - **`Literal` es la lista cerrada.** El producto solo puede ser uno de los cinco de la carta, y el barrio uno de los tres con envío (o `None`).
 - **`| None` y `falta` son la salida para "no sé".** Con el mensaje del ejemplo, lo esperable es `direccion` en `None` y `falta` con la dirección.
-- **Los valores de las listas van en minúscula y sin espacios.** Claude no garantiza las mayúsculas de esos valores: puede devolver "Barrio_norte" en vez de "barrio_norte", y Pydantic lo rechazaría.
+- **Los valores de las listas van en minúscula y sin espacios.** Claude no garantiza las mayúsculas de esos valores, sobre todo en la letra que sigue a un espacio: con "barrio norte" puede devolver "barrio Norte", y Pydantic lo rechazaría. Con "barrio_norte", sin espacios, ese riesgo baja.
 - **`Field(ge=1)` es una regla que el modelo no ve.** Claude no acepta mínimos ni máximos en el esquema. El SDK saca la regla, la escribe en la descripción del campo para que el modelo la tenga en cuenta, y la chequea cuando vuelve la respuesta.
 - **`parsed_output` ya es un objeto con tipos.** `item.cantidad` es un número, listo para usar.
-- **El `try` no es de adorno.** Si la respuesta se corta por `max_tokens`, el JSON llega a la mitad y `parse` falla con un error de validación antes de devolver nada. Si el modelo se niega, `parsed_output` viene vacío.
+- **El `try` no es de adorno.** Si la respuesta se corta por `max_tokens`, el JSON llega a la mitad y `parse` falla con un error de validación antes de devolver nada. Si el modelo se niega, puede venir vacío o fallar igual que una respuesta cortada: el `try` cubre los dos casos.
 
 Sin conectar con la API, se puede probar qué hace Pydantic con distintas respuestas. Un JSON con "dos" en la cantidad da `Input should be a valid integer` (tiene que ser un número entero). Uno con "pizza de queso" da `Input should be 'muzzarella', 'napolitana', 'fugazzeta', 'rúcula' or 'fainá'`. Y uno cortado a la mitad da `Invalid JSON: EOF while parsing` (el texto se terminó antes de cerrar el JSON). La llamada a Claude necesita clave y no está probada acá.
 
@@ -134,7 +134,7 @@ Sin conectar con la API, se puede probar qué hace Pydantic con distintas respue
 
 La API asegura la forma. No asegura el contenido.
 
-**Que los valores sean correctos.** Este pedido pasa la validación sin ningún error: 500 fugazzetas, sin cebolla y sin muzzarella, para Villa Sur. Es un JSON perfecto y un pedido absurdo: una fugazzeta sin cebolla ni muzzarella es una masa sola. El esquema no sabe de pizzas. Los tres proveedores lo dicen a su manera. OpenAI: la salida estructurada "can still contain mistakes" (todavía puede tener errores). Google: aunque el JSON sea correcto, "always validate values in your application" (validá siempre los valores en tu aplicación).
+**Que los valores sean correctos.** Este pedido pasa la validación sin ningún error: 500 fugazzetas, sin cebolla y sin muzzarella, para Villa Sur. Es un JSON perfecto y un pedido absurdo: una fugazzeta sin cebolla ni muzzarella es una masa sola. El esquema no sabe de pizzas. OpenAI y Google lo dicen a su manera. OpenAI: la salida estructurada "can still contain mistakes" (todavía puede tener errores). Google: aunque el JSON sea correcto, "always validate values in your application" (validá siempre los valores en tu aplicación).
 
 **Que siempre haya respuesta.** Si el modelo se niega a responder, la respuesta no cumple el esquema: Claude lo marca con `stop_reason: "refusal"`, y OpenAI con un campo `refusal`. Si se corta por el límite de tokens, el JSON queda a la mitad.
 
@@ -188,7 +188,7 @@ El límite de 20 pizzas no va en el esquema. Si estuviera ahí, un pedido de 25 
 
 ## Salida estructurada o herramienta
 
-Las herramientas también tienen modo estricto, que asegura que el pedido de una herramienta cumpla su esquema. Entonces, cuándo usar cada uno. Los tres proveedores dan casi la misma regla:
+Las herramientas también tienen modo estricto, que asegura que el pedido de una herramienta cumpla su esquema. Entonces, cuándo usar cada uno. Anthropic, OpenAI y Google dan casi la misma regla:
 
 - **Herramienta**, cuando el modelo tiene que hacer algo en el medio de la charla: consultar el stock o registrar el pedido dentro del loop del agente.
 - **Salida estructurada**, cuando querés la respuesta final con un formato fijo: un paso de tu código que convierte el mensaje en un pedido. Es lo que faltaba en el paso "entender el pedido" del ejemplo de LangGraph, que había quedado con un pedido fijo para probar.
@@ -197,7 +197,7 @@ Se pueden usar las dos en el mismo pedido.
 
 Una duda que aparece seguido: si obligar al modelo a un formato no le hace pensar peor. Un estudio de 2024 de Appier, una empresa de inteligencia artificial de Taiwán, junto con la Universidad Nacional de Taiwán, [Let Me Speak Freely?](https://arxiv.org/abs/2408.02442), encontró que el formato empeoraba las tareas de razonamiento y mejoraba las de clasificar. Otros lo discutieron, entre ellos .txt, una empresa que vende herramientas de salida con formato. Con los modelos de hoy, la pregunta cambió: Claude puede pensar antes de responder, y el formato se aplica solo a la respuesta final, no a ese razonamiento. Además, convertir un mensaje en un pedido se parece mucho más a clasificar que a razonar.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
 | | Claude | GPT | Gemini |
 |---|---|---|---|
@@ -206,7 +206,7 @@ Una duda que aparece seguido: si obligar al modelo a un formato no le hace pensa
 | Campos opcionales | Se permiten | Todos obligatorios: lo opcional acepta `null` | Se permiten |
 | Mínimos y máximos | No los acepta; el SDK los chequea al volver | Sí | En números los acepta; los largos de texto se ignoran sin aviso |
 | Si se niega | `stop_reason: "refusal"` | Un campo `refusal` | Su documentación no lo dice |
-| Junto con herramientas | Sí | Sí | En prueba, solo en los modelos Gemini 3 |
+| Junto con herramientas | Sí | Sí | En prueba, en los modelos Gemini 3 y Gemini 4 |
 
 Para TypeScript (JavaScript con tipos), el equivalente de Pydantic es **Zod**, y los SDK lo aceptan igual.
 
