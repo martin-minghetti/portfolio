@@ -8,7 +8,7 @@ description: "Cómo guardar la parte fija del prompt para no pagarla entera en c
 
 Volvamos al asistente de La Esquina. Cada vez que un cliente escribe, el pedido a la API lleva lo mismo adelante: las herramientas (`consultar_stock`, `registrar_pedido`), el system prompt con la carta, los horarios, las zonas de envío y las reglas, unos ejemplos de charlas y el esquema del pedido. Recién al final va lo nuevo: el mensaje del cliente.
 
-Pongamos números de ejemplo, no medidos: 8.000 tokens fijos, 400 que cambian en cada mensaje y 300 mensajes por día. Con los precios de Claude Opus 5.5 (USD 4 por millón de tokens de entrada), cada mensaje cuesta USD 0,0336 solo en lo que se manda. Y casi todo eso son los 8.000 tokens que son iguales en los 300 mensajes del día.
+Pongamos números de ejemplo, no medidos: 8.000 tokens fijos, 400 que cambian en cada mensaje y 300 mensajes por día. Con los precios de Claude Opus 5.5, un modelo de Anthropic (USD 4 por millón de tokens de entrada), cada mensaje cuesta USD 0,0336 solo en lo que se manda. Y casi todo eso son los 8.000 tokens que son iguales en los 300 mensajes del día.
 
 El modelo procesa esa parte fija 300 veces, siempre igual. **Prompt caching**, o caché del prompt, es la forma de pagarla entera una sola vez.
 
@@ -39,7 +39,7 @@ Y el orden importa. En Claude, el pedido se arma siempre igual: primero las herr
 <figcaption><ul><li>Naranja: lo que se procesa y se guarda la primera vez.</li><li>Violeta: lo que se lee de la caché.</li><li>Celeste: lo nuevo de cada pedido, que se paga entero.</li><li>Rojo: desde el primer token distinto, nada se aprovecha, aunque la carta y el esquema sean los mismos.</li><li>La marca de hasta dónde guardar va al final de la parte fija, antes del mensaje.</li></ul></figcaption>
 </figure>
 
-De ahí sale la regla que dan Anthropic, OpenAI y Google: lo fijo arriba, lo que cambia abajo.
+De ahí sale la regla que dan los que hacen Claude (Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (Google): lo fijo arriba, lo que cambia abajo.
 
 ## Escribir, leer y vencerse
 
@@ -212,19 +212,19 @@ Porque también es velocidad: el modelo no vuelve a procesar la parte fija, y la
 
 ## Lo mismo en Claude, GPT y Gemini
 
-GPT son los modelos de OpenAI que usa ChatGPT, y Gemini, los de Google. Los dos tienen caché, con diferencias:
+GPT y Gemini también tienen caché, con diferencias:
 
 | | Claude | GPT | Gemini |
 |---|---|---|---|
 | Cómo se activa | `cache_control`: arriba de todo (automática) o en un bloque (hasta 4 marcas) | Sola. Desde GPT-5.6 también se puede elegir dónde corta | Sola. En los modelos Gemini 4 no hay otra opción |
-| Leer | 10% de la entrada (5% en Opus 5.5 y Sonnet 5.5; 2,5% en Fable 5.2) | 10% (5% en GPT-6.2 Astra y Sol, y en GPT-6.1 Sol y Terra) | 5% en Gemini 4 Carbon y Argon |
+| Leer | 10% de la entrada (5% en Opus 5.5 y Sonnet 5.5; 2,5% en Fable 5.2) | 10% (5% en GPT-6.2 Astra y Sol, y en GPT-6.1 Sol y Terra) | 5% en los modelos Gemini 4 |
 | Escribir | 1,25 veces (5 minutos) o 2 veces (1 hora) | 1,25 veces (30 minutos) o 2,5 veces (12 horas) | Al precio normal de entrada |
 | Cuánto dura | 5 minutos o 1 hora; cada uso lo renueva | 30 minutos o 12 horas como mínimo | No lo publica |
 | Mínimo | 512 tokens en los modelos 5.x | 1.024 tokens | 4.096 tokens en los modelos Gemini 4 |
-| Campos | `cache_read_input_tokens`, `cache_creation_input_tokens` | `cached_tokens`, `cache_write_tokens` | `total_cached_tokens` |
+| Campos | `cache_read_input_tokens`, `cache_creation_input_tokens` | `cached_tokens`, `cache_write_tokens` | `total_cached_tokens` en la API nueva (Interactions); `cached_content_token_count` en `generateContent` |
 | Cuenta para el límite por minuto | No, en casi todos los modelos | Sí | Su documentación no lo dice |
 
-En OpenAI, los precios de escritura son para GPT-5.6 en adelante: los modelos anteriores no cobran extra por escribir. En Gemini, la caché automática no es segura: su documentación da consejos para aumentar "the chance of an implicit cache hit", la probabilidad de acertar.
+En OpenAI, los precios de escritura son para GPT-5.6 en adelante: los modelos anteriores no cobran extra por escribir. Y desde GPT-6.2, lo que va en el campo `instructions` queda al final del pedido, fuera de la caché, y se paga entero siempre. Para que se guarde, la parte fija va en un mensaje `developer` al principio de `input`. En Gemini, la caché automática no garantiza el ahorro, según su propia documentación: aprovecha lo que coincide cuando puede.
 
 Anthropic, OpenAI y Google dan el mismo consejo: lo fijo arriba, lo que cambia abajo, y no tocar las herramientas.
 

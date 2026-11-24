@@ -26,7 +26,7 @@ Es la misma idea que los tests de cualquier programa, con una diferencia: un pro
 
 ## De dónde salen los casos
 
-La guía de evals de Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (enero de 2026), dice que no hacen falta cientos de casos para empezar: "20 a 50 tareas simples sacadas de fallas reales es un gran comienzo". Al principio, cada cambio tiene un efecto grande y se nota con pocos casos.
+La guía de evals de Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents) (enero de 2026), dice que no hacen falta cientos de casos para empezar: "20 a 50 tareas simples sacadas de fallas reales es un gran comienzo". Al principio, cada cambio tiene un efecto grande y se nota con pocos casos.
 
 Los mejores casos son los errores que ya pasaron. Para La Esquina, diez casos, cada uno con su origen:
 
@@ -56,7 +56,7 @@ La documentación de Claude, en [Define success criteria and build evaluations](
 2. **Con personas.** Es lo más flexible y lo de mejor calidad, pero lento y caro. La documentación dice: "evitalo si es posible".
 3. **Con otro modelo.** Un modelo que lee la respuesta y la califica con una lista de criterios. Es rápido, flexible y sirve para juicios complejos, pero antes de usarlo en serio hay que probar que sea confiable.
 
-En La Esquina, nueve de los diez casos se califican con código. "Solo $10.500" se chequea buscando los montos de la respuesta. "Avisa de las nueces" se chequea buscando la palabra. El pedido se compara campo por campo con el esquema que se vio al hablar de structured output.
+En La Esquina, nueve de los diez casos se califican con código. "Solo $10.500" se chequea buscando los montos de la respuesta. "Avisa de las nueces" se chequea buscando la palabra, y que no venga después de un "no" o un "sin". El de las 500 pizzas mira qué herramientas usó el asistente: tiene que estar `pasar_a_persona`, la que le deja la charla a alguien del local, y no `registrar_pedido`. El pedido se compara campo por campo con el esquema que se vio al hablar de structured output.
 
 El único que no se puede chequear así es el reclamo de la pizza fría: "atendió bien" no se resuelve buscando una palabra. Ese necesita un modelo que califique, y queda para el post siguiente.
 
@@ -79,14 +79,19 @@ def montos(texto):  # "$10.500" -> 10500
 
 # Calificadores con código: rápidos, baratos y dan siempre lo mismo.
 CALIFICADORES = {
-    "precio_del_menu": lambda r, c: all(m in c["montos_validos"] for m in montos(r["texto"])),
+    "precio_del_menu": lambda r, c: c["monto_esperado"] in montos(r["texto"])
+                       and all(m in c["montos_validos"] for m in montos(r["texto"])),
     "sin_precio":      lambda r, c: montos(r["texto"]) == [],
-    "avisa_nueces":    lambda r, c: re.search(r"nuez|nueces", r["texto"], re.I) is not None,
+    "avisa_nueces":    lambda r, c: re.search(r"nuez|nueces", r["texto"], re.I) is not None
+                       and not re.search(r"\b(no|sin)\b[^.]*\bnue(z|ces)", r["texto"], re.I),
     "dice_que_no":     lambda r, c: re.search(r"\bno (lleva|tiene)\b", r["texto"], re.I) is not None,
-    "dice_cerrado":    lambda r, c: "cerrado" in r["texto"].lower(),
+    "dice_cerrado":    lambda r, c: re.search(r"cerrado|cerramos|cierra", r["texto"], re.I) is not None
+                       and not re.search(r"\bno (est|cerr|cierr)", r["texto"], re.I),
     "corta":           lambda r, c: len(re.findall(r"[.!?](?:\s|$)", r["texto"])) <= 3,
-    "pasa_a_persona":  lambda r, c: "registrar_pedido" not in r["herramientas"],
-    "pedido_igual":    lambda r, c: {k: r["pedido"][k] for k in ("items", "barrio")} == c["pedido_esperado"],
+    "pasa_a_persona":  lambda r, c: "pasar_a_persona" in r["herramientas"]
+                       and "registrar_pedido" not in r["herramientas"],
+    "pedido_igual":    lambda r, c: r["pedido"] is not None
+                       and {k: r["pedido"][k] for k in ("items", "barrio")} == c["pedido_esperado"],
 }
 
 def correr(golden, respuestas, juez=None):
@@ -112,9 +117,9 @@ for caso in golden:
 def total(res): return sum(v is True for v in res.values()), sum(v is not None for v in res.values())
 print("v1: %d de %d   v2: %d de %d" % (*total(antes), *total(despues)))
 
-rotos_criticos = [c["id"] for c in golden if c.get("critico") and antes[c["id"]] and despues[c["id"]] is False]
-if rotos_criticos:
-    print("No se aprueba: se rompió un caso crítico:", ", ".join(rotos_criticos))
+criticos = [c["id"] for c in golden if c.get("critico") and despues[c["id"]] is not True]
+if criticos:
+    print("No se aprueba: no pasa un caso crítico:", ", ".join(criticos))
 elif total(despues)[0] < total(antes)[0]:
     print("No se aprueba: pasan menos casos que antes.")
 else:
@@ -126,7 +131,7 @@ Lo que hay que mirar del código:
 - **Cada calificador es una función chica que devuelve sí o no.** Se lee en una línea, y si un caso falla, se puede ver exactamente qué se buscó.
 - **Los casos viven en un archivo aparte.** Sumar una falla nueva es sumar una línea al JSON, sin tocar el programa.
 - **`None` es "no se pudo calificar".** Es el caso de la pizza fría, que necesita un juez. No cuenta ni a favor ni en contra.
-- **La decisión mira primero los críticos y después el total.**
+- **La decisión mira primero los críticos y después el total.** Un crítico que no pasa frena el cambio, aunque ya fallara antes o no se haya podido calificar.
 
 Las respuestas de las dos versiones son de ejemplo, no salen de un modelo. Con ellas, el programa corre y da esto:
 
@@ -142,7 +147,7 @@ pedido_enorme          pasa       pasa
 lunes                  pasa       pasa
 pizza_fria             sin correr sin correr
 v1: 7 de 9   v2: 8 de 9
-No se aprueba: se rompió un caso crítico: alergia_rucula
+No se aprueba: no pasa un caso crítico: alergia_rucula
 ```
 
 El proceso completo, cada vez que se cambia algo:
@@ -150,7 +155,7 @@ El proceso completo, cada vez que se cambia algo:
 <figure>
 <p class="fig-title">Cómo se aprueba un cambio</p>
 <svg viewBox="0 0 400 560" width="100%" role="img" aria-labelledby="g16t" style="max-width:480px;display:block;margin:12px auto 0;font-family:inherit">
-<title id="g16t">Diagrama del proceso de un eval: el golden set, con casos sacados de fallas reales, se corre con la versión nueva; cada respuesta se califica; se compara caso por caso con la versión anterior; si se rompió un caso crítico o pasan menos casos, no se aprueba y se vuelve a cambiar; si no, se aprueba. Cada falla nueva que aparece se suma como caso al golden set.</title>
+<title id="g16t">Diagrama del proceso de un eval: el golden set, con casos sacados de fallas reales, se corre con la versión nueva; cada respuesta se califica; se compara caso por caso con la versión anterior; si no pasa un caso crítico o pasan menos casos, no se aprueba y se vuelve a cambiar; si no, se aprueba. Cada falla nueva que aparece se suma como caso al golden set.</title>
 <defs><marker id="g16ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--color-ink)"/></marker></defs>
 <rect x="30" y="14" width="240" height="56" rx="10" fill="oklch(87% 0.07 300)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="150.0" y="38.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Golden set</text>
@@ -170,7 +175,7 @@ El proceso completo, cada vez que se cambia algo:
 <path d="M150 310V336" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
 <path d="M150 338L268 380L150 422L32 380Z" fill="var(--color-paper-hi)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="150" y="385" font-size="14" fill="var(--color-ink)" text-anchor="middle"></text>
-<text x="150" y="376" font-size="14" fill="var(--color-ink)" text-anchor="middle">Se rompió algo crítico</text>
+<text x="150" y="376" font-size="14" fill="var(--color-ink)" text-anchor="middle">No pasa un crítico</text>
 <text x="150" y="394" font-size="14" fill="var(--color-ink)" text-anchor="middle">o pasan menos?</text>
 <path d="M268 380H296" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
 <text x="282" y="370" font-size="14" fill="var(--color-muted)" text-anchor="middle">sí</text>
@@ -219,13 +224,17 @@ Un modelo no responde siempre igual, así que el resultado de un eval tiene algo
 
 Con 20 casos, pasar de 80% a 85% no prueba nada. Al comparar dos versiones sobre los mismos casos, lo que cuenta son los que cambiaron, y hace falta que se arreglen al menos 6 y no se rompa ninguno para descartar que sea casualidad. En La Esquina se arreglaron 2 y se rompió 1: con este golden set, no hay forma de saber si la versión nueva es mejor.
 
+Por lo mismo, conviene correr cada caso más de una vez, sobre todo los críticos. En la guía de octubre, Anthropic cuenta que la falla de la fecha de entrega apareció solo en una de cada dos corridas. El programa de arriba corre cada caso una vez, para que sea corto; cómo se cuentan varias, en el post siguiente.
+
 Eso no quiere decir que un golden set chico no sirva. Sirve para encontrar lo que se rompió, caso por caso, y para ver cambios grandes. Para medir mejoras chicas hacen falta más casos, y por eso la guía de Anthropic aclara que un asistente más maduro va a necesitar evals más grandes.
 
 ## Leer lo que falla
 
 Un calificador con código también se equivoca. El de la fugazzeta busca "no lleva" o "no tiene". Si el asistente contesta "Para nada, solo cebolla, muzzarella y orégano", la respuesta es correcta y el calificador dice que no pasa. Es la debilidad que Anthropic les marca a estos calificadores: fallan con respuestas válidas que no coinciden exacto con lo que se buscaba.
 
-Por eso, antes de culpar al asistente, hay que leer las respuestas que fallaron. La guía de Anthropic lo pone en el cierre, con signos de exclamación: "Leé los registros". El registro es todo lo que pasó en cada intento: lo que respondió el asistente, qué herramientas usó y qué le devolvieron.
+Y también se equivoca para el otro lado, que es peor. Si el asistente contesta "No tiene cebolla, pero sí nueces", el mismo calificador encuentra "no tiene" y dice que pasa. Nadie revisa un caso que pasa, así que cada tanto hay que leer también algunos de esos.
+
+Antes de culpar al asistente, entonces, hay que leer las respuestas que fallaron. La guía de Anthropic lo pone en el cierre, con signos de exclamación: "Leé los registros". El registro es todo lo que pasó en cada intento: lo que respondió el asistente, qué herramientas usó y qué le devolvieron.
 
 El ejemplo que da Anthropic: Claude Opus 4.5 sacó 42% en CORE-Bench, una prueba pública de tareas de investigación científica, hasta que alguien de Anthropic leyó los resultados y encontró errores en la prueba. Uno era que daba por mal "96.12" cuando esperaba "96.124991…". Después de arreglar la prueba (y de darle al modelo un entorno menos limitado), el puntaje saltó a 95%.
 
@@ -238,16 +247,16 @@ El programa de arriba alcanza para empezar. Cuando el golden set crece, hay herr
 - **Promptfoo:** una herramienta open source que corre evals desde un archivo de configuración, en la computadora o cada vez que se sube un cambio. En marzo de 2026 anunció que pasa a ser parte de OpenAI, y que sigue siendo open source.
 - **Inspect:** un framework open source para evals, del UK AI Security Institute (el instituto del gobierno británico que evalúa modelos de IA), hecho junto con la empresa Meridian Labs.
 - **DeepEval:** una librería open source de la empresa Confident AI, que escribe los evals como tests de Python.
-- **LangSmith**, la parte paga de LangChain (la empresa del framework para armar agentes), también corre evals y guarda los resultados.
+- **LangSmith**, el servicio comercial de LangChain (la empresa del framework para armar agentes), que tiene un plan gratis, también corre evals y guarda los resultados.
 
-Los proveedores cambiaron de estrategia. En junio de 2026, OpenAI [anunció](https://developers.openai.com/api/docs/deprecations) que cierra su plataforma de evals: los evals existentes quedan en solo lectura desde el 31 de octubre de 2026, y la plataforma se apaga el 30 de noviembre. Recomienda pasarse a Promptfoo, y la migración es rehacer cada eval, no exportarlo. Anthropic publica guías, como las que se citan en este post. Google tiene un servicio de evaluación en su plataforma de Google Cloud, que se ve en el post siguiente.
+Los proveedores cambiaron de estrategia. En junio de 2026, OpenAI [anunció](https://developers.openai.com/api/docs/deprecations) que cierra su plataforma de evals: los evals existentes quedaron en solo lectura el 31 de octubre de 2026, y la fecha de apagado es el 30 de noviembre. Recomienda pasarse a Promptfoo, y la migración es rehacer cada eval, no exportarlo. Anthropic publica guías, como las que se citan en este post. Google tiene un servicio de evaluación en su plataforma de Google Cloud, que se ve en el post siguiente.
 
 ## En resumen
 
 - Un eval es un test para un sistema de IA: casos, lo que se espera de cada uno y una forma de calificar. Un golden set es esa lista de casos.
 - Los casos salen de fallas reales, en los dos sentidos: cuando algo tiene que pasar y cuando no. Entre 20 y 50 alcanzan para empezar.
 - Se califica con código siempre que se pueda. Las personas y otro modelo quedan para lo que el código no puede decidir.
-- Al cambiar algo, se compara caso por caso con la versión anterior. Si se rompe un caso crítico, el cambio no entra, aunque el total suba.
+- Al cambiar algo, se compara caso por caso con la versión anterior. Si un caso crítico no pasa, el cambio no entra, aunque el total suba.
 - Con pocos casos, una diferencia de pocos puntos puede ser azar.
 - Las respuestas que fallan se leen: a veces el que se equivoca es el calificador.
 

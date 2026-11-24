@@ -217,7 +217,7 @@ def fig15():
     return seq("g15", "Diagrama de secuencia entre tu código, la API y la caché: el primer pedido escribe la parte fija, el segundo, tres minutos después, la lee y renueva el plazo, y el tercero llega 36 minutos después, cuando ya se venció, y la vuelve a escribir.", lanes, msgs, 440)
 
 def fig16():
-    g = Svg("g16", 400, 560, "Diagrama del proceso de un eval: el golden set, con casos sacados de fallas reales, se corre con la versión nueva; cada respuesta se califica; se compara caso por caso con la versión anterior; si se rompió un caso crítico o pasan menos casos, no se aprueba y se vuelve a cambiar; si no, se aprueba. Cada falla nueva que aparece se suma como caso al golden set.")
+    g = Svg("g16", 400, 560, "Diagrama del proceso de un eval: el golden set, con casos sacados de fallas reales, se corre con la versión nueva; cada respuesta se califica; se compara caso por caso con la versión anterior; si no pasa un caso crítico o pasan menos casos, no se aprueba y se vuelve a cambiar; si no, se aprueba. Cada falla nueva que aparece se suma como caso al golden set.")
     g.box(30, 14, 240, 56, "c0", ["Golden set"], ["casos sacados de fallas reales"], size=15)
     g.arrow("M150 70V92")
     g.box(30, 94, 240, 56, "c1", ["Correr la versión nueva"], ["cada caso, el mismo mensaje"], size=15)
@@ -227,7 +227,7 @@ def fig16():
     g.box(30, 254, 240, 56, "c2", ["Comparar con la anterior"], ["caso por caso, no solo el total"], size=15)
     g.arrow("M150 310V336")
     g.diamond(150, 380, 118, 42, "", size=14)
-    g.text(150, 376, "Se rompió algo crítico", size=14, fill=INK)
+    g.text(150, 376, "No pasa un crítico", size=14, fill=INK)
     g.text(150, 394, "o pasan menos?", size=14, fill=INK)
     g.arrow("M268 380H296"); g.text(282, 370, "sí")
     g.box(298, 352, 94, 56, "c3", ["No se", "aprueba"], size=15)
