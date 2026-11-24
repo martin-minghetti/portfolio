@@ -1,8 +1,8 @@
 ---
 title: "Evals: cómo saber si un cambio mejoró tu asistente"
-date: 2026-10-29
+date: 2026-11-10
 order: 16
-draft: true
+draft: false
 description: "Qué es un eval, cómo armar un golden set con las fallas reales del asistente, cómo calificar cada respuesta con código y por qué lo que decide si un cambio entra no es el total, sino qué casos se rompieron."
 ---
 
@@ -128,7 +128,7 @@ else:
 
 Lo que hay que mirar del código:
 
-- **Cada calificador es una función chica que devuelve sí o no.** Se lee en una línea, y si un caso falla, se puede ver exactamente qué se buscó.
+- **Cada calificador es una función chica que devuelve sí o no.** Se lee de un vistazo, y si un caso falla, se puede ver exactamente qué se buscó.
 - **Los casos viven en un archivo aparte.** Sumar una falla nueva es sumar una línea al JSON, sin tocar el programa.
 - **`None` es "no se pudo calificar".** Es el caso de la pizza fría, que necesita un juez. No cuenta ni a favor ni en contra.
 - **La decisión mira primero los críticos y después el total.** Un crítico que no pasa frena el cambio, aunque ya fallara antes o no se haya podido calificar.
@@ -224,7 +224,7 @@ Un modelo no responde siempre igual, así que el resultado de un eval tiene algo
 
 Con 20 casos, pasar de 80% a 85% no prueba nada. Al comparar dos versiones sobre los mismos casos, lo que cuenta son los que cambiaron, y hace falta que se arreglen al menos 6 y no se rompa ninguno para descartar que sea casualidad. En La Esquina se arreglaron 2 y se rompió 1: con este golden set, no hay forma de saber si la versión nueva es mejor.
 
-Por lo mismo, conviene correr cada caso más de una vez, sobre todo los críticos. En la guía de octubre, Anthropic cuenta que la falla de la fecha de entrega apareció solo en una de cada dos corridas. El programa de arriba corre cada caso una vez, para que sea corto; cómo se cuentan varias, en el post siguiente.
+Por lo mismo, conviene correr cada caso más de una vez, sobre todo los críticos. En la guía de octubre, Anthropic cuenta que la falla de la fecha de entrega apareció solo en una de dos corridas. El programa de arriba corre cada caso una vez, para que sea corto; cómo se cuentan varias, en el post siguiente.
 
 Eso no quiere decir que un golden set chico no sirva. Sirve para encontrar lo que se rompió, caso por caso, y para ver cambios grandes. Para medir mejoras chicas hacen falta más casos, y por eso la guía de Anthropic aclara que un asistente más maduro va a necesitar evals más grandes.
 
