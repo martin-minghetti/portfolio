@@ -1,9 +1,9 @@
 ---
 title: "Prompt caching: pagar una sola vez la parte que se repite"
-date: 2026-10-29
+date: 2026-11-09
 order: 15
-draft: true
-description: "Cómo guardar la parte fija del prompt para no pagarla entera en cada mensaje: qué se guarda, por qué el principio tiene que coincidir, qué la rompe, cuándo conviene 5 minutos, 1 hora o nada, y cómo se mide en Claude, OpenAI y Gemini."
+draft: false
+description: "Cómo guardar la parte fija del prompt para no pagarla entera en cada mensaje: qué se guarda, por qué el principio tiene que coincidir, qué la rompe, cuándo conviene 5 minutos, 1 hora o nada, y cómo se mide en Claude, GPT y Gemini."
 ---
 
 Volvamos al asistente de La Esquina. Cada vez que un cliente escribe, el pedido a la API lleva lo mismo adelante: las herramientas (`consultar_stock`, `registrar_pedido`), el system prompt con la carta, los horarios, las zonas de envío y las reglas, unos ejemplos de charlas y el esquema del pedido. Recién al final va lo nuevo: el mensaje del cliente.
@@ -46,7 +46,7 @@ De ahí sale la regla que dan Anthropic, OpenAI y Google: lo fijo arriba, lo que
 La caché tiene tres momentos, y cada uno se cobra distinto:
 
 - **Escribir.** El primer pedido procesa la parte fija y la guarda. En Claude, guardarla por 5 minutos cuesta 1,25 veces el precio normal de entrada.
-- **Leer.** Los pedidos siguientes que empiezan igual la leen. En Opus 5.5, leer cuesta el 5% del precio de entrada (en la mayoría de los modelos de Anthropic, el 10%).
+- **Leer.** Los pedidos siguientes que empiezan igual la leen. En Opus 5.5, leer cuesta el 5% del precio de entrada (en la mayoría de los modelos de Anthropic, el 10%, y en Fable 5.2, el 2,5%).
 - **Vencerse.** Si pasan 5 minutos sin que nadie la use, se borra, y el próximo pedido la vuelve a escribir. Cada lectura renueva el plazo sin costo extra. Ese plazo se suele llamar **TTL** ("time to live", tiempo de vida), y corre desde que empieza el pedido, no desde que termina la respuesta.
 
 <figure>
@@ -99,7 +99,7 @@ En Claude, la caché se pide con `cache_control`, que marca hasta dónde se guar
 - **Automática:** `cache_control` arriba de todo en el pedido, y la marca va sola al último bloque. Sirve para una charla que crece: cada mensaje nuevo guarda todo lo anterior.
 - **Explícita:** `cache_control` en un bloque concreto, hasta cuatro marcas por pedido.
 
-Acá está la trampa más común. En La Esquina, el último bloque es el mensaje del cliente, que cambia siempre. Con la automática, la marca queda en ese mensaje: cada pedido guarda algo que el siguiente no va a repetir, y entre clientes distintos nunca acierta. Anthropic lo pone como error común en su documentación: se paga una escritura en cada pedido "and never get a read", y nunca se lee. OpenAI tiene la misma advertencia con otras palabras: "a shared prefix is not always a cached prefix", un principio compartido no siempre es un principio guardado.
+Acá está la trampa más común. En La Esquina, el último bloque es el mensaje del cliente, que cambia siempre. Con la automática, la marca queda en ese mensaje: cada pedido guarda algo que el siguiente no va a repetir, y entre clientes distintos nunca acierta. Anthropic lo pone como error común en su documentación: se paga una escritura en cada pedido "and never get a read", y nunca se lee. OpenAI da el mismo consejo: con sus marcas explícitas, lo que va después de la última marca se paga como entrada normal y no se guarda, y así se evita "writing changing content that is unlikely to be reused" (guardar algo que cambia y que difícilmente se vuelva a usar).
 
 La marca va al final de la parte fija:
 
@@ -169,7 +169,7 @@ La caché se pierde cada vez que algo cambia antes de la marca. Con La Esquina, 
 - **Cambiar de modelo a mitad de la charla.** La caché es de cada modelo. Pasar a uno más barato para una pregunta fácil obliga a escribir todo de nuevo en el otro.
 - **Cambiar el esfuerzo de razonamiento o el formato de salida.** Los dos están entre lo que invalida la caché, en Claude y en OpenAI. Se eligen al principio y no se tocan.
 
-A Anthropic le pasó con Claude Code, su asistente de programación que trabaja en la terminal. En un artículo de 2026, [Lessons from building Claude Code: Prompt caching is everything](https://claude.com/blog/lessons-from-building-claude-code-prompt-caching-is-everything), cuenta que rompieron su propia caché "putting an in-depth timestamp in the static system prompt" (poniendo la fecha y hora detallada en el system prompt fijo) y "shuffling tool order definitions non-deterministically" (cambiando el orden de las herramientas sin querer).
+A Anthropic le pasó con Claude Code, su asistente de programación que trabaja en la terminal. En un artículo de 2026, [Lessons from building Claude Code: Prompt caching is everything](https://claude.dev/blog/lessons-from-building-claude-code-prompt-caching-is-everything/), cuenta que rompieron su propia caché "putting an in-depth timestamp in the static system prompt" (poniendo la fecha y hora detallada en el system prompt fijo) y "shuffling tool order definitions non-deterministically" (cambiando el orden de las herramientas sin querer).
 
 Para encontrar qué cambió, Claude tiene un diagnóstico: se le pasa el identificador de la respuesta anterior y dice qué cambió, por ejemplo `model_changed` o `system_changed`. Para `system_changed`, la documentación dice cuál es la causa típica: una fecha u hora metida en el system prompt.
 
@@ -192,7 +192,7 @@ En el día entero, con un horario de ejemplo de 300 mensajes:
 | Caché de 1 hora | 1 | 299 | 95% | USD 1,02 | USD 58 |
 | La hora en el system prompt | 300 | 0 | 0% | USD 12,48 | |
 
-La caché de 5 minutos baja lo que se manda un 77,5%, y la de 1 hora, casi un 90%. Con 1 hora, el día entero escribe una sola vez, porque ningún hueco pasa de 60 minutos. Las 34 escrituras de la de 5 minutos salen de las horas tranquilas. Lo que responde el modelo cuesta igual en los tres casos: la caché solo abarata lo que se manda.
+La última columna suma lo que responde el modelo, con 150 tokens por respuesta (también de ejemplo). La caché de 5 minutos baja lo que se manda un 77,5%, y la de 1 hora, casi un 90%. Con 1 hora, el día entero escribe una sola vez, porque ningún hueco pasa de 60 minutos. Las 34 escrituras de la de 5 minutos salen de las horas tranquilas. Lo que responde el modelo cuesta igual en los tres casos: la caché solo abarata lo que se manda.
 
 La regla, que coincide con la que da Anthropic:
 
@@ -210,29 +210,29 @@ Para Anthropic es una métrica de primera. En el mismo artículo sobre Claude Co
 
 Porque también es velocidad: el modelo no vuelve a procesar la parte fija, y la respuesta empieza antes. Anthropic dice que con documentos largos "generally" mejora el tiempo hasta el primer token, sin dar un número para los modelos de hoy.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
 GPT son los modelos de OpenAI que usa ChatGPT, y Gemini, los de Google. Los dos tienen caché, con diferencias:
 
 | | Claude | GPT | Gemini |
 |---|---|---|---|
-| Cómo se activa | `cache_control`: arriba de todo (automática) o en un bloque (hasta 4 marcas) | Sola. Desde GPT-5.6 también se puede elegir dónde corta | Sola. En Gemini 4 Argon no hay otra opción |
-| Leer | 10% de la entrada (5% en Opus 5.5 y Sonnet 5.5) | 10% (5% en GPT-6.1 Sol y Terra) | 5% en Argon |
+| Cómo se activa | `cache_control`: arriba de todo (automática) o en un bloque (hasta 4 marcas) | Sola. Desde GPT-5.6 también se puede elegir dónde corta | Sola. En los modelos Gemini 4 no hay otra opción |
+| Leer | 10% de la entrada (5% en Opus 5.5 y Sonnet 5.5; 2,5% en Fable 5.2) | 10% (5% en GPT-6.2 Astra y Sol, y en GPT-6.1 Sol y Terra) | 5% en Gemini 4 Carbon y Argon |
 | Escribir | 1,25 veces (5 minutos) o 2 veces (1 hora) | 1,25 veces (30 minutos) o 2,5 veces (12 horas) | Al precio normal de entrada |
 | Cuánto dura | 5 minutos o 1 hora; cada uso lo renueva | 30 minutos o 12 horas como mínimo | No lo publica |
-| Mínimo | 512 tokens en los modelos 5.x | 1.024 tokens | Unos 4.000 tokens (sus páginas dan 4.096 o 6.144) |
-| Campos | `cache_read_input_tokens`, `cache_creation_input_tokens` | `cached_tokens`, `cache_write_tokens` | `cached_content_token_count` |
-| Cuenta para el límite por minuto | No, en casi todos los modelos | Sí | Sí |
+| Mínimo | 512 tokens en los modelos 5.x | 1.024 tokens | 4.096 tokens en los modelos Gemini 4 |
+| Campos | `cache_read_input_tokens`, `cache_creation_input_tokens` | `cached_tokens`, `cache_write_tokens` | `total_cached_tokens` |
+| Cuenta para el límite por minuto | No, en casi todos los modelos | Sí | Su documentación no lo dice |
 
-En OpenAI, los precios de escritura son para GPT-5.6 en adelante: los modelos anteriores no cobran extra por escribir. En Gemini, la caché automática no garantiza el ahorro, según su propia documentación: aprovecha lo que coincide cuando puede.
+En OpenAI, los precios de escritura son para GPT-5.6 en adelante: los modelos anteriores no cobran extra por escribir. En Gemini, la caché automática no es segura: su documentación da consejos para aumentar "the chance of an implicit cache hit", la probabilidad de acertar.
 
-Los tres dan el mismo consejo: lo fijo arriba, lo que cambia abajo, y no tocar las herramientas.
+Anthropic, OpenAI y Google dan el mismo consejo: lo fijo arriba, lo que cambia abajo, y no tocar las herramientas.
 
 ## En resumen
 
 - La caché guarda el procesamiento de la parte del principio del prompt que se repite. No guarda la respuesta.
 - Solo sirve si el principio coincide exacto, token por token. Lo fijo va arriba y lo que cambia, abajo.
-- Escribir la caché cuesta un poco más que la entrada normal; leerla, mucho menos (5% o 10%).
+- Escribir la caché cuesta un poco más que la entrada normal; leerla, mucho menos (entre 2,5% y 10%, según el modelo).
 - La marca va al final de la parte fija, no en el mensaje del cliente. Si no, se escribe siempre y no se lee nunca.
 - La hora o el stock en el system prompt, las herramientas que cambian, o cambiar de modelo a mitad de la charla, la rompen.
 - Se vence si no se usa. Con pocos mensajes, la de 5 minutos puede salir más cara que no usar caché; la de 1 hora cubre los huecos.
