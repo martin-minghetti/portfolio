@@ -163,7 +163,7 @@ The full process, every time something changes:
 <path d="M150 70V92" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
 <rect x="30" y="94" width="240" height="56" rx="10" fill="oklch(88% 0.08 150)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="150.0" y="118.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Run the new version</text>
-<text x="150.0" y="136.5" font-size="13.5" fill="var(--color-muted)" text-anchor="middle">same message for each case</text>
+<text x="150.0" y="136.5" font-size="13.5" fill="var(--color-muted)" text-anchor="middle">each case, same message</text>
 <path d="M150 150V172" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
 <rect x="30" y="174" width="240" height="56" rx="10" fill="oklch(89% 0.09 75)" stroke="var(--color-ink)" stroke-opacity=".25"/>
 <text x="150.0" y="198.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Grade each answer</text>
@@ -183,7 +183,7 @@ The full process, every time something changes:
 <text x="345.0" y="375.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">Not</text>
 <text x="345.0" y="393.5" font-size="15" fill="var(--color-ink)" text-anchor="middle">approved</text>
 <path d="M345 352V122H272" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
-<text x="352" y="240" font-size="13.5" fill="var(--color-muted)" text-anchor="start">another</text>
+<text x="352" y="240" font-size="13.5" fill="var(--color-muted)" text-anchor="start">new</text>
 <text x="352" y="256" font-size="13.5" fill="var(--color-muted)" text-anchor="start">change</text>
 <path d="M150 422V452" fill="none" stroke="var(--color-ink)" stroke-width="1.6" marker-end="url(#g16ink)"/>
 <text x="160" y="442" font-size="14" fill="var(--color-muted)" text-anchor="start">no</text>
