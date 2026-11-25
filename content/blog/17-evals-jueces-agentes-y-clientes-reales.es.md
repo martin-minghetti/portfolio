@@ -12,64 +12,69 @@ Esa respuesta no se puede chequear buscando una palabra. "Mandame una foto" y "p
 
 ## Un modelo como juez
 
-Usar un modelo para calificar las respuestas de otro se llama **LLM-as-judge** (un modelo de lenguaje como juez). El juez recibe la respuesta y una **rúbrica**: la lista de criterios con que se califica. Para la pizza fría:
+Usar un modelo para calificar las respuestas de otro se llama **LLM-as-judge** (un modelo de lenguaje como juez). El juez recibe la respuesta y una **rúbrica**: la lista de criterios con que se califica. El juez solo sabe lo que se le da, así que la rúbrica incluye el mensaje del cliente y lo que el asistente no puede prometer. Para la pizza fría:
 
-> Pasa si pide el número de pedido y una foto, y ofrece reponerla sin cargo. No pasa si discute con el cliente o promete algo que no está en las reglas.
+> El cliente escribió: "La pizza llegó fría". Pasa si pide el número de pedido y una foto, y ofrece reponerla sin cargo. No pasa si discute con el cliente, o si promete devolver la plata, un descuento o un horario de entrega.
 
-El juez de La Esquina, en Python, con la salida estructurada que ya se vio en la serie:
+El juez de La Esquina, en Python, con la salida estructurada que ya se vio en la serie y Pydantic, la librería que describe cómo tiene que ser un dato y lo chequea:
 
 ```python
 from typing import Literal
 import anthropic
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ValidationError
 
 class Veredicto(BaseModel):
-    razon: str  # va primero: el juez explica antes de decidir
-    resultado: Literal["pasa", "no pasa", "no sé"]
+    motivo: str = Field(description="Una oración: qué criterio de la rúbrica cumple o no cumple")
+    resultado: Literal["pasa", "no_pasa", "no_se"]
 
 client = anthropic.Anthropic()
 
 def juez(respuesta, rubrica):
-    r = client.messages.parse(
-        model="claude-opus-5-5",
-        max_tokens=16000,
-        system="Calificás respuestas del asistente de la pizzería La Esquina. "
-               "Usá solo la rúbrica. Si no alcanza para decidir, respondé 'no sé'.",
-        messages=[{"role": "user", "content":
-                   f"<rubrica>{rubrica}</rubrica>\n<respuesta>{respuesta}</respuesta>"}],
-        output_format=Veredicto,
-    )
+    try:
+        r = client.messages.parse(
+            model="claude-opus-5-5",
+            max_tokens=16000,
+            system="Calificás respuestas del asistente de la pizzería La Esquina. "
+                   "Usá solo la rúbrica. Si no alcanza para decidir, respondé no_se.",
+            messages=[{"role": "user", "content":
+                       f"<rubrica>{rubrica}</rubrica>\n<respuesta>{respuesta}</respuesta>"}],
+            output_format=Veredicto,
+        )
+    except ValidationError:  # llegó cortado o el juez se negó
+        return None
     v = r.parsed_output
-    return None if v is None or v.resultado == "no sé" else v.resultado == "pasa"
+    return None if v is None or v.resultado == "no_se" else v.resultado == "pasa"
 ```
 
 Lo que hay que mirar:
 
-- **La razón va antes del resultado.** El modelo escribe en orden, así que primero explica y después decide. Es la idea de razonar antes de responder, aplicada al juez.
-- **El juez puede decir "no sé".** La guía de evals de Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), lo recomienda: darle al juez una salida cuando no tiene información suficiente, para que no invente un veredicto. En el código, "no sé" vuelve como `None`, que no cuenta ni a favor ni en contra, igual que un caso sin correr.
+- **El juez razona solo.** Claude Opus 5.5 decide cuánto pensar antes de escribir el veredicto, y el razonamiento no se puede apagar. La guía de OpenAI, [Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices), también dice que razonar antes de dar el puntaje mejora el eval. Por eso el esquema no tiene un campo para el razonamiento, que en Claude puede terminar en un rechazo: `motivo` es una sola oración, para que una persona entienda por qué pasó o no.
+- **El juez puede decir "no sé".** La guía de evals de Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents), lo recomienda: darle al juez una salida cuando no tiene información suficiente, para que no invente un veredicto. En el código, `no_se` vuelve como `None`, igual que un caso sin correr: no cuenta ni a favor ni en contra, pero si el caso es crítico, el cambio no entra.
+- **Una respuesta cortada o un rechazo también es `None`.** Sin el `try`, un solo veredicto que no se puede leer haría caer el eval completo.
+- **Los valores van sin espacios.** `no_pasa` y `no_se`, por lo mismo que se vio con la salida estructurada: Claude no garantiza las mayúsculas en la letra que sigue a un espacio.
 - **Un juez por cada cosa que se mide.** La misma guía aconseja una rúbrica clara para cada aspecto (el tono, si pidió los datos, si prometió algo de más), y un juez aparte para cada uno, en vez de uno solo que califique todo junto.
 
 Este juez se enchufa en la función `correr` del post anterior: `correr(golden, respuestas, juez=juez)`.
 
-Sin conectar con la API, se puede probar que el código arma bien el pedido y lee bien el veredicto, simulando las respuestas del juez. Con la respuesta de la versión anterior ("Perdón! Mandame una foto y el número de pedido y te la reponemos sin cargo") y un veredicto simulado de "pasa", la función devuelve `True`. Lo que el juez decide de verdad con esta rúbrica no está probado.
+Sin conectar con la API, se puede probar que el código arma bien el pedido y lee bien el veredicto, simulando las respuestas del juez. Con la respuesta de la versión anterior ("Perdón! Mandame una foto y el número de pedido y te la reponemos sin cargo") y un veredicto simulado de "pasa", la función devuelve `True`; con "no_pasa", `False`; y con "no_se", con un veredicto cortado a la mitad o con un rechazo, `None`. Lo que el juez decide de verdad con esta rúbrica no está probado.
 
 ## Los sesgos del juez
 
 Un juez es otro modelo, y se equivoca de formas conocidas. Un estudio de 2023 de un equipo de UC Berkeley y otras universidades, [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685), les puso nombre a tres sesgos, probando como jueces a GPT-4 y GPT-3.5, de OpenAI, y Claude-v1, de Anthropic:
 
-- **El orden.** Si el juez compara dos respuestas, puede preferir la que aparece primero. En el estudio, al invertir el orden de las dos respuestas, GPT-4 mantuvo su veredicto solo en el 65% de los casos.
+- **El orden.** Si el juez compara dos respuestas, puede preferir la que aparece primero. En el estudio, con respuestas muy parecidas entre sí, al invertir el orden, GPT-4 mantuvo su veredicto solo en el 65% de los casos.
 - **El largo.** El juez puede preferir la respuesta más larga, aunque no diga nada más. En una prueba del estudio, a 23 respuestas que tenían una lista les agregaron adelante la misma lista dicha con otras palabras: GPT-3.5 y Claude-v1 prefirieron la versión alargada el 91,3% de las veces, y GPT-4 el 8,7%.
-- **Sus propias respuestas.** Un juez puede preferir lo que escribió un modelo como él. En el estudio, GPT-4 se favoreció con un 10% más de victorias, y Claude-v1 con un 25%.
+- **Sus propias respuestas.** Un juez puede preferir lo que escribió un modelo como él. En el estudio, GPT-4 se favoreció con un 10% más de victorias, y Claude-v1 con un 25%, aunque los autores aclaran que, con tan pocos datos, no pueden asegurar que sea un sesgo.
 
 Los números son de modelos de 2023, y los de hoy pueden comportarse distinto. Pero los sesgos siguen en las guías actuales: la de OpenAI nombra el del orden y el del largo, y pide controlar el largo de las respuestas porque los modelos tienden a preferir las largas.
 
-Para el orden, el estudio propone una solución simple: llamar al juez dos veces, con las respuestas invertidas, y dar ganadora a una solo si gana en los dos órdenes. Para el sesgo propio, si el asistente y el juez son el mismo modelo, como en el código de arriba, conviene comparar con una persona con más cuidado, o usar otro modelo como juez.
+Para el orden, el estudio propone una solución simple: llamar al juez dos veces, con las respuestas invertidas, y dar ganadora a una solo si gana en los dos órdenes. Para el sesgo propio, la documentación de Claude, en [Define success criteria and build evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests), dice que en general lo mejor es que califique un modelo distinto del que escribió la respuesta. Si el asistente también usa Claude Opus 5.5, conviene cambiar el modelo del juez o, si no se puede, compararlo con una persona con más cuidado.
 
-El mismo estudio trae la buena noticia: un juez fuerte coincidió con las personas en más del 80% de los casos, lo mismo que coinciden dos personas entre sí. Un juez puede servir. Pero hay que comprobarlo antes de confiar en él.
+El mismo estudio trae la buena noticia: un juez fuerte (GPT-4) coincidió con las personas en más del 80% de los casos, sin contar los empates, más o menos lo mismo que coinciden dos personas entre sí. Un juez puede servir. Pero hay que comprobarlo antes de confiar en él.
 
 ## Comparar al juez con una persona
 
-Los tres proveedores dicen lo mismo: antes de usar un juez en serio, hay que **calibrarlo**, es decir, comparar sus veredictos con los de una persona. Anthropic pide que esté "muy calibrado con expertos humanos". OpenAI, en su guía [Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices), pide validar cuánto coincide con las etiquetas de personas antes de buscar un juez más barato o más rápido. Google, en su documentación, propone armar un set de respuestas con puntajes de personas como la verdad contra la que se mide al juez.
+Anthropic, OpenAI y Google dicen lo mismo: antes de usar un juez en serio, hay que **calibrarlo**, es decir, comparar sus veredictos con los de una persona. Anthropic pide que esté "muy calibrado con expertos humanos". OpenAI, en su guía, aconseja empezar con un modelo fuerte como juez (hoy nombra a GPT-6.2 Astra) y validar cuánto coincide con las etiquetas de personas antes de buscar uno más barato o más rápido. Google, en [Evaluate a judge model](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/evaluate-judge-model), propone armar un set de respuestas con puntajes de personas como la verdad contra la que se mide al juez.
 
 En La Esquina: una persona del local lee 50 respuestas a reclamos y marca cuáles pasan. Después el juez califica las mismas 50. Con números de ejemplo, no medidos:
 
@@ -86,7 +91,7 @@ Es el mismo problema que se vio con los filtros de guardrails: un juez se equivo
 
 Google usa para esto la **exactitud balanceada**: el promedio entre cuántas buenas reconoce como buenas y cuántas malas reconoce como malas. Acá da (38/40 + 6/10) / 2 = 0,775, bastante menos que el 88%, porque castiga las malas que se escapan.
 
-Si el juez no alcanza, se ajusta la rúbrica y se vuelve a medir. Supongamos que, con una rúbrica más precisa, el juez pasa a frenar 9 de las 10 malas: la exactitud balanceada sube a 0,91. Ahí ya se puede usar en el eval, con una persona que revise de vez en cuando. Y cuando se cambia el modelo del juez o la rúbrica, se calibra de nuevo.
+Si el juez no alcanza, se ajusta la rúbrica y se vuelve a medir. Supongamos que, con una rúbrica más precisa, el juez pasa a frenar 9 de las 10 malas, aunque ahora también frena 3 de las 40 buenas: la exactitud balanceada sube a (37/40 + 9/10) / 2 = 0,91. Ahí ya se puede usar en el eval, con una persona que revise de vez en cuando. Y cuando se cambia el modelo del juez o la rúbrica, se calibra de nuevo.
 
 ## Cómo se mide un agente
 
@@ -98,7 +103,7 @@ No todos piensan igual. En el ADK, el kit de Google para armar agentes, si no se
 
 **Una vez o siempre.** Un modelo no responde siempre igual, así que en un agente se corre cada caso varias veces. Y ahí hay dos preguntas distintas:
 
-- **pass@k:** de k intentos, acertó en alguno? La medida se hizo conocida con [el paper de Codex de OpenAI](https://arxiv.org/abs/2107.03374), de 2021, para modelos que escriben código: si de 10 intentos uno anda, alcanza, porque se puede probar cuál anda.
+- **pass@k:** de k intentos, acertó en alguno? La medida se hizo conocida con [el estudio de 2021](https://arxiv.org/abs/2107.03374) en que OpenAI presentó Codex, un modelo que escribe código: si de 10 intentos uno anda, alcanza, porque se puede probar cuál anda.
 - **pass^k:** de k intentos, acertó en todos? La propuso Sierra, una empresa que hace agentes de atención al cliente, en su estudio de 2024 [τ-bench](https://arxiv.org/abs/2406.12045), justamente porque a un cliente no le sirve que el asistente acierte alguna vez.
 
 Si el asistente de La Esquina toma bien un pedido el 90% de las veces, y cada intento es independiente del anterior:
@@ -114,7 +119,7 @@ Con el mismo asistente, una medida dice "casi perfecto" y la otra "falla seguido
 
 ## Un modelo que hace de cliente
 
-En una charla real, el asistente pregunta cosas y el cliente contesta. Un golden set con un solo mensaje por caso no prueba eso. La solución de τ-bench, que también trae el ADK de Google, es que otro modelo haga de cliente: recibe un plan ("pedí 2 muzzarellas para Barrio Norte; si te preguntan algo, contestá") y conversa con el asistente hasta terminar.
+En una charla real, el asistente pregunta cosas y el cliente contesta. Un golden set (la lista de casos del eval) con un solo mensaje por caso no prueba eso. La solución de τ-bench, que también trae el ADK de Google, es que otro modelo haga de cliente: recibe un plan ("pedí 2 muzzarellas para Barrio Norte; si te preguntan algo, contestá") y conversa con el asistente hasta terminar.
 
 <figure>
 <p class="fig-title">Una prueba con un cliente simulado</p>
@@ -165,20 +170,20 @@ Una mejora chica tarda tres semanas en verse. Por eso el golden set va primero, 
 
 Mirar qué pasa con los clientes reales todos los días, y no solo durante un A/B, ya es otro tema: observabilidad, que se ve más adelante en la serie.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
-| | Anthropic | OpenAI | Google |
+| | Claude (Anthropic) | GPT (OpenAI) | Gemini (Google) |
 |---|---|---|---|
-| Qué ofrece | Guías: Demystifying evals for AI agents y la documentación para definir criterios y armar evals | Cerró su plataforma de evals (solo lectura desde el 31-10-2026, apagada desde el 30-11-2026) y recomienda Promptfoo, una herramienta open source de evals que pasó a ser parte de OpenAI | Gen AI evaluation service, en su plataforma de Google Cloud para modelos y agentes, y evals con cliente simulado en el ADK |
+| Qué ofrece | Guías: Demystifying evals for AI agents y la documentación para definir criterios y armar evals | Cerró su plataforma de evals (solo lectura desde el 31-10-2026, con apagado el 30-11-2026) y recomienda Promptfoo, una herramienta open source de evals que en marzo de 2026 anunció que pasa a ser parte de OpenAI | Gen AI evaluation service, en su plataforma de Google Cloud para modelos y agentes, y evals con cliente simulado en el ADK |
 | Orden de los calificadores | Código donde se pueda, modelo donde haga falta, personas con cuidado | Automatizar cuando se pueda, personas para calibrar | Rúbricas que arma un modelo para cada pregunta, más métricas con código |
-| Sobre el juez | Calibrarlo con expertos y darle la salida "no sé" | Validar cuánto coincide con personas; sesgos del orden y del largo | Medirlo contra puntajes de personas, con exactitud balanceada |
-| Agentes | Calificar sobre todo el resultado; pass@k y pass^k | No lo cubre su guía de evals | Métricas de respuesta final y de uso de herramientas; el ADK exige el orden exacto por defecto |
+| Sobre el juez | Calibrarlo con expertos, darle la salida "no sé" y que sea otro modelo | Validar cuánto coincide con personas; sesgos del orden y del largo | Medirlo contra puntajes de personas, con exactitud balanceada |
+| Agentes | Calificar sobre todo el resultado; pass@k y pass^k | Elección de herramienta, datos correctos y, con varios agentes, derivación al que corresponde | Métricas de respuesta final y de uso de herramientas; el ADK exige el orden exacto por defecto |
 
-En lo que coinciden los tres: un juez no se usa sin antes compararlo con una persona.
+Anthropic, OpenAI y Google coinciden en esto: un juez no se usa sin antes compararlo con una persona.
 
 ## En resumen
 
-- Cuando el código no alcanza para calificar, otro modelo puede hacerlo con una rúbrica. Conviene que razone antes del veredicto, que pueda decir "no sé" y que haya un juez por cada aspecto.
+- Cuando el código no alcanza para calificar, otro modelo puede hacerlo con una rúbrica. Conviene que pueda decir "no sé", que no sea el mismo modelo que escribió la respuesta y que haya un juez por cada aspecto.
 - Un juez tiene sesgos conocidos: el orden de las respuestas, el largo y la preferencia por lo que escribió un modelo como él.
 - Antes de confiar en un juez, se compara con una persona. Un acuerdo alto puede no alcanzar: hay que mirar cuántas respuestas malas deja pasar.
 - En un agente se califica sobre todo el resultado. pass@k mide si acierta alguna vez; pass^k, si acierta siempre, que es lo que necesita un cliente.
