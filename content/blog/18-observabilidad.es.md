@@ -20,7 +20,7 @@ La palabra importante es "mensaje". Cuando un cliente escribe "Hay napolitana? M
 
 ## La traza: un mensaje, varios pasos
 
-El registro completo de un mensaje, con todos sus pasos, se llama **traza** (en inglés, trace). Cada paso dentro de la traza, sea una llamada al modelo o una herramienta, es un **paso** (en inglés, span). Anthropic lo define así en su documentación: "A trace is the full record of one request through your system. A span is one step in a trace, such as a model request or a tool use."
+El registro completo de un mensaje, con todos sus pasos, se llama **traza** (en inglés, trace). Cada paso dentro de la traza, sea una llamada al modelo o una herramienta, es un **paso** (en inglés, span). Anthropic lo define así en su documentación: "Una traza es el registro completo de una solicitud a lo largo de tu sistema. Un span es un paso de la traza, como una llamada al modelo o el uso de una herramienta."
 
 Así se ve la traza del mensaje que tardó:
 
@@ -56,7 +56,7 @@ Así se ve la traza del mensaje que tardó:
 
 El cliente esperó 9 segundos, y el modelo usó menos de 4. El resto fue el sistema de stock. Sin la traza, el registro diría "9 segundos" y la culpa iba al modelo. Con la traza, se ve que lo que hay que arreglar es la consulta al stock.
 
-Google lo explica bien en la documentación de su kit para armar agentes: las métricas dicen cuánto tardó algo, los registros dicen qué pasó, y las trazas "connect these events, showing you exactly *where* the time was spent" (conectan esos eventos y muestran dónde se fue el tiempo).
+Google lo explica bien en la documentación de su kit para armar agentes: las métricas dicen cuánto tardó algo, los registros dicen qué pasó, y las trazas "conectan esos eventos y muestran exactamente dónde se fue el tiempo".
 
 ## Lo que tarda: el promedio engaña
 
@@ -75,11 +75,11 @@ Por eso se usan **percentiles**: el valor que deja abajo a cierto porcentaje de 
 - **El p95:** el 95% de los mensajes tarda menos que eso. Acá, 9,4 segundos. El 5% más lento tarda eso o más.
 - **El p99, o el máximo:** para ver al cliente de 41 segundos. Con 20 mensajes el p99 es el máximo; con miles, son cosas distintas.
 
-No es una idea nueva. Google la cuenta en su libro sobre cómo opera sus servicios (el libro de SRE, por ingeniería de confiabilidad, en inglés), en el capítulo sobre monitoreo: "If you run a web service with an average latency of 100 ms at 1,000 requests per second, 1% of requests might easily take 5 seconds."
+No es una idea nueva. Google la cuenta en su libro sobre cómo opera sus servicios (el libro de SRE, por ingeniería de confiabilidad, en inglés), en el capítulo sobre monitoreo: "Si tenés un servicio web con una latencia promedio de 100 ms y 1.000 solicitudes por segundo, el 1% de las solicitudes bien puede tardar 5 segundos."
 
 ### En un agente, lo raro se vuelve común
 
-El mismo capítulo tiene otra frase que pega justo con los agentes: "the 99th percentile of one backend can easily become the median response of your frontend". En La Esquina quiere decir esto: si cada llamada al modelo tiene un 5% de probabilidad de ser lenta, un mensaje que hace varias llamadas tiene más chances de que alguna lo sea.
+El mismo capítulo tiene otra frase que pega justo con los agentes: cuando una respuesta depende de varios servicios, "el percentil 99 de uno de ellos puede volverse fácilmente la mediana" de lo que espera el usuario. En La Esquina quiere decir esto: si cada llamada al modelo tiene un 5% de probabilidad de ser lenta, un mensaje que hace varias llamadas tiene más chances de que alguna lo sea.
 
 | Llamadas en el mensaje | Al menos una entre el 5% más lento | Al menos una entre el 1% más lento |
 |---|---|---|
@@ -88,13 +88,13 @@ El mismo capítulo tiene otra frase que pega justo con los agentes: "the 99th pe
 | 3 | 14,3% | 3,0% |
 | 6 | 26,5% | 5,9% |
 
-La cuenta supone que cada llamada es lenta o no por su cuenta. Un pedido completo en La Esquina son seis llamadas: con eso, uno de cada cuatro pedidos tiene al menos una llamada en el 5% más lento. Por eso lo que tarda se mide por mensaje del cliente, no por llamada.
+La cuenta supone que cada llamada es lenta o no por su cuenta. En el ejemplo de este post, un pedido completo en La Esquina son tres mensajes del cliente y seis llamadas: con eso, uno de cada cuatro pedidos tiene al menos una llamada en el 5% más lento. Por eso lo que tarda se mide por mensaje del cliente, no por llamada.
 
-Un dato más, si el asistente responde de a pedazos a medida que el modelo escribe (en inglés, streaming): ahí importa también el **tiempo hasta la primera palabra**, lo que el cliente espera antes de ver algo. OpenAI explica por qué: "Prompt tokens add little latency to completion calls. Time to generate completion tokens is much longer, as tokens are generated one at a time." Lo que lee el modelo pesa poco; lo que escribe, mucho.
+Un dato más, si el asistente responde de a pedazos a medida que el modelo escribe (en inglés, streaming): ahí importa también el **tiempo hasta la primera palabra**, lo que el cliente espera antes de ver algo. OpenAI explica por qué: los tokens que lee el modelo suman poca demora, y generar la respuesta tarda mucho más, "porque los tokens se generan de a uno". Lo que lee el modelo pesa poco; lo que escribe, mucho.
 
 ## Lo que cuesta: por pedido, no por llamada
 
-Con el costo pasa lo mismo que con el tiempo: depende de qué se cuente. Un día de ejemplo de La Esquina, con los mismos números que se usaron al hablar del caching: 100 charlas, 300 mensajes, 8.000 tokens fijos que se leen de la caché, y Claude Opus 5.5 (USD 4 por millón de tokens de entrada, USD 0,20 por millón leídos de la caché y USD 20 por millón de salida). De las 100 charlas, 60 terminan en pedido. Un pedido completo son seis llamadas, porque el historial crece en cada vuelta; una charla que no compra, tres.
+Con el costo pasa lo mismo que con el tiempo: depende de qué se cuente. Un día de ejemplo de La Esquina, con los números que se usaron al hablar del caching: 300 mensajes y 8.000 tokens fijos, ahora repartidos en 100 charlas. Para simplificar, la parte fija siempre se lee de la caché. El modelo es Claude Opus 5.5 (USD 4 por millón de tokens de entrada, USD 0,20 por millón leídos de la caché y USD 20 por millón de salida). De las 100 charlas, 60 terminan en pedido. Un pedido completo son seis llamadas, porque el historial crece en cada vuelta; una charla que no compra, tres.
 
 | Qué se mide | Costo |
 |---|---|
@@ -105,18 +105,18 @@ Con el costo pasa lo mismo que con el tiempo: depende de qué se cuente. Un día
 
 El día cuesta USD 3,01, unos USD 90 por mes. La misma cuenta da 0,006 o 0,05 dólares según qué se divida. Al dueño le importa la última: cuánto cuesta cada pedido, contando también las charlas que no compran. Es ocho veces más que una llamada.
 
-OpenAI lo dice en su guía de agentes: "Compare the cost of completing the same task at the quality and latency your application needs." Que la caché acierte mucho no dice cuánto cuesta terminar la tarea. Cómo bajar ese número es otro tema, más adelante en la serie.
+OpenAI lo dice en su guía de agentes: hay que comparar "el costo de completar la misma tarea con la calidad y la demora que tu aplicación necesita". Que la caché acierte mucho no dice cuánto cuesta terminar la tarea. Cómo bajar ese número es otro tema, más adelante en la serie.
 
 ## Los errores que no se ven
 
-La librería de Anthropic para Python (el SDK) reintenta sola cuando la API falla por algo pasajero. Anthropic lo dice en su documentación: "The official SDK automatically retries transient failures (such as connection errors, rate limits, and 5xx server errors) with exponential backoff, twice by default."
+La librería de Anthropic para Python (el SDK) reintenta sola cuando la API falla por algo pasajero. Anthropic lo explica en su documentación: por defecto, el SDK reintenta una llamada que falló hasta dos veces (tres intentos en total) cuando el error es de conexión, de tiempo, por límite de uso o del servidor, y espera un poco más entre un intento y otro.
 
-Es una ayuda, pero tiene una contracara. En una prueba sin conectar con la API, con respuestas simuladas, la API devolvió primero un error 529 (sobrecarga) y después una respuesta buena. El SDK reintentó solo y tu código recibió la respuesta buena, como si nada hubiera pasado. El único rastro quedó en la traza: un campo que dice que el pedido se mandó dos veces. Sin trazas, el reintento no existe: el registro muestra un mensaje más lento y nada más.
+Es una ayuda, pero tiene una contracara. En una prueba sin conectar con la API, con respuestas simuladas, la API devolvió primero un error 529 (sobrecarga) y después una respuesta buena. El SDK reintentó solo y tu código recibió la respuesta buena, como si nada hubiera pasado. El único rastro quedó en la traza: un campo que dice que la llamada se mandó dos veces. Sin trazas, el reintento no existe: el registro muestra un mensaje más lento y nada más.
 
 Por eso conviene registrar dos cosas más:
 
-- **El número de cada pedido.** La API le pone uno a cada respuesta, en el encabezado `request-id` ("Every API response includes a unique `request-id` header"), y el SDK lo da como `_request_id`. Si algo falla, es lo que se le pasa al soporte del proveedor. Cuando hay un error, también viene en el error.
-- **Lo que tardan los errores, aparte.** Un mensaje que falla rápido y uno que falla después de 30 segundos no son lo mismo. El libro de SRE lo resume así: "a slow error is even worse than a fast error!" Si se mezclan con los que salen bien, los errores rápidos hacen parecer que el asistente anda más rápido de lo que anda.
+- **El número de cada llamada.** La API le pone uno a cada respuesta, en el encabezado `request-id` ("cada respuesta de la API incluye un encabezado `request-id` único"), y el SDK lo da como `_request_id`. Si algo falla, es lo que se le pasa al soporte del proveedor. Cuando hay un error, también viene en el error.
+- **Lo que tardan los errores, aparte.** Un mensaje que falla rápido y uno que falla después de 30 segundos no son lo mismo. El libro de SRE lo resume así: "un error lento es todavía peor que un error rápido". Si se mezclan con los que salen bien, los errores rápidos hacen parecer que el asistente anda más rápido de lo que anda.
 
 ## Cómo se ve en código
 
@@ -128,14 +128,14 @@ import anthropic
 
 client = anthropic.Anthropic()
 
-def atender(conversacion, mensajes, ejecutar_herramientas, **pedido):
+def atender(conversacion, mensajes, ejecutar_herramientas, **parametros):
     """Corre el loop del agente para un mensaje del cliente y deja una línea en el registro."""
     fila = {"conversacion": conversacion, "hora": time.strftime("%H:%M:%S"),
             "llamadas": [], "herramientas": [], "error": None}
     inicio = time.monotonic()
     try:
         for vuelta in range(10):  # el tope de vueltas
-            r = client.messages.create(messages=mensajes, **pedido)
+            r = client.messages.create(messages=mensajes, **parametros)
             u = r.usage
             fila["llamadas"].append({"request_id": r._request_id, "fin": r.stop_reason,
                                      "sin_cache": u.input_tokens, "cache": u.cache_read_input_tokens or 0,
@@ -166,7 +166,7 @@ Cuatro cosas para mirar:
 
 - El `finally` escribe la línea pase lo que pase: con respuesta, con error o al llegar al tope de vueltas.
 - `segundos` mide el mensaje entero, herramientas incluidas: es lo que espera el cliente.
-- `fin` dice cómo terminó cada llamada. Si aparece `max_tokens`, la respuesta se cortó.
+- `fin` dice cómo terminó cada llamada. Si aparece `max_tokens`, la respuesta se cortó; si aparece `refusal`, el modelo se negó.
 - Se guardan tokens, no texto: el registro no tiene lo que escribió el cliente. Es una decisión, y se ve más abajo.
 
 `ejecutar_herramientas` es la función que corre las herramientas, la misma que se vio con los agentes. Y `conversacion` es un número propio de la charla, no el teléfono del cliente.
@@ -228,9 +228,9 @@ with tracer.start_as_current_span("mensaje_del_cliente"):
     ...  # el mismo loop de siempre: cada llamada al modelo queda adentro como un paso
 ```
 
-Cada llamada al modelo aparece como un paso dentro de la traza del mensaje, con su número de pedido, cómo terminó, los tokens y lo que tardó, sin tocar las llamadas. Las herramientas que corre tu código hay que abrirlas como pasos propios, con otro `start_as_current_span`. Anthropic lo tiene en beta: avisa que los nombres de los campos pueden cambiar y pide fijar la versión del SDK.
+Cada llamada al modelo aparece como un paso dentro de la traza del mensaje, con su número de llamada, cómo terminó, los tokens y lo que tardó, sin tocar las llamadas. Las herramientas que corre tu código hay que abrirlas como pasos propios, con otro `start_as_current_span`. Anthropic lo tiene en beta: avisa que los nombres de los campos pueden cambiar y pide fijar la versión del SDK.
 
-Un detalle que confunde: en la traza, los tokens de entrada incluyen los de la caché, y en la respuesta de la API no. En una llamada de la prueba, la respuesta decía 400 tokens de entrada (lo que va después de la marca de caché, como se vio al hablar del caching) y la traza decía 8.400. Anthropic lo avisa: "`gen_ai.usage.input_tokens` already includes the tokens read from and written to the prompt cache, so don't add the cache attributes to it." Si se suman los dos, se cuenta doble.
+Un detalle que confunde: en la traza, los tokens de entrada incluyen los de la caché, y en la respuesta de la API no. En una llamada de la prueba, la respuesta decía 400 tokens de entrada (lo que va después de la marca de caché, como se vio al hablar del caching) y la traza decía 8.400. Anthropic lo aclara en la lista de campos de sus trazas: `gen_ai.usage.input_tokens` son los tokens de entrada "con las lecturas y escrituras de la caché incluidas". Si se le suman los de la caché, se cuentan dos veces.
 
 ## Qué mirar todos los días
 
@@ -244,15 +244,15 @@ Con el registro armado, la lista para La Esquina es corta:
 - **Controles que saltan:** cada vez que un guardrail frena algo, y cada charla que pasa a una persona.
 - **El acierto de la caché**, como se vio al hablar del caching.
 
-Falta la calidad: si el asistente responde bien. Eso no sale de los números. Se toma una muestra de charlas del día y se califica con el juez del post anterior. Con los números de ejemplo (1.500 tokens de entrada y 200 de salida por respuesta), calificar las 300 respuestas del día con Opus 5.5 cuesta USD 3, lo mismo que atender a los clientes. Con Haiku 5.5 cuesta menos de 8 centavos de dólar, pero un juez nuevo hay que volver a compararlo con una persona. Lo razonable es una muestra con el modelo grande, o todo con uno chico ya calibrado. Y además, leer algunas charlas cada semana: ninguna métrica reemplaza eso.
+Falta la calidad: si el asistente responde bien. Eso no sale de los números. Se toma una muestra de charlas del día y se califica con el juez del post anterior. Con los números de ejemplo (1.500 tokens de entrada y 200 de salida por respuesta), calificar las 300 respuestas del día con Claude Sonnet 5.5 (USD 2 por millón de tokens de entrada y USD 10 de salida), un modelo distinto del que atiende, como se recomendó para el juez, cuesta USD 1,50: la mitad de lo que cuesta atender a los clientes. Con Claude Haiku 5.5, el más chico de Anthropic, cuesta menos de 8 centavos de dólar, pero un juez nuevo hay que volver a compararlo con una persona. Lo razonable es una muestra con un modelo como Sonnet 5.5, o todo con uno chico ya calibrado. Y además, leer algunas charlas cada semana: ninguna métrica reemplaza eso.
 
 ## Qué se guarda
 
 El registro de La Esquina tiene datos de clientes: teléfonos, direcciones, a veces la alergia de un chico. Qué se guarda es una decisión, y cada proveedor hace algo distinto por defecto:
 
 - **Anthropic**, en sus trazas, guarda solo datos de cada paso (tiempos, tokens, estado), sin el texto de la charla, salvo que se pida el contenido completo.
-- **OpenAI**, en su kit para armar agentes (el Agents SDK), traza por defecto y guarda lo que entra y lo que sale de cada llamada: "By default, `trace_include_sensitive_data` is `True`."
-- **Google**, en la consola web de Gemini (AI Studio), guarda los pedidos por defecto en los proyectos nuevos desde el 26 de octubre de 2026, solo en el plan pago. Los borra a los 55 días, salvo que se guarden como conjunto de datos.
+- **OpenAI**, en su kit para armar agentes (el Agents SDK), traza por defecto y guarda lo que entra y lo que sale de cada llamada: su documentación dice que, por defecto, `trace_include_sensitive_data` (incluir datos sensibles en la traza) está en `True`.
+- **Google**, en la consola web de Gemini (AI Studio), guarda las llamadas a la API por defecto en los proyectos nuevos desde el 26 de octubre de 2026, solo en el plan pago. Los borra a los 55 días, salvo que se guarden como conjunto de datos.
 
 Una regla simple: no usar el teléfono del cliente como número de la charla, porque ese número viaja a todas las trazas. Cómo tapar datos personales antes de guardarlos se ve más adelante en la serie.
 
@@ -265,15 +265,15 @@ Una **alerta** es un aviso automático cuando un número se pasa de un límite. 
 No hace falta armar el tablero desde cero. Hay plataformas que reciben las trazas y las muestran, con gráficos y alertas:
 
 - **Langfuse:** plataforma de observabilidad para aplicaciones con modelos, que se puede instalar en tu propio servidor. Desde enero de 2026 es de ClickHouse, una empresa de bases de datos.
-- **LangSmith:** la parte paga de LangChain, que se vio al hablar de orquestación. Muestra paso a paso qué hizo un agente.
+- **LangSmith:** el servicio comercial de LangChain, que se vio al hablar de orquestación, con un plan gratis. Muestra paso a paso qué hizo un agente.
 - **Arize Phoenix:** herramienta de Arize, una empresa de monitoreo para inteligencia artificial, para ver trazas y calificar respuestas. Es gratis y se puede instalar en tu servidor.
-- **Braintrust:** plataforma paga de observabilidad y evals para agentes.
+- **Braintrust:** plataforma de observabilidad y evals para agentes.
 
-Casi todas reciben OpenTelemetry. Anthropic lista 16 plataformas asociadas que reciben sus trazas, entre ellas estas cuatro, y aclara que sirve "any observability platform that accepts OTLP" (cualquiera que acepte el formato del estándar). Eso importa, porque en 2026 varias de estas empresas cambiaron de dueño. Helicone, otra plataforma de observabilidad, la compró Mintlify, una empresa de documentación, en marzo, y quedó en mantenimiento: "We'll work closely with every customer to support a smooth migration to another platform." Si el registro usa el estándar, cambiar de herramienta es cambiar a dónde se mandan las trazas, no rehacer el registro.
+Casi todas reciben OpenTelemetry. Anthropic lista 16 plataformas asociadas que reciben sus trazas, entre ellas estas cuatro, y aclara que sirve "cualquier plataforma de observabilidad que acepte OTLP", el formato del estándar. Eso importa, porque en 2026 varias de estas empresas cambiaron de dueño. Helicone, otra plataforma de observabilidad, la compró Mintlify, una empresa de documentación, en marzo, y quedó en mantenimiento: Mintlify avisó que va a acompañar a cada cliente "en la mudanza a otra plataforma". Si el registro usa el estándar, cambiar de herramienta es cambiar a dónde se mandan las trazas, no rehacer el registro.
 
-Una aclaración: el estándar todavía no es estable. Las convenciones de OpenTelemetry para modelos de lenguaje siguen marcadas como "Development" al 1 de noviembre de 2026, y por eso Anthropic pide fijar la versión.
+Una aclaración: el estándar todavía no es estable. Las convenciones de OpenTelemetry para modelos de lenguaje siguen marcadas como "Development" (en desarrollo) en noviembre de 2026, y por eso Anthropic pide fijar la versión.
 
-## Lo mismo en los tres
+## Lo mismo en Claude, GPT y Gemini
 
 Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT) y Gemini (de Google):
 
@@ -281,13 +281,13 @@ Así se ve en Claude (de Anthropic), GPT (los modelos de OpenAI que usa ChatGPT)
 |---|---|---|---|
 | Panel del proveedor | Consola: uso y costo, con gráficos de límites y del acierto de la caché | Registros del panel de OpenAI; las trazas de agentes, en su propia sección | Registros en AI Studio, solo en el plan pago; se borran a los 55 días por defecto |
 | Trazas con OpenTelemetry | El SDK y la API las mandan a tu plataforma (en beta) | El Agents SDK traza por defecto al panel de OpenAI, y se pueden mandar a otras | El kit de agentes de Google sigue el estándar; en Google Cloud se prende con una variable al desplegar |
-| Qué guarda por defecto | Solo datos de cada paso, sin el texto | El Agents SDK guarda lo que entra y lo que sale | Los proyectos nuevos guardan los pedidos desde el 26-10-2026; en Google Cloud, sin el texto salvo que se pida |
+| Qué guarda por defecto | Solo datos de cada paso, sin el texto | El Agents SDK guarda lo que entra y lo que sale | Los proyectos nuevos guardan las llamadas desde el 26-10-2026; en Google Cloud, sin el texto salvo que se pida |
 
-Los tres hablan OpenTelemetry: lo que se registra con el estándar se puede mirar en cualquier plataforma.
+Anthropic, OpenAI y Google hablan OpenTelemetry: lo que se registra con el estándar se puede mirar en cualquier plataforma.
 
 ## Del registro al golden set
 
-La observabilidad no reemplaza a los evals: los completa. Anthropic, en su guía de evals, pone así las contras del monitoreo con clientes reales: "Reactive; problems reach users before you know about them" (es reactivo: los problemas llegan a los clientes antes de que te enteres), y "Lacks ground truth for grading" (no hay respuesta correcta para comparar).
+La observabilidad no reemplaza a los evals: los completa. Anthropic, en su guía de evals, pone así las contras del monitoreo con clientes reales: es reactivo, "los problemas llegan a los usuarios antes de que te enteres", y "no hay una respuesta correcta contra la que calificar".
 
 Los evals frenan los errores conocidos antes de salir. El monitoreo encuentra los que nadie imaginó. Y se unen en un punto: cada falla que aparece con un cliente real se convierte en un caso del golden set. Si el viernes la consulta al stock tardó 5 segundos y el asistente le dijo al cliente que no había napolitana, ese mensaje entra al golden set, y el próximo cambio se prueba también con él.
 
@@ -297,7 +297,7 @@ Los evals frenan los errores conocidos antes de salir. El monitoreo encuentra lo
 - La unidad es el mensaje del cliente, no la llamada al modelo. Cada mensaje es una traza, con un paso por cada llamada y cada herramienta.
 - Lo que tarda se mira con percentiles: el promedio esconde al cliente que esperó 41 segundos. En un agente, la llamada lenta se vuelve común.
 - El costo que importa es por pedido, no por llamada: en el ejemplo, ocho veces más.
-- El SDK reintenta solo. Sin trazas, los reintentos no existen; con el número de cada pedido, se le puede reclamar al proveedor.
+- El SDK reintenta solo. Sin trazas, los reintentos no existen; con el número de cada llamada, se le puede reclamar al proveedor.
 - Conviene registrar con OpenTelemetry, que hablan Claude, GPT y Gemini, para poder cambiar de herramienta.
 - Cada falla que aparece con clientes reales se suma al golden set.
 
