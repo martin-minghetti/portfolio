@@ -1,8 +1,8 @@
 ---
 title: "Evals: jueces, agentes y pruebas con clientes reales"
-date: 2026-10-29
+date: 2026-11-11
 order: 17
-draft: true
+draft: false
 description: "Cómo usar otro modelo como juez, qué sesgos tiene y cómo compararlo con una persona antes de confiar en él; cómo se mide un agente, con pass@k y pass^k; y cuándo hace falta probar con clientes reales."
 ---
 
