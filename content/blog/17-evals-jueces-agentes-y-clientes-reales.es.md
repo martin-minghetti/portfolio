@@ -6,15 +6,15 @@ draft: true
 description: "Cómo usar otro modelo como juez, qué sesgos tiene y cómo compararlo con una persona antes de confiar en él; cómo se mide un agente, con pass@k y pass^k; y cuándo hace falta probar con clientes reales."
 ---
 
-En el post anterior, el eval de La Esquina dejó un caso sin calificar. Un cliente escribe "La pizza llegó fría", y lo que se espera del asistente es que pida una foto y el número de pedido, y ofrezca reponerla sin cargo.
+En el post anterior, el eval de La Esquina dejó un caso sin calificar. Un cliente escribe "La pizza llegó aplastada", y lo que se espera del asistente es que pida una foto y el número de pedido, y ofrezca reponerla sin cargo.
 
 Esa respuesta no se puede chequear buscando una palabra. "Mandame una foto" y "pasame una imagen" dicen lo mismo, y un asistente puede pedir la foto y a la vez discutir con el cliente. Para decidir si atendió bien hace falta leer y entender. Si no se quiere poner a una persona a leer cada respuesta, la opción es que lea otro modelo.
 
 ## Un modelo como juez
 
-Usar un modelo para calificar las respuestas de otro se llama **LLM-as-judge** (un modelo de lenguaje como juez). El juez recibe la respuesta y una **rúbrica**: la lista de criterios con que se califica. El juez solo sabe lo que se le da, así que la rúbrica incluye el mensaje del cliente y lo que el asistente no puede prometer. Para la pizza fría:
+Usar un modelo para calificar las respuestas de otro se llama **LLM-as-judge** (un modelo de lenguaje como juez). El juez recibe la respuesta y una **rúbrica**: la lista de criterios con que se califica. El juez solo sabe lo que se le da, así que la rúbrica incluye el mensaje del cliente y lo que el asistente no puede prometer. Para la pizza aplastada:
 
-> El cliente escribió: "La pizza llegó fría". Pasa si pide el número de pedido y una foto, y ofrece reponerla sin cargo. No pasa si discute con el cliente, o si promete devolver la plata, un descuento o un horario de entrega.
+> El cliente escribió: "La pizza llegó aplastada". Pasa si pide el número de pedido y una foto, y ofrece reponerla sin cargo. No pasa si discute con el cliente, o si promete devolver la plata, un descuento o un horario de entrega.
 
 El juez de La Esquina, en Python, con la salida estructurada que ya se vio en la serie y Pydantic, la librería que describe cómo tiene que ser un dato y lo chequea:
 
