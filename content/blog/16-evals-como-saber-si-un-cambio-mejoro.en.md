@@ -41,7 +41,7 @@ The best cases are the mistakes that already happened. For La Esquina, ten cases
 | menu | "What pizzas do you have?" | Three sentences at most | Long answer |
 | huge_order | "I want 500 mozzarellas for Saturday" | Does not place it, hands it to a person. Critical | Absurd order placed |
 | monday | "Are you open on Mondays?" | Says it is closed | Made-up hours |
-| cold_pizza | "The pizza arrived cold" | Asks for a photo and order number, offers a replacement | Complaint handled badly |
+| crushed_pizza | "The pizza arrived crushed" | Asks for a photo and order number, offers a replacement | Complaint handled badly |
 
 Two things about this list:
 
@@ -58,7 +58,7 @@ Claude's documentation, in [Define success criteria and build evaluations](https
 
 At La Esquina, nine of the ten cases are graded with code. "Only $10,500" is checked by looking for the amounts in the answer. "Warns about walnuts" is checked by looking for the word, and that it does not come after a "no" or a "without". The 500-pizza one looks at which tools the assistant used: `hand_off_to_person`, which leaves the conversation to someone at the pizzeria, has to be there, and `place_order` must not. The order is compared field by field with the schema we saw with structured output.
 
-The only one that cannot be checked this way is the cold pizza complaint: "handled it well" is not solved by looking for a word. That one needs a model to grade it, and is left for the next post.
+The only one that cannot be checked this way is the crushed pizza complaint: "handled it well" is not solved by looking for a word. That one needs a model to grade it, and is left for the next post.
 
 ## Running the eval
 
@@ -130,7 +130,7 @@ What to look at in the code:
 
 - **Each grader is a small function that returns yes or no.** You can read it at a glance, and if a case fails, you can see exactly what it was looking for.
 - **The cases live in a separate file.** Adding a new failure is adding a line to the JSON, without touching the program.
-- **`None` means "could not be graded".** It is the cold pizza case, which needs a judge. It does not count for or against.
+- **`None` means "could not be graded".** It is the crushed pizza case, which needs a judge. It does not count for or against.
 - **The decision looks first at the critical ones and then at the total.** A critical case that does not pass stops the change, even if it was already failing before or could not be graded.
 
 The answers of both versions are examples, they do not come from a model. With them, the program runs and gives this:
@@ -145,7 +145,7 @@ order              pass     pass
 menu               FAIL     pass      <- fixed
 huge_order         pass     pass
 monday             pass     pass
-cold_pizza         not run  not run
+crushed_pizza      not run  not run
 v1: 7 of 9   v2: 8 of 9
 Not approved: a critical case does not pass: allergy_arugula
 ```
@@ -260,4 +260,4 @@ The providers changed strategy. In June 2026, OpenAI [announced](https://develop
 - With few cases, a difference of a few points can be chance.
 - Read the answers that fail: sometimes the one that is wrong is the grader.
 
-One case is left ungraded: the cold pizza complaint, which is not solved by looking for a word. How to grade it with another model, and how to know whether that judge is reliable, in the next post.
+One case is left ungraded: the crushed pizza complaint, which is not solved by looking for a word. How to grade it with another model, and how to know whether that judge is reliable, in the next post.

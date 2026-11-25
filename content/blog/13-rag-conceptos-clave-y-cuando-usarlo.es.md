@@ -48,7 +48,7 @@ fragmentos = [
     "Masa sin TACC: se hace en un horno aparte y se pide con 24 horas de anticipación.",
     "Envíos: Centro, Barrio Norte y Villa Sur. Fuera de esas zonas, solo retiro en el local.",
     "Horario: de martes a domingo, de 19 a 24. Los lunes está cerrado.",
-    "Si un pedido llega frío, se repone sin cargo. Pedir una foto y el número de pedido.",
+    "Si un pedido llega frío, se repone sin cargo. Pedir el número de pedido.",
 ]
 
 vo = voyageai.Client()  # toma la clave de VOYAGE_API_KEY

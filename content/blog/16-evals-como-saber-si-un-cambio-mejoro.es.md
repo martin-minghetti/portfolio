@@ -41,7 +41,7 @@ Los mejores casos son los errores que ya pasaron. Para La Esquina, diez casos, c
 | carta | "Qué pizzas tienen?" | Tres oraciones como mucho | Respuesta larga |
 | pedido_enorme | "Quiero 500 muzzarellas para el sábado" | No lo registra, pasa a una persona. Crítico | Pedido absurdo registrado |
 | lunes | "Abren los lunes?" | Dice que cierra | Horario inventado |
-| pizza_fria | "La pizza llegó fría" | Pide foto y número de pedido, ofrece reponerla | Reclamo mal atendido |
+| pizza_aplastada | "La pizza llegó aplastada" | Pide foto y número de pedido, ofrece reponerla | Reclamo mal atendido |
 
 Dos cosas de esta lista:
 
@@ -58,7 +58,7 @@ La documentación de Claude, en [Define success criteria and build evaluations](
 
 En La Esquina, nueve de los diez casos se califican con código. "Solo $10.500" se chequea buscando los montos de la respuesta. "Avisa de las nueces" se chequea buscando la palabra, y que no venga después de un "no" o un "sin". El de las 500 pizzas mira qué herramientas usó el asistente: tiene que estar `pasar_a_persona`, la que le deja la charla a alguien del local, y no `registrar_pedido`. El pedido se compara campo por campo con el esquema que se vio al hablar de structured output.
 
-El único que no se puede chequear así es el reclamo de la pizza fría: "atendió bien" no se resuelve buscando una palabra. Ese necesita un modelo que califique, y queda para el post siguiente.
+El único que no se puede chequear así es el reclamo de la pizza aplastada: "atendió bien" no se resuelve buscando una palabra. Ese necesita un modelo que califique, y queda para el post siguiente.
 
 ## Correr el eval
 
@@ -130,7 +130,7 @@ Lo que hay que mirar del código:
 
 - **Cada calificador es una función chica que devuelve sí o no.** Se lee de un vistazo, y si un caso falla, se puede ver exactamente qué se buscó.
 - **Los casos viven en un archivo aparte.** Sumar una falla nueva es sumar una línea al JSON, sin tocar el programa.
-- **`None` es "no se pudo calificar".** Es el caso de la pizza fría, que necesita un juez. No cuenta ni a favor ni en contra.
+- **`None` es "no se pudo calificar".** Es el caso de la pizza aplastada, que necesita un juez. No cuenta ni a favor ni en contra.
 - **La decisión mira primero los críticos y después el total.** Un crítico que no pasa frena el cambio, aunque ya fallara antes o no se haya podido calificar.
 
 Las respuestas de las dos versiones son de ejemplo, no salen de un modelo. Con ellas, el programa corre y da esto:
@@ -145,7 +145,7 @@ pedido                 pasa       pasa
 carta                  NO PASA    pasa        <- se arregló
 pedido_enorme          pasa       pasa
 lunes                  pasa       pasa
-pizza_fria             sin correr sin correr
+pizza_aplastada        sin correr sin correr
 v1: 7 de 9   v2: 8 de 9
 No se aprueba: no pasa un caso crítico: alergia_rucula
 ```
@@ -260,4 +260,4 @@ Los proveedores cambiaron de estrategia. En junio de 2026, OpenAI [anunció](htt
 - Con pocos casos, una diferencia de pocos puntos puede ser azar.
 - Las respuestas que fallan se leen: a veces el que se equivoca es el calificador.
 
-Queda un caso sin calificar: el reclamo de la pizza fría, que no se resuelve buscando una palabra. Cómo se califica con otro modelo, y cómo saber si ese juez es confiable, en el post siguiente.
+Queda un caso sin calificar: el reclamo de la pizza aplastada, que no se resuelve buscando una palabra. Cómo se califica con otro modelo, y cómo saber si ese juez es confiable, en el post siguiente.

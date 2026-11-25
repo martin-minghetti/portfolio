@@ -48,7 +48,7 @@ chunks = [
     "Gluten-free dough: baked in a separate oven and ordered 24 hours in advance.",
     "Delivery: Centro, Barrio Norte and Villa Sur. Outside those areas, pickup only.",
     "Hours: Tuesday to Sunday, 7 pm to midnight. Closed on Mondays.",
-    "If an order arrives cold, it is replaced free of charge. Ask for a photo and the order number.",
+    "If an order arrives cold, it is replaced free of charge. Order number required.",
 ]
 
 vo = voyageai.Client()  # reads the key from VOYAGE_API_KEY
